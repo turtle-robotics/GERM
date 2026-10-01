@@ -1,0 +1,12 @@
+# Recorded versions; install through apt on Raspberry Pi OS, not pip.
+OS: Raspberry Pi Debian 13 (trixie), Debian version 13.7
+Python: 3.13.5
+Virtual environment: --system-site-packages
+python3-picamera2: 0.3.37-1
+python3-libcamera: 0.7.2+rpt20260817-1
+python3-opencv: 4.10.0+dfsg-5
+python3-venv: 3.13.5-1
+libgpiod3: 2.2.1-2+deb13u1
+chromium: 1:152.0.7977.82-1~deb13u1+rpt2
+Arduino CLI: 1.4.1
+Arduino AVR core: 1.8.7

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GERM · {{ page|title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='hmi.css') }}">
+</head>
+<body data-page="{{ page }}" data-control-tab="{{ control_tab }}">
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">✿</span><span>GERM</span></div>
+    <nav aria-label="Main navigation">
+      <a class="{{ 'active' if page == 'home' else '' }}" href="/"><span>⌂</span>Home</a>
+      <a class="{{ 'active' if page == 'plant' else '' }}" href="/plant"><span>❧</span>Plant + Camera</a>
+      <a class="{{ 'active' if page == 'trends' else '' }}" href="/trends"><span>▥</span>Trends</a>
+      <a class="{{ 'active' if page == 'controls' else '' }}" href="/controls"><span>☷</span>Controls</a>
+      <a class="{{ 'active' if page == 'alerts' else '' }}" href="/alerts"><span>♧</span>Alerts</a>
+      <a class="{{ 'active' if page == 'maintenance' else '' }}" href="/maintenance"><span>⚒</span>Maintenance</a>
+      <a class="{{ 'active' if page == 'settings' else '' }}" href="/settings"><span>⚙</span>Settings</a>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="top-title"><strong>{{ {'home':'System Overview','plant':'Plant + Camera','trends':'Trends','controls':'Controls','alerts':'Alerts','maintenance':'Maintenance','settings':'Settings / System'}[page] }}</strong><span id="system-state" class="state-pill">CHECKING</span></div>
+      <div class="top-meta"><span>LOCAL MODE</span><span id="arduino-head">Arduino: checking</span><time id="clock"></time></div>
+    </header>
+    <main class="content">
+      {% if page == 'home' %}
+      <div class="home-layout">
+        <section class="card home-camera camera-frame" aria-label="Live camera">
+          <img id="camera-image" alt="Live GERM AI Camera image">
+          <div class="camera-badge">● LIVE CAMERA</div>
+          <div id="camera-status" class="camera-error" hidden>Camera unavailable</div>
+          <a class="camera-link" href="/plant" aria-label="Open plant and camera details">⛶</a>
+        </section>
+        <div class="home-right">
+          <section class="card environment"><h2>Environmental Conditions</h2>
+            <div class="sensor-grid">
+              <div class="sensor-tile"><span class="tile-icon temp">♨</span><span class="tile-name">Air Temp</span><strong id="air_temperature-value">NO DATA</strong><small id="air_temperature-state">Checking sensor</small></div>
+              <div class="sensor-tile"><span class="tile-icon water">◕</span><span class="tile-name">Humidity</span><strong id="humidity-value">NO DATA</strong><small id="humidity-state">Checking sensor</small></div>
+              <div class="sensor-tile"><span class="tile-icon water">◉</span><span class="tile-name">Water Temp</span><strong id="water_temperature-value">NO DATA</strong><small id="water_temperature-state">Not installed</small></div>
+            </div>
+          </section>
+          <section class="card ml-card"><h2>Plant Health <span class="muted">/ ML</span></h2><div class="ml-row"><span class="ml-symbol">✿</span><div><strong id="ml-class">Awaiting ML service</strong><small id="ml-detail">No inference available</small></div></div></section>
+        </div>
+        <section class="system-strip"><h2>System Status</h2><div class="system-grid">
+          <div class="card system-tile"><span class="system-icon amber">◉</span><div><strong>Lighting</strong><small id="lighting-status">Unverified</small></div></div>
+          <div class="card system-tile"><span class="system-icon cyan">≋</span><div><strong>Pump</strong><small id="pump-status">Unverified</small></div></div>
+          <div class="card system-tile"><span class="system-icon blue">✺</span><div><strong>Fan / Cooling</strong><small id="fan-status">Unverified</small></div></div>
+          <a class="card system-tile alert-tile" href="/alerts"><span class="system-icon red">♧</span><div><strong>Active Alerts</strong><small id="alert-count">Awaiting database</small></div></a>
+        </div></section>
+      </div>
+      {% elif page == 'plant' %}
+      <div class="plant-layout">
+        <section class="card camera-frame plant-camera"><img id="camera-image" alt="Live GERM AI Camera image"><div class="camera-badge">● LIVE CAMERA</div><div id="camera-status" class="camera-error" hidden>Camera unavailable</div></section>
+        <div class="plant-side">
+          <section class="card"><h2>Capture</h2><button id="capture-button" class="primary">Save image now</button><small id="capture-status">Stored locally; SQL indexing awaits the database service.</small></section>
+          <section class="card"><h2>Latest saved image</h2><div id="latest-capture">No manual capture this session</div></section>
+          <section class="card"><h2>Plant health / ML</h2><strong id="ml-class">Awaiting ML service</strong><small id="ml-detail">Model and inference unavailable</small></section>
+          <section class="card"><h2>Recent captures</h2><small id="recent-captures">Awaiting database service</small></section>
+        </div>
+      </div>
+      {% elif page == 'trends' %}
+      <div class="page-stack"><div class="card toolbar"><label>Sensor <select id="trend-sensor"><option value="air_temperature">Air temperature</option><option value="humidity">Humidity</option><option value="water_temperature">Water temperature</option></select></label><label>Range <select id="trend-range"><option value="24">24 hours</option><option value="168">7 days</option><option value="720">30 days</option></select></label><label>Experiment <select id="experiment-filter"><option value="">All</option></select></label></div><section class="card fill-card"><h2>Sensor history</h2><div id="trend-content" class="empty-state">Awaiting database service. No historical values are shown.</div></section></div>
+      {% elif page == 'controls' %}
+      <div class="controls-layout">
+        <section class="card control-card"><h2>Lighting · RGB</h2><small id="lighting-detail">Reported state unavailable</small><div class="sliders">{% for key in ['r','g','b','w'] %}<label>{{ key|upper }} <input id="led-{{ key }}" {% if key == "w" %}disabled title="No separate white channel wired"{% endif %} type="range" min="0" max="255" value="0"><output id="led-{{ key }}-value">0</output></label>{% endfor %}</div><div class="action-row"><button class="primary" data-command="led-apply">Apply</button><button data-command="led-off">Off</button></div><small>Mode / schedule: not configured</small></section>
+        <section class="card control-card"><h2>Fans / Cooling</h2><small id="fan-detail">Reported state unavailable</small><label class="speed" hidden>Speed <input id="fan-speed" type="range" min="0" max="255" value="0"><output id="fan-speed-value">0</output></label><div class="action-row"><button class="primary" data-command="fan-on">On</button><button data-command="fan-off">Off</button></div><button class="wide-button" data-command="fan-speed" hidden>Set speed</button><small>D2 supports on/off only</small></section>
+        <section class="card control-card"><h2>Water pump</h2><small id="pump-detail">Reported state unavailable</small><div class="pump-actions"><button class="primary" data-command="pump-on">On</button><button data-command="pump-off">Off</button><button data-command="pump-5s">Run 5 s</button></div><small>On: maximum 30 seconds; Run 5 s: timed pulse</small><small>Physical E-STOP state is not connected to this HMI.</small></section>
+      </div>
+      {% elif page == 'alerts' %}
+      <div class="page-stack"><section class="card fill-card"><h2>Active alerts</h2><div id="active-alerts" class="empty-state">Awaiting database service. Alert count is unknown.</div></section><section class="card short-card"><h2>Alert history</h2><small id="alert-history">Awaiting database service</small></section></div>
+      {% elif page == 'maintenance' %}
+      <div class="maintenance-grid"><section class="card"><h2>Sensors</h2><div id="maintenance-sensors">Checking freshness…</div></section><section class="card"><h2>Connections</h2><div id="maintenance-connections">Checking components…</div></section><section class="card"><h2>Safety / service</h2><p>Physical E-STOP: monitoring not connected</p><p>Calibration dates: awaiting database service</p><p>Firmware reports output settings; physical operation is not measured.</p></section></div>
+      {% elif page == 'settings' %}
+      <div class="maintenance-grid"><section class="card"><h2>Experiment</h2><p id="settings-experiment">Awaiting database service</p><small>Experiment editing requires the database team implementation.</small></section><section class="card"><h2>Software</h2><p>GERM HMI · local Flask</p><p><a href="/firmware">Update Arduino firmware</a></p><p id="settings-model">ML model: not configured</p><p>Camera: Raspberry Pi AI Camera / IMX500</p></section><section class="card"><h2>Storage / display</h2><p>Images: /var/lib/germ/images</p><p>Backups and export: awaiting database service</p><p>Display: local Chromium kiosk</p></section></div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+<dialog id="confirm-dialog"><h2>Confirm hardware command</h2><p id="confirm-message"></p><div class="dialog-actions"><button id="cancel-command">Cancel</button><button id="accept-command" class="primary">Send command</button></div></dialog>
+<script src="{{ url_for('static', filename='hmi.js') }}"></script>
+</body>
+</html>

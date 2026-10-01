@@ -1,0 +1,27 @@
+{
+  "description": "SHA-256 of application source exported from the running Pi; excludes historical backups, archives, and generated data.",
+  "files": {
+    "app.py": "347495924313fa04eb0cfda6a74a7571ea07743d443b15f727c72797d4d54eac",
+    "arduino_serial.py": "346c3eba4de711a9556c00e0addb541eb4f3ea144235697428aede7b726c5e15",
+    "camera.py": "aa18f5c6cea2ca46abb70acd121e9168be53276bc2b02ea6f0498e9a5be05fbd",
+    "dashboard.py": "dc3a611fe9d919d259f6972f0aec3ec75233a6cf8570b852d8d5b5c4aad08f1e",
+    "dht11_reader.py": "75398923c72e1458bf997f30148660d2e9e9f09fd1f35e21b0fa825052d1193c",
+    "fan_sender.py": "dd6893cd9ad528366ad68b40bbdc61d1849fca1d9a257bae689ad991f9d42f38",
+    "firmware_service.py": "0e47b9bda2bc28c0c464ed4e023ef56f1b0d2f8f21e3eca4ecf55999b6e126b6",
+    "led_sender.py": "bb0013ff863ead0b3c36f33a542dbb84a70ac3bce94680967ac8147703a688e5",
+    "sensor_reader.py": "26a9219a60c29bdba2847bda4cfb4bc8449ea9e186faffb37328c933ca0ed3bc",
+    "arduino_program/arduino_program.ino": "55d5197e1361bf0a166d35bf7702190ad600259a257e7a6fb996afeeb202f705",
+    "services/camera_service.py": "c2adad49834c195de73da4bac6a77930dde0f52a36068071d89ad527a7764ed3",
+    "services/database_service.py": "3fcd6103ca7cb095cbaf054a5c3716484ca93eb58c349c6aec26ffdca098c8c4",
+    "services/ml_service.py": "6fb07defcdbd3026aaac8e1699b5d6e1ffd7d6c9057080cb8ce12c125426c39d",
+    "services/sensor_service.py": "c75b917bc4300f700c0221bbdaa683c121827b43587f5ecd7291eff9472f2820",
+    "services/__init__.py": "789272cbd285116fd2cf23e525a5fa8af36da2b581382be2393013a06a057088",
+    "static/hmi.css": "dd493d54637e0061e47721c3eddaf4a76651cf1a37a65a979f7ca5ce2a6fbaa5",
+    "static/hmi.js": "b735ab4394e41c14f6c85ffb257a2400a36a86a55c69f26feae3c694e1f48d1f",
+    "templates/fan.html": "794c626b58f4205cbdc1c24e8444b2816bde2c744656cabc6caae2599ea918b4",
+    "templates/firmware.html": "f1732500f7e3c28e95a06873a32cbac0694e0652c16e82b95e1488cfa82e738f",
+    "templates/index.html": "5e951a621738fe7be1f2400db177bea5b1dfbaa69f0b551f326e4ccb284bca0f",
+    "templates/led.html": "3ffbe6bd48e1db875384d491938eb5e6c16c576bfeefbfbe2630e8b08f31e048",
+    "templates/pump.html": "8b59e0de57f234c0662df4ccfc17719f8177896176b5c4f966ea4368176896ba"
+  }
+}

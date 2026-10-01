@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GERM Arduino firmware</title>
+<style>body{font:18px system-ui;background:#10231b;color:#eff9f2;max-width:700px;margin:30px auto;padding:20px}button,input{font:inherit;padding:10px;margin:8px 0}a{color:#a0e9c0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>
+<a href="/settings">Back to GERM settings</a><h1>Arduino Uno firmware</h1>
+<p>Built-in firmware matches fan D2, RGB D5/D6/D9, and pump D8. Updating turns outputs off and briefly releases the USB connection.</p>
+<button id="builtin">Flash GERM firmware</button>
+<p><label for="file">Custom sketch (.ino, up to 1 MB)</label><br><input type="file" id="file" accept=".ino"></p>
+<button id="custom">Flash selected sketch</button>
+<p>Custom sketches must support GERM protocol 2 for HMI controls. Multi-file projects require Arduino IDE or CLI.</p>
+<pre id="status" role="status" aria-live="polite"></pre>
+<script>
+const token = {{ token | tojson }};
+async function flash(custom) {
+  const status = document.getElementById('status');
+  const body = new FormData();
+  if (custom) {
+    const file = document.getElementById('file').files[0];
+    if (!file) { status.textContent = 'Select an .ino file first'; return; }
+    body.append('firmware', file);
+  }
+  document.querySelectorAll('button').forEach(b => b.disabled = true);
+  status.textContent = 'Compiling and uploading…';
+  try {
+    const response = await fetch('/api/firmware', {method:'POST', headers:{'X-GERM-Token':token}, body});
+    const result = await response.json();
+    if (!response.ok) throw Error(result.error || 'Firmware update failed');
+    status.textContent = result.warning || 'Uploaded and GERM protocol verified. Return to Controls.';
+  } catch (error) { status.textContent = error.message; }
+  finally { document.querySelectorAll('button').forEach(b => b.disabled = false); }
+}
+document.getElementById('builtin').onclick = () => flash(false);
+document.getElementById('custom').onclick = () => flash(true);
+</script>
+</html>

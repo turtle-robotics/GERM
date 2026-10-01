@@ -1,0 +1,4 @@
+sleep 5
+/home/germ/start_hmi_browser.sh &
+
+wlr-randr --output DSI-1 --transform 180

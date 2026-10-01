@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fan Controls</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            padding: 15px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        /* ── STATUS ROW ── */
+        .info-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .info-box {
+            flex: 1;
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .info-box h3 {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        .info-box .val {
+            font-size: 22px;
+            color: #00ff99;
+            font-weight: bold;
+        }
+
+        /* ── SPEED SLIDER ── */
+        .speed-box {
+            background: #2a2a2a;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        .speed-box h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .speed-label {
+            color: #00ff99;
+            font-size: 18px;
+        }
+        input[type=range] {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-row button {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        .on-btn {
+            background: #006644;
+        }
+        .on-btn:hover {
+            background: #00995a;
+        }
+        .off-btn {
+            background: #661111;
+        }
+        .off-btn:hover {
+            background: #992222;
+        }
+        .speed-btn {
+            background: #224466;
+        }
+        .speed-btn:hover {
+            background: #336699;
+        }
+        .back-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Fan Controls</h2>
+
+    <!-- STATUS / TEMP / HUMIDITY in one row -->
+    <div class="info-row">
+        <div class="info-box">
+            <h3>STATUS</h3>
+            <div class="val" id="status">OFF</div>
+        </div>
+        <div class="info-box">
+            <h3>TEMP</h3>
+            <div class="val" id="temp">--</div>
+        </div>
+        <div class="info-box">
+            <h3>HUMIDITY</h3>
+            <div class="val" id="hum">--</div>
+        </div>
+    </div>
+
+    <!-- SPEED SLIDER -->
+    <div class="speed-box">
+        <h3>Fan Speed: <span class="speed-label" id="speedVal">0</span></h3>
+        <input type="range" min="0" max="255" value="0" id="speed">
+    </div>
+
+    <!-- ON / OFF / SET SPEED -->
+    <div class="btn-row">
+        <button class="on-btn" onclick="setFan('on')">TURN ON</button>
+        <button class="off-btn" onclick="setFan('off')">TURN OFF</button>
+        <button class="speed-btn" onclick="sendSpeed()">SET SPEED</button>
+    </div>
+
+    <button class="back-btn" onclick="location.href='/'">BACK</button>
+</div>
+
+<script>
+async function setFan(state) {
+    try {
+        await fetch("/api/fan", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({state: state})
+        });
+        document.getElementById("status").innerText = state.toUpperCase();
+    } catch (err) {
+        console.error("Fan control failed:", err);
+    }
+}
+
+async function sendSpeed() {
+    const speed = document.getElementById("speed").value;
+    try {
+        await fetch("/api/fan/speed", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({speed: parseInt(speed)})
+        });
+        document.getElementById("status").innerText = "SPEED: " + speed;
+    } catch (err) {
+        console.error("Speed control failed:", err);
+    }
+}
+
+document.getElementById("speed").addEventListener("input", function() {
+    document.getElementById("speedVal").innerText = this.value;
+});
+
+async function updateSensors() {
+    try {
+        const res = await fetch('/sensor');
+        const data = await res.json();
+        document.getElementById("temp").innerText =
+            (data.dht11.temperature !== null) ? data.dht11.temperature + " °C" : "--";
+        document.getElementById("hum").innerText =
+            (data.dht11.humidity !== null) ? data.dht11.humidity + " %" : "--";
+    } catch (err) {
+        console.error("Sensor update failed:", err);
+    }
+}
+
+setInterval(updateSensors, 2000);
+updateSensors();
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pump Controls</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            padding: 15px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+        .info-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .info-box {
+            flex: 1;
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .info-box h3 {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        .info-box .val {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .info-box .val.on {
+            color: #00ff99;
+        }
+        .info-box .val.off {
+            color: #ff4444;
+        }
+        .info-box .val.timed {
+            color: #ffaa00;
+        }
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .btn-row button {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        .on-btn {
+            background: #006644;
+        }
+        .on-btn:hover {
+            background: #00995a;
+        }
+        .off-btn {
+            background: #661111;
+        }
+        .off-btn:hover {
+            background: #992222;
+        }
+        .timed-btn {
+            background: #664400;
+        }
+        .timed-btn:hover {
+            background: #996600;
+        }
+        .back-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Pump Controls</h2>
+
+    <!-- STATUS -->
+    <div class="info-row">
+        <div class="info-box">
+            <h3>STATUS</h3>
+            <div class="val off" id="status">OFF</div>
+        </div>
+        <div class="info-box">
+            <h3>TEMP</h3>
+            <div class="val" id="temp" style="color:#00ff99">--</div>
+        </div>
+        <div class="info-box">
+            <h3>HUMIDITY</h3>
+            <div class="val" id="hum" style="color:#00ff99">--</div>
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="btn-row">
+        <button class="on-btn" onclick="setPump('on')">TURN ON</button>
+        <button class="off-btn" onclick="setPump('off')">TURN OFF</button>
+        <button class="timed-btn" onclick="setPump('5s')">RUN 5s</button>
+    </div>
+
+    <button class="back-btn" onclick="location.href='/'">BACK</button>
+</div>
+
+<script>
+async function setPump(state) {
+    try {
+        await fetch("/api/pump", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({state: state})
+        });
+        const el = document.getElementById("status");
+        if (state === "on") {
+            el.innerText = "ON";
+            el.className = "val on";
+        } else if (state === "off") {
+            el.innerText = "OFF";
+            el.className = "val off";
+        } else if (state === "5s") {
+            el.innerText = "RUNNING";
+            el.className = "val timed";
+            setTimeout(() => {
+                el.innerText = "OFF";
+                el.className = "val off";
+            }, 5200);
+        }
+    } catch (err) {
+        console.error("Pump control failed:", err);
+    }
+}
+
+async function updateSensors() {
+    try {
+        const res = await fetch('/sensor');
+        const data = await res.json();
+        document.getElementById("temp").innerText =
+            (data.dht11.temperature !== null) ? data.dht11.temperature + " °C" : "--";
+        document.getElementById("hum").innerText =
+            (data.dht11.humidity !== null) ? data.dht11.humidity + " %" : "--";
+    } catch (err) {
+        console.error("Sensor update failed:", err);
+    }
+}
+setInterval(updateSensors, 2000);
+updateSensors();
+</script>
+</body>
+</html>

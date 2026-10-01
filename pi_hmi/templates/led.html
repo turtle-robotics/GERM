@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Controls</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            padding: 15px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        /* ── SLIDERS ── */
+        .sliders {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .slider-row:last-child {
+            margin-bottom: 0;
+        }
+        .slider-row label {
+            font-size: 16px;
+            font-weight: bold;
+            width: 25px;
+            text-align: center;
+        }
+        .slider-row input[type=range] {
+            flex: 1;
+            height: 20px;
+        }
+        .slider-row .val {
+            width: 40px;
+            text-align: right;
+            font-size: 16px;
+            color: #00ff99;
+            font-weight: bold;
+        }
+
+        /* ── PREVIEW + BUTTONS ROW ── */
+        .bottom-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            height: 70px;
+        }
+        .preview {
+            flex: 1;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: rgb(0, 0, 0);
+        }
+        .btn-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+        .btn-col button {
+            flex: 1;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        .apply-btn {
+            background: #006644;
+        }
+        .apply-btn:hover {
+            background: #00995a;
+        }
+        .off-btn {
+            background: #661111;
+        }
+        .off-btn:hover {
+            background: #992222;
+        }
+
+        /* ── PRESETS ── */
+        .presets {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .presets button {
+            flex: 1;
+            padding: 10px;
+            font-size: 13px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            background: #333;
+        }
+        .presets button:hover {
+            background: #555;
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>LED Controls</h2>
+
+    <!-- SLIDERS -->
+    <div class="sliders">
+        <div class="slider-row">
+            <label>R</label>
+            <input type="range" min="0" max="255" value="0" id="r">
+            <span class="val" id="rv">0</span>
+        </div>
+        <div class="slider-row">
+            <label>G</label>
+            <input type="range" min="0" max="255" value="0" id="g">
+            <span class="val" id="gv">0</span>
+        </div>
+        <div class="slider-row">
+            <label>B</label>
+            <input type="range" min="0" max="255" value="0" id="b">
+            <span class="val" id="bv">0</span>
+        </div>
+        <div class="slider-row">
+            <label>W</label>
+            <input type="range" min="0" max="255" value="0" id="w">
+            <span class="val" id="wv">0</span>
+        </div>
+    </div>
+
+    <!-- PREVIEW + APPLY/OFF -->
+    <div class="bottom-row">
+        <div class="preview" id="preview"></div>
+        <div class="btn-col">
+            <button class="apply-btn" onclick="sendLED()">APPLY</button>
+            <button class="off-btn" onclick="sendOff()">OFF</button>
+        </div>
+    </div>
+
+    <!-- PRESETS -->
+    <div class="presets">
+        <button onclick="setSliders(255,0,0,0)">RED</button>
+        <button onclick="setSliders(0,255,0,0)">GREEN</button>
+        <button onclick="setSliders(0,0,255,0)">BLUE</button>
+        <button onclick="setSliders(0,0,0,255)">WHITE</button>
+        <button onclick="setSliders(255,100,0,0)">WARM</button>
+    </div>
+
+    <button class="back-btn" onclick="location.href='/'">BACK</button>
+</div>
+
+<script>
+function updateUI() {
+    const r = document.getElementById("r").value;
+    const g = document.getElementById("g").value;
+    const b = document.getElementById("b").value;
+    const w = document.getElementById("w").value;
+
+    document.getElementById("rv").innerText = r;
+    document.getElementById("gv").innerText = g;
+    document.getElementById("bv").innerText = b;
+    document.getElementById("wv").innerText = w;
+
+    document.getElementById("preview").style.background =
+        `rgb(${r},${g},${b})`;
+}
+
+function setSliders(r, g, b, w) {
+    document.getElementById("r").value = r;
+    document.getElementById("g").value = g;
+    document.getElementById("b").value = b;
+    document.getElementById("w").value = w;
+    updateUI();
+}
+
+async function sendLED() {
+    const r = document.getElementById("r").value;
+    const g = document.getElementById("g").value;
+    const b = document.getElementById("b").value;
+    const w = document.getElementById("w").value;
+
+    await fetch("/api/led", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({r, g, b, w})
+    });
+}
+
+async function sendOff() {
+    setSliders(0, 0, 0, 0);
+    await fetch("/api/led", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({r: 0, g: 0, b: 0, w: 0})
+    });
+}
+
+document.querySelectorAll("input[type=range]").forEach(input => {
+    input.addEventListener("input", updateUI);
+});
+updateUI();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# /etc/systemd/system/hmi.service
+[Unit]
+Description=GERM Flask HMI
+After=network.target
+
+[Service]
+User=germ
+WorkingDirectory=/home/germ/hmi_flask
+Environment="PATH=/home/germ/hmi_flask/venv/bin"
+ExecStart=/home/germ/hmi_flask/venv/bin/python app.py
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

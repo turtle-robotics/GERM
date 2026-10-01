@@ -1,0 +1,2 @@
+# Preserve the exported Pi files byte-for-byte, including existing line endings.
+pi_hmi/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
