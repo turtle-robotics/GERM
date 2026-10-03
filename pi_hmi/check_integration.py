@@ -5,6 +5,8 @@ import re
 import sys
 import types
 import unittest
+from contextlib import contextmanager
+from pathlib import Path
 from unittest.mock import patch
 
 import arduino_serial as bridge
@@ -119,6 +121,36 @@ class RouteTests(unittest.TestCase):
         token = json.loads(re.search(r'const token = (.*);', self.client.get('/firmware').text).group(1))
         response = self.client.post('/api/firmware', data={'firmware': (io.BytesIO(b'x'), 'test.py')}, headers={'X-GERM-Token': token})
         self.assertEqual(response.status_code, 400)
+
+    def test_lighting_selector_and_unknown_mode(self):
+        html = self.client.get('/controls').text
+        self.assertIn('id="lighting-mode"', html)
+        self.assertIn('value="rainbow"', html)
+        token = json.loads(re.search(r'const firmwareToken = (.*);', html).group(1))
+        with patch('firmware_service.subprocess.run') as run:
+            response = self.client.post('/api/firmware', data={'mode': '../other'}, headers={'X-GERM-Token': token})
+        self.assertEqual(response.status_code, 400)
+        run.assert_not_called()
+
+    def test_both_modes_compile_upload_and_confirm(self):
+        token = json.loads(re.search(r'const token = (.*);', self.client.get('/firmware').text).group(1))
+        @contextmanager
+        def port():
+            yield '/dev/fake'
+        for mode, default in [('normal', 0), ('rainbow', 1)]:
+            commands = []
+            def run(args, **kwargs):
+                commands.append(args[1])
+                if args[1] == 'compile':
+                    source = (Path(args[-1]) / 'GERM.ino').read_text()
+                    self.assertTrue(source.startswith(f'#define GERM_DEFAULT_RAINBOW {default}\n'))
+                return types.SimpleNamespace(returncode=0, stdout='ok', stderr='')
+            with patch('firmware_service.subprocess.run', side_effect=run), patch('firmware_service.firmware_port', port), patch('firmware_service.send', return_value=True) as send:
+                response = self.client.post('/api/firmware', data={'mode': mode}, headers={'X-GERM-Token': token})
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response.json['compatible'])
+            self.assertEqual(commands, ['compile', 'upload'])
+            self.assertEqual([call.args[0] for call in send.call_args_list], ['STATUS', 'MODE:' + mode])
 
 
 if __name__ == '__main__':

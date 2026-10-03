@@ -1,8 +1,9 @@
 # GERM Raspberry Pi HMI
 
 This is a complete export of the application running in `/home/germ/hmi_flask`
-on the GERM Raspberry Pi. The application code and assets match the live export
-byte-for-byte; `environment/source-sha256.json` records those hashes. Boot and
+on the GERM Raspberry Pi. The application code and assets include the lighting-mode update deployed on
+October 3, 2026. `environment/source-sha256.json` records the current application
+hashes; the package inventories still describe the original export. Boot and
 kiosk files were exported separately. Setup instructions and verification tools
 are included alongside that source.
 
@@ -132,15 +133,26 @@ section or a systemd override. Arduino CLI defaults to `/usr/local/bin/arduino-c
 `GERM_ARDUINO_CLI` can override that path. Upload subprocesses add normal system
 paths without changing the original service's virtual-environment PATH.
 
-Open **Settings → Update Arduino firmware → Flash GERM firmware** to put the
-supplied controller on the Uno. Compilation completes before USB is released.
+Open **Controls → Lighting**, choose **Normal HMI control** or **Rainbow**,
+and press **Upload selected mode** to compile and flash that mode on the Uno.
+The same selector is available under **Settings → Update Arduino firmware**. Compilation completes before USB is released.
 The bridge then stops outputs, closes serial, flashes, and reconnects to verify
 protocol 2. Do not run a separate Arduino Serial Monitor at the same time.
 Single-file custom sketches can be uploaded through the same page; they must
 implement protocol 2 to work with the HMI controls. Multi-file projects require
 Arduino IDE/CLI.
 
-The HMI preserves the existing command names: `LED:r,g,b,w` (W must be zero),
+Both modes use identical pins and inverted RGB PWM. Rainbow advances one hue
+degree every 20 ms without blocking fan, pump, or serial commands. Fan and pump
+remain under HMI control; uploading turns them off. **Apply** switches lighting
+to manual RGB, and **Off** stops the animation. The selected upload mode is the
+startup default after a reset; serial timeout or STOP still turns all outputs off.
+The standalone root showcase sketch is the same controller with rainbow as its
+startup default; it requires the Pi heartbeat for continuous operation.
+The DHT11 remains on Pi GPIO4; neither current sketch needs an Arduino DHT library.
+
+Firmware also accepts `MODE:normal` and `MODE:rainbow`, and reports
+`lighting_mode` alongside RGB values. The HMI preserves the existing command names: `LED:r,g,b,w` (W must be zero),
 `FAN_ON`, `FAN_OFF`, `PUMP_ON`, `PUMP_OFF`, and `PUMP_5S`. The bridge wraps them
 as `CMD:<id>:<command>`, and firmware returns JSON containing the matching ID,
 protocol version, output settings, and any error. `STATUS` polls output settings;
@@ -152,12 +164,14 @@ sensor and acquisition protocol are defined.
 
 ```sh
 venv/bin/python check_integration.py
+g++ -std=c++11 tests/firmware_behavior.cpp -o /tmp/germ-firmware-test
+/tmp/germ-firmware-test
 sudo systemctl status hmi.service
 curl http://127.0.0.1:5000/api/state
 journalctl -u hmi.service -n 50 --no-pager
 ```
 
-`check_integration.py` runs eight checks with hardware and background workers
+`check_integration.py` runs ten checks with hardware and background workers
 stubbed. `verify_live.py` checks the running HTTP endpoints and sends only fan
 OFF, pump OFF, and LEDs OFF; it requires compatible firmware and a connected Uno.
 The application compiles for the Uno, and those live OFF commands were confirmed

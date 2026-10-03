@@ -34,6 +34,7 @@ function renderSensor(id, reading) {
 function actuatorText(item) {
   if (!item || item.state === 'unavailable') return 'Arduino unavailable';
   if (item.state === 'reported') {
+    if (item.mode === 'rainbow') return 'Rainbow · firmware reported';
     if (Array.isArray(item.reported_state)) return `RGB ${item.reported_state.join(', ')} · firmware reported`;
     return `${item.reported_state ? 'ON' : 'OFF'} · firmware reported`;
   }
@@ -137,6 +138,24 @@ async function pollState() {
 pollState(); setInterval(pollState, 2000);
 
 if (page === 'controls') {
+  let uploading = false;
+  byId('lighting-upload').onclick = async () => {
+    if (uploading) return;
+    uploading = true;
+    const button = byId('lighting-upload');
+    button.disabled = true;
+    const mode = byId('lighting-mode');
+    mode.disabled = true;
+    const body = new FormData(); body.append('mode', mode.value);
+    setText('lighting-upload-status', 'Compiling and uploading… outputs turn off');
+    try {
+      const response = await fetch('/api/firmware', {method:'POST', headers:{'X-GERM-Token':firmwareToken}, body});
+      const result = await response.json();
+      if (!response.ok) throw Error(result.error || 'Upload failed');
+      setText('lighting-upload-status', result.warning || 'Uploaded · selected mode confirmed');
+    } catch (error) { setText('lighting-upload-status', error.message); }
+    finally { uploading = false; button.disabled = false; mode.disabled = false; await pollState(); }
+  };
   for (const key of ['r','g','b','w']) {
     const slider = byId('led-' + key);
     slider.addEventListener('input', () => setText('led-' + key + '-value', slider.value));

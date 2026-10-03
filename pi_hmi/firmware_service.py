@@ -16,6 +16,10 @@ def create_firmware_blueprint():
     token = secrets.token_urlsafe(32)
     update_lock = threading.Lock()
 
+    @ui.app_context_processor
+    def firmware_context():
+        return {'firmware_token': token}
+
     @ui.get('/firmware')
     def screen():
         return render_template('firmware.html', token=token)
@@ -31,7 +35,11 @@ def create_firmware_blueprint():
                 return jsonify(error='Upload one Arduino .ino sketch'), 400
             source = file.read()
         else:
+            mode = request.form.get('mode', 'normal')
+            if mode not in ('normal', 'rainbow'):
+                return jsonify(error='Choose normal or rainbow lighting'), 400
             source = (ROOT / 'arduino_program' / 'arduino_program.ino').read_bytes()
+            source = ('#define GERM_DEFAULT_RAINBOW %d\n' % (mode == 'rainbow')).encode() + source
         if not source.strip():
             return jsonify(error='Sketch is empty'), 400
         if not update_lock.acquire(blocking=False):
@@ -62,6 +70,8 @@ def create_firmware_blueprint():
                     log = run(['upload', '--fqbn', fqbn, '--port', port,
                                '--input-dir', str(build), str(sketch)])
                     confirmed = send('STATUS')
+                    if confirmed and file is None:
+                        confirmed = send('MODE:' + mode)
                     warning = None if confirmed else 'Uploaded, but HMI protocol check failed: ' + last_error()
                 return jsonify(uploaded=True, compatible=confirmed, warning=warning, log=log)
         except (RuntimeError, OSError, subprocess.TimeoutExpired) as exc:
