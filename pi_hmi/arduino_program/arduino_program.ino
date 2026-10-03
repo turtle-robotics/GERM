@@ -5,7 +5,7 @@
 #define GERM_DEFAULT_RAINBOW 0
 #endif
 const byte FAN_PIN = 2, PUMP_PIN = 8;
-const byte LED_R = 5, LED_G = 6, LED_B = 9;
+const byte LED_R = 3, LED_G = 6, LED_B = 9;
 // Existing showcase wiring uses inverted RGB PWM. Pump is direct N-channel gate.
 bool fanOn = false, pumpOn = false;
 byte r = 0, g = 0, b = 0;

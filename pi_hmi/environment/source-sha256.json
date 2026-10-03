@@ -1,5 +1,5 @@
 {
-  "description": "SHA-256 of application source deployed on GERM, including the October 3, 2026 lighting-mode update; excludes historical backups, archives, and generated data.",
+  "description": "SHA-256 of application source deployed on GERM, including October 3, 2026 lighting modes and red LED relocation to D3; excludes historical backups, archives, and generated data.",
   "files": {
     "app.py": "347495924313fa04eb0cfda6a74a7571ea07743d443b15f727c72797d4d54eac",
     "arduino_serial.py": "346c3eba4de711a9556c00e0addb541eb4f3ea144235697428aede7b726c5e15",
@@ -10,7 +10,7 @@
     "firmware_service.py": "8106b59a4676aff83c580adf2edc7f9963c8c3455951cfe1ef3891a7a0afb863",
     "led_sender.py": "bb0013ff863ead0b3c36f33a542dbb84a70ac3bce94680967ac8147703a688e5",
     "sensor_reader.py": "26a9219a60c29bdba2847bda4cfb4bc8449ea9e186faffb37328c933ca0ed3bc",
-    "arduino_program/arduino_program.ino": "ba157414816a71e79600d938a156e6e8e6d7bebc957beb8d3ebedddad1474e19",
+    "arduino_program/arduino_program.ino": "8915b4a0be406474ecd54459348700576e53b7090f08f05366e8e2fedcfcb4d9",
     "services/camera_service.py": "c2adad49834c195de73da4bac6a77930dde0f52a36068071d89ad527a7764ed3",
     "services/database_service.py": "3fcd6103ca7cb095cbaf054a5c3716484ca93eb58c349c6aec26ffdca098c8c4",
     "services/ml_service.py": "6fb07defcdbd3026aaac8e1699b5d6e1ffd7d6c9057080cb8ce12c125426c39d",
@@ -19,8 +19,8 @@
     "static/hmi.css": "4af4b84ae9abc6bf5533348d0ba9f539a98a576117199b411ed4e3f44686e986",
     "static/hmi.js": "8ca850582b675168befdb8ef05d66e8fd58529346a334ccb18649154c951ffe2",
     "templates/fan.html": "794c626b58f4205cbdc1c24e8444b2816bde2c744656cabc6caae2599ea918b4",
-    "templates/firmware.html": "e7f503b9aa06530cf0c6b78c190642ca3ec32fa0aee4c2589b8dec8ebb536cdf",
-    "templates/index.html": "79bb052ab35896a99df1277f7b86291962b4f8544aad3a21b6ddabe709bfad41",
+    "templates/firmware.html": "be94a60563b251f02f46cd78877fe42cce5cab6f12e2822bce55e8f16935c187",
+    "templates/index.html": "3a6d1b53676510559263d2f395dd265e610215cbdbf55cba35ce14a6ce05a402",
     "templates/led.html": "3ffbe6bd48e1db875384d491938eb5e6c16c576bfeefbfbe2630e8b08f31e048",
     "templates/pump.html": "8b59e0de57f234c0662df4ccfc17719f8177896176b5c4f966ea4368176896ba"
   }

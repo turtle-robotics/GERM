@@ -29,16 +29,16 @@ void command(const char *value) {
 }
 int main() {
   setup();
-  assert(FAN_PIN == 2 && PUMP_PIN == 8 && LED_R == 5 && LED_G == 6 && LED_B == 9);
-  assert(!fanOn && !pumpOn && pins[5] == 255);
+  assert(FAN_PIN == 2 && PUMP_PIN == 8 && LED_R == 3 && LED_G == 6 && LED_B == 9);
+  assert(!fanOn && !pumpOn && pins[3] == 255);
   command("CMD:1:MODE:rainbow");
-  assert(rainbow && r == 255 && g == 0 && b == 0 && pins[5] == 0);
+  assert(rainbow && r == 255 && g == 0 && b == 0 && pins[3] == 0);
   clockMs = 20; loop(); assert(g > 0 && rainbow);
   command("CMD:2:FAN_ON"); assert(fanOn && rainbow && pins[2] == HIGH);
   command("CMD:3:PUMP_5S"); assert(pumpOn && rainbow && pins[8] == HIGH);
   clockMs = 4000; command("CMD:4:STATUS");
   clockMs = 5020; loop(); assert(!pumpOn && rainbow && fanOn);
-  command("CMD:5:LED:0,0,0,0"); assert(!rainbow && pins[5] == 255);
+  command("CMD:5:LED:0,0,0,0"); assert(!rainbow && pins[3] == 255);
   command("CMD:6:MODE:rainbow");
   command("CMD:7:LED:1,2,3,0"); assert(!rainbow && r == 1 && g == 2 && b == 3);
   command("CMD:8:MODE:rainbow"); command("CMD:9:MODE:invalid"); assert(rainbow);

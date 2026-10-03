@@ -37,7 +37,7 @@ requirements file.
 | Device | Pin | Behavior |
 |---|---|---|
 | Fan | Uno D2 | HIGH on, LOW off; on/off only |
-| Red LED | Uno D5 | Inverted PWM |
+| Red LED | Uno D3 | Inverted PWM |
 | Green LED | Uno D6 | Inverted PWM |
 | Blue LED | Uno D9 | Inverted PWM |
 | Pump | Uno D8 | HIGH on through a direct IRLZ44NPbF low-side gate |
