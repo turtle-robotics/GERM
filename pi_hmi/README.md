@@ -36,7 +36,7 @@ requirements file.
 
 | Device | Pin | Behavior |
 |---|---|---|
-| Fan | Uno D2 | HIGH on, LOW off; on/off only |
+| Fan | Uno D3 | PWM 0–255; 0 off, 255 full speed |
 | Red LED | Uno D5 | Inverted PWM |
 | Green LED | Uno D6 | Inverted PWM |
 | Blue LED | Uno D9 | Inverted PWM |
@@ -47,8 +47,9 @@ The pump circuit assumes a common ground, source connected to ground, drain to
 pump negative, and pump positive to its external supply. Use a gate resistor,
 a gate-to-source pulldown, and a flyback diode across the pump. Motor power does
 not come from GPIO. RGB polarity follows the original inverted-PWM wiring.
-The UI hides fan speed controls and disables the unused white LED slider. Make
-white with equal RGB values if desired.
+Move the fan driver control wire from D2 to D3 for this firmware. The UI exposes
+fan speed controls and disables the unused white LED slider. Make white with
+equal RGB values if desired.
 
 `PUMP_ON` stops after at most 30 seconds. `PUMP_5S` runs for 5 seconds. Repeated ON
 commands do not extend a running pump's maximum duration. All outputs start off
@@ -156,8 +157,9 @@ Firmware also accepts `MODE:normal` and `MODE:rainbow`, and reports
 `FAN_ON`, `FAN_OFF`, `PUMP_ON`, `PUMP_OFF`, and `PUMP_5S`. The bridge wraps them
 as `CMD:<id>:<command>`, and firmware returns JSON containing the matching ID,
 protocol version, output settings, and any error. `STATUS` polls output settings;
-`STOP` turns all outputs off. Fan speed values other than 0/255 are rejected
-because Uno D2 is not a PWM pin. A0 is reported unavailable until an actual
+`STOP` turns all outputs off. `FAN_SPEED:0` through `FAN_SPEED:255` set the fan
+PWM duty on D3; `FAN_ON` sets 255 and `FAN_OFF` sets 0. Firmware reports
+`fan_pwm: true` and the current `fan_speed`. A0 is reported unavailable until an actual
 sensor and acquisition protocol are defined.
 
 ## Verify and troubleshoot

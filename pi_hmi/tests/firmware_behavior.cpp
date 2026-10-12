@@ -29,12 +29,20 @@ void command(const char *value) {
 }
 int main() {
   setup();
-  assert(FAN_PIN == 2 && PUMP_PIN == 8 && LED_R == 5 && LED_G == 6 && LED_B == 9);
+  assert(FAN_PIN == 3 && PUMP_PIN == 8 && LED_R == 5 && LED_G == 6 && LED_B == 9);
   assert(!fanOn && !pumpOn && pins[5] == 255);
   command("CMD:1:MODE:rainbow");
   assert(rainbow && r == 255 && g == 0 && b == 0 && pins[5] == 0);
   clockMs = 20; loop(); assert(g > 0 && rainbow);
-  command("CMD:2:FAN_ON"); assert(fanOn && rainbow && pins[2] == HIGH);
+  command("CMD:2:FAN_ON"); assert(fanOn && rainbow && fanSpeed == 255 && pins[3] == 255);
+  command("CMD:20:FAN_SPEED:128"); assert(fanOn && rainbow && fanSpeed == 128 && pins[3] == 128);
+  assert(Serial.output.str().find("\"fan_pwm\":true") != std::string::npos);
+  assert(Serial.output.str().find("\"fan_speed\":128") != std::string::npos);
+  command("CMD:21:FAN_SPEED:256"); assert(fanSpeed == 128 && pins[3] == 128);
+  command("CMD:22:FAN_SPEED:-1"); assert(fanSpeed == 128 && pins[3] == 128);
+  command("CMD:23:FAN_OFF"); assert(!fanOn && fanSpeed == 0 && pins[3] == 0);
+  command("CMD:24:FAN_SPEED:0"); assert(!fanOn && pins[3] == 0);
+  command("CMD:25:FAN_ON");
   command("CMD:3:PUMP_5S"); assert(pumpOn && rainbow && pins[8] == HIGH);
   clockMs = 4000; command("CMD:4:STATUS");
   clockMs = 5020; loop(); assert(!pumpOn && rainbow && fanOn);
@@ -46,6 +54,7 @@ int main() {
   command("CMD:11:MODE:rainbow"); command("CMD:12:PUMP_ON");
   for (int i = 0; i < 6; ++i) { clockMs += 5000; command("CMD:13:STATUS"); loop(); }
   assert(!pumpOn && rainbow);
-  clockMs += 10000; loop(); assert(!rainbow && !fanOn && !pumpOn && r == 0);
+  clockMs += 10000; loop(); assert(!rainbow && !fanOn && !pumpOn && r == 0 && fanSpeed == 0 && pins[3] == 0);
   command("CMD:14:MODE:rainbow"); command("CMD:15:STOP"); assert(!rainbow && r == 0);
+  command("CMD:26:FAN_SPEED:128"); command("CMD:27:STOP"); assert(!fanOn && fanSpeed == 0 && pins[3] == 0);
 }

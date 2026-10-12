@@ -4,10 +4,11 @@
 #ifndef GERM_DEFAULT_RAINBOW
 #define GERM_DEFAULT_RAINBOW 0
 #endif
-const byte FAN_PIN = 2, PUMP_PIN = 8;
+const byte FAN_PIN = 3, PUMP_PIN = 8;
 const byte LED_R = 5, LED_G = 6, LED_B = 9;
 // Existing showcase wiring uses inverted RGB PWM. Pump is direct N-channel gate.
 bool fanOn = false, pumpOn = false;
+byte fanSpeed = 0;
 byte r = 0, g = 0, b = 0;
 unsigned long lastContact = 0, pumpStarted = 0, pumpDuration = 30000;
 char buffer[80];
@@ -36,19 +37,19 @@ void updateRainbow(unsigned long now) {
 }
 
 void outputs() {
-  digitalWrite(FAN_PIN, fanOn ? HIGH : LOW);
+  analogWrite(FAN_PIN, fanSpeed);
   digitalWrite(PUMP_PIN, pumpOn ? HIGH : LOW);
   analogWrite(LED_R, 255 - r);
   analogWrite(LED_G, 255 - g);
   analogWrite(LED_B, 255 - b);
 }
-void stopAll() { rainbow = false; fanOn = pumpOn = false; r = g = b = 0; outputs(); }
+void stopAll() { rainbow = false; fanOn = pumpOn = false; fanSpeed = 0; r = g = b = 0; outputs(); }
 void reply(unsigned int id, const char *error) {
   Serial.print(F("{\"protocol\":2,\"id\":")); Serial.print(id);
   Serial.print(F(",\"fan\":")); Serial.print(fanOn ? F("true") : F("false"));
   Serial.print(F(",\"pump\":")); Serial.print(pumpOn ? F("true") : F("false"));
   Serial.print(F(",\"rgb\":[")); Serial.print(r); Serial.print(','); Serial.print(g); Serial.print(','); Serial.print(b);
-  Serial.print(F("],\"a0\":null,\"fan_pwm\":false,\"white_channel\":false"));
+  Serial.print(F("],\"a0\":null,\"fan_pwm\":true,\"white_channel\":false,\"fan_speed\":")); Serial.print(fanSpeed);
   Serial.print(F(",\"lighting_mode\":\"")); Serial.print(rainbow ? F("rainbow") : F("normal")); Serial.print('"');
   if (error) { Serial.print(F(",\"error\":\"")); Serial.print(error); Serial.print('"'); }
   Serial.println('}');
@@ -72,12 +73,12 @@ void handleCommand(char *cmd) {
   const char *error = NULL;
   if (!strcmp(cmd, "STATUS")) {}
   else if (!strcmp(cmd, "STOP")) stopAll();
-  else if (!strcmp(cmd, "FAN_ON")) fanOn = true;
-  else if (!strcmp(cmd, "FAN_OFF")) fanOn = false;
+  else if (!strcmp(cmd, "FAN_ON")) { fanOn = true; fanSpeed = 255; }
+  else if (!strcmp(cmd, "FAN_OFF")) { fanOn = false; fanSpeed = 0; }
   else if (!strncmp(cmd, "FAN_SPEED:", 10)) {
     unsigned int speed;
-    if (!parseNumber(cmd + 10, 255, speed) || (speed != 0 && speed != 255)) error = "D2 supports fan on/off only";
-    else fanOn = speed == 255;
+    if (!parseNumber(cmd + 10, 255, speed)) error = "Invalid fan speed";
+    else { fanSpeed = speed; fanOn = speed > 0; }
   }
   else if (!strcmp(cmd, "PUMP_OFF")) pumpOn = false;
   else if (!strcmp(cmd, "PUMP_ON") || !strcmp(cmd, "PUMP_5S")) {
