@@ -1,0 +1,6 @@
+[
+ {"path":"/api/fan","request":{"state":"off"},"command":"FAN_OFF"},
+ {"path":"/api/pump","request":{"state":"off"},"command":"PUMP_OFF"},
+ {"path":"/api/led","request":{"r":0,"g":0,"b":0,"w":0},"command":"LED:0,0,0,0"},
+ {"path":"/api/fan/speed","request":{"speed":0},"command":"FAN_SPEED:0"}
+]

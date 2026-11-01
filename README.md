@@ -15,3 +15,9 @@ press **Upload selected mode**. Both use fan D2, pump D8, and RGB D3/D6/D9.
 The root `Showcase LED Display.ino` is the protocol-2 rainbow variant;
 `pi_hmi/arduino_program/arduino_program.ino` defaults to normal HMI control.
 Both retain fan/pump controls, LED Off, and the same timeouts.
+# Phase 0 review evidence
+
+The [Phase 0 package](docs/phase0/README.md) reconciles the supplied asset inventory,
+contracts, fixtures, baseline tests and prioritized issues. Target Pi: Debian 13
+trixie. Hardware acceptance and contract approval remain pending; host fixtures
+do not establish physical safety or production database/ML readiness.
