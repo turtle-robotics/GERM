@@ -1,6 +1,6 @@
 # Phase 0 baseline test report
 
-Assessment date: 2026-11-01. Repository baseline commits and uploaded source hashes are recorded in SOURCE_BASELINE.json. Exact execution environment, UTC timestamp, commands, exit codes and log hashes are in HOST_TEST_RESULTS.json; installed host dependency versions are in host-packages.txt. Target Pi is user-reported Debian 13 trixie. Tests below ran on Windows with Python 3.12 in an isolated workspace environment, not on the Pi.
+Assessment date: 2026-11-01. Repository baseline commits and uploaded source hashes are recorded in SOURCE_BASELINE.json. Exact execution environment, UTC timestamp, commands, exit codes and LF-normalized UTF-8 log hashes are in HOST_TEST_RESULTS.json; installed host dependency versions are in host-packages.txt. Target Pi is user-reported Debian 13 trixie. Tests below ran on Windows with Python 3.12 in an isolated workspace environment, not on the Pi.
 
 ## Executed host results
 
@@ -30,3 +30,5 @@ No live safe-off, controller disconnect/replug, process supervision, electrical 
 ## Gate decision
 
 Repository-side assets, contract proposals, configuration inventory, placeholder register, reusable fixtures, baseline evidence and prioritized issues are delivered for review. Baseline Gate is OPEN pending producer/consumer contract approval, PCB signal reconciliation and target smoke/hardware evidence. No named subteam assignments are required by the user. Phase 1–7 implementation and requirement-level system acceptance remain separate work; fixture successes do not close those obligations.
+
+Publication status: committed on the local phase0/contracts-assets-fixtures branch. GitHub connector write requests returned HTTP 403. Automatic approval review rejected public Git push because the package includes user-uploaded planning and inventory material. No remote branch, pull request or CI result is claimed; a portable Git bundle, source archive and draft PR description are supplied for review. Public publication awaits explicit confirmation of this content scope.
