@@ -1,0 +1,50 @@
+repository,path,git_blob,purpose,runtime_boundary,status
+GERM,.gitattributes,e4d6dbf416feeb2e9f02d4f912d8796c617e4a28,.gitattributes,Application/API,source reviewed; target unverified
+GERM,.gitignore,f0a75606d028d8b71d551725f1cf4b74a7035dc0,.gitignore,Application/API,source reviewed; target unverified
+GERM,README.md,234cc83f2879cec8daeb73a6d5b8cff65b500b8c,README.md,Contract review/test evidence,source reviewed; target unverified
+GERM,Showcase LED Display.ino,eb4faf365d3c0756af7e6f5e7cd0a95b4d5085a2,Uno protocol 2 output firmware; default/rainbow variant,Controller,source reviewed; target unverified
+GERM,pi_hmi/INTEGRATION.md,0002b1b4f06a2eebf126aeb4df765f80098bacaa,INTEGRATION.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/README.md,4dc4a1887774eb73ff6e1ec4a9c552d91e83a093,README.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/SECURITY.md,b3dfc2b3cbb679f203cdd55db8823baaccf2310f,SECURITY.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/app.py,2a99694ba8b02435e09642a1f1ac8ea05d39ac01,"Flask startup, legacy routes and validated actuator APIs",Application/API,source reviewed; target unverified
+GERM,pi_hmi/arduino_program/arduino_program.ino,1080c9ff337c72362508dd0fac290037e1022538,Uno protocol 2 output firmware; default/rainbow variant,Controller,source reviewed; target unverified
+GERM,pi_hmi/arduino_serial.py,e9bc1a0b2a56f653490f8a47eae228d1ff763f29,"Single locked USB owner, protocol parser, matched acknowledgements and upload pause",Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/camera.py,b5997b600e240f62c589c46beb4525e0a1b5e298,Single Picamera2 acquisition worker and JPEG encoder,Camera owner,source reviewed; target unverified
+GERM,pi_hmi/check_integration.py,58913d84a6e880ca82cfd4617e82716f6c716ce9,Existing ten-test host serial/API/firmware harness,Contract review/test evidence,fixture/historical test; current results separate
+GERM,pi_hmi/dashboard.py,7f7a521ff10348c3589980f7203fcda95d1c818c,"Seven-screen blueprint, state/history and capture APIs",Application/API,source reviewed; target unverified
+GERM,pi_hmi/deploy/hmi.service,05829e8b0bbce3661635bb8e964f5e671961106c,"Service boot, kiosk launch or session autostart configuration",Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/deploy/labwc-autostart,5a33bad26738e48386e4aa342dc6c5449330aa3b,"Service boot, kiosk launch or session autostart configuration",Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/deploy/start_hmi_browser.sh,4549b3920d3069ef4d383c711490543a9486a3a3,"Service boot, kiosk launch or session autostart configuration",Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/deploy_to_pi.py,b988393659aa1798ef8480dd640f968d3d3fd14a,Partial eight-file application updater and firmware uploader,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/dht11_reader.py,ea0576c02973663021a2389c18ce0a999caf6868,GPIO4 DHT11 acquisition and timestamps,Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/docs/PI_README_ORIGINAL.md,223e9e4dffa2d7d2610d54218b4b79c30beddf6f,PI_README_ORIGINAL.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/environment/pi-packages.freeze.txt,93ee44e742948cc6bb6caee7f17edf2e25ff0025,Historical Pi package or source-hash export,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/environment/pi-system-packages.txt,49d7f09ee7fa106008b91d2fd6b2a16e0f91837a,Historical Pi package or source-hash export,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/environment/source-sha256.json,fdd2df1921f8e9096353774369c5bee36ff78148,Historical Pi package or source-hash export,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/fan_sender.py,8afe2b6508ca85d2dfc18dfa67996bace4a65f2b,fan_sender.py,Application/API,legacy retained; no active shared-shell caller
+GERM,pi_hmi/firmware_service.py,a805a693bf11c8f377d831198b00e4c562aea343,Token-guarded firmware compile/upload routes,Application/API,source reviewed; target unverified
+GERM,pi_hmi/led_sender.py,9ab73c8f1c642ea69e1207fe17bec73e1465a740,led_sender.py,Application/API,legacy retained; no active shared-shell caller
+GERM,pi_hmi/requirements.txt,e73de650d3479a0f817352f6e12947bc19baa3f4,requirements.txt,Application/API,source reviewed; target unverified
+GERM,pi_hmi/sensor_reader.py,6ef4c5580e0cb56c70159a0465ee270b7a0a24c6,STATUS polling and legacy A0 reading cache,Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/services/__init__.py,30a3cae4626653d284e8109828088ad01417bea5,__init__.py,Application/API,source reviewed; target unverified
+GERM,pi_hmi/services/camera_service.py,590568ed051212f23574a3d14666c221db61305a,"Manual capture files, hashes and latest-local recovery scan",Camera owner,source reviewed; target unverified
+GERM,pi_hmi/services/database_service.py,895cfe97dd51119625a875367f37e71caaaea2de,Unconfigured repository interface consumed by API/camera,Repository,explicit placeholder
+GERM,pi_hmi/services/ml_service.py,67a65347173be8a436f0bf7234fd0bf01668a5cd,Unconfigured local inference interface,ML adapter,explicit placeholder
+GERM,pi_hmi/services/sensor_service.py,34a9f97d626b0666ffa503fbca53b946dee630fb,"Engineering units, provenance and freshness of sensor values",Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/static/hmi.css,0e9a9da683efc75598675d9f3a1864242032cbdd,Local HMI styling and compact screen layout,Presentation,source reviewed; target unverified
+GERM,pi_hmi/static/hmi.js,e39a8a0a856c4bf864dde6ce720722fcb96c283d,"Local API polling, screen rendering and confirmation dialogs",Presentation,source reviewed; target unverified
+GERM,pi_hmi/templates/fan.html,4342a06ee31fbb97cc973d1159c8a4eca1f6c613,fan.html,Presentation,legacy retained; no active shared-shell caller
+GERM,pi_hmi/templates/firmware.html,7f28b7df1f43bac00544b64999813eee5467b957,firmware.html,Presentation,source reviewed; target unverified
+GERM,pi_hmi/templates/index.html,0f4d47a4b64d1eb1a57c4bd7681edf560edf0243,Shared seven-screen local HTML shell,Presentation,source reviewed; target unverified
+GERM,pi_hmi/templates/led.html,fd358e342932bfdead8aefca953a0ee24fa27252,led.html,Presentation,legacy retained; no active shared-shell caller
+GERM,pi_hmi/templates/pump.html,8e62c24205da29ae28378f0a7548041cfcbdcbd3,pump.html,Presentation,legacy retained; no active shared-shell caller
+GERM,pi_hmi/tests/firmware_behavior.cpp,1b815b8f4c2c0e9fb94da5c4b171dab57dbd60d3,Host Arduino API simulation including actual sketch,Contract review/test evidence,fixture/historical test; current results separate
+GERM,pi_hmi/verify_live.py,4c819a0ec77999289577055faf858723cee83e5a,Target-only OFF commands and HTTP smoke verification,Contract review/test evidence,source reviewed; target unverified
+GERM-PCB,.gitignore,f8a2f9ad26c9b3f35073b3bfa8c53d0b1023e31b,.gitignore,Electrical design,source reviewed; target unverified
+GERM-PCB,Arduino_MountingHole.pretty/MountingHole_1.2mm.kicad_mod,1a8d65121814473844c084e0bdad72686941d488,Reusable mounting-hole footprint,Electrical design,source reviewed; target unverified
+GERM-PCB,Arduino_MountingHole.pretty/MountingHole_3.2mm.kicad_mod,1c5137fe300319f110e6e4e3433d23ea57e78268,Reusable mounting-hole footprint,Electrical design,source reviewed; target unverified
+GERM-PCB,GERM_PCB.kicad_pcb,7bd7ad558d8eb2d9257ecaa46f0d499efcb762e3,Board layout/header nets and mounting footprint placement,Electrical design,source reviewed; target unverified
+GERM-PCB,GERM_PCB.kicad_pro,70386526a4a878518cbb9cd67aafdce40d53f7ef,KiCad project settings,Electrical design,source reviewed; target unverified
+GERM-PCB,GERM_PCB.kicad_sch,9258f398ffcba7a00be38772fa3d427495d0e969,Board connector schematic source; no approved load/interlock mapping,Electrical design,source reviewed; target unverified
+GERM-PCB,README.md,98df3033dc05b6b4e5e1c5b20cc9c3298058a2ec,README.md,Electrical design,source reviewed; target unverified
+GERM-PCB,fp-lib-table,a8cad928a7bce2c65a552ba068aed71c386ffc8c,Project footprint library registration,Electrical design,source reviewed; target unverified

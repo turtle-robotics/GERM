@@ -1,0 +1,10 @@
+{
+ "provenance":"Synthetic protocol 2 replies; not a hardware recording",
+ "valid":{"protocol":2,"id":1,"fan":false,"pump":false,"rgb":[0,0,0],"a0":null,"fan_pwm":false,"white_channel":false,"lighting_mode":"normal"},
+ "reject":[
+  {"protocol":1,"id":1,"fan":false,"pump":false,"rgb":[0,0,0]},
+  {"protocol":2,"id":1,"fan":0,"pump":false,"rgb":[0,0,0]},
+  {"protocol":2,"id":1,"fan":false,"pump":false,"rgb":[256,0,0]},
+  {"protocol":2,"id":1,"fan":false,"pump":false,"rgb":[true,0,0]}
+ ]
+}

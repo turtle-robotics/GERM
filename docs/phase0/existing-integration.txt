@@ -1,0 +1,15 @@
+test_both_modes_compile_upload_and_confirm (__main__.RouteTests.test_both_modes_compile_upload_and_confirm) ... ok
+test_fan_command_is_acknowledged (__main__.RouteTests.test_fan_command_is_acknowledged) ... ok
+test_host_scripts_rejected (__main__.RouteTests.test_host_scripts_rejected) ... ok
+test_invalid_values_never_send (__main__.RouteTests.test_invalid_values_never_send) ... ok
+test_lighting_selector_and_unknown_mode (__main__.RouteTests.test_lighting_selector_and_unknown_mode) ... ok
+test_routes_preserved (__main__.RouteTests.test_routes_preserved) ... ok
+test_upload_token_and_build_failure (__main__.RouteTests.test_upload_token_and_build_failure) ... ok
+test_firmware_pause_closes_connection (__main__.SerialTests.test_firmware_pause_closes_connection) ... ok
+test_matched_acknowledgement (__main__.SerialTests.test_matched_acknowledgement) ... ok
+test_stale_acknowledgement_is_not_success (__main__.SerialTests.test_stale_acknowledgement_is_not_success) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.649s
+
+OK
