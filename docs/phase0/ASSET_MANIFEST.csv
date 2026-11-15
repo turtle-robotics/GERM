@@ -1,5 +1,5 @@
 repository,path,git_blob,purpose,runtime_boundary,status
-GERM,.gitattributes,e4d6dbf416feeb2e9f02d4f912d8796c617e4a28,.gitattributes,Application/API,source reviewed; target unverified
+GERM,.gitattributes,4ed7975d17b78eaa212e08c3bead0035e8e51df4,.gitattributes,Application/API,source reviewed; target unverified
 GERM,.github/workflows/phase0-host.yml,3c96ea58e79c3093ef0d8a70993269fc4bf3733b,phase0-host.yml,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
 GERM,.gitignore,f0a75606d028d8b71d551725f1cf4b74a7035dc0,.gitignore,Application/API,source reviewed; target unverified
 GERM,ASSET_INVENTORY.md,9171e604471ba9c859a80c3ee80b13331930e620,ASSET_INVENTORY.md,Contract review/test evidence,M0 source/evidence; contract review pending
@@ -89,6 +89,18 @@ GERM,pi_hmi/tests/run_host_checks.py,a67aac48f199b5bbdfb882a86f5b283018ae3117,ru
 GERM,pi_hmi/tests/test_m0.py,c831bae3c134d104b179b5cea713b7185b1d1734,test_m0.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
 GERM,pi_hmi/tests/test_phase0.py,79cc7fe205d240cc9422a55dd85ff461c5e26681,test_phase0.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
 GERM,pi_hmi/verify_live.py,4c819a0ec77999289577055faf858723cee83e5a,Target-only OFF commands and HTTP smoke verification,Contract review/test evidence,source reviewed; target unverified
+GERM,docs/evidence/README.md,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,README.md,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/CI_RESULTS.json,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,CI_RESULTS.json,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/HOST_TEST_RESULTS.json,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,HOST_TEST_RESULTS.json,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/README.md,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,README.md,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/existing-integration.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,existing-integration.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/host-packages.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,host-packages.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/javascript-parse.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,javascript-parse.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/m0-contracts.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,m0-contracts.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/phase0-contracts.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,phase0-contracts.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/preserved-root-app.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,preserved-root-app.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-128/README.md,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,README.md,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/phase0/M0_SOURCE_BASELINE.json,59e9de1cbd4f8bc35802077be285dc4eff461112,M0_SOURCE_BASELINE.json,Contract review/test evidence,Contract review pending; host/simulation only
 GERM-PCB,.gitignore,f8a2f9ad26c9b3f35073b3bfa8c53d0b1023e31b,.gitignore,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
 GERM-PCB,Arduino_MountingHole.pretty/MountingHole_1.2mm.kicad_mod,1a8d65121814473844c084e0bdad72686941d488,Reusable mounting-hole footprint,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
 GERM-PCB,Arduino_MountingHole.pretty/MountingHole_3.2mm.kicad_mod,1c5137fe300319f110e6e4e3433d23ea57e78268,Reusable mounting-hole footprint,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation

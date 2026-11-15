@@ -2,7 +2,7 @@
 
 Task 119 Phase 0 repository-side deliverables are ready for review. Task 128 shares this campaign. M0 contract-review verdict is PENDING; no SR acceptance, electrical correctness, Gantt completion or deployment approval is asserted.
 
-Implementation/tested code commit: `ef363dc5bdba9b75f5e41a77f450a34c5a53c5ac` on `codex/m0-contract-reconciliation`. This evidence is committed afterward; only documentation/evidence changed after the recorded code test. PR reference is recorded in the repository evidence index after publication.
+Implementation/tested code commit: `ef363dc5bdba9b75f5e41a77f450a34c5a53c5ac` on `codex/m0-contract-reconciliation`. Review [PR #5](https://github.com/turtle-robotics/GERM/pull/5). This evidence is committed afterward; only documentation/evidence changed after the recorded code test. Evidence commit `e13dca2d880b3c80c191e2631283782b0ddf6106` passed CI below.
 
 Inputs: main `8789022`, Phase 0 PR #2 `4293db8`, PR #3/local `b84736f`; merges preserve ancestry. All 15 pre-existing untracked files were verified byte-for-byte unchanged, including the separate root protocol-1 app/tests and prior discovery package. Root app files remain excluded from the release commit. Deployed Pi was not changed or restarted.
 
@@ -21,6 +21,7 @@ Reproduce: from the repository root, `python pi_hmi/tests/run_host_checks.py`. O
 | Python syntax | PASS, 22 files parsed without importing hardware | HOST_TEST_RESULTS.json |
 | JavaScript syntax | PASS, node --check | javascript-parse.txt |
 | Firmware C++ harness locally | NOT EXECUTED | g++ unavailable on host; CI separately required |
+| GitHub CI Python suites + C++ firmware compile/behavior | PASS | Run 43759399482 on e13dca2; CI_RESULTS.json records each successful step |
 
 Exact timestamp, commands, cwd, Python/platform, source file SHA-256 and log hashes: [HOST_TEST_RESULTS.json](HOST_TEST_RESULTS.json). Dependency versions: host-packages.txt. Total local Python tests: 55 (46 committed Pi/M0 tests + 9 preserved root tests). This is not 55 hardware/acceptance tests.
 
