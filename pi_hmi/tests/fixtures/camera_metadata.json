@@ -1,0 +1,10 @@
+{
+  "provenance": "Synthetic solid-color JPEG; not a plant/ML validation image",
+  "file_path": "2026/10/01/fixture.jpg",
+  "timestamp_utc": "2026-10-01T00:00:00+00:00",
+  "sha256": "b8b976fc62b8c3e726a8a898bd17b8a8ef97c82f113176db91a81c17da1d4b52",
+  "size_bytes": 5428,
+  "width_px": 640,
+  "height_px": 480,
+  "capture_reason": "manual"
+}

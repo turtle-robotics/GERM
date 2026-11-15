@@ -1,0 +1,7 @@
+{
+ "offline":{"network":"denied by socket.connect patch","expect":"local pages and API remain available with explicit unavailable dependencies","limit":"not physical network disconnection or production DB/ML proof"},
+ "restart":{"expect":"latest manual JPEG recovered from disk; indexed false until SQL implements recovery","limit":"not process supervisor or power recovery"},
+ "safe_off":{"commands":["FAN_OFF","PUMP_OFF","LED:0,0,0,0"],"expect":"firmware_confirmed true; verified false","hardware_evidence":"required separately"},
+ "expected_logs":["Alert read failed","ML status read failed","Capture saved but SQL indexing failed","Accepted control request could not be logged"],
+ "state_event":{"schema_version":1,"event_id":"state-1","timestamp_utc":"2026-10-01T00:00:00+00:00","event_type":"state_transition","source":"state_manager","experiment_id":1,"software_version":"fixture-only","payload":{"prior_state":"STARTUP CHECK","new_state":"SAFE STOP","cause":"missing interlock","inhibits":["pump"],"controller_feedback":null}}
+}

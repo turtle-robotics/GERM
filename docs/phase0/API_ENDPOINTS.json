@@ -1,0 +1,245 @@
+[
+  {
+    "path": "/",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "app.py:index",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/alerts",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "dashboard.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/alerts",
+    "method": "GET",
+    "request": "none",
+    "success": "200 state, active array, history array; check state before treating arrays as data",
+    "errors": "DB exception currently 500",
+    "producer": "dashboard.py:alerts",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/alerts/<int:alert_id>/ack",
+    "method": "POST",
+    "request": "integer alert_id path",
+    "success": "200 ok=true, alert_id; does not clear condition",
+    "errors": "503 unavailable/failed ack; exception currently 500",
+    "producer": "dashboard.py:acknowledge_alert",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/camera/capture",
+    "method": "POST",
+    "request": "none",
+    "success": "201 ok=true, image {file_path,timestamp_utc,sha256,capture_reason,width_px,height_px,image_id,indexed,url}; SQL failure keeps file and indexed=false",
+    "errors": "503 camera unavailable; 500 disk write error",
+    "producer": "dashboard.py:manual_capture",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/captures",
+    "method": "GET",
+    "request": "none",
+    "success": "200 state, recent array, latest_manual object|null",
+    "errors": "DB exception currently 500",
+    "producer": "dashboard.py:captures",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/experiments",
+    "method": "GET",
+    "request": "none",
+    "success": "200 state, items array",
+    "errors": "DB exception currently 500",
+    "producer": "dashboard.py:experiments",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/fan",
+    "method": "POST",
+    "request": "JSON state on|off",
+    "success": "200 confirmed, state, firmware_confirmed, verified=false, reported_state, logged",
+    "errors": "400 invalid; 503 no ack",
+    "producer": "app.py:fan_control",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/fan/speed",
+    "method": "POST",
+    "request": "JSON speed integer 0|255",
+    "success": "200 confirmed, speed, firmware_confirmed, verified=false, reported_state, logged",
+    "errors": "400 invalid/unsupported PWM; 503 no ack",
+    "producer": "app.py:fan_speed",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/firmware",
+    "method": "POST",
+    "request": "X-GERM-Token; multipart firmware .ino OR form mode normal|rainbow; <=1 MiB",
+    "success": "200 uploaded=true, compatible bool, warning|null, log",
+    "errors": "400 invalid sketch/mode; 403 token; 409 lock busy; 413 size; 503 compile/upload fault",
+    "producer": "firmware_service.py:upload",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/led",
+    "method": "POST",
+    "request": "JSON r/g/b/w integers 0..255; default 0; w=0",
+    "success": "200 status=confirmed, firmware_confirmed=true, verified=false, reported_state, logged",
+    "errors": "400 invalid; 503 no ack",
+    "producer": "app.py:led_control",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/pump",
+    "method": "POST",
+    "request": "JSON state on|off|5s",
+    "success": "200 confirmed, state, firmware_confirmed, verified=false, reported_state, logged",
+    "errors": "400 invalid; 503 no ack",
+    "producer": "app.py:pump_control",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/state",
+    "method": "GET",
+    "request": "none",
+    "success": "200 system_state, estop, arduino, sensors, camera, database, ml, alerts, actuators; unavailable alerts.active=null",
+    "errors": "alert/ML exceptions exposed as error state; other exceptions may be 500",
+    "producer": "dashboard.py:state",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/api/trends",
+    "method": "GET",
+    "request": "query sensor air_temperature|humidity|water_temperature; start/end UTC; experiment_id optional",
+    "success": "200 state, sensor, points array",
+    "errors": "400 unsupported sensor; DB exception currently 500",
+    "producer": "dashboard.py:trends",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/camera.jpg",
+    "method": "GET",
+    "request": "none",
+    "success": "200 image/jpeg, Cache-Control no-store",
+    "errors": "503 camera unavailable",
+    "producer": "app.py:camera_snapshot",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/captures/<path:relative_path>",
+    "method": "GET",
+    "request": "relative JPEG path",
+    "success": "200 JPEG from image root",
+    "errors": "404 missing or traversal outside root",
+    "producer": "dashboard.py:captured_image",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/controls",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "dashboard.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/fan",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "app.py:fan_page",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/firmware",
+    "method": "GET",
+    "request": "none",
+    "success": "200 firmware HTML and per-process token",
+    "errors": "template error may be 500",
+    "producer": "firmware_service.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/led",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "app.py:led_page",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/maintenance",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "dashboard.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/plant",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "dashboard.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/pump",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "app.py:pump_page",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/sensor",
+    "method": "GET",
+    "request": "none",
+    "success": "200 dht11 legacy values plus readings with quality/freshness",
+    "errors": "unexpected adapter errors may be 500",
+    "producer": "app.py:sensor",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/settings",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "dashboard.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/trends",
+    "method": "GET",
+    "request": "none",
+    "success": "200 local HTML shared seven-screen shell",
+    "errors": "template error may be 500",
+    "producer": "dashboard.py:screen",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  },
+  {
+    "path": "/video_feed",
+    "method": "GET",
+    "request": "none",
+    "success": "200 multipart/x-mixed-replace; boundary=frame",
+    "errors": "503 camera unavailable",
+    "producer": "app.py:video_feed",
+    "consumer": "local browser; verify_live.py for safe-off and selected pages"
+  }
+]
