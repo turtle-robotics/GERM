@@ -1,6 +1,6 @@
 # Configuration and deployment inventory
 
-Target supplied by user: Debian GNU/Linux 13 trixie (reported full version 13.7). This is a target declaration, not an independently verified host observation. Raspberry Pi OS package instructions in pi_hmi/README.md are historical guidance and must be checked against this target; Debian plus a Pi does not establish Picamera2/libcamera compatibility.
+M0 update (2026-11-15): read-only SSH in the discovery phase independently observed Debian 13.7, Python 3.13.5 and active hmi.service as germ from /home/germ/hmi_flask. All seven screen GETs returned 200, camera 503 and current sensor/controller data unavailable. DB/ML were not_configured. The 22 application files in the local source-hash manifest matched deployed bytes; this is not a flashed-controller identity. No deployed software, service or data was changed. Earlier unverified entries below remain open unless explicitly superseded by those bounded observations. Picamera2/libcamera operation and physical hardware are not established by an OS version.
 
 | Location/key | Baseline value/use | Verification/disposition |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ Target supplied by user: Debian GNU/Linux 13 trixie (reported full version 13.7)
 | requirements.txt | Pinned direct Python dependencies | Host test requirements deliberately exclude physical adapters |
 | /home/germ/hmi-backups/controls-<UTC> | deploy_to_pi.py backup of eight application files | No database/images; no full-install or firmware rollback guarantee |
 | /var/lib/germ/models | Integration contract model packages/manifest | Planned; no deployed model verified |
-| SQLite path, rotation, retention, archive and backup target | No runtime config exists | Proposed /var/lib/germ/germ.sqlite3; approval/implementation pending |
+| SQLite path, rotation, retention, archive and backup target | No runtime config exists | Proposed SO-5 /var/lib/germ/germ.db; implementation and retention-policy decision pending |
 
 One camera process and one serial owner are required. Check GPIO/video/dialout access as germ; do not grant blanket privileges. Secrets are not supplied in this package. No ports were opened on this host; HTTP tests use Flask's in-process client. Expected target listener is TCP 5000; verify actual listeners and network exposure. INTEGRATION.md requires local/offline operation; after=network.target in systemd does not itself prove a network dependency.
 

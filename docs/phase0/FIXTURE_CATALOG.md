@@ -12,7 +12,9 @@ All fixtures are synthetic and local. Run each suite in its own Python process f
 | API_ENDPOINTS.json | APIContractTests | Exact current route/method inventory plus request/response/error examples; endpoint set checked against Flask |
 | tests/fixtures/scenarios.json | Scenario references and test assertions | Offline socket denial, restart scan, safe-off and expected error log messages; target procedure in PI_VALIDATION.md |
 | tests/fixtures/scenarios.json state_event | SQL system_events seed / contract review | Proposed event envelope, not a runtime logger |
-| Existing check_integration.py | 10 existing unittest cases | Stubbed API/firmware compile/upload and serial behavior; subprocess calls are mocked |
+| Existing check_integration.py | 12 existing unittest cases in reconciled candidate | Stubbed API/firmware compile/upload and serial behavior; subprocess calls are mocked |
+| sim/run_sim.py + tests/test_m0.py | SimulatorContractTests | Reused PC simulator; deterministic injected clock, PWM/ACK/state/watchdog/pump/RGB candidate behavior, no electrical validation |
+| HMI_API_CHECKLIST.json + REQUIREMENTS_BASELINE.json | ChecklistContractTests in test_m0.py | All screens/13 required Home fields, every POST route grounded in actual catalog, 40 provisional official SRs with unchanged evidence status |
 | Existing tests/firmware_behavior.cpp | g++ executable | Real sketch included with stub Arduino APIs; software timers/output settings, not voltages/current |
 | Existing verify_live.py | Target Pi only | Sends OFF-only HTTP commands to actual running service; not run here |
 

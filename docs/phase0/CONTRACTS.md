@@ -1,17 +1,17 @@
 # Phase 0 interface contracts
 
-Version: phase0-review-1. Existing pi_hmi/INTEGRATION.md remains the repository and ML method authority; this supplement freezes the observed serial/API baseline and proposes missing event/schema boundaries. Changes require producer/consumer review and updated fixtures. No production schema or state machine is introduced here.
+Version: m0-review-2 (2026-11-15). Existing pi_hmi/INTEGRATION.md remains the repository and ML method authority; this supplement freezes the selected software candidate and proposes missing event/schema boundaries. See M0_RECONCILIATION.md for source/electrical discrepancies, HMI_API_CHECKLIST.md for all seven screens and M1_CONTRACT.md for the pending command-permission boundary. Producer/consumer review remains open. No production schema or state machine is introduced here.
 
 ## Serial protocol 2 observed baseline
 
 One locked USB session; 9600 baud, pyserial default 8N1, read timeout 0.2 s and write timeout 2 s. GERM_SERIAL_PORT overrides discovery. Opening waits 2 s. Pi sends ASCII `CMD:<id>:<command>
 `, IDs 1–60000 wrapping; CR/LF inside caller commands is rejected. Firmware also accepts legacy unprefixed commands with id 0. Input buffer holds 79 bytes; overflow replies id 0 with an error. Do not use legacy commands for acknowledged application control.
 
-Commands: STATUS, STOP, FAN_ON/OFF, FAN_SPEED:0 or 255, PUMP_ON/OFF/5S, LED:r,g,b,0, LED_ON/OFF, MODE:normal/rainbow. RGB integers are 0–255; white must be 0; fan D2 is digital only. STOP disables rainbow and all output states. MODE:normal clears RGB. Firmware replies newline-delimited JSON with protocol=2, id, fan/pump booleans, three integer rgb channels, a0=null, fan_pwm=false, white_channel=false, lighting_mode and optional error string.
+Candidate commands: STATUS, STOP, FAN_ON/OFF, FAN_SPEED:0..255, PUMP_ON/OFF/5S, LED:r,g,b,0, LED_ON/OFF, MODE:normal/rainbow. RGB integers are 0–255; white must be 0. STOP disables rainbow and all output states. MODE:normal clears RGB. Firmware replies newline-delimited JSON with protocol=2, id, fan/pump booleans, three integer rgb channels, a0=null, fan_pwm=true, fan_speed 0..255, white_channel=false, lighting_mode and optional error string. This preserves PR #3 software behavior, not electrical approval. Main/PR #2 instead report fan_pwm=false and accept only fan speed 0/255.
 
 Pi success requires a valid protocol/state packet with matching ID within 3 s and no nonempty error. Other IDs cannot acknowledge the request. Reported state expires only when age >6 s. STATUS polling waits 0.5 s connected or 2 s disconnected after each request; it is not a fixed-frequency heartbeat. Firmware stops all outputs at >=10 s since the last successful command. PUMP_5S limits duration to 5 s; PUMP_ON to 30 s; repeated ON does not reset start time. A shorter duration can shorten an existing run. Successful STATUS refreshes watchdog but never extends the pump timer. These are software behaviors, not measured electrical timing.
 
-Current pins: fan D2 HIGH on, pump D8 HIGH on, inverted RGB D3/D6/D9 (255 means electrically off in analogWrite). Pi DHT11 is GPIO4, physical 7. Board header labels /2, /8, /*3, /*6, /*9 exist in GERM-PCB; assignment to actual loads and protection/interlocks is NOT established. A0 stays null; do not invent calibration or connect it to water level.
+Candidate source pins: fan D3 PWM, pump D8 HIGH on, inverted RGB D5/D6/D9 (255 means electrically off in analogWrite). Pi DHT11 is GPIO4, physical 7. Main/PR #2 use fan D2 and RGB D3/D6/D9. The user-supplied November 7 schematic screenshot appears to show yet another complete topology: RGB D3/D6/D9, white D10, supply DIM+ D5, pump D8, DHT D12. Electrical pin/load/polarity/safety confirmation is required; no mapping is declared correct or deployed by M0. See M0_RECONCILIATION.md. A0 stays null; do not invent calibration or connect it to water level.
 
 Known gaps: no session nonce/deduplication across reconnect, IDs can wrap, no independent output-current/position feedback, STOP failure does not block the firmware upload context, no physical interlock packet. See prioritized issues.
 

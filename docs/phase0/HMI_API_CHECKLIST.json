@@ -1,0 +1,806 @@
+{
+  "version": "m0-review-2",
+  "requirements_baseline": "REQUIREMENTS_BASELINE.json",
+  "endpoint_catalog": "API_ENDPOINTS.json",
+  "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
+  "rows": [
+    {
+      "id": "H01",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Growth-zone air temperature (degC)",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "sensors.air_temperature"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Growth-zone air temperature data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "Location/calibration and fault policy unverified",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H02",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Growth-zone RH (%RH)",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "sensors.humidity"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Growth-zone RH data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "Location/calibration and fault policy unverified",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H03",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Electronics temperature (degC)",
+      "backend": null,
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Electronics temperature data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Missing",
+      "gap": "Sensor/field missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H04",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Reservoir / low-water (state)",
+      "backend": null,
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Reservoir / low-water data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Missing",
+      "gap": "Sensor/field missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H05",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Pump (state)",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators.pump"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Pump data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "Firmware setting is not physical feedback",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H06",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Lights (RGB/state)",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators.lighting"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Lights data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "Firmware setting is not physical feedback",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H07",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Light schedule (local times)",
+      "backend": null,
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Light schedule data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Missing",
+      "gap": "Schedule API missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H08",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Selected plant profile (name)",
+      "backend": null,
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Selected plant profile data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Missing",
+      "gap": "Profile API missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H09",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Grow-cycle day (day)",
+      "backend": null,
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Grow-cycle day data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Missing",
+      "gap": "Grow-cycle API missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H10",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Live plant image (JPEG)",
+      "backend": {
+        "path": "/camera.jpg",
+        "method": "GET",
+        "field": "/camera.jpg"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Live plant image data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "503 on Pi; frame age missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H11",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Latest ML label/confidence (class/%)",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "ml.latest_result"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Latest ML label/confidence data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "ML unavailable; exact Uncertain and sequence rule missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H12",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Active alarms (severity/text)",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "alerts.active"
+      },
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Active alarms data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Partial",
+      "gap": "null means unknown when DB unavailable",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H13",
+      "screen": "Home",
+      "source": "SR-UI-02",
+      "display": "Last maintenance (UTC/local date)",
+      "backend": null,
+      "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Inject new Last maintenance data and measure backend-to-visible <=2s; missing data remains explicit",
+      "status": "Missing",
+      "gap": "Maintenance history query/binding missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H14",
+      "screen": "Home",
+      "source": "SO-4 AC-2; SR-SAF-03/10",
+      "display": "Overall state, highest alarm, inhibits",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "system_state / alerts"
+      },
+      "quality": "Persistent maintenance/E-stop state; display cannot authorize",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Novice identifies state/alarm; backend faults never show NORMAL",
+      "status": "Partial",
+      "gap": "Authoritative state/inhibits and highest alarm absent",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "H15",
+      "screen": "Home",
+      "source": "SO-4",
+      "display": "Water temperature / fan / controller age",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "sensors.water_temperature / actuators.fan / arduino"
+      },
+      "quality": "Uninstalled stays unavailable; packet age explicit",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Disconnect/stale controller and unavailable water sensor visible",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "P01",
+      "screen": "Plant",
+      "source": "SO-4 AC-1/3",
+      "display": "Live image and camera health",
+      "backend": {
+        "path": "/camera.jpg",
+        "method": "GET",
+        "field": "JPEG"
+      },
+      "quality": "503 unavailable; future age/health must detect cached frame",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Camera loss doesn't stop unrelated UI",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "P02",
+      "screen": "Plant",
+      "source": "SO-2 AC-3; SO-4",
+      "display": "Manual capture and saved metadata",
+      "backend": {
+        "path": "/api/captures",
+        "method": "GET",
+        "field": "latest_manual"
+      },
+      "quality": "Saved file with indexed=false is visible; no invented image ID",
+      "command": {
+        "path": "/api/camera/capture",
+        "method": "POST"
+      },
+      "confirmation": "button action; capture failure explicit",
+      "acceptance_case": "Save then fail indexing/disk; file/hash/path remains traceable",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "P03",
+      "screen": "Plant",
+      "source": "SO-4; SR-DAT-02",
+      "display": "Scheduled and indexed capture history",
+      "backend": {
+        "path": "/api/captures",
+        "method": "GET",
+        "field": "recent"
+      },
+      "quality": "Timestamp/path/hash/ID and experiment; unavailable DB distinguished",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Restart recovery and >=hourly capture with no duplicates",
+      "status": "Partial",
+      "gap": "Scheduler/index production service missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "P04",
+      "screen": "Plant",
+      "source": "SR-ML-01/03",
+      "display": "Label/confidence/model/image/time/review status",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "ml.latest_result / ml.model"
+      },
+      "quality": "Below 0.70 must say Uncertain; two consecutive abnormal results before alert",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "0.69/0.70, unavailable, error, timeout, abnormal sequence; local <=10s",
+      "status": "Partial",
+      "gap": "Actual model and uncertainty/alert rules missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "T01",
+      "screen": "Trends",
+      "source": "SO-2 AC-1/2; SO-4",
+      "display": "Sensor / experiment / time filters",
+      "backend": {
+        "path": "/api/trends",
+        "method": "GET",
+        "field": "points"
+      },
+      "quality": "Ordered UTC/unit/quality; bounded query; gaps for invalid/missing",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Mixed-quality seeded history with range limits and unavailable repository",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "T02",
+      "screen": "Trends",
+      "source": "SO-4",
+      "display": "Experiment selector",
+      "backend": {
+        "path": "/api/experiments",
+        "method": "GET",
+        "field": "items"
+      },
+      "quality": "No data vs unavailable explicit",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Select experiment and correlate result IDs",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "T03",
+      "screen": "Trends",
+      "source": "SR-DAT-02; SO-5 AC-2",
+      "display": "CSV plus image export",
+      "backend": null,
+      "quality": "Progress/failure and provenance; retain source data",
+      "command": null,
+      "confirmation": "explicit export action",
+      "acceptance_case": "Offline export compares rows/hashes",
+      "status": "Missing",
+      "gap": "Export API intentionally unspecified until M7",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C01",
+      "screen": "Controls",
+      "source": "SR-UI-03; SO-4 AC-4",
+      "display": "Requested vs acknowledged vs physically verified output",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators.*.last_request / reported_state"
+      },
+      "quality": "verified=false until independent evidence; reject missing/expired ACK",
+      "command": null,
+      "confirmation": "server validation required; browser confirm alone insufficient",
+      "acceptance_case": "Timeout/late ACK never shown as physical verification",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C02",
+      "screen": "Controls",
+      "source": "SR-UI-03; SO-4 AC-4",
+      "display": "RGB lighting",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators"
+      },
+      "quality": "Inhibit reason and command result visible",
+      "command": {
+        "path": "/api/led",
+        "method": "POST",
+        "payload": "r/g/b/w int 0..255; w=0"
+      },
+      "confirmation": "Existing dialog; M1 must bind confirmation to state/version and all entry paths",
+      "acceptance_case": "RGB lighting: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged",
+      "status": "Partial",
+      "gap": "Current endpoint bypasses authoritative safety boundary",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C03",
+      "screen": "Controls",
+      "source": "SR-UI-03; SO-4 AC-4",
+      "display": "Fan on/off",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators"
+      },
+      "quality": "Inhibit reason and command result visible",
+      "command": {
+        "path": "/api/fan",
+        "method": "POST",
+        "payload": "state on|off"
+      },
+      "confirmation": "Existing dialog; M1 must bind confirmation to state/version and all entry paths",
+      "acceptance_case": "Fan on/off: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged",
+      "status": "Partial",
+      "gap": "Current endpoint bypasses authoritative safety boundary",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C04",
+      "screen": "Controls",
+      "source": "SR-UI-03; SO-4 AC-4",
+      "display": "Fan speed",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators"
+      },
+      "quality": "Inhibit reason and command result visible",
+      "command": {
+        "path": "/api/fan/speed",
+        "method": "POST",
+        "payload": "speed int 0..255 in selected candidate"
+      },
+      "confirmation": "Existing dialog; M1 must bind confirmation to state/version and all entry paths",
+      "acceptance_case": "Fan speed: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged",
+      "status": "Partial",
+      "gap": "Current endpoint bypasses authoritative safety boundary",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C05",
+      "screen": "Controls",
+      "source": "SR-UI-03; SO-4 AC-4",
+      "display": "Pump on/off/pulse",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "actuators"
+      },
+      "quality": "Inhibit reason and command result visible",
+      "command": {
+        "path": "/api/pump",
+        "method": "POST",
+        "payload": "state on|off|5s"
+      },
+      "confirmation": "Existing dialog; M1 must bind confirmation to state/version and all entry paths",
+      "acceptance_case": "Pump on/off/pulse: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged",
+      "status": "Partial",
+      "gap": "Current endpoint bypasses authoritative safety boundary",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C06",
+      "screen": "Controls",
+      "source": "SR-UI-03; SR-AUT-01/02; SR-LGT-01",
+      "display": "Mode / schedule / Start / Pause / Safe Manual Test",
+      "backend": null,
+      "quality": "Backend owns active profile/schedule and permission state",
+      "command": null,
+      "confirmation": "Start/resume after stop or maintenance requires explicit pump confirmation",
+      "acceptance_case": "Fake-clock scheduling, pause/restart never bypasses interlocks",
+      "status": "Missing",
+      "gap": "Workflow APIs pending M1/M4",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "C07",
+      "screen": "Controls",
+      "source": "SO-4 AC-4; SR-AUT-02",
+      "display": "Firmware upload / lighting mode selection",
+      "backend": {
+        "path": "/firmware",
+        "method": "GET",
+        "field": "page"
+      },
+      "quality": "Compile/upload and normal/rainbow mode can energize/change safety behavior",
+      "command": {
+        "path": "/api/firmware",
+        "method": "POST",
+        "payload": "token + .ino or normal|rainbow"
+      },
+      "confirmation": "M1 requires authoritative update permission and explicit confirmation; no real upload authorized",
+      "acceptance_case": "Mock compile failure, failed STOP, USB lock, incompatible firmware, mode path rejection",
+      "status": "Partial",
+      "gap": "Token isn't authorization; custom firmware cannot be certified by protocol ACK",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "A01",
+      "screen": "Alerts",
+      "source": "SO-4; SO-2 AC-4",
+      "display": "Active severity/source/message/action/times",
+      "backend": {
+        "path": "/api/alerts",
+        "method": "GET",
+        "field": "active"
+      },
+      "quality": "Unknown count on unavailable/error; active critical remains until condition clears",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Critical source error and recommended action remain visible",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "A02",
+      "screen": "Alerts",
+      "source": "SO-4; SO-2 AC-4",
+      "display": "Acknowledge separately from clear",
+      "backend": {
+        "path": "/api/alerts",
+        "method": "GET",
+        "field": "active.*.ack_time_utc / clear_time_utc"
+      },
+      "quality": "Acknowledgement never clears actual fault",
+      "command": {
+        "path": "/api/alerts/<int:alert_id>/ack",
+        "method": "POST"
+      },
+      "confirmation": "Existing acknowledge confirmation",
+      "acceptance_case": "Ack then refresh; underlying critical condition persists",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "A03",
+      "screen": "Alerts",
+      "source": "SO-2 AC-4; SR-NET-01",
+      "display": "Historical/unsent alarms",
+      "backend": {
+        "path": "/api/alerts",
+        "method": "GET",
+        "field": "history"
+      },
+      "quality": "Preserve created/ack/clear and unsent/retry state",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Offline queue persists; configured delivery <=5min when available",
+      "status": "Partial",
+      "gap": "Durable history/outbox/recommended action binding missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "M01",
+      "screen": "Maintenance",
+      "source": "SR-SAF-03",
+      "display": "MAINTENANCE - OUTPUTS INHIBITED banner",
+      "backend": null,
+      "quality": "Persists across every screen and service recovery",
+      "command": null,
+      "confirmation": "Confirm exit; automatic starts stay inhibited",
+      "acceptance_case": "Navigate all pages; reset/ack never exits or resumes",
+      "status": "Missing",
+      "gap": "No actual maintenance state/action contract yet",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "M02",
+      "screen": "Maintenance",
+      "source": "SR-SAF-10; SO-4",
+      "display": "Sensor and service health",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "sensors / camera / database / ml / arduino"
+      },
+      "quality": "Identity/expected period/last sample/recovery/cause; <=two-period fault detection",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Missing/stale/NaN/implausible/intermittent/adapter fault scenarios",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "M03",
+      "screen": "Maintenance",
+      "source": "SO-2/4; SR-UI-02",
+      "display": "Calibration/service dates and diagnostics",
+      "backend": null,
+      "quality": "Missing dates explicit; immutable service audit",
+      "command": null,
+      "confirmation": "Confirm service edits",
+      "acceptance_case": "Record/retrieve service with UTC/version and show Home",
+      "status": "Missing",
+      "gap": "Production maintenance repository/API missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "M04",
+      "screen": "Maintenance",
+      "source": "SR-UI-03; SO-4 AC-4",
+      "display": "Safe manual test",
+      "backend": null,
+      "quality": "All requests use same command boundary; unknown interlocks deny",
+      "command": null,
+      "confirmation": "Explicit scoped test and pump energization confirmation",
+      "acceptance_case": "Fault during test cancels permission; no automatic resume",
+      "status": "Missing",
+      "gap": "Backend workflow pending M1",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "S01",
+      "screen": "Settings",
+      "source": "SR-UI-01/03; SR-AUT-02",
+      "display": "Basil/spearmint profile and experiment metadata",
+      "backend": {
+        "path": "/api/experiments",
+        "method": "GET",
+        "field": "items"
+      },
+      "quality": "Persisted active selection and status; no fabricated experiment",
+      "command": null,
+      "confirmation": "Advanced edit confirmation",
+      "acceptance_case": "Persist/reopen profile; start/pause/maintain lifecycle",
+      "status": "Partial",
+      "gap": "Read-only stub; editing/workflow missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "S02",
+      "screen": "Settings",
+      "source": "SO-2/4; SR-ML-01",
+      "display": "Software/model versions",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "ml.model"
+      },
+      "quality": "Unknown remains unknown; installed model size <=250MB",
+      "command": null,
+      "confirmation": "Confirm advanced changes",
+      "acceptance_case": "Missing/corrupt model isolated",
+      "status": "Partial",
+      "gap": "Software/config release manifest display missing",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "S03",
+      "screen": "Settings",
+      "source": "SO-5 AC-2/3/4; SR-DAT-02",
+      "display": "Capacity, backup/export/restore status",
+      "backend": null,
+      "quality": "80% warn; 90% critical proposal; deletion policy unresolved",
+      "command": null,
+      "confirmation": "Confirm export/restore; no production deletion authorized",
+      "acceptance_case": "Missing backup USB, ENOSPC, failed backup, clean-location restore",
+      "status": "Missing",
+      "gap": "Storage APIs/policy review pending M7",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "S04",
+      "screen": "Settings",
+      "source": "SO-4 AC-1; SR-NET-01",
+      "display": "Local/network/remote delivery status",
+      "backend": null,
+      "quality": "Offline core works; remote alarms queued unsent",
+      "command": null,
+      "confirmation": "Confirm advanced network/config changes",
+      "acceptance_case": ">=8h offline campaign; transport failure doesn't block control",
+      "status": "Missing",
+      "gap": "No actual network/outbox API; LOCAL MODE text isn't evidence",
+      "owner": "HMI with backend contract review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "X01",
+      "screen": "Shared",
+      "source": "SO-4 AC-1/2/3",
+      "display": "All seven pages, one-touch Home, local assets",
+      "backend": null,
+      "quality": "Network loss/stale/missing are text+icon, not color alone",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Offline pages plus functional local services; inspect target 739x447 touch targets >=approx48px",
+      "status": "Partial",
+      "gap": "Production service binding or acceptance evidence pending",
+      "owner": "Backend/API + HMI review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "X02",
+      "screen": "Shared",
+      "source": "SR-UI-01",
+      "display": "Novice task flow",
+      "backend": null,
+      "quality": "Visible health/alarm/maintenance persists",
+      "command": null,
+      "confirmation": "Safety confirmations remain explicit",
+      "acceptance_case": "5 users, <=5min orientation, >=4 complete all tasks <=5min, zero critical/<=1 noncritical error",
+      "status": "Missing",
+      "gap": "Actual user trial not performed",
+      "owner": "Backend/API + HMI review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "X03",
+      "screen": "Shared",
+      "source": "SR-UI-02",
+      "display": "Refresh deadline",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "new backend values"
+      },
+      "quality": "Backend timestamp-to-visible DOM <=2s; poll interval alone insufficient",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Instrument injected update and browser DOM paint; retain trace",
+      "status": "Partial",
+      "gap": "Timing measurement pending HMI gate",
+      "owner": "Backend/API + HMI review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    },
+    {
+      "id": "X04",
+      "screen": "Shared",
+      "source": "SO-4 AC-5",
+      "display": "Editable architecture diagram",
+      "backend": null,
+      "quality": "Located drawio; never substitute a screenshot for editable file",
+      "command": null,
+      "confirmation": "none",
+      "acceptance_case": "Import into Lucidchart and check editable shapes",
+      "status": "Missing",
+      "gap": "Import not exercised",
+      "owner": "Backend/API + HMI review",
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+    }
+  ]
+}

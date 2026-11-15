@@ -1,5 +1,7 @@
 # GERM asset inventory
 
+Current M0 entry point (2026-11-15): [source reconciliation](docs/phase0/M0_RECONCILIATION.md), [current manifest](docs/phase0/ASSET_MANIFEST.csv), [Task 128 checklist](docs/phase0/HMI_API_CHECKLIST.md), [provisional requirements](docs/phase0/REQUIREMENTS_BASELINE.json). The original November 1 prose below is historical. Current software merges main 8789022, Phase 0 4293db8 and candidate PR #3 b84736f; none establishes electrically correct pin mapping. Current check_integration.py has 12 tests. Read-only Pi observations are in the discovery package; missing hardware/services remain explicit. Current test evidence is under docs/evidence/task-119/.
+
 Reconciled on 2026-11-01 against the two commits in [source baseline](docs/phase0/SOURCE_BASELINE.json). The supplied inventory is reused in full in [its transcription](docs/phase0/UPLOADED_ASSET_INVENTORY.md); the current [per-file manifest](docs/phase0/ASSET_MANIFEST.csv) adds exact Git blob versions, purpose, runtime boundary and disposition for every tracked file in both repositories. Nothing is formally retired by this change. Named subteam assignments are intentionally omitted.
 
 ## Corrections to the supplied inventory

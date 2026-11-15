@@ -1,5 +1,7 @@
 # Review schema and migration contract
 
+M0 review supplement: [SO2_FIELD_AUDIT.md](SO2_FIELD_AUDIT.md) lists every entity's covered/missing fields and indexes against the actual SO-2 dictionary. [REQUIREMENTS_BASELINE.json](REQUIREMENTS_BASELINE.json) fixes the provisional official SR wording. This is still fixture SQL; no production adapter/migration is supplied. The canonical proposed SO-5 path is `/var/lib/germ/germ.db`; the earlier `.sqlite3` suggestion below is superseded.
+
 The existing INTEGRATION.md names eleven SO-2 entities and repository signatures. tests/fixtures/schema_v1.sql is a proposed initial schema with all eleven entities, constraints and six query indexes; tests/fixtures/seed.sql supplies synthetic data. Neither is a production migration. There is no old deployed schema to upgrade. Empty→v1 is executable; prior-version migration and production rollback are pending Phase 2 review.
 
 ## Data dictionary

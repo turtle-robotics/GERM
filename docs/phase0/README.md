@@ -1,5 +1,11 @@
 # Phase 0 baseline and review package
 
+## Current M0 review entry point (2026-11-15)
+
+Start at [M0_RECONCILIATION.md](M0_RECONCILIATION.md), then [Task 128 checklist](HMI_API_CHECKLIST.md), [provisional official SR snapshot](REQUIREMENTS_BASELINE.json), [SO-2 field audit](SO2_FIELD_AUDIT.md) and [M1 proposed contract/readiness](M1_CONTRACT.md). The November 1 report/logs below remain historical evidence. Current execution results are under `docs/evidence/task-119/` and Task 128 references the same campaign. Contract review is pending; no physical/deployment approval or Gantt completion is implied.
+
+Run the reused suites separately, plus `python -m unittest discover -s tests -p "test_m0.py" -v` from pi_hmi. The M0 simulator models the selected PR #3 software candidate while electrical mapping remains unresolved. All simulated data is synthetic.
+
 This package completes the repository-side Phase 0 deliverables from the uploaded brief and development plan. Baseline Gate remains pending contract review and target evidence. It does not assert Phase 1–7 functionality or physical safety acceptance.
 
 | Deliverable | Evidence |

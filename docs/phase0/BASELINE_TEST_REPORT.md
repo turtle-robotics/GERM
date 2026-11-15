@@ -1,5 +1,7 @@
 # Phase 0 baseline test report
 
+Current M0 supplement (2026-11-15): source reconciliation and review scope are in M0_RECONCILIATION.md. Current exact commands/results/log hashes are in ../../docs/evidence/task-119/; Task 128 uses the same contract campaign. The November 1 results below are preserved historical evidence, not current test counts or a review approval.
+
 Assessment date: 2026-11-01. Repository baseline commits and uploaded source hashes are recorded in SOURCE_BASELINE.json. Exact execution environment, UTC timestamp, commands, exit codes and LF-normalized UTF-8 log hashes are in HOST_TEST_RESULTS.json; installed host dependency versions are in host-packages.txt. Target Pi is user-reported Debian 13 trixie. Tests below ran on Windows with Python 3.12 in an isolated workspace environment, not on the Pi.
 
 ## Executed host results

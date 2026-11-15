@@ -1,0 +1,30 @@
+Nov 15 15:01:14 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:14] "GET /api/state HTTP/1.1" 200 -
+Nov 15 15:01:15 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:15] "GET /camera.jpg?t=1794772875275 HTTP/1.1" 503 -
+Nov 15 15:01:16 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:16] "GET /camera.jpg?t=1794772876518 HTTP/1.1" 503 -
+Nov 15 15:01:16 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:16] "GET /api/state HTTP/1.1" 200 -
+Nov 15 15:01:17 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:17] "GET /camera.jpg?t=1794772877731 HTTP/1.1" 503 -
+Nov 15 15:01:18 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:18] "GET /api/state HTTP/1.1" 200 -
+Nov 15 15:01:18 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:18] "GET /camera.jpg?t=1794772878953 HTTP/1.1" 503 -
+Nov 15 15:01:20 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:20] "GET /camera.jpg?t=1794772880174 HTTP/1.1" 503 -
+Nov 15 15:01:20 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:20] "GET /api/state HTTP/1.1" 200 -
+Nov 15 15:01:21 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:21] "GET /camera.jpg?t=1794772881387 HTTP/1.1" 503 -
+Nov 15 15:01:22 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:22] "GET /api/state HTTP/1.1" 200 -
+Nov 15 15:01:22 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:22] "GET /camera.jpg?t=1794772882609 HTTP/1.1" 503 -
+Nov 15 15:01:23 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:23] "GET /camera.jpg?t=1794772883834 HTTP/1.1" 503 -
+Nov 15 15:01:24 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:24] "GET /api/state HTTP/1.1" 200 -
+Nov 15 15:01:25 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:25] "GET /camera.jpg?t=1794772885047 HTTP/1.1" 503 -
+Nov 15 15:01:26 germ python[961]: 127.0.0.1 - - [15/Nov/2026 15:01:26] "GET /camera.jpg?t=1794772886255 HTTP/1.1" 503 -
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/mmcblk0p2   58G   13G   43G  23% /
+Python 3.13.5
+State  Recv-Q Send-Q                         Local Address:Port  Peer Address:PortProcess                         
+LISTEN 0      4096                [Pi address]%tailscale0:54583      0.0.0.0:*                                   
+LISTEN 0      4096                               127.0.0.1:631        0.0.0.0:*                                   
+LISTEN 0      128                                  0.0.0.0:22         0.0.0.0:*                                   
+LISTEN 0      4096                                 0.0.0.0:111        0.0.0.0:*                                   
+LISTEN 0      128                                  0.0.0.0:5000       0.0.0.0:*    users:(("python",pid=961,fd=3))
+LISTEN 0      16                                         *:5900             *:*                                   
+LISTEN 0      128                                     [::]:22            [::]:*                                   
+LISTEN 0      4096                                    [::]:111           [::]:*                                   
+LISTEN 0      4096   [Pi IPv6 address]%tailscale0:44596         [::]:*                                   
+LISTEN 0      4096                                   [::1]:631           [::]:*

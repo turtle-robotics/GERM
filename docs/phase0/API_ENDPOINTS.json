@@ -74,9 +74,9 @@
   {
     "path": "/api/fan/speed",
     "method": "POST",
-    "request": "JSON speed integer 0|255",
+    "request": "JSON speed integer 0..255; PR #3 software candidate, electrical mapping unconfirmed",
     "success": "200 confirmed, speed, firmware_confirmed, verified=false, reported_state, logged",
-    "errors": "400 invalid/unsupported PWM; 503 no ack",
+    "errors": "400 invalid speed; 503 no ack",
     "producer": "app.py:fan_speed",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },

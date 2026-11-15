@@ -1,5 +1,7 @@
 # Placeholder and incomplete behavior register
 
+M0 update: the selected candidate, schematic mismatches and unresolved retention/SR approval decisions are in M0_RECONCILIATION.md. No PH item is closed by completing documentation. The simulator is synthetic and hardware integration remains gated. The complete SO-2 field/index gaps are in SO2_FIELD_AUDIT.md.
+
 Inventory scope is every tracked baseline text file, reviewed with a TODO/stub/bypass scan and caller inspection. Functional boundaries replace named assignments. No placeholder is converted to fake healthy data. Priorities reference PHASE0_ISSUES.md.
 
 | ID | Path/symbol | Current behavior | Boundary and disposition | Issue |
