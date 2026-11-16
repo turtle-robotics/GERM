@@ -4,5 +4,5 @@
  {"name":"freshness_boundary","value":24,"sampled_at":1000,"now":1010,"expected_state":"fresh","target_quality":"good"},
  {"name":"stale","value":24,"sampled_at":1000,"now":1011,"expected_state":"stale","target_quality":"stale"},
  {"name":"implausible_known_gap","value":999,"sampled_at":1000,"now":1005,"expected_state":"fresh","target_quality":"invalid"},
- {"name":"future_timestamp_known_gap","value":24,"sampled_at":1100,"now":1005,"expected_state":"fresh","target_quality":"suspect"}
+ {"name":"future_timestamp_rejected","value":24,"sampled_at":1100,"now":1005,"expected_state":"unavailable","target_quality":"invalid"}
 ]

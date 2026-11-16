@@ -1,0 +1,14 @@
+{
+  "scope": "Browser + synthetic adapters only",
+  "viewport": "739x447",
+  "checks": [
+    "cancel has no command",
+    "backend confirmation + ACK not physical",
+    "maintenance visible on seven screens",
+    "inhibited control rejected before dialog/dispatch",
+    "firmware controls disabled",
+    "exit does not restart; separate confirmed start"
+  ],
+  "pageErrors": [],
+  "status": "PASS"
+}

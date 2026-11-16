@@ -42,14 +42,12 @@ def _reconnect():
 
 
 def get_serial():
-    global _ser
+    # M1 is host-only. Physical port creation is intentionally disabled pending
+    # electrical, authentication/network and deployment review. Tests/launcher
+    # may inject an explicitly synthetic serial object, never a physical port.
     with _lock:
-        if _ser is None or not _ser.is_open:
-            port = find_arduino_port()
-            if port is None:
-                raise serial.SerialException('Arduino USB port not found')
-            _ser = serial.Serial(port, 9600, timeout=0.2, write_timeout=2)
-            time.sleep(2)
+        if _ser is None or not _ser.is_open or getattr(_ser, 'simulated', False) is not True:
+            raise serial.SerialException('Physical serial integration is not authorized; inject a simulated adapter')
         return _ser
 
 
@@ -67,7 +65,9 @@ def _read_packet(ser):
         packet = json.loads(line)
     except (ValueError, UnicodeDecodeError):
         return None
-    if not isinstance(packet, dict) or packet.get('protocol') != 2:
+    if (not isinstance(packet, dict) or type(packet.get('protocol')) is not int or packet.get('protocol') != 2
+            or type(packet.get('id')) is not int or not 0 <= packet['id'] <= 60000
+            or ('error' in packet and not isinstance(packet['error'], str))):
         return None
     if all(type(packet.get(k)) is bool for k in ('fan', 'pump')) and isinstance(packet.get('rgb'), list) and len(packet['rgb']) == 3 and all(type(v) is int and 0 <= v <= 255 for v in packet['rgb']):
         _packet = packet
@@ -76,9 +76,13 @@ def _read_packet(ser):
     return None
 
 
-def send(message):
+def _exchange(message):
     """True only when firmware acknowledges this exact command ID."""
     global _sequence, _last_error, _packet_at
+    from services.command_service import dispatch_authorized
+    if not dispatch_authorized():
+        _last_error = 'Command gateway authorization required'
+        return False
     if not isinstance(message, str) or '\n' in message or '\r' in message:
         _last_error = 'Invalid command'
         return False
@@ -91,6 +95,8 @@ def send(message):
             deadline = time.monotonic() + 3
             while time.monotonic() < deadline:
                 packet = _read_packet(ser)
+                if time.monotonic() >= deadline:
+                    break  # A matching packet received after the deadline is not an ACK.
                 if packet and packet.get('id') == command_id:
                     _last_error = packet.get('error', '')
                     return not bool(_last_error)
@@ -104,7 +110,8 @@ def send(message):
 
 def read_line():
     # STATUS supplies a heartbeat and updates state without a competing reader.
-    if send('STATUS'):
+    from services.control_runtime import get_gateway
+    if get_gateway().poll_status():
         packet = reported_state()
         if packet is not None and packet.get('a0') is not None:
             return 'A0:' + str(packet['a0'])
@@ -127,17 +134,29 @@ def last_error():
         return _last_error
 
 
+def send(message, *, authority=None, source='service', **context):
+    """Compatibility facade; every caller passes through the command gateway."""
+    from services.control_runtime import get_gateway
+    result = get_gateway().command(message, authority=authority, source=source, **context)
+    return result['firmware_confirmed']
+
+
 @contextmanager
 def firmware_port():
     """Pause the reader, turn outputs off, and release USB for the uploader."""
     with _lock:
-        port = _ser.port if _ser is not None else find_arduino_port()
+        from services.command_service import dispatch_authorized
+        if not dispatch_authorized('firmware_update'):
+            raise RuntimeError('Authorized simulated firmware session required')
+        port = get_serial().port
         if not port:
             raise RuntimeError('Arduino USB port not found')
-        try:
-            send('STOP')
-        finally:
-            _reconnect()
+        if not _exchange('STOP'):
+            raise RuntimeError('STOP not acknowledged; USB remains owned and upload denied')
+        from services.command_service import outputs_reported_off
+        if not outputs_reported_off(reported_state()):
+            raise RuntimeError('STOP feedback is not off; USB remains owned and upload denied')
+        _reconnect()
         try:
             yield port
         finally:

@@ -2,7 +2,7 @@
 
 ## Current M0 review entry point (2026-11-15)
 
-The user approved the M0 contracts with restrictions at `3b1d20b` and M1 contract `m0-review-2`. See [recorded verdict](M0_REVIEW_VERDICT.md). Earlier pending-review statements describe the pre-verdict package; physical/deployment and unresolved requirements/electrical gates remain open.
+The user approved the M0 contracts with restrictions at `3b1d20b` and M1 contract `m0-review-2`. See [recorded verdict](M0_REVIEW_VERDICT.md). The current [M1 implementation and traceability guide](M1_IMPLEMENTATION.md) supersedes historical descriptions of direct control paths. Earlier pending-review statements below describe the pre-verdict package; physical/deployment and unresolved requirements/electrical gates remain open.
 
 Start at [M0_RECONCILIATION.md](M0_RECONCILIATION.md), then [Task 128 checklist](HMI_API_CHECKLIST.md), [provisional official SR snapshot](REQUIREMENTS_BASELINE.json), [SO-2 field audit](SO2_FIELD_AUDIT.md) and [M1 proposed contract/readiness](M1_CONTRACT.md). The November 1 report/logs below remain historical evidence. Current execution results are under `docs/evidence/task-119/` and Task 128 references the same campaign. Contract review is pending; no physical/deployment approval or Gantt completion is implied.
 

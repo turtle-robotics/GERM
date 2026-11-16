@@ -12,6 +12,7 @@ def get(path):
 
 
 if __name__ == '__main__':
+    raise RuntimeError('M1 host-only review: live actuator commands require separate authorization')
     for attempt in range(10):
         try:
             state = json.loads(get('/api/state'))
