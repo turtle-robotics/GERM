@@ -1,0 +1,57 @@
+/* Chromium -> real Flask -> SQLite snapshot -> ZIP -> verified download. */
+const {spawn}=require('node:child_process'),path=require('node:path'),fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
+(async()=>{
+  const root=path.resolve(__dirname,'../..'),output=path.resolve(process.env.GERM_BROWSER_OUTPUT || path.join(root,'build/m6-browser'));
+  fs.mkdirSync(output,{recursive:true});
+  const child=spawn(process.env.GERM_TEST_PYTHON || 'python',[path.join(__dirname,'browser_m6_host.py')],{cwd:root,env:{...process.env,PYTHONUTF8:'1',PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});
+  let browser,logs='';child.stderr.on('data',c=>logs+=c);
+  try{
+    const port=await new Promise((resolve,reject)=>{let text='';const timer=setTimeout(()=>reject(Error(logs+' startup timeout')),20000);child.on('exit',code=>reject(Error('Host exit '+code+' '+logs)));child.stdout.on('data',c=>{text+=c;if(text.includes('\n')){clearTimeout(timer);resolve(JSON.parse(text.split('\n')[0]).port);}});});
+    browser=await chromium.launch({headless:true,executablePath:process.env.GERM_TEST_BROWSER || undefined});
+    const page=await browser.newPage({viewport:{width:739,height:447}}),errors=[],base='http://127.0.0.1:'+port;
+    page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/trends');
+    await page.locator('#history-status').filter({hasText:'1 durable records'}).waitFor();
+    assert.equal(await page.locator('nav a').count(),7);
+    assert.equal(await page.locator('#history-rows img').count(),0);
+    assert.ok((await page.locator('#history-rows').textContent()).includes('<img src=x'));
+    await page.locator('#history-resource').selectOption('sensors');await page.locator('#history-sensor').fill('history_fixture');
+    await page.locator('#history-search').focus();await page.keyboard.type('history_fixture');await page.keyboard.press('Enter');
+    await page.locator('#history-status').filter({hasText:'100 durable records'}).waitFor();
+    assert.equal(await page.locator('.history-record').count(),100);
+    await page.locator('#history-next').click();await page.waitForFunction(()=>JSON.parse(document.querySelector('#history-rows pre').textContent).value===100);
+    await page.locator('#history-next').click();await page.locator('#history-status').filter({hasText:'5 durable records'}).waitFor();
+    assert.equal(await page.locator('#history-next').isDisabled(),true);
+    await page.locator('#history-search').fill('no match');await page.locator('#history-form button').click();
+    await page.locator('#history-status').filter({hasText:'No matching records'}).waitFor();
+    await page.locator('#history-search').fill('');await page.locator('#history-sensor').fill('');await page.locator('#history-form button').click();
+    await page.locator('#history-status').filter({hasText:'100 durable records'}).waitFor();
+    await page.locator('#export-all').click();
+    await page.locator('#export-status').filter({hasText:'complete_with_errors'}).waitFor({timeout:20000});
+    await page.locator('#export-download').filter({hasText:'partial archive'}).waitFor();
+    const url=await page.locator('#export-download').getAttribute('href'),download=await page.request.get(base+url),bytes=await download.body();
+    assert.equal(download.status(),200);assert.equal(download.headers()['x-germ-export-status'],'complete_with_errors');
+    assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),download.headers()['x-germ-sha256']);
+    fs.writeFileSync(path.join(output,'browser-export.zip'),bytes);
+    await page.locator('#export-status').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(output,'partial-export.png'),fullPage:true});
+    await page.reload();await page.locator('#export-download').filter({hasText:'partial archive'}).waitFor();
+    await page.locator('#history-resource').selectOption('images');await page.locator('#history-form button').click();
+    await page.locator('#history-status').filter({hasText:'2 durable records'}).waitFor();
+    const imageLinks=await page.locator('#history-rows a').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')));
+    assert.equal((await page.request.get(base+imageLinks[0])).status(),200);
+    assert.equal((await page.request.get(base+imageLinks[1])).status(),503);
+    await page.locator('#export-strict').check();await page.locator('#export-history').click();
+    await page.locator('#export-status').filter({hasText:'failed'}).waitFor();await page.locator('#export-retry').waitFor();
+    assert.equal(await page.locator('#export-download').isHidden(),true);
+    const retried=page.waitForResponse(r=>r.url().endsWith('/retry') && r.request().method()==='POST');
+    await page.locator('#export-retry').click();assert.equal((await retried).status(),202);
+    await page.locator('#export-status').filter({hasText:'failed'}).waitFor();
+    await page.route('**/api/history/**',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Injected database unavailable'})}));
+    await page.locator('#history-form button').click();await page.locator('#history-status').filter({hasText:'History unavailable'}).waitFor();
+    assert.equal(await page.locator('.history-record').count(),0);await page.locator('#history-status').scrollIntoViewIfNeeded();
+    await page.screenshot({path:path.join(output,'database-unavailable.png'),fullPage:true});
+    assert.deepEqual(errors,[]);
+    fs.writeFileSync(path.join(output,'RESULTS.json'),JSON.stringify({status:'PASS',viewport:'739x447',pageErrors:errors,checks:['seven navigation routes preserved','safe literal Unicode/HTML search display','keyset next pages 100/100/5','keyboard filter submission','empty result state','consistent snapshot export','partial missing image honestly labelled','verified ZIP download hash','reload restores prior export status','saved JPEG verified or explicitly missing','strict export failure and explicit retry','database error clears stale rows']},null,2));
+    console.log('PASS: M6 history, pagination, snapshot export and verified partial ZIP browser flow');
+  }finally{if(browser)await browser.close();child.kill();fs.writeFileSync(path.join(output,'server-output.txt'),logs);}
+})().catch(error=>{console.error(error);process.exitCode=1;});
