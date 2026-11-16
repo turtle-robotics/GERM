@@ -1,0 +1,1155 @@
+{
+  "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#grow-summary').filter({ hasText: 'paused' }) to be visible\u001b[22m\n",
+  "growText": "basil · running · schedules armed for simulation",
+  "trace": [
+    {
+      "t": 66.30000001192093,
+      "kind": "request",
+      "id": 1,
+      "url": "/api/state"
+    },
+    {
+      "t": 79.69999998807907,
+      "kind": "request",
+      "id": 2,
+      "url": "/api/services"
+    },
+    {
+      "t": 130.5,
+      "kind": "response",
+      "id": 2,
+      "status": 200
+    },
+    {
+      "t": 176,
+      "kind": "response",
+      "id": 1,
+      "status": 200
+    },
+    {
+      "t": 177,
+      "kind": "DOM",
+      "grow": "basil · paused · schedules inhibited"
+    },
+    {
+      "t": 256.80000001192093,
+      "kind": "request",
+      "id": 3,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 270,
+      "kind": "response",
+      "id": 3,
+      "status": 200
+    },
+    {
+      "t": 280.59999999403954,
+      "kind": "request",
+      "id": 4,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 310.90000000596046,
+      "kind": "response",
+      "id": 4,
+      "status": 200
+    },
+    {
+      "t": 311.30000001192093,
+      "kind": "request",
+      "id": 5,
+      "url": "/api/state"
+    },
+    {
+      "t": 380.59999999403954,
+      "kind": "response",
+      "id": 5,
+      "status": 200
+    },
+    {
+      "t": 381.59999999403954,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 482,
+      "kind": "request",
+      "id": 6,
+      "url": "/api/state"
+    },
+    {
+      "t": 641.3000000119209,
+      "kind": "request",
+      "id": 7,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 657.8000000119209,
+      "kind": "response",
+      "id": 7,
+      "status": 200
+    },
+    {
+      "t": 658.4000000059605,
+      "kind": "request",
+      "id": 8,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 690.6999999880791,
+      "kind": "response",
+      "id": 8,
+      "status": 200
+    },
+    {
+      "t": 691.1999999880791,
+      "kind": "request",
+      "id": 9,
+      "url": "/api/state"
+    },
+    {
+      "t": 761.5999999940395,
+      "kind": "response",
+      "id": 9,
+      "status": 200
+    },
+    {
+      "t": 762.8000000119209,
+      "kind": "DOM",
+      "grow": "basil · paused · schedules inhibited"
+    },
+    {
+      "t": 846.5,
+      "kind": "response",
+      "id": 6,
+      "status": 200
+    },
+    {
+      "t": 975.6999999880791,
+      "kind": "request",
+      "id": 10,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 995.3000000119209,
+      "kind": "response",
+      "id": 10,
+      "status": 200
+    },
+    {
+      "t": 1005.8000000119209,
+      "kind": "request",
+      "id": 11,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 1042.0999999940395,
+      "kind": "response",
+      "id": 11,
+      "status": 200
+    },
+    {
+      "t": 1042.5,
+      "kind": "request",
+      "id": 12,
+      "url": "/api/state"
+    },
+    {
+      "t": 1123.800000011921,
+      "kind": "response",
+      "id": 12,
+      "status": 200
+    },
+    {
+      "t": 1125.0999999940395,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 1224.199999988079,
+      "kind": "request",
+      "id": 13,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 1237.300000011921,
+      "kind": "response",
+      "id": 13,
+      "status": 200
+    },
+    {
+      "t": 1237.699999988079,
+      "kind": "request",
+      "id": 14,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 1249.0999999940395,
+      "kind": "response",
+      "id": 14,
+      "status": 409
+    },
+    {
+      "t": 1249.5999999940395,
+      "kind": "request",
+      "id": 15,
+      "url": "/api/state"
+    },
+    {
+      "t": 1327.800000011921,
+      "kind": "response",
+      "id": 15,
+      "status": 200
+    },
+    {
+      "t": 1328.5999999940395,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 2074.4000000059605,
+      "kind": "request",
+      "id": 16,
+      "url": "/api/state"
+    },
+    {
+      "t": 2086.4000000059605,
+      "kind": "request",
+      "id": 17,
+      "url": "/api/services"
+    },
+    {
+      "t": 2114.0999999940395,
+      "kind": "response",
+      "id": 17,
+      "status": 200
+    },
+    {
+      "t": 2177.800000011921,
+      "kind": "response",
+      "id": 16,
+      "status": 200
+    },
+    {
+      "t": 2179,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 4075.800000011921,
+      "kind": "request",
+      "id": 18,
+      "url": "/api/state"
+    },
+    {
+      "t": 4090.300000011921,
+      "kind": "request",
+      "id": 19,
+      "url": "/api/services"
+    },
+    {
+      "t": 4117,
+      "kind": "response",
+      "id": 19,
+      "status": 200
+    },
+    {
+      "t": 4187.4000000059605,
+      "kind": "response",
+      "id": 18,
+      "status": 200
+    },
+    {
+      "t": 4188.4000000059605,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 6074.5,
+      "kind": "request",
+      "id": 20,
+      "url": "/api/state"
+    },
+    {
+      "t": 6080.5999999940395,
+      "kind": "request",
+      "id": 21,
+      "url": "/api/services"
+    },
+    {
+      "t": 6095.800000011921,
+      "kind": "response",
+      "id": 21,
+      "status": 200
+    },
+    {
+      "t": 6162.0999999940395,
+      "kind": "response",
+      "id": 20,
+      "status": 200
+    },
+    {
+      "t": 6162.9000000059605,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 8068,
+      "kind": "request",
+      "id": 22,
+      "url": "/api/state"
+    },
+    {
+      "t": 8092.699999988079,
+      "kind": "request",
+      "id": 23,
+      "url": "/api/services"
+    },
+    {
+      "t": 8245.199999988079,
+      "kind": "response",
+      "id": 23,
+      "status": 200
+    },
+    {
+      "t": 8312.199999988079,
+      "kind": "response",
+      "id": 22,
+      "status": 200
+    },
+    {
+      "t": 8313.199999988079,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 10076.5,
+      "kind": "request",
+      "id": 24,
+      "url": "/api/state"
+    },
+    {
+      "t": 10084.09999999404,
+      "kind": "request",
+      "id": 25,
+      "url": "/api/services"
+    },
+    {
+      "t": 10102.40000000596,
+      "kind": "response",
+      "id": 25,
+      "status": 200
+    },
+    {
+      "t": 10151.199999988079,
+      "kind": "response",
+      "id": 24,
+      "status": 200
+    },
+    {
+      "t": 10152,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 12067.699999988079,
+      "kind": "request",
+      "id": 26,
+      "url": "/api/state"
+    },
+    {
+      "t": 12080.300000011921,
+      "kind": "request",
+      "id": 27,
+      "url": "/api/services"
+    },
+    {
+      "t": 12096.09999999404,
+      "kind": "response",
+      "id": 27,
+      "status": 200
+    },
+    {
+      "t": 12131.199999988079,
+      "kind": "response",
+      "id": 26,
+      "status": 200
+    },
+    {
+      "t": 12132,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 14070.90000000596,
+      "kind": "request",
+      "id": 28,
+      "url": "/api/state"
+    },
+    {
+      "t": 14080.5,
+      "kind": "request",
+      "id": 29,
+      "url": "/api/services"
+    },
+    {
+      "t": 14099,
+      "kind": "response",
+      "id": 29,
+      "status": 200
+    },
+    {
+      "t": 14160.40000000596,
+      "kind": "response",
+      "id": 28,
+      "status": 200
+    },
+    {
+      "t": 14161.699999988079,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 16070.40000000596,
+      "kind": "request",
+      "id": 30,
+      "url": "/api/state"
+    },
+    {
+      "t": 16080.699999988079,
+      "kind": "request",
+      "id": 31,
+      "url": "/api/services"
+    },
+    {
+      "t": 16099.09999999404,
+      "kind": "response",
+      "id": 31,
+      "status": 200
+    },
+    {
+      "t": 16146.09999999404,
+      "kind": "response",
+      "id": 30,
+      "status": 200
+    },
+    {
+      "t": 16147,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 18069.59999999404,
+      "kind": "request",
+      "id": 32,
+      "url": "/api/state"
+    },
+    {
+      "t": 18084.59999999404,
+      "kind": "request",
+      "id": 33,
+      "url": "/api/services"
+    },
+    {
+      "t": 18099.90000000596,
+      "kind": "response",
+      "id": 33,
+      "status": 200
+    },
+    {
+      "t": 18155.19999998808,
+      "kind": "response",
+      "id": 32,
+      "status": 200
+    },
+    {
+      "t": 18156,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 20067.69999998808,
+      "kind": "request",
+      "id": 34,
+      "url": "/api/state"
+    },
+    {
+      "t": 20087.90000000596,
+      "kind": "request",
+      "id": 35,
+      "url": "/api/services"
+    },
+    {
+      "t": 20105.69999998808,
+      "kind": "response",
+      "id": 35,
+      "status": 200
+    },
+    {
+      "t": 20144.90000000596,
+      "kind": "response",
+      "id": 34,
+      "status": 200
+    },
+    {
+      "t": 20145.80000001192,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 22073.09999999404,
+      "kind": "request",
+      "id": 36,
+      "url": "/api/state"
+    },
+    {
+      "t": 22082.90000000596,
+      "kind": "request",
+      "id": 37,
+      "url": "/api/services"
+    },
+    {
+      "t": 22101.19999998808,
+      "kind": "response",
+      "id": 37,
+      "status": 200
+    },
+    {
+      "t": 22168,
+      "kind": "response",
+      "id": 36,
+      "status": 200
+    },
+    {
+      "t": 22168.80000001192,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 24068.80000001192,
+      "kind": "request",
+      "id": 38,
+      "url": "/api/state"
+    },
+    {
+      "t": 24088.90000000596,
+      "kind": "request",
+      "id": 39,
+      "url": "/api/services"
+    },
+    {
+      "t": 24105.69999998808,
+      "kind": "response",
+      "id": 39,
+      "status": 200
+    },
+    {
+      "t": 24130.69999998808,
+      "kind": "response",
+      "id": 38,
+      "status": 200
+    },
+    {
+      "t": 24131.69999998808,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 26073.80000001192,
+      "kind": "request",
+      "id": 40,
+      "url": "/api/state"
+    },
+    {
+      "t": 26083.30000001192,
+      "kind": "request",
+      "id": 41,
+      "url": "/api/services"
+    },
+    {
+      "t": 26109.09999999404,
+      "kind": "response",
+      "id": 41,
+      "status": 200
+    },
+    {
+      "t": 26161.5,
+      "kind": "response",
+      "id": 40,
+      "status": 200
+    },
+    {
+      "t": 26162.90000000596,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 28074.40000000596,
+      "kind": "request",
+      "id": 42,
+      "url": "/api/state"
+    },
+    {
+      "t": 28085.5,
+      "kind": "request",
+      "id": 43,
+      "url": "/api/services"
+    },
+    {
+      "t": 28109.30000001192,
+      "kind": "response",
+      "id": 43,
+      "status": 200
+    },
+    {
+      "t": 28149.69999998808,
+      "kind": "response",
+      "id": 42,
+      "status": 200
+    },
+    {
+      "t": 28150.40000000596,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 30074.5,
+      "kind": "request",
+      "id": 44,
+      "url": "/api/state"
+    },
+    {
+      "t": 30081.40000000596,
+      "kind": "request",
+      "id": 45,
+      "url": "/api/services"
+    },
+    {
+      "t": 30119.09999999404,
+      "kind": "response",
+      "id": 45,
+      "status": 200
+    },
+    {
+      "t": 30158.5,
+      "kind": "response",
+      "id": 44,
+      "status": 200
+    },
+    {
+      "t": 30159.30000001192,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    }
+  ],
+  "state": {
+    "actuators": {
+      "fan": {
+        "last_request": null,
+        "mode": null,
+        "physically_verified": false,
+        "reported_state": false,
+        "speed": 0,
+        "state": "reported"
+      },
+      "lighting": {
+        "last_request": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "mode": "normal",
+        "physically_verified": false,
+        "reported_state": [
+          1,
+          2,
+          3
+        ],
+        "speed": null,
+        "state": "reported"
+      },
+      "pump": {
+        "last_request": null,
+        "mode": null,
+        "physically_verified": false,
+        "reported_state": false,
+        "speed": null,
+        "state": "reported"
+      }
+    },
+    "alerts": {
+      "active": [],
+      "highest": null,
+      "state": "ready"
+    },
+    "arduino": {
+      "packet": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Arduino A0",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "raw",
+        "value": null
+      },
+      "state": "connected"
+    },
+    "camera": {
+      "age_seconds": 0,
+      "error": null,
+      "physically_verified": false,
+      "source": "synthetic",
+      "state": "ready",
+      "timestamp_utc": "2026-11-15T00:00:12.300000+00:00"
+    },
+    "control_boundary": {
+      "enabled": true,
+      "state": "simulation"
+    },
+    "data_scope": "simulation",
+    "database": {
+      "state": "ready"
+    },
+    "estop": "clear",
+    "grow": {
+      "configuration_notice": "Basil and spearmint timings await review; entered schedules are host simulation settings",
+      "cycle": {
+        "created_at_utc": "2026-11-15T00:00:00.100000+00:00",
+        "cycle_id": "d7b8ef5d-a967-491d-8319-8a0a3fa25a74",
+        "ended_at_utc": null,
+        "experiment_id": 1,
+        "generation": 5,
+        "profile_id": "basil",
+        "profile_snapshot_json": "{\"approval_status\":\"timings_unapproved\",\"definition\":{\"scope\":\"host-only\",\"timings\":null},\"name\":\"Basil\",\"profile_id\":\"basil\",\"version\":1}",
+        "started_at_utc": "2026-11-15T00:00:01.100000+00:00",
+        "status": "running"
+      },
+      "grow_day": 1,
+      "last_command_event": "committed",
+      "last_maintenance": null,
+      "logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:01.500000+00:00",
+        "last_durable_event_id": "dc35742c-596d-4705-b0df-a32d2262b331",
+        "last_error": null,
+        "pending": 0,
+        "poison_events": 0,
+        "state": "durable"
+      },
+      "profiles": [
+        {
+          "approval_status": "timings_unapproved",
+          "definition": {
+            "scope": "host-only",
+            "timings": null
+          },
+          "name": "Basil",
+          "profile_id": "basil",
+          "version": 1
+        },
+        {
+          "approval_status": "timings_unapproved",
+          "definition": {
+            "scope": "host-only",
+            "timings": null
+          },
+          "name": "Spearmint",
+          "profile_id": "spearmint",
+          "version": 1
+        }
+      ],
+      "recent_runs": [
+        {
+          "command": "LED:1,2,3,0",
+          "created_at_utc": "2026-11-15T00:00:01.500000+00:00",
+          "cycle_id": "d7b8ef5d-a967-491d-8319-8a0a3fa25a74",
+          "definition_snapshot_json": "{\"enabled\":true,\"end_utc\":\"23:59\",\"rgb\":[1,2,3],\"start_utc\":\"00:00\",\"target\":\"lighting\"}",
+          "generation": 5,
+          "occurrence_id": "87d55097-311b-5463-a672-5ed7d3ab91bd",
+          "result_json": "{\"accepted\":true,\"accepted_at_utc\":\"2026-11-15T00:00:01.500000+00:00\",\"acknowledged_at_utc\":\"2026-11-15T00:00:01.500000+00:00\",\"action\":\"set_lighting\",\"allowed\":true,\"error\":null,\"event_id\":\"70ba5afe-655d-40b8-a5cb-64b03865ad87\",\"firmware_confirmed\":true,\"http_status\":200,\"inhibits\":[],\"logged\":false,\"logging_status\":\"buffered_not_durable\",\"physically_verified\":false,\"reason_codes\":[],\"reported_state\":{\"a0\":null,\"fan\":false,\"fan_pwm\":true,\"fan_speed\":0,\"id\":1,\"lighting_mode\":\"normal\",\"protocol\":2,\"pump\":false,\"rgb\":[1,2,3],\"white_channel\":false},\"request_id\":\"87d55097-311b-5463-a672-5ed7d3ab91bd\",\"requested_state\":[1,2,3,0],\"source\":\"automatic\",\"state_revision\":37,\"status\":\"confirmed\",\"target\":\"lighting\",\"verified\":false}",
+          "schedule_id": "f445afc9-a891-43a1-8c6c-068d62100659",
+          "scheduled_at_utc": "2026-11-15T00:00:00+00:00",
+          "status": "acknowledged"
+        },
+        {
+          "command": "LED:1,2,3,0",
+          "created_at_utc": "2026-11-15T00:00:01.300000+00:00",
+          "cycle_id": "d7b8ef5d-a967-491d-8319-8a0a3fa25a74",
+          "definition_snapshot_json": "{\"enabled\":true,\"end_utc\":\"23:59\",\"rgb\":[1,2,3],\"start_utc\":\"00:00\",\"target\":\"lighting\"}",
+          "generation": 3,
+          "occurrence_id": "980796c5-97ed-5643-a705-6dd23ee37602",
+          "result_json": "{\"accepted\":true,\"accepted_at_utc\":\"2026-11-15T00:00:01.300000+00:00\",\"acknowledged_at_utc\":\"2026-11-15T00:00:01.300000+00:00\",\"action\":\"set_lighting\",\"allowed\":true,\"error\":null,\"event_id\":\"bcb81344-e56d-4e86-8dc6-3a6c0c585e9d\",\"firmware_confirmed\":true,\"http_status\":200,\"inhibits\":[],\"logged\":false,\"logging_status\":\"buffered_not_durable\",\"physically_verified\":false,\"reason_codes\":[],\"reported_state\":{\"a0\":null,\"fan\":false,\"fan_pwm\":true,\"fan_speed\":0,\"id\":1,\"lighting_mode\":\"normal\",\"protocol\":2,\"pump\":false,\"rgb\":[1,2,3],\"white_channel\":false},\"request_id\":\"980796c5-97ed-5643-a705-6dd23ee37602\",\"requested_state\":[1,2,3,0],\"source\":\"automatic\",\"state_revision\":32,\"status\":\"confirmed\",\"target\":\"lighting\",\"verified\":false}",
+          "schedule_id": "f445afc9-a891-43a1-8c6c-068d62100659",
+          "scheduled_at_utc": "2026-11-15T00:00:00+00:00",
+          "status": "acknowledged"
+        }
+      ],
+      "schedules": [
+        {
+          "cycle_id": "d7b8ef5d-a967-491d-8319-8a0a3fa25a74",
+          "definition": {
+            "enabled": true,
+            "end_utc": "23:59",
+            "rgb": [
+              1,
+              2,
+              3
+            ],
+            "start_utc": "00:00",
+            "target": "lighting"
+          },
+          "schedule_id": "f445afc9-a891-43a1-8c6c-068d62100659",
+          "target": "lighting"
+        }
+      ],
+      "schedules_armed": true,
+      "scope": "host simulation only",
+      "state": "ready"
+    },
+    "inhibits": [],
+    "maintenance_banner": null,
+    "media": {
+      "camera": {
+        "age_seconds": 0,
+        "error": null,
+        "physically_verified": false,
+        "source": "synthetic",
+        "state": "ready",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00"
+      },
+      "capture_error": null,
+      "database_state": "ready",
+      "event_logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:01.500000+00:00",
+        "last_durable_event_id": "dc35742c-596d-4705-b0df-a32d2262b331",
+        "last_error": null,
+        "pending": 0,
+        "poison_events": 0,
+        "state": "durable"
+      },
+      "experiment_id": 1,
+      "ml": {
+        "error": null,
+        "latest_result": null,
+        "model": null,
+        "state": "not_configured"
+      },
+      "plants": [],
+      "recent": [],
+      "recovery": {
+        "indexed": [],
+        "interrupted": [],
+        "journal_remaining": 0,
+        "journal_scan_truncated": false,
+        "needs_review": [],
+        "orphaned_files": [],
+        "scan_truncated": false
+      },
+      "requests": [],
+      "schedule": null,
+      "scheduling": {
+        "clock_fault": false,
+        "error": null,
+        "high_water_utc": null,
+        "inhibited": true,
+        "operator_recovery_required": false,
+        "resume_not_before_utc": null,
+        "state": "not_configured"
+      },
+      "server_time_utc": "2026-11-15T00:00:12.300000+00:00",
+      "source": "synthetic"
+    },
+    "ml": {
+      "latest_result": null,
+      "model": null,
+      "state": "not_configured"
+    },
+    "operating_state": {
+      "controller_connected": true,
+      "controller_feedback": {
+        "a0": null,
+        "fan": false,
+        "fan_pwm": true,
+        "fan_speed": 0,
+        "id": 1,
+        "lighting_mode": "normal",
+        "protocol": 2,
+        "pump": false,
+        "rgb": [
+          1,
+          2,
+          3
+        ],
+        "white_channel": false
+      },
+      "estop": "clear",
+      "inhibits": [],
+      "last_command": {
+        "accepted": true,
+        "accepted_at_utc": "2026-11-15T00:00:01.500000+00:00",
+        "acknowledged_at_utc": "2026-11-15T00:00:01.500000+00:00",
+        "action": "set_lighting",
+        "allowed": true,
+        "error": null,
+        "event_id": "70ba5afe-655d-40b8-a5cb-64b03865ad87",
+        "firmware_confirmed": true,
+        "http_status": 200,
+        "inhibits": [],
+        "logged": false,
+        "logging_status": "buffered_not_durable",
+        "physically_verified": false,
+        "reason_codes": [],
+        "reported_state": {
+          "a0": null,
+          "fan": false,
+          "fan_pwm": true,
+          "fan_speed": 0,
+          "id": 1,
+          "lighting_mode": "normal",
+          "protocol": 2,
+          "pump": false,
+          "rgb": [
+            1,
+            2,
+            3
+          ],
+          "white_channel": false
+        },
+        "request_id": "87d55097-311b-5463-a672-5ed7d3ab91bd",
+        "requested_state": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "source": "automatic",
+        "state_revision": 37,
+        "status": "confirmed",
+        "target": "lighting",
+        "verified": false
+      },
+      "logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:01.500000+00:00",
+        "last_durable_event_id": "dc35742c-596d-4705-b0df-a32d2262b331",
+        "last_error": null,
+        "pending": 0,
+        "poison_events": 0,
+        "state": "durable"
+      },
+      "maintenance": false,
+      "maintenance_banner": null,
+      "persistence": {
+        "restart_recovery_verified": true,
+        "state": "ready"
+      },
+      "profile": "basil",
+      "requested_states": {
+        "fan": null,
+        "lighting": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "pump": null
+      },
+      "restart_required": false,
+      "sensors": {
+        "air_temperature": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": null,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+          "unit": "degC",
+          "value": 24
+        },
+        "door": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+          "unit": "normalized boolean",
+          "value": true
+        },
+        "estop": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+          "unit": "normalized boolean",
+          "value": false
+        },
+        "humidity": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": null,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+          "unit": "%RH",
+          "value": 55
+        },
+        "leak": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+          "unit": "normalized boolean",
+          "value": false
+        },
+        "water_level": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+          "unit": "normalized boolean",
+          "value": true
+        }
+      },
+      "state_revision": 37,
+      "system_state": "NORMAL"
+    },
+    "sensors": {
+      "air_temperature": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": null,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+        "unit": "degC",
+        "value": 24
+      },
+      "arduino_a0": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Arduino A0",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "raw",
+        "value": null
+      },
+      "door": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+        "unit": "normalized boolean",
+        "value": true
+      },
+      "electronics_temperature": {
+        "age_seconds": null,
+        "fault_reason": "interface_unconfigured",
+        "quality_flag": "missing",
+        "source": "No validated input",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "degC",
+        "value": null
+      },
+      "estop": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+        "unit": "normalized boolean",
+        "value": false
+      },
+      "humidity": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": null,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+        "unit": "%RH",
+        "value": 55
+      },
+      "leak": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+        "unit": "normalized boolean",
+        "value": false
+      },
+      "water_level": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:12.300000+00:00",
+        "unit": "normalized boolean",
+        "value": true
+      },
+      "water_temperature": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Not installed",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "°C",
+        "value": null
+      }
+    },
+    "state_revision": 37,
+    "system_state": "NORMAL"
+  }
+}

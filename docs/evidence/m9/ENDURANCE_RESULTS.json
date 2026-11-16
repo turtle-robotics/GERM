@@ -1,0 +1,977 @@
+{
+  "status": "PASS",
+  "scope": "synthetic accelerated host only",
+  "simulated_hours": 72,
+  "simulated_seconds": 259200,
+  "commit": "8c45f0d6736a5294067c9441b29c25e9e5a2532d",
+  "real_elapsed_seconds": 240.93237829999998,
+  "schedule_tick_seconds": 3600,
+  "synthetic_input_tick_seconds": 1,
+  "sensor_record_interval_seconds": 300,
+  "physical_endurance_accepted": false,
+  "real_72_hour_runtime": false,
+  "counts": {
+    "images": 72,
+    "ml_inferences": 72,
+    "sensor_readings": 891,
+    "system_events": 452,
+    "actuator_events": 88,
+    "schedule_runs": 79
+  },
+  "checkpoints": [
+    {
+      "hour": 1,
+      "images": 1,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 2,
+      "images": 2,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 3,
+      "images": 3,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 4,
+      "images": 4,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 5,
+      "images": 5,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 6,
+      "images": 6,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 7,
+      "images": 7,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 8,
+      "images": 8,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 9,
+      "images": 9,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 10,
+      "images": 10,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 11,
+      "images": 11,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 12,
+      "images": 12,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 13,
+      "images": 13,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 14,
+      "images": 14,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 15,
+      "images": 15,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 16,
+      "images": 16,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 17,
+      "images": 17,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 18,
+      "images": 18,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 19,
+      "images": 19,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 20,
+      "images": 20,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 21,
+      "images": 21,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 22,
+      "images": 22,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 23,
+      "images": 23,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 24,
+      "images": 24,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 25,
+      "images": 25,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 26,
+      "images": 26,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 27,
+      "images": 27,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 28,
+      "images": 28,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 29,
+      "images": 29,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 30,
+      "images": 30,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 31,
+      "images": 31,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 32,
+      "images": 32,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 33,
+      "images": 33,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 34,
+      "images": 34,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 35,
+      "images": 35,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 36,
+      "images": 36,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 37,
+      "images": 37,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 38,
+      "images": 38,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 39,
+      "images": 39,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 40,
+      "images": 40,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 41,
+      "images": 41,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 42,
+      "images": 42,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 43,
+      "images": 43,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 44,
+      "images": 44,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 45,
+      "images": 45,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 46,
+      "images": 46,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 47,
+      "images": 47,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 48,
+      "images": 48,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 49,
+      "images": 49,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 50,
+      "images": 50,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 51,
+      "images": 51,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 52,
+      "images": 52,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 53,
+      "images": 53,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 54,
+      "images": 54,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 55,
+      "images": 55,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 56,
+      "images": 56,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 57,
+      "images": 57,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 58,
+      "images": 58,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 59,
+      "images": 59,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 60,
+      "images": 60,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 61,
+      "images": 61,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 62,
+      "images": 62,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 63,
+      "images": 63,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 64,
+      "images": 64,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 65,
+      "images": 65,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 66,
+      "images": 66,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 67,
+      "images": 67,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 68,
+      "images": 68,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 69,
+      "images": 69,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 70,
+      "images": 70,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 71,
+      "images": 71,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    },
+    {
+      "hour": 72,
+      "images": 72,
+      "armed": true,
+      "integrity": "ok",
+      "logging": "durable"
+    }
+  ],
+  "artifacts": [
+    {
+      "request_id": "23c04d69-04ec-45da-8557-473c6869096b",
+      "kind": "export",
+      "sha256": "552515df7575909e785937882cf7f1fb76e6c75aee8cb66caa8146be3dcb30a2",
+      "size_bytes": 1457073
+    },
+    {
+      "request_id": "65afc07c-a6cd-42fa-98cb-fefca2e58f65",
+      "kind": "backup",
+      "sha256": "447b1b3d60dfcf6a5e9eb9fa044604cb139bb1889bce4c60de38eb8b59250ca1",
+      "size_bytes": 1229897
+    },
+    {
+      "request_id": "6e3893a2-778c-4fd7-8c3d-3847f1c96f23",
+      "kind": "isolated_restore",
+      "database_verified": true
+    },
+    {
+      "request_id": "66889cfe-08f0-45f8-b499-2a0e40f014b4",
+      "kind": "export",
+      "sha256": "eb49c873cfe4ae4276799111ef7a2dce3acc6b6db9c38a1df4718fd54c02fbd2",
+      "size_bytes": 2690409
+    },
+    {
+      "request_id": "93df233c-0a8c-441d-8abe-88774c06640c",
+      "kind": "backup",
+      "sha256": "48eba0c6df996cf22ab8c9192b3c9234650f5b8f4bc2189c7b0414e110f5bd78",
+      "size_bytes": 2089197
+    },
+    {
+      "request_id": "de77b769-1a1e-4ebb-a95e-8d4eb698a245",
+      "kind": "isolated_restore",
+      "database_verified": true
+    }
+  ],
+  "file_count": 240,
+  "logical_bytes": 27837074,
+  "artifact_limit_bytes": 67108864,
+  "gateway_dispatches": [
+    {
+      "command": "STOP",
+      "gateway_dispatch": true,
+      "synthetic_second": 0.30000000000000004
+    },
+    {
+      "command": "LED:1,2,3,0",
+      "gateway_dispatch": true,
+      "synthetic_second": 3600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 3600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 7200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 10800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 14400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 18000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 21600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 25200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 28800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 32400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 36000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 39600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 43200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 46800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 50400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 54000.3
+    },
+    {
+      "command": "LED_OFF",
+      "gateway_dispatch": true,
+      "synthetic_second": 57600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 57600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 61200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 64800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 68400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 72000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 75600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 79200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 82800.3
+    },
+    {
+      "command": "LED:1,2,3,0",
+      "gateway_dispatch": true,
+      "synthetic_second": 86400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 86400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 90000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 93600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 97200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 100800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 104400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 108000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 111600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 115200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 118800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 122400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 126000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 129600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 133200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 136800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 140400.3
+    },
+    {
+      "command": "LED_OFF",
+      "gateway_dispatch": true,
+      "synthetic_second": 144000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 144000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 147600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 151200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 154800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 158400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 162000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 165600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 169200.3
+    },
+    {
+      "command": "LED:1,2,3,0",
+      "gateway_dispatch": true,
+      "synthetic_second": 172800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 172800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 176400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 180000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 183600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 187200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 190800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 194400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 198000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 201600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 205200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 208800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 212400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 216000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 219600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 223200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 226800.3
+    },
+    {
+      "command": "LED_OFF",
+      "gateway_dispatch": true,
+      "synthetic_second": 230400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 230400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 234000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 237600.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 241200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 244800.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 248400.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 252000.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 255600.3
+    },
+    {
+      "command": "LED:1,2,3,0",
+      "gateway_dispatch": true,
+      "synthetic_second": 259200.3
+    },
+    {
+      "command": "PUMP_5S",
+      "gateway_dispatch": true,
+      "synthetic_second": 259200.3
+    }
+  ],
+  "status_polls": 259200,
+  "synthetic_sensor_records": 864,
+  "missing_synthetic_records": 0,
+  "retention_deletion": false,
+  "limitations": [
+    "Hourly synthetic pump/light schedule; not agronomic settings",
+    "Batched sensor fixtures; not real sensor cadence",
+    "Fault/restart campaigns are separate from uninterrupted synthetic run"
+  ]
+}

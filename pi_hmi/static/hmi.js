@@ -3,6 +3,7 @@ const page = document.body.dataset.page;
 const byId = id => document.getElementById(id);
 const setText = (id, text) => { const node = byId(id); if (node) node.textContent = text; };
 let latestState = null;
+let statePollRevision = 0;
 let latestGrow = null;
 let scheduleEditorCycle = null;
 let latestMedia = null;
@@ -144,11 +145,15 @@ function renderState(data) {
 }
 
 async function pollState() {
+  const pollRevision = ++statePollRevision;
   try {
     const response = await fetch('/api/state', {cache:'no-store'});
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    renderState(await response.json());
+    const data = await response.json();
+    if (pollRevision !== statePollRevision) return;
+    renderState(data);
   } catch (error) {
+    if (pollRevision !== statePollRevision) return;
     latestState=null;
     if(camera)camera.hidden=true;
     const state = byId('system-state');
@@ -487,7 +492,8 @@ document.querySelectorAll('[data-workflow]').forEach(button => button.onclick = 
     if (!preparedResponse.ok) throw Error(prepared.error || 'Workflow inhibited');
     if (prepared.confirmation_id && !confirm(prepared.description + '\nState changes revoke this confirmation. Physical outcomes remain unverified.')) return;
     const response = await fetch('/api/workflow', {method:'POST', headers,
-      body:JSON.stringify({action, payload, confirmation_id:prepared.confirmation_id, expected_state_revision:prepared.state_revision})});
+      body:JSON.stringify({action, payload, confirmation_id:prepared.confirmation_id,
+        expected_state_revision:action==='pause' && !prepared.confirmation_id ? undefined : prepared.state_revision})});
     const result = await response.json();
     if (!response.ok) throw Error(result.error || result.reason_codes?.join(', ') || 'Workflow failed');
     setText('command-feedback', 'Workflow accepted · trace event queued until committed · physical state unverified');

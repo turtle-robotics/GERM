@@ -1,5 +1,7 @@
 # GERM implementation evidence index
 
+M9: [acceptance/endurance/hardening campaign](m9/README.md), [M8 accepted verdict](../phase0/M8_REVIEW_VERDICT.md), [all six objectives/40 provisional SRs](../phase0/M9_ACCEPTANCE_MATRIX.md). Physical/production acceptance remains open; previous evidence below is historical and preserved.
+
 M8: [offline host/usability campaign](m8/README.md), under [M7 acceptance and M8 authorization](../phase0/M7_REVIEW_VERDICT.md). Earlier M7/M6/M5 evidence is preserved as historical review evidence. No physical, security or deployment acceptance is implied.
 
 Current M5: [capture/local-ML evidence](m5/README.md), [implementation/traceability](../phase0/M5_IMPLEMENTATION.md), [dependency register](../phase0/M5_DEPENDENCIES.md). Synthetic host milestone only; all earlier PRs remain unmerged and M6 is not started.

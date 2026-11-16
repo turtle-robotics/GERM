@@ -130,7 +130,13 @@ class HostLifecycle:
             self.repo._rows('SELECT version FROM migration_history ORDER BY version DESC LIMIT 1')
             if self.repo.status!='ready':raise OSError('Repository remains in error; explicit recovery required')
             stage='logging'
-            if not self.grow.persistence.tick():raise OSError('Logging/restart persistence unavailable')
+            previous=self.grow.persistence.last_tick_evidence
+            durable=self.grow.persistence.tick()
+            evidence=self.grow.persistence.last_tick_evidence
+            pending=(not durable and evidence is not previous and evidence==dict(restart_durable=True,logging_durable=False,
+                     logging_state='pending',logging_error=None,repository_state='ready'))
+            if not durable and not pending:raise OSError('Logging/restart persistence unavailable')
+            self._component('logging','queued' if pending else 'ready')
             stage='sensors'
             if self.sensor_provider:self.sensor_provider(self.gateway)
             readings=self.gateway.state.validator.snapshot()
@@ -138,7 +144,7 @@ class HostLifecycle:
             stage='gateway'
             if not self.gateway.poll_status():raise OSError('Synthetic gateway status unavailable')
             stage='restart_grow'
-            if self.grow.armed and not self.gateway.state.restart_required:self.grow.scheduler_tick()
+            if not pending and self.grow.armed and not self.gateway.state.restart_required:self.grow.scheduler_tick()
             stage='camera_ml'
             self.media.captures.scheduler_tick();self.media.captures.flush_outbox(self.gateway.event_pipeline)
             self.heartbeat=time.monotonic();self._component('worker','running' if self.background else 'manual_test_only')

@@ -1,0 +1,955 @@
+{
+  "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#grow-summary').filter({ hasText: 'paused' }) to be visible\u001b[22m\n",
+  "growText": "Grow repository error",
+  "trace": [
+    {
+      "t": 80,
+      "kind": "request",
+      "id": 1,
+      "url": "/api/state"
+    },
+    {
+      "t": 80.39999997615814,
+      "kind": "request",
+      "id": 2,
+      "url": "/api/captures"
+    },
+    {
+      "t": 81.7999999821186,
+      "kind": "request",
+      "id": 3,
+      "url": "/api/services"
+    },
+    {
+      "t": 219.69999998807907,
+      "kind": "response",
+      "id": 3,
+      "status": 200
+    },
+    {
+      "t": 223,
+      "kind": "response",
+      "id": 2,
+      "status": 200
+    },
+    {
+      "t": 759.0999999940395,
+      "kind": "response",
+      "id": 1,
+      "status": 200
+    },
+    {
+      "t": 760.8999999761581,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 2082.0999999940395,
+      "kind": "request",
+      "id": 4,
+      "url": "/api/state"
+    },
+    {
+      "t": 2082.5,
+      "kind": "request",
+      "id": 5,
+      "url": "/api/services"
+    },
+    {
+      "t": 2095.5999999940395,
+      "kind": "response",
+      "id": 5,
+      "status": 200
+    },
+    {
+      "t": 2159.7999999821186,
+      "kind": "response",
+      "id": 4,
+      "status": 200
+    },
+    {
+      "t": 2161.199999988079,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 4088.7999999821186,
+      "kind": "request",
+      "id": 6,
+      "url": "/api/state"
+    },
+    {
+      "t": 4089.5,
+      "kind": "request",
+      "id": 7,
+      "url": "/api/services"
+    },
+    {
+      "t": 4104.199999988079,
+      "kind": "response",
+      "id": 7,
+      "status": 200
+    },
+    {
+      "t": 4173.5999999940395,
+      "kind": "response",
+      "id": 6,
+      "status": 200
+    },
+    {
+      "t": 4175.399999976158,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 6090,
+      "kind": "request",
+      "id": 8,
+      "url": "/api/state"
+    },
+    {
+      "t": 6090.899999976158,
+      "kind": "request",
+      "id": 9,
+      "url": "/api/services"
+    },
+    {
+      "t": 6105,
+      "kind": "response",
+      "id": 9,
+      "status": 200
+    },
+    {
+      "t": 6181.199999988079,
+      "kind": "response",
+      "id": 8,
+      "status": 200
+    },
+    {
+      "t": 6182.799999982119,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 8080.899999976158,
+      "kind": "request",
+      "id": 10,
+      "url": "/api/state"
+    },
+    {
+      "t": 8089.799999982119,
+      "kind": "request",
+      "id": 11,
+      "url": "/api/services"
+    },
+    {
+      "t": 8099.699999988079,
+      "kind": "response",
+      "id": 11,
+      "status": 200
+    },
+    {
+      "t": 8161.399999976158,
+      "kind": "response",
+      "id": 10,
+      "status": 200
+    },
+    {
+      "t": 8162.5,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 10090.399999976158,
+      "kind": "request",
+      "id": 12,
+      "url": "/api/state"
+    },
+    {
+      "t": 10091.199999988079,
+      "kind": "request",
+      "id": 13,
+      "url": "/api/services"
+    },
+    {
+      "t": 10104.399999976158,
+      "kind": "response",
+      "id": 13,
+      "status": 200
+    },
+    {
+      "t": 10174.799999982119,
+      "kind": "response",
+      "id": 12,
+      "status": 200
+    },
+    {
+      "t": 10176,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 12083.799999982119,
+      "kind": "request",
+      "id": 14,
+      "url": "/api/state"
+    },
+    {
+      "t": 12084.299999982119,
+      "kind": "request",
+      "id": 15,
+      "url": "/api/services"
+    },
+    {
+      "t": 12102.59999999404,
+      "kind": "response",
+      "id": 15,
+      "status": 200
+    },
+    {
+      "t": 12158.199999988079,
+      "kind": "response",
+      "id": 14,
+      "status": 200
+    },
+    {
+      "t": 12159.199999988079,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 14090.699999988079,
+      "kind": "request",
+      "id": 16,
+      "url": "/api/state"
+    },
+    {
+      "t": 14091.399999976158,
+      "kind": "request",
+      "id": 17,
+      "url": "/api/services"
+    },
+    {
+      "t": 14108.59999999404,
+      "kind": "response",
+      "id": 17,
+      "status": 200
+    },
+    {
+      "t": 14211.799999982119,
+      "kind": "response",
+      "id": 16,
+      "status": 200
+    },
+    {
+      "t": 14212.699999988079,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 16085.699999988079,
+      "kind": "request",
+      "id": 18,
+      "url": "/api/state"
+    },
+    {
+      "t": 16086.09999999404,
+      "kind": "request",
+      "id": 19,
+      "url": "/api/services"
+    },
+    {
+      "t": 16098.09999999404,
+      "kind": "response",
+      "id": 19,
+      "status": 200
+    },
+    {
+      "t": 16196.399999976158,
+      "kind": "response",
+      "id": 18,
+      "status": 200
+    },
+    {
+      "t": 16197.399999976158,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 18087.09999999404,
+      "kind": "request",
+      "id": 20,
+      "url": "/api/state"
+    },
+    {
+      "t": 18087.5,
+      "kind": "request",
+      "id": 21,
+      "url": "/api/services"
+    },
+    {
+      "t": 18132.09999999404,
+      "kind": "response",
+      "id": 21,
+      "status": 200
+    },
+    {
+      "t": 18213,
+      "kind": "response",
+      "id": 20,
+      "status": 200
+    },
+    {
+      "t": 18214.29999998212,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 20094.79999998212,
+      "kind": "request",
+      "id": 22,
+      "url": "/api/state"
+    },
+    {
+      "t": 20095.29999998212,
+      "kind": "request",
+      "id": 23,
+      "url": "/api/services"
+    },
+    {
+      "t": 20109.09999999404,
+      "kind": "response",
+      "id": 23,
+      "status": 200
+    },
+    {
+      "t": 20168.899999976158,
+      "kind": "response",
+      "id": 22,
+      "status": 200
+    },
+    {
+      "t": 20169.79999998212,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 22086.69999998808,
+      "kind": "request",
+      "id": 24,
+      "url": "/api/state"
+    },
+    {
+      "t": 22087.29999998212,
+      "kind": "request",
+      "id": 25,
+      "url": "/api/services"
+    },
+    {
+      "t": 22100.79999998212,
+      "kind": "response",
+      "id": 25,
+      "status": 200
+    },
+    {
+      "t": 22157.19999998808,
+      "kind": "response",
+      "id": 24,
+      "status": 200
+    },
+    {
+      "t": 22158.29999998212,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 24096.19999998808,
+      "kind": "request",
+      "id": 26,
+      "url": "/api/state"
+    },
+    {
+      "t": 24096.79999998212,
+      "kind": "request",
+      "id": 27,
+      "url": "/api/services"
+    },
+    {
+      "t": 24110.899999976158,
+      "kind": "response",
+      "id": 27,
+      "status": 200
+    },
+    {
+      "t": 24195.69999998808,
+      "kind": "response",
+      "id": 26,
+      "status": 200
+    },
+    {
+      "t": 24196.79999998212,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 26088.79999998212,
+      "kind": "request",
+      "id": 28,
+      "url": "/api/state"
+    },
+    {
+      "t": 26089.69999998808,
+      "kind": "request",
+      "id": 29,
+      "url": "/api/services"
+    },
+    {
+      "t": 26102.09999999404,
+      "kind": "response",
+      "id": 29,
+      "status": 200
+    },
+    {
+      "t": 26173.399999976158,
+      "kind": "response",
+      "id": 28,
+      "status": 200
+    },
+    {
+      "t": 26174.399999976158,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 28087.29999998212,
+      "kind": "request",
+      "id": 30,
+      "url": "/api/state"
+    },
+    {
+      "t": 28088.69999998808,
+      "kind": "request",
+      "id": 31,
+      "url": "/api/services"
+    },
+    {
+      "t": 28112,
+      "kind": "response",
+      "id": 31,
+      "status": 200
+    },
+    {
+      "t": 28171.79999998212,
+      "kind": "response",
+      "id": 30,
+      "status": 200
+    },
+    {
+      "t": 28172.79999998212,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 30084.5,
+      "kind": "request",
+      "id": 32,
+      "url": "/api/state"
+    },
+    {
+      "t": 30085.09999999404,
+      "kind": "request",
+      "id": 33,
+      "url": "/api/services"
+    },
+    {
+      "t": 30100.79999998212,
+      "kind": "response",
+      "id": 33,
+      "status": 200
+    }
+  ],
+  "state": {
+    "actuators": {
+      "fan": {
+        "last_request": null,
+        "mode": null,
+        "physically_verified": false,
+        "reported_state": false,
+        "speed": 0,
+        "state": "reported"
+      },
+      "lighting": {
+        "last_request": null,
+        "mode": "normal",
+        "physically_verified": false,
+        "reported_state": [
+          0,
+          0,
+          0
+        ],
+        "speed": null,
+        "state": "reported"
+      },
+      "pump": {
+        "last_request": null,
+        "mode": null,
+        "physically_verified": false,
+        "reported_state": false,
+        "speed": null,
+        "state": "reported"
+      }
+    },
+    "alerts": {
+      "active": null,
+      "highest": null,
+      "state": "error"
+    },
+    "arduino": {
+      "packet": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Arduino A0",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "raw",
+        "value": null
+      },
+      "state": "connected"
+    },
+    "camera": {
+      "age_seconds": 0,
+      "error": null,
+      "physically_verified": false,
+      "source": "synthetic",
+      "state": "ready",
+      "timestamp_utc": "2026-11-15T00:00:02.100000+00:00"
+    },
+    "control_boundary": {
+      "enabled": true,
+      "state": "simulation"
+    },
+    "data_scope": "simulation",
+    "database": {
+      "state": "error"
+    },
+    "estop": "clear",
+    "grow": {
+      "configuration_notice": "Basil and spearmint timings await review; entered schedules are host simulation settings",
+      "cycle": {
+        "created_at_utc": "2026-11-15T00:00:00.100000+00:00",
+        "cycle_id": "54a2d2cb-b282-4f9d-bb0a-71131a1a68a6",
+        "ended_at_utc": null,
+        "experiment_id": 1,
+        "generation": 6,
+        "profile_id": "basil",
+        "profile_snapshot_json": "{\"approval_status\":\"timings_unapproved\",\"definition\":{\"scope\":\"host-only\",\"timings\":null},\"name\":\"Basil\",\"profile_id\":\"basil\",\"version\":1}",
+        "started_at_utc": "2026-11-15T00:00:01.900000+00:00",
+        "status": "paused"
+      },
+      "grow_day": 1,
+      "last_command_event": "queued",
+      "last_maintenance": null,
+      "logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:02.100000+00:00",
+        "last_durable_event_id": "6aa6de6c-2ed6-4dd8-8444-0ce47827da82",
+        "last_error": null,
+        "pending": 7,
+        "poison_events": 0,
+        "state": "pending"
+      },
+      "profiles": [
+        {
+          "approval_status": "timings_unapproved",
+          "definition": {
+            "scope": "host-only",
+            "timings": null
+          },
+          "name": "Basil",
+          "profile_id": "basil",
+          "version": 1
+        },
+        {
+          "approval_status": "timings_unapproved",
+          "definition": {
+            "scope": "host-only",
+            "timings": null
+          },
+          "name": "Spearmint",
+          "profile_id": "spearmint",
+          "version": 1
+        }
+      ],
+      "recent_runs": [],
+      "schedules": [
+        {
+          "cycle_id": "54a2d2cb-b282-4f9d-bb0a-71131a1a68a6",
+          "definition": {
+            "enabled": true,
+            "end_utc": "23:59",
+            "rgb": [
+              1,
+              2,
+              3
+            ],
+            "start_utc": "00:00",
+            "target": "lighting"
+          },
+          "schedule_id": "16b30b03-b1aa-4670-9a41-bc8759118df4",
+          "target": "lighting"
+        }
+      ],
+      "schedules_armed": false,
+      "scope": "host simulation only",
+      "state": "error"
+    },
+    "inhibits": [
+      "grow_storage_unavailable",
+      "host_service_unavailable",
+      "restart_required",
+      "startup_incomplete"
+    ],
+    "maintenance_banner": null,
+    "media": {
+      "camera": {
+        "age_seconds": 0,
+        "error": null,
+        "physically_verified": false,
+        "source": "synthetic",
+        "state": "ready",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00"
+      },
+      "capture_error": null,
+      "database_state": "error",
+      "event_logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:02.100000+00:00",
+        "last_durable_event_id": "6aa6de6c-2ed6-4dd8-8444-0ce47827da82",
+        "last_error": null,
+        "pending": 7,
+        "poison_events": 0,
+        "state": "pending"
+      },
+      "experiment_id": 1,
+      "ml": {
+        "error": null,
+        "latest_result": null,
+        "model": null,
+        "state": "not_configured"
+      },
+      "plants": [],
+      "recent": [],
+      "recovery": {
+        "indexed": [],
+        "interrupted": [],
+        "journal_remaining": 0,
+        "journal_scan_truncated": false,
+        "needs_review": [],
+        "orphaned_files": [],
+        "scan_truncated": false
+      },
+      "requests": [],
+      "schedule": null,
+      "scheduling": {
+        "clock_fault": false,
+        "error": "host_service_unavailable",
+        "high_water_utc": null,
+        "inhibited": true,
+        "operator_recovery_required": true,
+        "resume_not_before_utc": null,
+        "state": "host_inhibited"
+      },
+      "server_time_utc": "2026-11-15T00:00:02.100000+00:00",
+      "source": "synthetic"
+    },
+    "ml": {
+      "latest_result": null,
+      "model": null,
+      "state": "not_configured"
+    },
+    "operating_state": {
+      "controller_connected": true,
+      "controller_feedback": {
+        "a0": null,
+        "fan": false,
+        "fan_pwm": true,
+        "fan_speed": 0,
+        "id": 1,
+        "lighting_mode": "normal",
+        "protocol": 2,
+        "pump": false,
+        "rgb": [
+          0,
+          0,
+          0
+        ],
+        "white_channel": false
+      },
+      "estop": "clear",
+      "inhibits": [
+        "grow_storage_unavailable",
+        "host_service_unavailable",
+        "restart_required",
+        "startup_incomplete"
+      ],
+      "last_command": {
+        "accepted": true,
+        "accepted_at_utc": "2026-11-15T00:00:02.100000+00:00",
+        "acknowledged_at_utc": "2026-11-15T00:00:02.100000+00:00",
+        "action": "stop",
+        "allowed": true,
+        "error": null,
+        "event_id": "285f7130-a11a-4058-9995-d7996a0736db",
+        "firmware_confirmed": true,
+        "http_status": 200,
+        "inhibits": [
+          "grow_storage_unavailable",
+          "host_service_unavailable",
+          "restart_required",
+          "startup_incomplete"
+        ],
+        "logged": false,
+        "logging_status": "buffered_not_durable",
+        "physically_verified": false,
+        "reason_codes": [],
+        "reported_state": {
+          "a0": null,
+          "fan": false,
+          "fan_pwm": true,
+          "fan_speed": 0,
+          "id": 1,
+          "lighting_mode": "normal",
+          "protocol": 2,
+          "pump": false,
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "white_channel": false
+        },
+        "request_id": "9b4e0afd-9431-41b9-8fc2-1bd85ebcf1ef",
+        "requested_state": "off",
+        "source": "safety",
+        "state_revision": 42,
+        "status": "confirmed",
+        "target": "all",
+        "verified": false
+      },
+      "logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:02.100000+00:00",
+        "last_durable_event_id": "6aa6de6c-2ed6-4dd8-8444-0ce47827da82",
+        "last_error": null,
+        "pending": 7,
+        "poison_events": 0,
+        "state": "pending"
+      },
+      "maintenance": false,
+      "maintenance_banner": null,
+      "persistence": {
+        "restart_recovery_verified": true,
+        "state": "ready"
+      },
+      "profile": "basil",
+      "requested_states": {
+        "fan": null,
+        "lighting": null,
+        "pump": null
+      },
+      "restart_required": true,
+      "sensors": {
+        "air_temperature": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": null,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+          "unit": "degC",
+          "value": 24
+        },
+        "door": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+          "unit": "normalized boolean",
+          "value": true
+        },
+        "estop": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+          "unit": "normalized boolean",
+          "value": false
+        },
+        "humidity": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": null,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+          "unit": "%RH",
+          "value": 55
+        },
+        "leak": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+          "unit": "normalized boolean",
+          "value": false
+        },
+        "water_level": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+          "unit": "normalized boolean",
+          "value": true
+        }
+      },
+      "state_revision": 42,
+      "system_state": "STARTUP CHECK"
+    },
+    "sensors": {
+      "air_temperature": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": null,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+        "unit": "degC",
+        "value": 24
+      },
+      "arduino_a0": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Arduino A0",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "raw",
+        "value": null
+      },
+      "door": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+        "unit": "normalized boolean",
+        "value": true
+      },
+      "electronics_temperature": {
+        "age_seconds": null,
+        "fault_reason": "interface_unconfigured",
+        "quality_flag": "missing",
+        "source": "No validated input",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "degC",
+        "value": null
+      },
+      "estop": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+        "unit": "normalized boolean",
+        "value": false
+      },
+      "humidity": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": null,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+        "unit": "%RH",
+        "value": 55
+      },
+      "leak": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+        "unit": "normalized boolean",
+        "value": false
+      },
+      "water_level": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.100000+00:00",
+        "unit": "normalized boolean",
+        "value": true
+      },
+      "water_temperature": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Not installed",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "°C",
+        "value": null
+      }
+    },
+    "state_revision": 42,
+    "system_state": "STARTUP CHECK"
+  }
+}

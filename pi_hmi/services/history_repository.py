@@ -7,12 +7,23 @@ import hmac
 import json
 import secrets
 import sqlite3
+from functools import lru_cache
 from services.sqlite_repository import canonical,utc,bounded
 
 
 def time_key(value):
+    if not isinstance(value,str):return None
+    return _cached_time_key(value) if len(value)<=40 else _normalize_time_key(value)
+
+
+def _normalize_time_key(value):
     try:return datetime.fromisoformat(utc(value)).isoformat(timespec='microseconds')
     except (ValueError,TypeError):return None
+
+
+# SQLite evaluates the deterministic function repeatedly for sorting/keysets.
+# Cap both entry count and cached input length; no timestamp semantics change.
+_cached_time_key=lru_cache(maxsize=4096)(_normalize_time_key)
 
 
 # table, stable identity, time, type column, joined projection; LEFT JOIN retains legacy rows.

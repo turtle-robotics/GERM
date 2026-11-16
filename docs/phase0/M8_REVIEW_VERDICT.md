@@ -1,0 +1,7 @@
+# M8 review — accepted with restrictions
+
+Recorded 2026-11-16 (America/Chicago). The user accepted PR #13 at `e1511c1fa39a155801e5c1855872747c9b78c8f8`: **ACCEPTED WITH RESTRICTIONS — HOST-ONLY** for Tasks 125/132. [Evidence](../evidence/m8/README.md), tested implementation `1ab1acdd54fe9bb753e0382fce264ff376c98ce2`, final [PR CI](https://github.com/turtle-robotics/GERM/actions/runs/43905744441) and [push CI](https://github.com/turtle-robotics/GERM/actions/runs/43905725311). Earlier intermittent paused-summary browser wait timeouts remain unresolved; passing later runs did not establish their cause.
+
+M9 Tasks 126/133/127/134/135 acceptance, endurance and hardening are authorized only for synthetic host development on `codex/m9-acceptance-hardening`, directly above this reviewed head, with a separate PR. Preserve the entire unmerged #5–#13 → M9 stack, M1 gateway, accepted contracts, original 15 hashes and existing untracked work. Return for M9 review; no physical or production readiness follows from host tests.
+
+Keep provisional requirements provisional and retain electrical/polarity/sensor/crop, real camera/model, authentication/network/security, controlled requirements release, retention, target endurance/power-loss/performance and human usability gates. No hardware, firmware, Pi deployment/system-service installation, real camera/model downloads, production POST enablement/new network exposure, historical deletion/retention automation, merges or Gantt updates.

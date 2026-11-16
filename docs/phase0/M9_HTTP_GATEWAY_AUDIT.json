@@ -1,0 +1,398 @@
+{
+  "scope": "host source/route inventory, not penetration or physical safety certification",
+  "routes": [
+    {
+      "path": "/",
+      "method": "GET",
+      "endpoint": "index",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/alerts",
+      "method": "GET",
+      "endpoint": "dashboard.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/alerts",
+      "method": "GET",
+      "endpoint": "dashboard.alerts",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/alerts/<int:alert_id>/ack",
+      "method": "POST",
+      "endpoint": "dashboard.acknowledge_alert",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/camera/capture",
+      "method": "POST",
+      "endpoint": "dashboard.manual_capture",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/camera/schedule",
+      "method": "POST",
+      "endpoint": "media_operation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/captures",
+      "method": "GET",
+      "endpoint": "dashboard.captures",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/confirmations",
+      "method": "POST",
+      "endpoint": "confirmation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/experiments",
+      "method": "GET",
+      "endpoint": "dashboard.experiments",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/exports",
+      "method": "POST",
+      "endpoint": "history.export_start",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/exports/<request_id>",
+      "method": "GET",
+      "endpoint": "history.export_status",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/exports/<request_id>/download",
+      "method": "GET",
+      "endpoint": "history.export_download",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/exports/<request_id>/retry",
+      "method": "POST",
+      "endpoint": "history.export_retry",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/fan",
+      "method": "POST",
+      "endpoint": "fan_control",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/fan/speed",
+      "method": "POST",
+      "endpoint": "fan_speed",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/firmware",
+      "method": "POST",
+      "endpoint": "firmware.upload",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/grow",
+      "method": "GET",
+      "endpoint": "grow_snapshot",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/grow/cycles",
+      "method": "POST",
+      "endpoint": "grow_mutation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/grow/recover",
+      "method": "POST",
+      "endpoint": "grow_mutation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/grow/schedules",
+      "method": "POST",
+      "endpoint": "grow_mutation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/history/<resource>",
+      "method": "GET",
+      "endpoint": "history.history_page",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/history/images/<int:image_id>/file",
+      "method": "GET",
+      "endpoint": "history.history_image",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/led",
+      "method": "POST",
+      "endpoint": "led_control",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/media",
+      "method": "GET",
+      "endpoint": "media_snapshot",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/media/recover",
+      "method": "POST",
+      "endpoint": "media_operation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/ml/analyze",
+      "method": "POST",
+      "endpoint": "media_operation",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/pump",
+      "method": "POST",
+      "endpoint": "pump_control",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/services",
+      "method": "GET",
+      "endpoint": "lifecycle.services_status",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/services/recover",
+      "method": "POST",
+      "endpoint": "lifecycle.services_recover",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/state",
+      "method": "GET",
+      "endpoint": "dashboard.state",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/storage",
+      "method": "GET",
+      "endpoint": "storage.storage_inventory",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/storage/jobs",
+      "method": "POST",
+      "endpoint": "storage.storage_start",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/storage/jobs/<request_id>",
+      "method": "GET",
+      "endpoint": "storage.storage_status",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/storage/jobs/<request_id>/download",
+      "method": "GET",
+      "endpoint": "storage.storage_download",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/storage/jobs/<request_id>/retry",
+      "method": "POST",
+      "endpoint": "storage.storage_retry",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/trends",
+      "method": "GET",
+      "endpoint": "dashboard.trends",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/api/workflow",
+      "method": "POST",
+      "endpoint": "workflow",
+      "boundary": "global restricted POST + endpoint validation; production denied",
+      "production_access_approved": false
+    },
+    {
+      "path": "/camera.jpg",
+      "method": "GET",
+      "endpoint": "camera_snapshot",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/captures/<path:relative_path>",
+      "method": "GET",
+      "endpoint": "dashboard.captured_image",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/controls",
+      "method": "GET",
+      "endpoint": "dashboard.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/fan",
+      "method": "GET",
+      "endpoint": "legacy_controls",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/firmware",
+      "method": "GET",
+      "endpoint": "firmware.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/led",
+      "method": "GET",
+      "endpoint": "legacy_controls",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/maintenance",
+      "method": "GET",
+      "endpoint": "dashboard.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/plant",
+      "method": "GET",
+      "endpoint": "dashboard.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/pump",
+      "method": "GET",
+      "endpoint": "legacy_controls",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/sensor",
+      "method": "GET",
+      "endpoint": "sensor",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/settings",
+      "method": "GET",
+      "endpoint": "dashboard.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/static/<path:filename>",
+      "method": "GET",
+      "endpoint": "static",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/trends",
+      "method": "GET",
+      "endpoint": "dashboard.screen",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    },
+    {
+      "path": "/video_feed",
+      "method": "GET",
+      "endpoint": "video_feed",
+      "boundary": "no identity authentication; read privacy gate unresolved",
+      "production_access_approved": false
+    }
+  ],
+  "low_level_call_sites": [
+    {
+      "path": "pi_hmi/arduino_serial.py",
+      "line": 94,
+      "call": "ser.write"
+    },
+    {
+      "path": "pi_hmi/services/command_service.py",
+      "line": 348,
+      "call": "self.adapter.send"
+    },
+    {
+      "path": "pi_hmi/services/command_service.py",
+      "line": 383,
+      "call": "self.adapter.firmware_update"
+    },
+    {
+      "path": "pi_hmi/services/control_runtime.py",
+      "line": 22,
+      "call": "arduino_serial._exchange"
+    }
+  ],
+  "unchanged_gateway_source_sha256": {
+    "pi_hmi/services/command_service.py": "4e6fb6d1e6e4d79d41508004ec68879986b2e36e1f8d46078adf16ae37339f0e",
+    "pi_hmi/services/state_service.py": "9d4ff44a7351b77d071b57b24d83316a6c66d0f6e5732731ccf1bee02816a779",
+    "pi_hmi/services/control_runtime.py": "5d815e2112fedbec2e581467cd9ad506c5883809dbddd51f10d94ba2db69301f",
+    "pi_hmi/arduino_serial.py": "26eb34fbd0edd8f01c921513fec2ce37538ac8f29254f71c2f29e7e4b8723c3c",
+    "pi_hmi/firmware_service.py": "e4d20cda14b753fb139dbc96342f6c565348f554cc69dbc7627a38204d7bde0a"
+  },
+  "gaps": [
+    "Anonymous HTTP reads/downloads",
+    "No production authentication/roles/Origin/Host policy",
+    "No global HTTP rate/concurrency limit",
+    "Trusted Python/filesystem not sandboxed",
+    "Physical safety and target resource limits unverified"
+  ]
+}

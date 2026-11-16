@@ -8,7 +8,7 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
   fs.mkdirSync(output,{recursive:true});
   const child=spawn(process.env.GERM_TEST_PYTHON || 'python',[path.join(__dirname,'browser_m4_host.py')],
     {cwd:root,env:{...process.env,PYTHONUTF8:'1',PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});
-  let browser,logs='';child.stderr.on('data',chunk=>logs+=chunk);
+  let browser,page,logs='';child.stderr.on('data',chunk=>logs+=chunk);
   try {
     const port=await new Promise((resolve,reject)=>{
       let text='';const timer=setTimeout(()=>reject(Error('Host startup timeout '+logs)),15000);
@@ -16,7 +16,7 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
       child.stdout.on('data',chunk=>{text+=chunk;if(text.includes('\n')){clearTimeout(timer);resolve(JSON.parse(text.split('\n')[0]).port);}});
     });
     browser=await chromium.launch({headless:true,executablePath:process.env.GERM_TEST_BROWSER || undefined});
-    const page=await browser.newPage({viewport:{width:739,height:447}}),errors=[];
+    page=await browser.newPage({viewport:{width:739,height:447}});const errors=[];
     page.on('pageerror',error=>errors.push(error.message));const base='http://127.0.0.1:'+port;
     async function workflowDialog(action,accept=true) {
       const opened=page.waitForEvent('dialog');
@@ -31,6 +31,7 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     await page.locator('#grow-profile').selectOption('basil');
     await page.locator('#grow-name').fill('Browser synthetic basil');
     const created=page.waitForResponse(r=>r.url().endsWith('/api/grow/cycles') && r.request().method()==='POST');
+    created.catch(()=>{}); // Keep original rejection/assertion, but allow failure artifacts to finish.
     await page.locator('#create-cycle').click();
     const createdResponse=await created;assert.equal(createdResponse.status(),200,await createdResponse.text());
     await page.locator('#settings-experiment').filter({hasText:'basil · paused'}).waitFor();
@@ -38,12 +39,14 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     await page.locator('#light-start').fill('00:00');await page.locator('#light-end').fill('01:00');
     await page.locator('#schedule-rgb').fill('10,20,30');await page.locator('#mist-enabled').check();
     const saved=page.waitForResponse(r=>r.url().endsWith('/api/grow/schedules') && r.request().method()==='POST');
+    saved.catch(()=>{});
     await page.locator('#save-schedules').click();
     assert.equal((await saved).status(),200);
     await page.locator('#grow-form-status').filter({hasText:'Configuration committed'}).waitFor();
     await workflowDialog('start',false);
     assert.equal((await (await page.request.get(base+'/api/grow')).json()).cycle.status,'paused');
     const started=page.waitForResponse(r=>r.url().endsWith('/api/workflow') && r.request().method()==='POST');
+    started.catch(()=>{});
     await workflowDialog('start');
     const startResult=await (await started).json();
     fs.writeFileSync(path.join(output,'start-debug.json'),JSON.stringify({startResult,state:await (await page.request.get(base+'/api/state')).json()},null,2));
@@ -81,5 +84,11 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
         'confirmed cycle start via gateway','home day/schedules/missing electronics','queued vs committed event display','pause/maintenance on seven screens',
         'exit does not restart','complete retains cycle; create spearmint paused']},null,2));
     console.log('PASS: M4 browser HMI + SQLite + gateway + scheduler + event pipeline');
+  } catch(error){
+    if(page)try{
+      fs.writeFileSync(path.join(output,'failure-debug.json'),JSON.stringify({error:String(error),dom:await page.evaluate(()=>({grow:document.querySelector('#grow-summary')?.textContent,feedback:document.querySelector('#command-feedback')?.textContent,fields:[...document.querySelectorAll('#schedule-form input,#schedule-form button')].map(n=>({id:n.id,value:n.value,checked:n.checked,disabled:n.disabled,valid:n.validity?.valid,validation:n.validationMessage}))})),state:await(await page.request.get(new URL('/api/state',page.url()).href)).json()},null,2));
+      await page.screenshot({path:path.join(output,'failure.png'),fullPage:true});
+    }catch{}
+    throw error;
   } finally {if(browser)await browser.close();child.kill();fs.writeFileSync(path.join(output,'server-output.txt'),logs);}
 })().catch(error=>{console.error(error);process.exitCode=1;});

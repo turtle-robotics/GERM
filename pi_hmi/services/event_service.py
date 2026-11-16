@@ -44,6 +44,7 @@ class EventPipeline:
 class HostPersistenceRuntime:
     def __init__(self,gateway,repository):
         self.gateway,self.repository=gateway,repository
+        self.last_tick_evidence=None
         self.restart=attach_restart_store(gateway,repository)
         # Explicit symbolic dictionaries only. No physical policy or healthy sample is seeded.
         with repository.connection() as db:
@@ -69,6 +70,10 @@ class HostPersistenceRuntime:
     def tick(self):
         durable=self.restart.checkpoint()
         logged=self.events.drain()
+        with self.gateway.state.lock:
+            self.last_tick_evidence=dict(restart_durable=durable,logging_durable=logged,
+                logging_state=self.gateway.state.logging_status['state'],logging_error=self.gateway.state.logging_status.get('last_error'),
+                repository_state=self.repository.status)
         return durable and logged
 
     def record_sensor_snapshot(self):
