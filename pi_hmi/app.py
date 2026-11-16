@@ -67,7 +67,8 @@ def release_host_request(error=None):
 @app.after_request
 def local_response_policy(response):
     response.headers['Content-Security-Policy']="default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
-    if request.path.startswith('/api/'):response.headers['Cache-Control']='no-store'
+    if request.path.startswith('/api/') or response.mimetype=='text/html':response.headers['Cache-Control']='no-store'
+    response.headers['X-Content-Type-Options']='nosniff'
     return response
 
 

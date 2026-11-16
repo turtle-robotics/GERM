@@ -38,6 +38,10 @@ jobs:
         working-directory: pi_hmi
       - run: python -m unittest discover -s tests -p 'test_m8.py' -v
         working-directory: pi_hmi
+      - run: python -m unittest discover -s tests -p 'test_m9.py' -v
+        working-directory: pi_hmi
+      - run: python tests/m9_endurance.py --hours 72 --output ../build/m9-endurance/RESULTS.json
+        working-directory: pi_hmi
       - run: node --check static/history.js
         working-directory: pi_hmi
       - run: node --check static/storage.js
@@ -75,6 +79,10 @@ jobs:
         working-directory: pi_hmi
         env:
           GERM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/germ-browser/node_modules/playwright
+      - run: node tests/browser_m9.cjs
+        working-directory: pi_hmi
+        env:
+          GERM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/germ-browser/node_modules/playwright
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -86,3 +94,5 @@ jobs:
             build/m6-browser/
             build/m7-browser/
             build/m8-browser/
+            build/m9-browser/
+            build/m9-endurance/
