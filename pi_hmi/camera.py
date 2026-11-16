@@ -1,12 +1,13 @@
-from picamera2 import Picamera2
 import threading
 import time
-import cv2
 
 
 class Camera:
     # ── FIXED: was **init** ──
     def __init__(self):
+        from picamera2 import Picamera2
+        import cv2
+        self.cv2 = cv2
         self.picam2 = Picamera2()
 
         config = self.picam2.create_video_configuration(
@@ -32,8 +33,8 @@ class Camera:
     def _update(self):
         while self.running:
             frame = self.picam2.capture_array()
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
-            success, jpeg = cv2.imencode('.jpg', frame)
+            frame = self.cv2.cvtColor(frame, self.cv2.COLOR_BGRA2BGR)
+            success, jpeg = self.cv2.imencode('.jpg', frame)
             if success:
                 with self.lock:
                     self.frame = jpeg.tobytes()

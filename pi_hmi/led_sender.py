@@ -1,7 +1,7 @@
 from arduino_serial import send
 
 
-def send_led(r, g, b, w):
+def send_led(r, g, b, w, **context):
     """
     Send RGBW colour values to the Arduino.
     Clamps every channel to 0-255.
@@ -14,6 +14,6 @@ def send_led(r, g, b, w):
 
     # all zero → explicit OFF
     if r == 0 and g == 0 and b == 0 and w == 0:
-        return send("LED_OFF")
+        return send("LED_OFF", **context)
 
-    return send(f"LED:{r},{g},{b},{w}")
+    return send(f"LED:{r},{g},{b},{w}", **context)

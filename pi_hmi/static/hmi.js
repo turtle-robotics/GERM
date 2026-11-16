@@ -22,6 +22,7 @@ function sensorText(reading) {
   const value = Number.isInteger(reading.value) ? reading.value : Number(reading.value).toFixed(1);
   const unit = reading.unit === '%RH' ? '%' : reading.unit;
   if (reading.state === 'stale') return [`${value} ${unit}`, `STALE · ${reading.age_seconds}s old`];
+  if (reading.quality_flag === 'suspect') return [`${value} ${unit}`, 'Unvalidated context · not control input'];
   return [`${value} ${unit}`, `LIVE · ${reading.source}`];
 }
 
@@ -80,6 +81,12 @@ function statusRows(items) {
 
 function renderState(data) {
   latestState = data;
+  const enabled = data.control_boundary?.enabled === true;
+  setText('boundary-status', data.control_boundary?.state === 'simulation' ? 'SIMULATION — NO HARDWARE' : 'Controls restricted — production boundary not approved');
+  const banner = byId('maintenance-banner');
+  if (banner) { banner.hidden = !data.maintenance_banner; banner.textContent = data.maintenance_banner || ''; }
+  setText('inhibit-status', (data.inhibits || []).length ? 'Inhibits: ' + data.inhibits.map(x => x.replaceAll('_',' ').replaceAll(':',' · ')).join(', ') : 'Checks valid; commands still require server permission');
+  document.querySelectorAll('[data-workflow]').forEach(button => button.disabled = !enabled);
   const state = byId('system-state');
   state.textContent = data.system_state;
   state.className = 'state-pill ' + data.system_state.toLowerCase();
@@ -109,7 +116,7 @@ function renderState(data) {
     setText('settings-model', 'ML model: ' + (data.ml.model?.model_version || 'not configured'));
   }
   if (page === 'controls') {
-    const offline = data.arduino.state !== 'connected';
+    const offline = !enabled || !data.operating_state?.controller_connected;
     document.querySelectorAll('[data-command]').forEach(button => button.disabled = offline);
   }
 }
@@ -133,30 +140,15 @@ async function pollState() {
       setText(name + '-status', 'Backend unavailable');
       setText(name + '-detail', 'Backend unavailable');
     }
-    document.querySelectorAll('[data-command]').forEach(button => button.disabled = true);
+    document.querySelectorAll('[data-command],[data-workflow]').forEach(button => button.disabled = true);
+    setText('inhibit-status', 'Backend unavailable — last known maintenance indication retained');
   }
 }
 pollState(); setInterval(pollState, 2000);
 
 if (page === 'controls') {
-  let uploading = false;
-  byId('lighting-upload').onclick = async () => {
-    if (uploading) return;
-    uploading = true;
-    const button = byId('lighting-upload');
-    button.disabled = true;
-    const mode = byId('lighting-mode');
-    mode.disabled = true;
-    const body = new FormData(); body.append('mode', mode.value);
-    setText('lighting-upload-status', 'Compiling and uploading… outputs turn off');
-    try {
-      const response = await fetch('/api/firmware', {method:'POST', headers:{'X-GERM-Token':firmwareToken}, body});
-      const result = await response.json();
-      if (!response.ok) throw Error(result.error || 'Upload failed');
-      setText('lighting-upload-status', result.warning || 'Uploaded · selected mode confirmed');
-    } catch (error) { setText('lighting-upload-status', error.message); }
-    finally { uploading = false; button.disabled = false; mode.disabled = false; await pollState(); }
-  };
+  byId('lighting-upload').disabled = true;
+  setText('lighting-upload-status', 'Firmware updates restricted pending safety and deployment review');
   for (const key of ['r','g','b','w']) {
     const slider = byId('led-' + key);
     slider.addEventListener('input', () => setText('led-' + key + '-value', slider.value));
@@ -169,11 +161,11 @@ if (page === 'controls') {
     dialog.close(); if (!pending) return;
     const {url, payload, target} = pending; pending = null;
     try {
-      const response = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+      const response = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json', 'X-GERM-Token':controlToken}, body:JSON.stringify(payload)});
       const result = await response.json();
-      setText(target + '-detail', response.ok ? 'Firmware confirmed output setting' : (result.error || 'Command failed'));
+      setText('command-feedback', response.ok ? 'Firmware acknowledged output setting · physical state unverified' : (result.error || 'Command failed'));
       await pollState();
-    } catch { setText(target + '-detail', 'Command failed · backend unavailable'); }
+    } catch { setText('command-feedback', 'Command failed · backend unavailable'); }
   };
   const commands = {
     'led-apply': () => ({url:'/api/led', target:'lighting', payload:Object.fromEntries(['r','g','b','w'].map(key => [key, Number(byId('led-' + key).value)]))}),
@@ -185,10 +177,24 @@ if (page === 'controls') {
     'pump-off': () => ({url:'/api/pump', target:'pump', payload:{state:'off'}}),
     'pump-5s': () => ({url:'/api/pump', target:'pump', payload:{state:'5s'}}),
   };
-  document.querySelectorAll('[data-command]').forEach(button => button.onclick = () => {
-    pending = commands[button.dataset.command]();
-    setText('confirm-message', `Send ${button.textContent.trim()} to ${pending.target}? Firmware reports output settings; physical operation and E-STOP state are not measured.`);
-    dialog.showModal();
+  document.querySelectorAll('[data-command]').forEach(button => button.onclick = async () => {
+    pending = null;
+    const next = commands[button.dataset.command]();
+    const command = next.url === '/api/led' ? 'LED:' + ['r','g','b','w'].map(k => next.payload[k]).join(',') :
+      next.url === '/api/fan/speed' ? 'FAN_SPEED:' + next.payload.speed :
+      next.url === '/api/fan' ? (next.payload.state === 'on' ? 'FAN_ON' : 'FAN_OFF') :
+      ({on:'PUMP_ON', off:'PUMP_OFF', '5s':'PUMP_5S'})[next.payload.state];
+    try {
+      const response = await fetch('/api/confirmations', {method:'POST', headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},
+        body:JSON.stringify({action:'command', payload:{command}})});
+      const prepared = await response.json();
+      if (!response.ok) throw Error(prepared.error || 'Command inhibited');
+      next.payload.expected_state_revision = prepared.state_revision;
+      if (prepared.confirmation_id) next.payload.confirmation_id = prepared.confirmation_id;
+      pending = next;
+      setText('confirm-message', 'Send command to ' + next.target + '? State changes revoke this confirmation. Firmware acknowledgement is not physical verification.');
+      dialog.showModal();
+    } catch (error) { setText('command-feedback', error.message); }
   });
 }
 
@@ -197,7 +203,7 @@ if (page === 'plant') {
     const button = byId('capture-button'); button.disabled = true;
     setText('capture-status', 'Saving camera image…');
     try {
-      const response = await fetch('/api/camera/capture', {method:'POST'});
+      const response = await fetch('/api/camera/capture', {method:'POST', headers:{'X-GERM-Token':controlToken}});
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Capture failed');
       setText('capture-status', data.image.indexed ? 'Saved and indexed in SQL' : 'Saved locally · awaiting SQL image index');
@@ -326,7 +332,7 @@ if (page === 'alerts') {
           const ack = document.createElement('button'); ack.textContent = 'Acknowledge';
           ack.onclick = async () => {
             if (!confirm('Acknowledge this alert? This does not clear the condition.')) return;
-            const response = await fetch(`/api/alerts/${item.alert_id}/ack`, {method:'POST'});
+            const response = await fetch(`/api/alerts/${item.alert_id}/ack`, {method:'POST', headers:{'X-GERM-Token':controlToken}});
             if (response.ok) location.reload(); else ack.textContent = 'Unavailable';
           };
           card.append(ack);
@@ -350,3 +356,22 @@ if (page === 'alerts') {
       'No historical alerts recorded');
   }).catch(() => setText('active-alerts', 'Alert service unavailable'));
 }
+
+
+document.querySelectorAll('[data-workflow]').forEach(button => button.onclick = async () => {
+  button.disabled = true;
+  const action = button.dataset.workflow;
+  const payload = action === 'safe_manual_test' ? {command:'PUMP_5S'} : {};
+  const headers = {'Content-Type':'application/json', 'X-GERM-Token':controlToken};
+  try {
+    const preparedResponse = await fetch('/api/confirmations', {method:'POST', headers, body:JSON.stringify({action, payload})});
+    const prepared = await preparedResponse.json();
+    if (!preparedResponse.ok) throw Error(prepared.error || 'Workflow inhibited');
+    if (prepared.confirmation_id && !confirm('Confirm ' + action.replaceAll('_',' ') + '? This does not verify physical outputs.')) return;
+    const response = await fetch('/api/workflow', {method:'POST', headers,
+      body:JSON.stringify({action, payload, confirmation_id:prepared.confirmation_id, expected_state_revision:prepared.state_revision})});
+    const result = await response.json();
+    if (!response.ok) throw Error(result.error || result.reason_codes?.join(', ') || 'Workflow failed');
+  } catch (error) { setText('command-feedback', error.message); }
+  finally { await pollState(); }
+});

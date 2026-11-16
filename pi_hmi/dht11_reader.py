@@ -1,9 +1,7 @@
 import time
-import board
-import adafruit_dht
 
 # GPIO4 (physical pin 7)
-dhtDevice = adafruit_dht.DHT11(board.D4)
+dhtDevice = None  # device initialization is allowed only in an explicit simulation launcher
 
 latest_dht = {
     "temperature": None,
@@ -18,7 +16,10 @@ def read_dht():
     Continuously reads the DHT11 sensor.
     Run this in a daemon thread.
     """
-    global latest_dht
+    global latest_dht, dhtDevice
+    if dhtDevice is None:
+        # Never initialize GPIO from import or default application startup.
+        return
     while True:
         try:
             temperature = dhtDevice.temperature

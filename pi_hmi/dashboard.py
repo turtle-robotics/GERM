@@ -2,16 +2,19 @@
 
 from flask import Blueprint, Response, current_app, jsonify, render_template, request, send_from_directory
 
-from arduino_serial import is_connected, reported_state
 from services.camera_service import IMAGE_ROOT, latest_local_manual_capture, save_manual_capture
 from services.database_service import repository
 from services.ml_service import ml_service
 from services.sensor_service import current_readings
+from services.control_runtime import get_gateway
 
 
 def create_dashboard(camera, requested_states):
     ui = Blueprint("dashboard", __name__)
     latest_manual_capture = {"image": latest_local_manual_capture()}
+
+    def camera_owner():
+        return camera() if callable(camera) else camera
 
     @ui.get("/plant")
     @ui.get("/trends")
@@ -27,9 +30,11 @@ def create_dashboard(camera, requested_states):
     @ui.get("/api/state")
     def state():
         readings = current_readings()
-        arduino = is_connected()
-        packet = reported_state()
-        camera_ready = camera is not None and camera.get_frame() is not None
+        operating = get_gateway().state.snapshot()
+        arduino = operating['controller_connected']
+        packet = operating['controller_feedback']
+        owner = camera_owner()
+        camera_ready = owner is not None and owner.get_frame() is not None
         database_state = repository.status
         ml_state = ml_service.status
         try:
@@ -43,16 +48,17 @@ def create_dashboard(camera, requested_states):
         except Exception:
             current_app.logger.exception("ML status read failed")
             latest_ml, model_info, ml_state = None, None, "error"
-        if any(alert.get("severity") == "critical" for alert in alerts):
-            system_state = "CRITICAL"
-        elif (not arduino or database_state != "ready" or ml_state == "error" or
-              any(readings[key]["state"] != "fresh" for key in ("air_temperature", "humidity"))):
-            system_state = "WARNING"
-        else:
-            system_state = "NORMAL"
+        requests = requested_states() if callable(requested_states) else requested_states
+        readings.update(operating['sensors'])
         return jsonify({
-            "system_state": system_state,
-            "estop": "not_connected",
+            "system_state": operating['system_state'],
+            "operating_state": operating,
+            "state_revision": operating['state_revision'],
+            "inhibits": operating['inhibits'],
+            "maintenance_banner": operating['maintenance_banner'],
+            "control_boundary": {"state": "simulation" if current_app.config.get('GERM_SIMULATION') else "restricted",
+                                 "enabled": bool(current_app.config.get('GERM_SIMULATION') and get_gateway().adapter.simulated and callable(current_app.config.get('GERM_CONTROL_AUTHORIZER')))},
+            "estop": operating['estop'],
             "arduino": {"state": "connected" if arduino else "unavailable",
                         "packet": readings["arduino_a0"]},
             "sensors": readings,
@@ -67,8 +73,8 @@ def create_dashboard(camera, requested_states):
                                  "speed": packet.get('fan_speed') if packet and name == 'fan' else None,
                                  "mode": packet.get('lighting_mode') if packet and name == 'lighting' else None,
                                  "reported_state": packet.get({'lighting': 'rgb', 'fan': 'fan', 'pump': 'pump'}[name]) if packet else None,
-                                 "last_request": requested_states[name]}
-                          for name in requested_states},
+                                 "last_request": requests[name], "physically_verified": False}
+                          for name in requests},
         })
 
     @ui.get("/api/trends")
@@ -108,7 +114,8 @@ def create_dashboard(camera, requested_states):
 
     @ui.post("/api/camera/capture")
     def manual_capture():
-        frame = camera.get_frame() if camera is not None else None
+        owner = camera_owner()
+        frame = owner.get_frame() if owner is not None else None
         if frame is None:
             return jsonify({"ok": False, "error": "Camera unavailable"}), 503
         try:
