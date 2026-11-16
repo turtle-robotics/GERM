@@ -18,6 +18,13 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     browser=await chromium.launch({headless:true,executablePath:process.env.GERM_TEST_BROWSER || undefined});
     const page=await browser.newPage({viewport:{width:739,height:447}}),errors=[];
     page.on('pageerror',error=>errors.push(error.message));const base='http://127.0.0.1:'+port;
+    async function workflowDialog(action,accept=true) {
+      const opened=page.waitForEvent('dialog');
+      const clicked=page.locator(`[data-workflow="${action}"]`).click();
+      const dialog=await opened;
+      if (accept) await dialog.accept(); else await dialog.dismiss();
+      await clicked;
+    }
     await page.goto(base+'/settings');
     await page.locator('#grow-profile').waitFor();
     await page.waitForFunction(()=>document.querySelector('#grow-profile').options.length===2);
@@ -32,12 +39,10 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     await page.locator('#save-schedules').click();
     assert.equal((await saved).status(),200);
     await page.locator('#grow-form-status').filter({hasText:'Configuration committed'}).waitFor();
-    page.once('dialog',dialog=>dialog.dismiss());
-    await page.locator('[data-workflow="start"]').click();
+    await workflowDialog('start',false);
     assert.equal((await (await page.request.get(base+'/api/grow')).json()).cycle.status,'paused');
-    page.once('dialog',dialog=>dialog.accept());
     const started=page.waitForResponse(r=>r.url().endsWith('/api/workflow') && r.request().method()==='POST');
-    await page.locator('[data-workflow="start"]').click();
+    await workflowDialog('start');
     const startResult=await (await started).json();
     fs.writeFileSync(path.join(output,'start-debug.json'),JSON.stringify({startResult,state:await (await page.request.get(base+'/api/state')).json()},null,2));
     await page.locator('#grow-summary').filter({hasText:'armed for simulation'}).waitFor();
@@ -53,16 +58,16 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     await page.screenshot({path:path.join(output,'home-details.png'),fullPage:true});
     await page.locator('[data-workflow="pause"]').click();
     await page.locator('#grow-summary').filter({hasText:'paused'}).waitFor();
-    page.once('dialog',dialog=>dialog.accept());await page.locator('[data-workflow="enter_maintenance"]').click();
+    await workflowDialog('enter_maintenance');
     await page.locator('#maintenance-banner').waitFor({state:'visible'});
     for (const route of ['/','/plant','/trends','/controls','/alerts','/maintenance','/settings']) {
       await page.goto(base+route);await page.locator('#maintenance-banner').waitFor({state:'visible'});
     }
     await page.screenshot({path:path.join(output,'settings-maintenance.png'),fullPage:true});
-    page.once('dialog',dialog=>dialog.accept());await page.locator('[data-workflow="exit_maintenance"]').click();
+    await workflowDialog('exit_maintenance');
     await page.locator('#system-state').filter({hasText:'SAFE STOP'}).waitFor();
     assert.equal((await (await page.request.get(base+'/api/grow')).json()).schedules_armed,false);
-    page.once('dialog',dialog=>dialog.accept());await page.locator('[data-workflow="complete_cycle"]').click();
+    await workflowDialog('complete_cycle');
     await page.locator('#grow-summary').filter({hasText:'complete'}).waitFor();
     await page.locator('#grow-profile').selectOption('spearmint');await page.locator('#create-cycle').click();
     await page.locator('#settings-experiment').filter({hasText:'spearmint · paused'}).waitFor();
