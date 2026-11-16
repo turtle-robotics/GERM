@@ -36,6 +36,7 @@ function actuatorText(item) {
   if (item.state === 'reported') {
     if (item.mode === 'rainbow') return 'Rainbow · firmware reported';
     if (Array.isArray(item.reported_state)) return `RGB ${item.reported_state.join(', ')} · firmware reported`;
+    if (Number.isInteger(item.speed)) return `PWM ${item.speed}/255 · firmware reported`;
     return `${item.reported_state ? 'ON' : 'OFF'} · firmware reported`;
   }
   if (item.last_request === null) return 'State unverified';

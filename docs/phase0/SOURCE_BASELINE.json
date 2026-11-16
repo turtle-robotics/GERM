@@ -1,0 +1,23 @@
+{
+  "assessment_date": "2026-11-01",
+  "GERM": "ba38df7f8fa77c5ea8e947ee46ad179645a32388",
+  "GERM-PCB": "2420d311d6b524d84a7cf5714e8a755a55413179",
+  "uploads": [
+    {
+      "file": "GERM Software Platform and Data Integration Development Plan.docx",
+      "sha256": "def728deff7dd1e49eb146a750813dd34fe41594c1f1b71dedbbbf26b008fae2"
+    },
+    {
+      "file": "ASSET_INVENTORY.md.docx",
+      "sha256": "2c19bbb8c26b0b89f9874aee463e359d1418cdd65654f88293253854f07127d1"
+    },
+    {
+      "file": "GERM Software Subteam \u2014 Phase 0 Contracts, Assets and Test Fixtures.docx",
+      "sha256": "11140a5fc31baff116cc8966b8f133bb31b6c88693de66c4746d9865665fb1d0"
+    },
+    {
+      "file": "GERM CDR PO-SR Traceability Matrix.xlsx",
+      "sha256": "4874c5764a41a74859c0d0deef0ffd386879c033a5270c29c178a99c0fb534f3"
+    }
+  ]
+}

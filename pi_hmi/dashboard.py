@@ -64,6 +64,7 @@ def create_dashboard(camera, requested_states):
             "alerts": {"state": database_state,
                        "active": alerts if database_state == "ready" else None},
             "actuators": {name: {"state": "reported" if packet else "unavailable",
+                                 "speed": packet.get('fan_speed') if packet and name == 'fan' else None,
                                  "mode": packet.get('lighting_mode') if packet and name == 'lighting' else None,
                                  "reported_state": packet.get({'lighting': 'rgb', 'fan': 'fan', 'pump': 'pump'}[name]) if packet else None,
                                  "last_request": requested_states[name]}

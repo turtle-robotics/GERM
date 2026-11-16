@@ -1,2 +1,4 @@
 # Preserve the exported Pi files byte-for-byte, including existing line endings.
 pi_hmi/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Preserve captured service output spacing as historical evidence.
+docs/discovery/**/pi-service-log-excerpt.txt whitespace=-blank-at-eol

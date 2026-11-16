@@ -1,0 +1,29 @@
+test_acknowledgement_does_not_call_condition_clear (test_phase0.APIContractTests.test_acknowledgement_does_not_call_condition_clear) ... ok
+test_all_documented_paths_have_matching_methods (test_phase0.APIContractTests.test_all_documented_paths_have_matching_methods) ... ok
+test_capture_index_and_disk_failure (test_phase0.APIContractTests.test_capture_index_and_disk_failure) ... ok
+test_control_log_failure_keeps_ack_and_emits_diagnostic (test_phase0.APIContractTests.test_control_log_failure_keeps_ack_and_emits_diagnostic) ... ok
+test_disconnected_controller_returns_503 (test_phase0.APIContractTests.test_disconnected_controller_returns_503) ... ok
+test_ml_and_alert_exceptions_stay_explicit (test_phase0.APIContractTests.test_ml_and_alert_exceptions_stay_explicit) ... ok
+test_offline_pages_and_unavailable_data (test_phase0.APIContractTests.test_offline_pages_and_unavailable_data) ... ok
+test_safe_off_examples_keep_physical_state_unverified (test_phase0.APIContractTests.test_safe_off_examples_keep_physical_state_unverified) ... ok
+test_capture_hash_and_module_restart_recovery (test_phase0.CameraAndPlaceholderTests.test_capture_hash_and_module_restart_recovery) ... ok
+test_unavailable_adapters_never_claim_durability_or_model (test_phase0.CameraAndPlaceholderTests.test_unavailable_adapters_never_claim_durability_or_model) ... ok
+test_fixtures_record_observed_quality_and_known_gaps (test_phase0.SensorTests.test_fixtures_record_observed_quality_and_known_gaps) ... ok
+test_uninstalled_values_are_explicit (test_phase0.SensorTests.test_uninstalled_values_are_explicit) ... ok
+test_expiry_and_copy (test_phase0.SerialContractTests.test_expiry_and_copy) ... ok
+test_invalid_packets_and_overflow_are_rejected (test_phase0.SerialContractTests.test_invalid_packets_and_overflow_are_rejected) ... ok
+test_matched_ack_and_error_reply (test_phase0.SerialContractTests.test_matched_ack_and_error_reply) ... ok
+test_newline_injection_never_opens_port (test_phase0.SerialContractTests.test_newline_injection_never_opens_port) ... ok
+test_no_ack_timeout_invalidates_report (test_phase0.SerialContractTests.test_no_ack_timeout_invalidates_report) ... ok
+test_partial_and_malformed_frames (test_phase0.SerialContractTests.test_partial_and_malformed_frames) ... ok
+test_ack_does_not_clear_and_restart_restore_retains_records (test_phase0.StorageFixtureTests.test_ack_does_not_clear_and_restart_restore_retains_records) ... ok
+test_fk_quality_and_event_deduplication (test_phase0.StorageFixtureTests.test_fk_quality_and_event_deduplication) ... ok
+test_jpeg_and_inference_linkage (test_phase0.StorageFixtureTests.test_jpeg_and_inference_linkage) ... ok
+test_sample_builder_refuses_overwrite_and_contains_all_entities (test_phase0.StorageFixtureTests.test_sample_builder_refuses_overwrite_and_contains_all_entities) ... ok
+test_schema_settings_integrity_and_all_entities (test_phase0.StorageFixtureTests.test_schema_settings_integrity_and_all_entities) ... ok
+test_wal_reader_during_uncommitted_write (test_phase0.StorageFixtureTests.test_wal_reader_during_uncommitted_write) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.527s
+
+OK

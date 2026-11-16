@@ -1,0 +1,23 @@
+{
+  "time_utc": "2026-11-01T19:47:51.949802+00:00",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "sqlite": "3.53.1",
+  "results": [
+    {
+      "suite": "existing-integration",
+      "command": "python check_integration.py",
+      "exit_code": 0,
+      "log_sha256": "e06190ac958a50ea08022e5d6554614ca91541c685b602f017db2fd41e4b0492"
+    },
+    {
+      "suite": "phase0-contracts",
+      "command": "python -m unittest discover -s tests -p test_phase0.py -v",
+      "exit_code": 0,
+      "log_sha256": "d9866ec6a547527dd4ec41f4cdb1510a6db67a7753b4e85cb1481f575af901e1"
+    }
+  ],
+  "hardware": "not executed",
+  "firmware_cpp_local": "not executed: no g++/clang++ available",
+  "ci": "configured; outcome must be read separately"
+}

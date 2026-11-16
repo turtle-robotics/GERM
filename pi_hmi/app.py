@@ -157,8 +157,6 @@ def fan_speed():
         return jsonify({"error": "Speed must be an integer"}), 400
     if not 0 <= speed <= 255:
         return jsonify({"error": "Speed must be 0–255"}), 400
-    if speed not in (0, 255):
-        return jsonify(error='Uno D2 supports fan on/off only; speed control requires rewiring to a PWM pin.'), 400
     if not send_command(f'FAN_SPEED:{speed}'):
         return jsonify({"status": "unavailable", "error": last_error()}), 503
     requested_states['fan'] = {"speed": speed}

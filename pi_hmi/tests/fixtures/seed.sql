@@ -1,0 +1,22 @@
+-- Synthetic, not measurements. JPEG metadata is supplied by the fixture builder.
+BEGIN;
+INSERT INTO experiments VALUES(1,'Phase 0 synthetic basil','basil','active','2026-10-01T00:00:00+00:00',NULL);
+INSERT INTO plants VALUES(1,1,1,'basil');
+INSERT INTO sensors VALUES('air_temperature','°C','canopy',2);
+INSERT INTO sensors VALUES('humidity','%RH','canopy',2);
+INSERT INTO sensors VALUES('electronics_temperature','°C','electronics bay',2);
+INSERT INTO sensors VALUES('water_level','boolean','reservoir',0.5);
+INSERT INTO sensors VALUES('door','boolean','front panel',0.1);
+INSERT INTO sensors VALUES('leak','boolean','containment',0.5);
+INSERT INTO sensor_readings VALUES(1,'air_temperature',1,'2026-10-01T00:00:00+00:00',24.0,'good');
+INSERT INTO sensor_readings VALUES(2,'humidity',1,'2026-10-01T00:00:00+00:00',NULL,'missing');
+INSERT INTO sensor_readings VALUES(3,'air_temperature',1,'2026-10-01T00:01:00+00:00',24.0,'stale');
+INSERT INTO sensor_readings VALUES(4,'air_temperature',1,'2026-10-01T00:02:00+00:00',99.0,'suspect');
+INSERT INTO actuators VALUES('pump','D8 software output; physical verification absent');
+INSERT INTO actuators VALUES('lighting','inverted RGB D3/D6/D9');
+INSERT INTO actuators VALUES('fan','digital D2');
+INSERT INTO actuator_events VALUES('request-1','pump',1,'2026-10-01T00:00:00+00:00','off','false','touchscreen',1,0);
+INSERT INTO alerts VALUES(1,1,'critical','sensor','Synthetic leak alarm','2026-10-01T00:00:00+00:00',NULL,NULL);
+INSERT INTO maintenance_events VALUES(1,1,'2026-10-01T00:00:00+00:00','inspection','filter','{"fixture":true}');
+INSERT INTO system_events VALUES('state-1',1,1,'2026-10-01T00:00:00+00:00','state_transition','state_manager','fixture-only','{"prior_state":"STARTUP CHECK","new_state":"SAFE STOP","cause":"missing interlock","inhibits":["pump"],"controller_feedback":null}');
+COMMIT;

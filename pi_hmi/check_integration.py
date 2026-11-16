@@ -95,7 +95,7 @@ class RouteTests(unittest.TestCase):
     def test_invalid_values_never_send(self):
         with patch.object(self.app_module, 'send_command') as send:
             for route, data in [('/api/led', {'r': 1.5}), ('/api/led', {'w': 20}),
-                                ('/api/fan/speed', {'speed': 128}), ('/api/fan', []),
+                                ('/api/fan/speed', {'speed': 256}), ('/api/fan', []),
                                 ('/api/pump', {'state': 'bad'})]:
                 self.assertEqual(self.client.post(route, json=data).status_code, 400)
             send.assert_not_called()
@@ -106,6 +106,21 @@ class RouteTests(unittest.TestCase):
         send.assert_called_once_with('FAN_OFF')
         self.assertTrue(response.json['firmware_confirmed'])
         self.assertFalse(response.json['verified'])  # No physical feedback sensor.
+
+    def test_fan_pwm_speed_is_acknowledged(self):
+        with patch.object(self.app_module, 'send_command', return_value=True) as send:
+            response = self.client.post('/api/fan/speed', json={'speed': 128})
+        send.assert_called_once_with('FAN_SPEED:128')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json['speed'], 128)
+        self.assertTrue(response.json['firmware_confirmed'])
+        self.assertFalse(response.json['verified'])
+
+    def test_dashboard_reports_fan_pwm_speed(self):
+        packet = dict(fan=True, fan_speed=128, pump=False, rgb=[0, 0, 0])
+        with patch('dashboard.reported_state', return_value=packet):
+            response = self.client.get('/api/state')
+        self.assertEqual(response.json['actuators']['fan']['speed'], 128)
 
     def test_upload_token_and_build_failure(self):
         self.assertEqual(self.client.post('/api/firmware').status_code, 403)

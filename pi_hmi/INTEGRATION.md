@@ -115,16 +115,20 @@ polls `/api/state` and refreshes `/camera.jpg`. Both are bundled locally.
 The Home screen shows live camera, current sensors, ML state, requested
 actuator states, and alert availability. `/plant`, `/trends`, `/controls`,
 `/alerts`, `/maintenance`, and `/settings` use the same shell. The old
-`/led`, `/fan`, and `/pump` URLs still open Controls. Original serial command
-formats are unchanged. Accepted requests are **unverified** until an Arduino
-feedback/status protocol is built. A disconnected Arduino returns HTTP 503.
+`/led`, `/fan`, and `/pump` URLs still open Controls. Original command names
+are preserved inside protocol 2 request-ID envelopes. Accepted requests require
+a matched firmware acknowledgement and expose `firmware_confirmed: true`, while
+`verified: false` remains explicit: firmware output settings do not establish
+physical operation. A disconnected Arduino or unacknowledged command returns
+HTTP 503. The serial/heartbeat contract, API catalog and proposed schema/event
+additions are in [the Phase 0 contract pack](../docs/phase0/CONTRACTS.md).
 
 Manual captures use `POST /api/camera/capture`. The response includes the
 saved image URL, UTC time, SHA-256, `image_id` if indexed, and an `indexed`
 boolean. `/captures/<relative path>` serves saved images. The live camera
 uses `/camera.jpg`; `/video_feed` remains for clients that support MJPEG.
 
-The Pi currently has no Arduino connection, valid DHT reading, water
+At the original export, the Pi had no Arduino connection, valid DHT reading, water
 temperature sensor, database adapter, deployed ML model, or E-STOP state
 signal. Their HMI states are explicit and must stay so until the responsible
 hardware or team implementation exists. A physical E-STOP remains the safety

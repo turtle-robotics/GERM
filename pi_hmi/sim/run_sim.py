@@ -9,6 +9,9 @@ installs fake modules into sys.modules:
   * serial               -> an in-process Uno that mirrors arduino_program.ino
                             (same CMD:<id>:<cmd> protocol, JSON acks, 10 s
                             contact timeout, 30 s / 5 s pump limits, errors)
+
+This simulates the PR #3 software candidate, not confirmed electrical wiring.
+It never establishes physical sensor health, interlocks or actuator verification.
 """
 import json
 import os
@@ -23,20 +26,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # -- Fake Arduino Uno + serial port ------------------------------------
 class FakeUno:
-    def __init__(self):
+    def __init__(self, clock=time.monotonic):
+        self.clock = clock
         self.lock = threading.RLock()
         self.fan = self.pump = False
+        self.fan_speed = 0
         self.rgb = [0, 0, 0]
         self.rainbow = False
-        self.last_contact = time.monotonic()
+        self.last_contact = self.clock()
         self.pump_started = 0.0
         self.pump_duration = 30.0
         self.out = bytearray()
 
     def _tick(self):
-        now = time.monotonic()
+        now = self.clock()
         if now - self.last_contact >= 10:  # firmware contact timeout
             self.fan = self.pump = self.rainbow = False
+            self.fan_speed = 0
             self.rgb = [0, 0, 0]
         if self.pump and now - self.pump_started >= self.pump_duration:
             self.pump = False
@@ -50,7 +56,8 @@ class FakeUno:
 
     def _reply(self, cid, error=None):
         pkt = {"protocol": 2, "id": cid, "fan": self.fan, "pump": self.pump,
-               "rgb": list(self.rgb), "a0": None, "fan_pwm": False,
+               "rgb": list(self.rgb), "a0": None, "fan_pwm": True,
+               "fan_speed": self.fan_speed,
                "white_channel": False,
                "lighting_mode": "rainbow" if self.rainbow else "normal"}
         if error:
@@ -59,7 +66,7 @@ class FakeUno:
 
     @staticmethod
     def _num(s, maxv):
-        if not s or len(s) > 5 or not s.isdigit() or int(s) > maxv:
+        if not s or len(s) > 5 or any(c not in '0123456789' for c in s) or int(s) > maxv:
             return None
         return int(s)
 
@@ -77,23 +84,27 @@ class FakeUno:
             pass
         elif cmd == "STOP":
             self.fan = self.pump = self.rainbow = False
+            self.fan_speed = 0
             self.rgb = [0, 0, 0]
         elif cmd == "FAN_ON":
             self.fan = True
+            self.fan_speed = 255
         elif cmd == "FAN_OFF":
             self.fan = False
+            self.fan_speed = 0
         elif cmd.startswith("FAN_SPEED:"):
             s = self._num(cmd[10:], 255)
-            if s not in (0, 255):
-                err = "D2 supports fan on/off only"
+            if s is None:
+                err = "Invalid fan speed"
             else:
-                self.fan = s == 255
+                self.fan_speed = s
+                self.fan = s > 0
         elif cmd == "PUMP_OFF":
             self.pump = False
         elif cmd in ("PUMP_ON", "PUMP_5S"):
             d = 5.0 if cmd == "PUMP_5S" else 30.0
             if not self.pump:
-                self.pump_started, self.pump_duration = time.monotonic(), d
+                self.pump_started, self.pump_duration = self.clock(), d
             elif d < self.pump_duration:
                 self.pump_duration = d
             self.pump = True
@@ -118,7 +129,7 @@ class FakeUno:
         else:
             err = "Unknown command"
         if not err:
-            self.last_contact = time.monotonic()
+            self.last_contact = self.clock()
         self._tick()
         if cmd != "STATUS":  # heartbeats would flood the console
             print("[SIM-UNO] %r -> fan=%s pump=%s rgb=%s%s" % (

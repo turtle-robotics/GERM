@@ -1,0 +1,111 @@
+repository,path,git_blob,purpose,runtime_boundary,status
+GERM,.gitattributes,4ed7975d17b78eaa212e08c3bead0035e8e51df4,.gitattributes,Application/API,source reviewed; target unverified
+GERM,.github/workflows/phase0-host.yml,3c96ea58e79c3093ef0d8a70993269fc4bf3733b,phase0-host.yml,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,.gitignore,f0a75606d028d8b71d551725f1cf4b74a7035dc0,.gitignore,Application/API,source reviewed; target unverified
+GERM,ASSET_INVENTORY.md,9171e604471ba9c859a80c3ee80b13331930e620,ASSET_INVENTORY.md,Contract review/test evidence,M0 source/evidence; contract review pending
+GERM,README.md,b492b66440c84fa2459d99702345a39ecfa6cefc,README.md,Contract review/test evidence,source reviewed; target unverified
+GERM,Showcase LED Display.ino,06a589c6a1b781d289c9093793027289baf4f168,Uno protocol 2 output firmware; default/rainbow variant,Controller,source reviewed; target unverified
+GERM,docs/discovery/2026-11-15/EVIDENCE_INDEX.md,ace0451fef9ca677e4490e9dc0817e7de776a01b,EVIDENCE_INDEX.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/IMPLEMENTATION_PLAN.md,d02aa87e28c865c78ce22c786aa6d29c5a527e93,IMPLEMENTATION_PLAN.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/README.md,46c059b6ed6bd737e3eef381bf9329a78b62613c,README.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/TRACEABILITY.md,7cefeb6656e64687e2b9ff632f121c5f54b2b6ac,TRACEABILITY.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/pi-read-only-audit.json,21e567261bf75ecfe545d58bb1733831617f7808,pi-read-only-audit.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/pi-read-only-audit.py,fbc350ad70ef2b281f8b4966da9459827ef30196,pi-read-only-audit.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/pi-service-log-excerpt.txt,ba7224d4c49e93d2c61e9561e71b2eaedc33959e,pi-service-log-excerpt.txt,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/discovery/2026-11-15/source-register.json,ae8dd3a518eb91e6cfcda78f8ccc9b0cdb8cf762,source-register.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/API_ENDPOINTS.json,e105b1d4a698303636e701f29a7d87b8f2de94a2,API_ENDPOINTS.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/ARCHITECTURE_OWNERSHIP.md,7b8470e216ca83f12d5e21eef1725350f4d5a550,ARCHITECTURE_OWNERSHIP.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/ASSET_MANIFEST.csv,self-index: excluded from recursive hashing,ASSET_MANIFEST.csv,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/BASELINE_TEST_REPORT.md,401836d9c932bfefe941606b3e8d2b2e39b5731f,BASELINE_TEST_REPORT.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/CONFIGURATION_DEPLOYMENT.md,6c14de000e783aa0422e0b5f952e403a12db8aff,CONFIGURATION_DEPLOYMENT.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/CONTRACTS.md,970a68a5bdf7051db0ee0d250abac992e0ce1902,CONTRACTS.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/FIXTURE_CATALOG.md,9925f5a646371677a255362395f3a433506225ce,FIXTURE_CATALOG.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/HMI_API_CHECKLIST.json,7aff092429613c7c1b91cc764c2cecdc34da2d76,HMI_API_CHECKLIST.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/HMI_API_CHECKLIST.md,5ce42d5535125907b1459c9bffd2f98c481107fe,HMI_API_CHECKLIST.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/HOST_TEST_RESULTS.json,1c792c6dd89262da4ef037a9218a4b4b88c61078,HOST_TEST_RESULTS.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/M0_RECONCILIATION.md,b72b8123db8f584c7a00d03e8519c5a3a07ac0f4,M0_RECONCILIATION.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/M1_CONTRACT.md,4c9536c3f3c45f6474c6a72c46126fbff9907f86,M1_CONTRACT.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/PHASE0_ISSUES.md,d7d7eb72cdea28f32c0691e54869bc86b90f104e,PHASE0_ISSUES.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/PI_VALIDATION.md,a196c3619f5835c190b4b6b75b01b239c106ba7a,PI_VALIDATION.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/PLACEHOLDER_REGISTER.md,520e21896be3c6e319a8985a1d45de5d04a0af82,PLACEHOLDER_REGISTER.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/README.md,a7b3aae00c9a15cfaf30603f6be6e5626687ca73,README.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/REQUIREMENTS_BASELINE.json,8d6df5f679090e476282031e8a634a7bb507bf3d,REQUIREMENTS_BASELINE.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/REQUIREMENT_TRACEABILITY.md,26f15d421fef87fdd7d8a7aebcd53a11d2f0cb14,REQUIREMENT_TRACEABILITY.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/SCHEMA_CONTRACT.md,4d5ebee309bb90db4fe36c9dd3afbec457610c14,SCHEMA_CONTRACT.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/SO2_FIELD_AUDIT.md,35a7ac9a968815dbce9f05ae33458efd28cd30fb,SO2_FIELD_AUDIT.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/SOURCE_BASELINE.json,986aa1294403084dee3c225c39b73fff94a230b3,SOURCE_BASELINE.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/UPLOADED_ASSET_INVENTORY.md,82c59827345f6a497d77ddcdf228091903a5597b,UPLOADED_ASSET_INVENTORY.md,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/existing-integration.txt,41aaa2f456664137ee6064723406f8a0006e46af,existing-integration.txt,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/host-packages.txt,6dd49b963bf3401871b053c9d67a790d669d144f,host-packages.txt,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,docs/phase0/phase0-contracts.txt,003c19c3b84fdd0f3f96932cb57aecfbe743f858,phase0-contracts.txt,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/INTEGRATION.md,7812d56b319b79bf1d0ac6a9e00508ca3045a3be,INTEGRATION.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/README.md,d36e5998c5a9d9d620e3678e59275231d654d772,README.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/SECURITY.md,b3dfc2b3cbb679f203cdd55db8823baaccf2310f,SECURITY.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/app.py,100e689fb0c0d550cccbfefb9d03f0d86d4e41b6,"Flask startup, legacy routes and validated actuator APIs",Application/API,source reviewed; target unverified
+GERM,pi_hmi/arduino_program/arduino_program.ino,7f4f711d260ada9a2eddc19fd9885845fb1f44bc,Uno protocol 2 output firmware; default/rainbow variant,Controller,source reviewed; target unverified
+GERM,pi_hmi/arduino_serial.py,e9bc1a0b2a56f653490f8a47eae228d1ff763f29,"Single locked USB owner, protocol parser, matched acknowledgements and upload pause",Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/camera.py,b5997b600e240f62c589c46beb4525e0a1b5e298,Single Picamera2 acquisition worker and JPEG encoder,Camera owner,source reviewed; target unverified
+GERM,pi_hmi/check_integration.py,e3782a1440327f10263ac424f7a4a952b555b46d,Existing ten-test host serial/API/firmware harness,Contract review/test evidence,fixture/historical test; current results separate
+GERM,pi_hmi/dashboard.py,6fbbb59b604787eb820d23a1d1bf020a65b4a60f,"Seven-screen blueprint, state/history and capture APIs",Application/API,source reviewed; target unverified
+GERM,pi_hmi/deploy/hmi.service,05829e8b0bbce3661635bb8e964f5e671961106c,"Service boot, kiosk launch or session autostart configuration",Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/deploy/labwc-autostart,5a33bad26738e48386e4aa342dc6c5449330aa3b,"Service boot, kiosk launch or session autostart configuration",Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/deploy/start_hmi_browser.sh,4549b3920d3069ef4d383c711490543a9486a3a3,"Service boot, kiosk launch or session autostart configuration",Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/deploy_to_pi.py,b988393659aa1798ef8480dd640f968d3d3fd14a,Partial eight-file application updater and firmware uploader,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/dht11_reader.py,ea0576c02973663021a2389c18ce0a999caf6868,GPIO4 DHT11 acquisition and timestamps,Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/docs/PI_README_ORIGINAL.md,223e9e4dffa2d7d2610d54218b4b79c30beddf6f,PI_README_ORIGINAL.md,Contract review/test evidence,source reviewed; target unverified
+GERM,pi_hmi/environment/pi-packages.freeze.txt,93ee44e742948cc6bb6caee7f17edf2e25ff0025,Historical Pi package or source-hash export,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/environment/pi-system-packages.txt,49d7f09ee7fa106008b91d2fd6b2a16e0f91837a,Historical Pi package or source-hash export,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/environment/source-sha256.json,822a935b1e2211d0e070c314a4e28683d9869aaf,Historical Pi package or source-hash export,Deployment/recovery,source reviewed; target unverified
+GERM,pi_hmi/fan_sender.py,8afe2b6508ca85d2dfc18dfa67996bace4a65f2b,fan_sender.py,Application/API,legacy retained; no active shared-shell caller
+GERM,pi_hmi/firmware_service.py,a805a693bf11c8f377d831198b00e4c562aea343,Token-guarded firmware compile/upload routes,Application/API,source reviewed; target unverified
+GERM,pi_hmi/led_sender.py,9ab73c8f1c642ea69e1207fe17bec73e1465a740,led_sender.py,Application/API,legacy retained; no active shared-shell caller
+GERM,pi_hmi/requirements.txt,e73de650d3479a0f817352f6e12947bc19baa3f4,requirements.txt,Application/API,source reviewed; target unverified
+GERM,pi_hmi/sensor_reader.py,6ef4c5580e0cb56c70159a0465ee270b7a0a24c6,STATUS polling and legacy A0 reading cache,Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/services/__init__.py,30a3cae4626653d284e8109828088ad01417bea5,__init__.py,Application/API,source reviewed; target unverified
+GERM,pi_hmi/services/camera_service.py,590568ed051212f23574a3d14666c221db61305a,"Manual capture files, hashes and latest-local recovery scan",Camera owner,source reviewed; target unverified
+GERM,pi_hmi/services/database_service.py,895cfe97dd51119625a875367f37e71caaaea2de,Unconfigured repository interface consumed by API/camera,Repository,explicit placeholder
+GERM,pi_hmi/services/ml_service.py,67a65347173be8a436f0bf7234fd0bf01668a5cd,Unconfigured local inference interface,ML adapter,explicit placeholder
+GERM,pi_hmi/services/sensor_service.py,34a9f97d626b0666ffa503fbca53b946dee630fb,"Engineering units, provenance and freshness of sensor values",Hardware adapters,source reviewed; target unverified
+GERM,pi_hmi/sim/run_sim.py,36ad49163676d828ec59a9320edfc0c274286c2c,run_sim.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/static/hmi.css,0e9a9da683efc75598675d9f3a1864242032cbdd,Local HMI styling and compact screen layout,Presentation,source reviewed; target unverified
+GERM,pi_hmi/static/hmi.js,90fe49ecce34151bd2e1e49d5eec97b7b058c3f9,"Local API polling, screen rendering and confirmation dialogs",Presentation,source reviewed; target unverified
+GERM,pi_hmi/templates/fan.html,4342a06ee31fbb97cc973d1159c8a4eca1f6c613,fan.html,Presentation,legacy retained; no active shared-shell caller
+GERM,pi_hmi/templates/firmware.html,d9183bed7560c14c990126d11d6e753267cef1e3,firmware.html,Presentation,source reviewed; target unverified
+GERM,pi_hmi/templates/index.html,a5f7ab2d12dac3f25139ad9a979487f1f8a66d32,Shared seven-screen local HTML shell,Presentation,source reviewed; target unverified
+GERM,pi_hmi/templates/led.html,fd358e342932bfdead8aefca953a0ee24fa27252,led.html,Presentation,legacy retained; no active shared-shell caller
+GERM,pi_hmi/templates/pump.html,8e62c24205da29ae28378f0a7548041cfcbdcbd3,pump.html,Presentation,legacy retained; no active shared-shell caller
+GERM,pi_hmi/tests/build_sample_db.py,d6aa58d76f677d2536b2ebf7ede35f19783fbae9,build_sample_db.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/firmware_behavior.cpp,d1f42b08b5b22abbc6e60edf90cdd8c7f4904fb6,Host Arduino API simulation including actual sketch,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/api_requests.json,ab52ca24edce2028e9b36525ecd553e4b510d169,api_requests.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/camera.jpg,a749e00b896e5336b4a12c44f144c224ba9a36c5,camera.jpg,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/camera_metadata.json,7c2f83bbea703dc75695ba2c4bcc23a4a99f3f34,camera_metadata.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/scenarios.json,6d4f90b8fd8018bf6d219f5a3f2f074becb8479e,scenarios.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/schema_v1.sql,a2c90ce5f69fecde08f88a877fe1a4093024ecfc,schema_v1.sql,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/seed.sql,971269753f11f8c79922d48dbd5006057d09cee7,seed.sql,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/sensors.json,b72066775893e90e350f7dd6c21748a9a16ff908,sensors.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/fixtures/serial.json,ef7f8ff0cf551953bbae8256764648a0376530ac,serial.json,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/requirements-host.txt,f4fecaf977a7f30c4bb3c4c2b3f9fc5c11d35afd,requirements-host.txt,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/run_host_checks.py,a67aac48f199b5bbdfb882a86f5b283018ae3117,run_host_checks.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/test_m0.py,c831bae3c134d104b179b5cea713b7185b1d1734,test_m0.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/tests/test_phase0.py,79cc7fe205d240cc9422a55dd85ff461c5e26681,test_phase0.py,Contract review/test evidence,M0 candidate; synthetic/historical evidence labelled; no physical acceptance
+GERM,pi_hmi/verify_live.py,4c819a0ec77999289577055faf858723cee83e5a,Target-only OFF commands and HTTP smoke verification,Contract review/test evidence,source reviewed; target unverified
+GERM,docs/evidence/README.md,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,README.md,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/CI_RESULTS.json,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,CI_RESULTS.json,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/HOST_TEST_RESULTS.json,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,HOST_TEST_RESULTS.json,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/README.md,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,README.md,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/existing-integration.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,existing-integration.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/host-packages.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,host-packages.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/javascript-parse.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,javascript-parse.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/m0-contracts.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,m0-contracts.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/phase0-contracts.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,phase0-contracts.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-119/preserved-root-app.txt,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,preserved-root-app.txt,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/evidence/task-128/README.md,M0 evidence; exact hashes in HOST_TEST_RESULTS/CI_RESULTS where applicable,README.md,Contract review/test evidence,Contract review pending; host/simulation only
+GERM,docs/phase0/M0_SOURCE_BASELINE.json,59e9de1cbd4f8bc35802077be285dc4eff461112,M0_SOURCE_BASELINE.json,Contract review/test evidence,Contract review pending; host/simulation only
+GERM-PCB,.gitignore,f8a2f9ad26c9b3f35073b3bfa8c53d0b1023e31b,.gitignore,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,Arduino_MountingHole.pretty/MountingHole_1.2mm.kicad_mod,1a8d65121814473844c084e0bdad72686941d488,Reusable mounting-hole footprint,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,Arduino_MountingHole.pretty/MountingHole_3.2mm.kicad_mod,1c5137fe300319f110e6e4e3433d23ea57e78268,Reusable mounting-hole footprint,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,GERM_PCB.kicad_pcb,7bd7ad558d8eb2d9257ecaa46f0d499efcb762e3,Board layout/header nets and mounting footprint placement,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,GERM_PCB.kicad_pro,70386526a4a878518cbb9cd67aafdce40d53f7ef,KiCad project settings,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,GERM_PCB.kicad_sch,9258f398ffcba7a00be38772fa3d427495d0e969,Board connector schematic source; no approved load/interlock mapping,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,README.md,98df3033dc05b6b4e5e1c5b20cc9c3298058a2ec,README.md,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
+GERM-PCB,fp-lib-table,a8cad928a7bce2c65a552ba068aed71c386ffc8c,Project footprint library registration,Electrical design,Historical PR #2 review at 2420d31; not re-fetched or electrical confirmation
