@@ -128,6 +128,7 @@ class HostLifecycle:
         stage='database'
         try:
             self.repo._rows('SELECT version FROM migration_history ORDER BY version DESC LIMIT 1')
+            if self.repo.status!='ready':raise OSError('Repository remains in error; explicit recovery required')
             stage='logging'
             if not self.grow.persistence.tick():raise OSError('Logging/restart persistence unavailable')
             stage='sensors'
@@ -154,6 +155,7 @@ class HostLifecycle:
         except Exception as exc:self._fault('worker',exc)
 
     def snapshot(self):
+        if self.status=='running' and self.repo and self.repo.status!='ready':self._fault('database',OSError('Repository reports an unresolved error'))
         if self.status=='running' and self.background:
             if self.worker is None or not self.worker.is_alive():self._fault('worker',RuntimeError('Owned worker stopped; explicit recovery required'))
             elif self.heartbeat and time.monotonic()-self.heartbeat>max(3,4*self.interval):self._fault('worker',TimeoutError('Owned worker heartbeat is stale'))

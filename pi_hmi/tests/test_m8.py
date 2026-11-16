@@ -61,6 +61,8 @@ class LifecycleTests(unittest.TestCase):
         result=self.host.snapshot();self.assertEqual(result['state'],'degraded');self.assertTrue(self.host.gateway.state.restart_required)
         self.assertFalse(self.host.gateway.state.startup_complete);self.assertFalse(self.host.step())
         self.assertEqual(self.host.recover()['state'],'running');self.assertTrue(self.host.gateway.state.restart_required)
+        self.host.repo.status='error'
+        self.assertEqual(self.host.snapshot()['state'],'degraded');self.assertEqual(self.host.components['database']['state'],'unavailable')
 
     def test_stale_worker_heartbeat_fails_closed(self):
         self.start();self.host.background=True;self.host.worker=threading.current_thread();self.host.heartbeat=time.monotonic()-20

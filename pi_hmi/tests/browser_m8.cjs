@@ -4,14 +4,14 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
 (async()=>{
   const root=path.resolve(__dirname,'../..'),output=path.resolve(process.env.GERM_BROWSER_OUTPUT || path.join(root,'build/m8-browser'));fs.mkdirSync(output,{recursive:true});
   const child=spawn(process.env.GERM_TEST_PYTHON || 'python',[path.join(__dirname,'browser_m8_host.py')],{cwd:root,env:{...process.env,PYTHONUTF8:'1',PYTHONDONTWRITEBYTECODE:'1'},stdio:['pipe','pipe','pipe']});
-  let browser,logs='';child.stderr.on('data',c=>logs+=c);
+  let browser,page,logs='';child.stderr.on('data',c=>logs+=c);
   try{
     const port=await new Promise((resolve,reject)=>{let text='';const timer=setTimeout(()=>reject(Error('Startup timeout '+logs)),25000);child.on('exit',code=>reject(Error('Host exited '+code+' '+logs)));child.stdout.on('data',c=>{text+=c;if(text.includes('\n')){clearTimeout(timer);resolve(JSON.parse(text.split('\n')[0]).port);}});});
     const base='http://127.0.0.1:'+port,external=[],errors=[],posts=[];
     browser=await chromium.launch({headless:true,executablePath:process.env.GERM_TEST_BROWSER || undefined});
     const context=await browser.newContext({viewport:{width:739,height:447}});
     await context.route('**/*',route=>{const url=new URL(route.request().url());if(url.origin!==base){external.push(url.origin);return route.abort();}return route.continue();});
-    const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(r.method()==='POST')posts.push(new URL(r.url()).pathname);});
+    page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(r.method()==='POST')posts.push(new URL(r.url()).pathname);});
     async function nativeConfirm(button){const opened=page.waitForEvent('dialog'),clicked=button.click();const dialog=await opened;await dialog.accept();await clicked;}
     for(const route of ['/','/plant','/trends','/controls','/alerts','/maintenance','/settings']){
       await page.goto(base+route);await page.locator('#local-connection').filter({hasText:'Local host running'}).waitFor();
@@ -48,5 +48,10 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
     fs.writeFileSync(path.join(output,'RESULTS.json'),JSON.stringify({status:'PASS',viewport:'739x447',externalRequests:external,pageErrors:errors,checks:['all seven screens with external requests blocked','same-origin assets and CSP','keyboard skip link and visible focus','current-page navigation','no horizontal overflow','touch target size','Cancel-focused dialog and Escape no dispatch','lost localhost clears status and disables commands','reconnect never replays POSTs','DB/core-worker failure requires explicit recovery','restart never restores permissions or armed schedules','stale camera hides image; no placeholder']},null,2));
     console.log('PASS: M8 offline seven-screen lifecycle, keyboard, disconnect and recovery browser flow');
+  }catch(error){
+    if(page){
+      try{fs.writeFileSync(path.join(output,'failure-debug.json'),JSON.stringify({error:String(error),growText:await page.locator('#grow-summary').textContent(),state:await (await page.request.get(new URL('/api/state',page.url()).href)).json()},null,2));}catch{}
+    }
+    throw error;
   }finally{if(browser)await browser.close();child.kill();fs.writeFileSync(path.join(output,'server-output.txt'),logs);}
 })().catch(error=>{console.error(error);process.exitCode=1;});
