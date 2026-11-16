@@ -45,8 +45,8 @@ def run(hours=72):
                     for name,meta in manifest['members'].items():assert sha(package.read(name))==meta['sha256']
                     if 'tables' in manifest:
                         for table,meta in manifest['tables'].items():
-                            assert len(list(csv.reader(io.StringIO(package.read(table+'.csv').decode('utf-8')))))-1==meta['rows']
-                            assert len(package.read(table+'.jsonl').splitlines())==meta['rows']
+                            assert len(list(csv.reader(io.StringIO(package.read('tables/'+table+'.v1.csv').decode('utf-8')))))-1==meta['rows']
+                            assert len(package.read('provenance/'+table+'.jsonl').splitlines())==meta['rows']
                 jobs.append(dict(request_id=request,kind=definition.get('kind','export'),sha256=result['sha256'],size_bytes=len(data)))
                 return request
             for hour in range(1,hours+1):

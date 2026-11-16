@@ -9,13 +9,17 @@ from services.sqlite_repository import SQLiteRepository
 def install_trace(host,application):
     target=Path(os.environ['GERM_M9_TRACE']);target.parent.mkdir(parents=True,exist_ok=True)
     lock=threading.Lock();records=deque(maxlen=2048);started=time.perf_counter();sequence=0
+    def flush():
+        while True:
+            time.sleep(.25)
+            with lock:snapshot=list(records)
+            # Instrumentation must never serialize/write a trace inside a SQLite transaction.
+            stage=target.with_suffix('.stage');stage.write_text(json.dumps(snapshot),encoding='utf-8');os.replace(stage,target)
+    threading.Thread(target=flush,daemon=True,name='m9-test-trace-writer').start()
     def record(kind,**values):
         nonlocal sequence
         with lock:
             sequence+=1;records.append(dict(sequence=sequence,elapsed_s=time.perf_counter()-started,thread=threading.current_thread().name,kind=kind,**values))
-            # Atomic bounded replacement keeps evidence on deliberate process death.
-            if sequence%64==0 or kind in ('http','sqlite_error','trace_started'):
-                stage=target.with_suffix('.stage');stage.write_text(json.dumps(list(records)),encoding='utf-8');os.replace(stage,target)
     original=SQLiteRepository.connection
     @contextmanager
     def connection(repo):
@@ -24,7 +28,7 @@ def install_trace(host,application):
             with original(repo) as db:
                 db.set_trace_callback(lambda sql:record('sqlite',operation=sql.split()[0] if sql.split() else '',repository_state=repo.status))
                 yield db
-        except Exception as exc:record('sqlite_error',error=type(exc).__name__,repository_state=repo.status);raise
+        except Exception as exc:record('sqlite_error',error=type(exc).__name__,message=str(exc)[:180],sqlite_errorcode=getattr(exc,'sqlite_errorcode',None),repository_state=repo.status);raise
         finally:record('sqlite_connection',duration_s=time.perf_counter()-begin,repository_state=repo.status)
     SQLiteRepository.connection=connection
     @application.before_request
