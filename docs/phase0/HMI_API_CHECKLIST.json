@@ -721,8 +721,12 @@
         "field": "grow.profiles + grow.cycle"
       },
       "quality": "Persisted active selection and status; no fabricated experiment",
-      "command": null,
-      "confirmation": "Advanced edit confirmation",
+      "command": {
+        "path": "/api/grow/cycles",
+        "method": "POST",
+        "payload": "profile_id + name; creates paused cycle only"
+      },
+      "confirmation": "Profile selection cannot energize outputs; separate backend-confirmed Start required",
       "acceptance_case": "Persist/reopen profile; start/pause/maintain lifecycle",
       "status": "Partial",
       "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
@@ -859,6 +863,52 @@
       "gap": "Host simulation implemented; production auth/network and electrical boundaries remain restricted",
       "owner": "Backend/API + HMI review",
       "evidence": "M1 permission/HTTP tests; not physical acceptance"
+    },
+    {
+      "id": "S05",
+      "screen": "Settings",
+      "source": "SR-UI-01/03; SR-AUT-02",
+      "display": "Host UTC schedule configuration",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "grow.profiles + grow.cycle"
+      },
+      "quality": "Persisted active selection and status; no fabricated experiment",
+      "command": {
+        "path": "/api/grow/schedules",
+        "method": "POST",
+        "payload": "Host simulation authorizer + token; validated grow configuration"
+      },
+      "confirmation": "Does not start outputs; separate backend-confirmed Start required",
+      "acceptance_case": "Reject conflicts; persist/reopen enabled settings; configuration commit revokes pending Start",
+      "status": "Partial",
+      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "owner": "HMI with backend contract review",
+      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+    },
+    {
+      "id": "M05",
+      "screen": "Maintenance",
+      "source": "SR-UI-01/03; SR-AUT-02",
+      "display": "Grow storage recovery to paused state",
+      "backend": {
+        "path": "/api/state",
+        "method": "GET",
+        "field": "grow.profiles + grow.cycle"
+      },
+      "quality": "Persisted active selection and status; no fabricated experiment",
+      "command": {
+        "path": "/api/grow/recover",
+        "method": "POST",
+        "payload": "Host simulation authorizer + token; validated grow configuration"
+      },
+      "confirmation": "Does not start outputs; separate backend-confirmed Start required",
+      "acceptance_case": "Storage error/restart remains inhibited; recover pauses and requires a new confirmed Start",
+      "status": "Partial",
+      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "owner": "HMI with backend contract review",
+      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
     }
   ]
 }

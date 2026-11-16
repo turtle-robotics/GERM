@@ -1,6 +1,6 @@
 # Task 128 seven-screen HMI/API checklist
 
-Version `m4-review-1`; 45 rows. Structured authority: [HMI_API_CHECKLIST.json](HMI_API_CHECKLIST.json); routes/errors: [API_ENDPOINTS.json](API_ENDPOINTS.json). M0 accepted scope remains the [recorded verdict](M0_REVIEW_VERDICT.md). Current host implementation/evidence: [M1 guide](M1_IMPLEMENTATION.md).
+Version `m4-review-1`; 47 rows. Structured authority: [HMI_API_CHECKLIST.json](HMI_API_CHECKLIST.json); routes/errors: [API_ENDPOINTS.json](API_ENDPOINTS.json). M0 accepted scope remains the [recorded verdict](M0_REVIEW_VERDICT.md). Current host implementation/evidence: [M1 guide](M1_IMPLEMENTATION.md).
 
 Product and physical acceptance remain partial/missing as recorded below. Synthetic test success does not establish physical behavior or measured two-second UI acceptance. Null backend fields are explicit gaps.
 
@@ -51,5 +51,7 @@ Product and physical acceptance remain partial/missing as recorded below. Synthe
 | X03 | Shared | SR-UI-02 | Refresh deadline | GET /api/state: new backend values | Partial: Timing measurement pending HMI gate | Instrument injected update and browser DOM paint; retain trace |
 | X04 | Shared | SO-4 AC-5 | Editable architecture diagram | Missing contract | Missing: Import not exercised | Import into Lucidchart and check editable shapes |
 | X05 | Shared | SR-UI-03; M1_CONTRACT | Backend single-use command confirmation | Missing contract | Partial: Host simulation implemented; production auth/network and electrical boundaries remain restricted | Missing/expired/replayed/wrong-source/wrong-payload confirmation produces zero adapter writes |
+| S05 | Settings | SR-UI-01/03; SR-AUT-02 | Host UTC schedule configuration | GET /api/state: grow.profiles + grow.cycle | Partial: Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open | Reject conflicts; persist/reopen enabled settings; configuration commit revokes pending Start |
+| M05 | Maintenance | SR-UI-01/03; SR-AUT-02 | Grow storage recovery to paused state | GET /api/state: grow.profiles + grow.cycle | Partial: Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open | Storage error/restart remains inhibited; recover pauses and requires a new confirmed Start |
 
 Confirmation, quality, evidence and review ownership for each row are retained in the structured JSON. Hardware dependencies, durable restart/logging and unresolved requirements remain open in the M1 guide.
