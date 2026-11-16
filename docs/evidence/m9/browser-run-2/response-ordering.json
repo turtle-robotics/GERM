@@ -1,0 +1,130 @@
+{
+  "olderApiCycle": "running",
+  "latestApiCycle": "paused",
+  "rendered": "basil · paused · schedules inhibited",
+  "trace": [
+    {
+      "t": 66.2000000178814,
+      "kind": "request",
+      "id": 1,
+      "url": "/api/state"
+    },
+    {
+      "t": 73.40000000596046,
+      "kind": "request",
+      "id": 2,
+      "url": "/api/services"
+    },
+    {
+      "t": 109.90000000596046,
+      "kind": "response",
+      "id": 2,
+      "status": 200
+    },
+    {
+      "t": 136.40000000596046,
+      "kind": "response",
+      "id": 1,
+      "status": 200
+    },
+    {
+      "t": 139.5,
+      "kind": "DOM",
+      "grow": "basil · paused · schedules inhibited"
+    },
+    {
+      "t": 236.40000000596046,
+      "kind": "request",
+      "id": 3,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 262.80000001192093,
+      "kind": "response",
+      "id": 3,
+      "status": 200
+    },
+    {
+      "t": 282.80000001192093,
+      "kind": "request",
+      "id": 4,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 332.5,
+      "kind": "response",
+      "id": 4,
+      "status": 200
+    },
+    {
+      "t": 333,
+      "kind": "request",
+      "id": 5,
+      "url": "/api/state"
+    },
+    {
+      "t": 384.60000002384186,
+      "kind": "response",
+      "id": 5,
+      "status": 200
+    },
+    {
+      "t": 386,
+      "kind": "DOM",
+      "grow": "basil · running · schedules armed for simulation"
+    },
+    {
+      "t": 497.7000000178814,
+      "kind": "request",
+      "id": 6,
+      "url": "/api/state"
+    },
+    {
+      "t": 671.8000000119209,
+      "kind": "request",
+      "id": 7,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 693.2000000178814,
+      "kind": "response",
+      "id": 7,
+      "status": 200
+    },
+    {
+      "t": 693.8000000119209,
+      "kind": "request",
+      "id": 8,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 750,
+      "kind": "response",
+      "id": 8,
+      "status": 200
+    },
+    {
+      "t": 752.3000000119209,
+      "kind": "request",
+      "id": 9,
+      "url": "/api/state"
+    },
+    {
+      "t": 824.7000000178814,
+      "kind": "response",
+      "id": 9,
+      "status": 200
+    },
+    {
+      "t": 825.8000000119209,
+      "kind": "DOM",
+      "grow": "basil · paused · schedules inhibited"
+    },
+    {
+      "t": 874.6000000238419,
+      "kind": "response",
+      "id": 6,
+      "status": 200
+    }
+  ]
+}

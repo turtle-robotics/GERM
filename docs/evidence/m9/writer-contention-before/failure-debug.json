@@ -1,0 +1,1007 @@
+{
+  "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#grow-summary').filter({ hasText: 'armed for simulation' }) to be visible\u001b[22m\n",
+  "growText": "Grow repository error",
+  "trace": [
+    {
+      "t": 87.59999999403954,
+      "kind": "request",
+      "id": 1,
+      "url": "/api/state"
+    },
+    {
+      "t": 89,
+      "kind": "request",
+      "id": 2,
+      "url": "/api/services"
+    },
+    {
+      "t": 120.59999999403954,
+      "kind": "response",
+      "id": 2,
+      "status": 200
+    },
+    {
+      "t": 161.5,
+      "kind": "request",
+      "id": 3,
+      "url": "/api/confirmations"
+    },
+    {
+      "t": 177.19999998807907,
+      "kind": "response",
+      "id": 3,
+      "status": 200
+    },
+    {
+      "t": 187.19999998807907,
+      "kind": "request",
+      "id": 4,
+      "url": "/api/workflow"
+    },
+    {
+      "t": 195,
+      "kind": "response",
+      "id": 1,
+      "status": 200
+    },
+    {
+      "t": 196.59999999403954,
+      "kind": "DOM",
+      "grow": "basil · paused · schedules inhibited"
+    },
+    {
+      "t": 385.80000001192093,
+      "kind": "response",
+      "id": 4,
+      "status": 503
+    },
+    {
+      "t": 386.19999998807907,
+      "kind": "request",
+      "id": 5,
+      "url": "/api/state"
+    },
+    {
+      "t": 1170.800000011921,
+      "kind": "response",
+      "id": 5,
+      "status": 200
+    },
+    {
+      "t": 1172.699999988079,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 2092.5,
+      "kind": "request",
+      "id": 6,
+      "url": "/api/state"
+    },
+    {
+      "t": 2093.199999988079,
+      "kind": "request",
+      "id": 7,
+      "url": "/api/services"
+    },
+    {
+      "t": 2212.300000011921,
+      "kind": "response",
+      "id": 7,
+      "status": 200
+    },
+    {
+      "t": 2567.300000011921,
+      "kind": "response",
+      "id": 6,
+      "status": 200
+    },
+    {
+      "t": 2568.5,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 4091.800000011921,
+      "kind": "request",
+      "id": 8,
+      "url": "/api/state"
+    },
+    {
+      "t": 4092.5999999940395,
+      "kind": "request",
+      "id": 9,
+      "url": "/api/services"
+    },
+    {
+      "t": 4117.300000011921,
+      "kind": "response",
+      "id": 9,
+      "status": 200
+    },
+    {
+      "t": 4244.5999999940395,
+      "kind": "response",
+      "id": 8,
+      "status": 200
+    },
+    {
+      "t": 4246.800000011921,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 6102.4000000059605,
+      "kind": "request",
+      "id": 10,
+      "url": "/api/state"
+    },
+    {
+      "t": 6103.300000011921,
+      "kind": "request",
+      "id": 11,
+      "url": "/api/services"
+    },
+    {
+      "t": 6119.4000000059605,
+      "kind": "response",
+      "id": 11,
+      "status": 200
+    },
+    {
+      "t": 6165.699999988079,
+      "kind": "response",
+      "id": 10,
+      "status": 200
+    },
+    {
+      "t": 6167.0999999940395,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 8096.699999988079,
+      "kind": "request",
+      "id": 12,
+      "url": "/api/state"
+    },
+    {
+      "t": 8097.199999988079,
+      "kind": "request",
+      "id": 13,
+      "url": "/api/services"
+    },
+    {
+      "t": 8119.199999988079,
+      "kind": "response",
+      "id": 13,
+      "status": 200
+    },
+    {
+      "t": 8174.4000000059605,
+      "kind": "response",
+      "id": 12,
+      "status": 200
+    },
+    {
+      "t": 8175.5,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 10088.09999999404,
+      "kind": "request",
+      "id": 14,
+      "url": "/api/state"
+    },
+    {
+      "t": 10090.09999999404,
+      "kind": "request",
+      "id": 15,
+      "url": "/api/services"
+    },
+    {
+      "t": 10108.699999988079,
+      "kind": "response",
+      "id": 15,
+      "status": 200
+    },
+    {
+      "t": 10181.699999988079,
+      "kind": "response",
+      "id": 14,
+      "status": 200
+    },
+    {
+      "t": 10183,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 12093.199999988079,
+      "kind": "request",
+      "id": 16,
+      "url": "/api/state"
+    },
+    {
+      "t": 12093.699999988079,
+      "kind": "request",
+      "id": 17,
+      "url": "/api/services"
+    },
+    {
+      "t": 12116.699999988079,
+      "kind": "response",
+      "id": 17,
+      "status": 200
+    },
+    {
+      "t": 12173.59999999404,
+      "kind": "response",
+      "id": 16,
+      "status": 200
+    },
+    {
+      "t": 12174.800000011921,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 14090.09999999404,
+      "kind": "request",
+      "id": 18,
+      "url": "/api/state"
+    },
+    {
+      "t": 14090.5,
+      "kind": "request",
+      "id": 19,
+      "url": "/api/services"
+    },
+    {
+      "t": 14106,
+      "kind": "response",
+      "id": 19,
+      "status": 200
+    },
+    {
+      "t": 14225.800000011921,
+      "kind": "response",
+      "id": 18,
+      "status": 200
+    },
+    {
+      "t": 14228.199999988079,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 16089,
+      "kind": "request",
+      "id": 20,
+      "url": "/api/state"
+    },
+    {
+      "t": 16089.40000000596,
+      "kind": "request",
+      "id": 21,
+      "url": "/api/services"
+    },
+    {
+      "t": 16101.5,
+      "kind": "response",
+      "id": 21,
+      "status": 200
+    },
+    {
+      "t": 16146.699999988079,
+      "kind": "response",
+      "id": 20,
+      "status": 200
+    },
+    {
+      "t": 16148.300000011921,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 18094.80000001192,
+      "kind": "request",
+      "id": 22,
+      "url": "/api/state"
+    },
+    {
+      "t": 18095.59999999404,
+      "kind": "request",
+      "id": 23,
+      "url": "/api/services"
+    },
+    {
+      "t": 18117.59999999404,
+      "kind": "response",
+      "id": 23,
+      "status": 200
+    },
+    {
+      "t": 18276.90000000596,
+      "kind": "response",
+      "id": 22,
+      "status": 200
+    },
+    {
+      "t": 18279,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 20097.40000000596,
+      "kind": "request",
+      "id": 24,
+      "url": "/api/state"
+    },
+    {
+      "t": 20098.40000000596,
+      "kind": "request",
+      "id": 25,
+      "url": "/api/services"
+    },
+    {
+      "t": 20126.5,
+      "kind": "response",
+      "id": 25,
+      "status": 200
+    },
+    {
+      "t": 20237.09999999404,
+      "kind": "response",
+      "id": 24,
+      "status": 200
+    },
+    {
+      "t": 20239.30000001192,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 22088.5,
+      "kind": "request",
+      "id": 26,
+      "url": "/api/state"
+    },
+    {
+      "t": 22089.40000000596,
+      "kind": "request",
+      "id": 27,
+      "url": "/api/services"
+    },
+    {
+      "t": 22102.09999999404,
+      "kind": "response",
+      "id": 27,
+      "status": 200
+    },
+    {
+      "t": 22155.5,
+      "kind": "response",
+      "id": 26,
+      "status": 200
+    },
+    {
+      "t": 22157,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 24102.80000001192,
+      "kind": "request",
+      "id": 28,
+      "url": "/api/state"
+    },
+    {
+      "t": 24103.59999999404,
+      "kind": "request",
+      "id": 29,
+      "url": "/api/services"
+    },
+    {
+      "t": 24118.30000001192,
+      "kind": "response",
+      "id": 29,
+      "status": 200
+    },
+    {
+      "t": 24191.5,
+      "kind": "response",
+      "id": 28,
+      "status": 200
+    },
+    {
+      "t": 24192.5,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 26089.09999999404,
+      "kind": "request",
+      "id": 30,
+      "url": "/api/state"
+    },
+    {
+      "t": 26089.80000001192,
+      "kind": "request",
+      "id": 31,
+      "url": "/api/services"
+    },
+    {
+      "t": 26102.19999998808,
+      "kind": "response",
+      "id": 31,
+      "status": 200
+    },
+    {
+      "t": 26164.19999998808,
+      "kind": "response",
+      "id": 30,
+      "status": 200
+    },
+    {
+      "t": 26165.30000001192,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 28091.19999998808,
+      "kind": "request",
+      "id": 32,
+      "url": "/api/state"
+    },
+    {
+      "t": 28092,
+      "kind": "request",
+      "id": 33,
+      "url": "/api/services"
+    },
+    {
+      "t": 28126.5,
+      "kind": "response",
+      "id": 33,
+      "status": 200
+    },
+    {
+      "t": 28268.19999998808,
+      "kind": "response",
+      "id": 32,
+      "status": 200
+    },
+    {
+      "t": 28270.19999998808,
+      "kind": "DOM",
+      "grow": "Grow repository error"
+    },
+    {
+      "t": 30096.30000001192,
+      "kind": "request",
+      "id": 34,
+      "url": "/api/state"
+    },
+    {
+      "t": 30097.19999998808,
+      "kind": "request",
+      "id": 35,
+      "url": "/api/services"
+    },
+    {
+      "t": 30121.30000001192,
+      "kind": "response",
+      "id": 35,
+      "status": 200
+    }
+  ],
+  "state": {
+    "actuators": {
+      "fan": {
+        "last_request": null,
+        "mode": null,
+        "physically_verified": false,
+        "reported_state": false,
+        "speed": 0,
+        "state": "reported"
+      },
+      "lighting": {
+        "last_request": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "mode": "normal",
+        "physically_verified": false,
+        "reported_state": [
+          0,
+          0,
+          0
+        ],
+        "speed": null,
+        "state": "reported"
+      },
+      "pump": {
+        "last_request": null,
+        "mode": null,
+        "physically_verified": false,
+        "reported_state": false,
+        "speed": null,
+        "state": "reported"
+      }
+    },
+    "alerts": {
+      "active": null,
+      "highest": null,
+      "state": "error"
+    },
+    "arduino": {
+      "packet": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Arduino A0",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "raw",
+        "value": null
+      },
+      "state": "connected"
+    },
+    "camera": {
+      "age_seconds": 0,
+      "error": null,
+      "physically_verified": false,
+      "source": "synthetic",
+      "state": "ready",
+      "timestamp_utc": "2026-11-15T00:00:02.900000+00:00"
+    },
+    "control_boundary": {
+      "enabled": true,
+      "state": "simulation"
+    },
+    "data_scope": "simulation",
+    "database": {
+      "state": "error"
+    },
+    "estop": "clear",
+    "grow": {
+      "configuration_notice": "Basil and spearmint timings await review; entered schedules are host simulation settings",
+      "cycle": {
+        "created_at_utc": "2026-11-15T00:00:00.100000+00:00",
+        "cycle_id": "1cd9a670-d992-410b-9348-994dac621433",
+        "ended_at_utc": null,
+        "experiment_id": 1,
+        "generation": 6,
+        "profile_id": "basil",
+        "profile_snapshot_json": "{\"approval_status\":\"timings_unapproved\",\"definition\":{\"scope\":\"host-only\",\"timings\":null},\"name\":\"Basil\",\"profile_id\":\"basil\",\"version\":1}",
+        "started_at_utc": "2026-11-15T00:00:01.700000+00:00",
+        "status": "paused"
+      },
+      "grow_day": 1,
+      "last_command_event": "queued",
+      "last_maintenance": null,
+      "logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:02.900000+00:00",
+        "last_durable_event_id": "a0e8f652-51eb-430d-9227-3b798d82ac0f",
+        "last_error": null,
+        "pending": 3,
+        "poison_events": 0,
+        "state": "pending"
+      },
+      "profiles": [
+        {
+          "approval_status": "timings_unapproved",
+          "definition": {
+            "scope": "host-only",
+            "timings": null
+          },
+          "name": "Basil",
+          "profile_id": "basil",
+          "version": 1
+        },
+        {
+          "approval_status": "timings_unapproved",
+          "definition": {
+            "scope": "host-only",
+            "timings": null
+          },
+          "name": "Spearmint",
+          "profile_id": "spearmint",
+          "version": 1
+        }
+      ],
+      "recent_runs": [
+        {
+          "command": "LED:1,2,3,0",
+          "created_at_utc": "2026-11-15T00:00:01.900000+00:00",
+          "cycle_id": "1cd9a670-d992-410b-9348-994dac621433",
+          "definition_snapshot_json": "{\"enabled\":true,\"end_utc\":\"23:59\",\"rgb\":[1,2,3],\"start_utc\":\"00:00\",\"target\":\"lighting\"}",
+          "generation": 3,
+          "occurrence_id": "28492575-dfb3-5d87-9ec0-ddeb0c3cbd2b",
+          "result_json": "{\"accepted\":true,\"accepted_at_utc\":\"2026-11-15T00:00:01.900000+00:00\",\"acknowledged_at_utc\":\"2026-11-15T00:00:01.900000+00:00\",\"action\":\"set_lighting\",\"allowed\":true,\"error\":null,\"event_id\":\"5c6e1177-5867-4bdc-a79d-90f670850ce7\",\"firmware_confirmed\":true,\"http_status\":200,\"inhibits\":[],\"logged\":false,\"logging_status\":\"buffered_not_durable\",\"physically_verified\":false,\"reason_codes\":[],\"reported_state\":{\"a0\":null,\"fan\":false,\"fan_pwm\":true,\"fan_speed\":0,\"id\":1,\"lighting_mode\":\"normal\",\"protocol\":2,\"pump\":false,\"rgb\":[1,2,3],\"white_channel\":false},\"request_id\":\"28492575-dfb3-5d87-9ec0-ddeb0c3cbd2b\",\"requested_state\":[1,2,3,0],\"source\":\"automatic\",\"state_revision\":32,\"status\":\"confirmed\",\"target\":\"lighting\",\"verified\":false}",
+          "schedule_id": "afe0dff8-0a23-4e56-9940-a9c3b42af151",
+          "scheduled_at_utc": "2026-11-15T00:00:00+00:00",
+          "status": "acknowledged"
+        }
+      ],
+      "schedules": [
+        {
+          "cycle_id": "1cd9a670-d992-410b-9348-994dac621433",
+          "definition": {
+            "enabled": true,
+            "end_utc": "23:59",
+            "rgb": [
+              1,
+              2,
+              3
+            ],
+            "start_utc": "00:00",
+            "target": "lighting"
+          },
+          "schedule_id": "afe0dff8-0a23-4e56-9940-a9c3b42af151",
+          "target": "lighting"
+        }
+      ],
+      "schedules_armed": false,
+      "scope": "host simulation only",
+      "state": "error"
+    },
+    "inhibits": [
+      "grow_storage_unavailable",
+      "host_service_unavailable",
+      "restart_required",
+      "startup_incomplete"
+    ],
+    "maintenance_banner": null,
+    "media": {
+      "camera": {
+        "age_seconds": 0,
+        "error": null,
+        "physically_verified": false,
+        "source": "synthetic",
+        "state": "ready",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00"
+      },
+      "capture_error": null,
+      "database_state": "error",
+      "event_logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:02.900000+00:00",
+        "last_durable_event_id": "a0e8f652-51eb-430d-9227-3b798d82ac0f",
+        "last_error": null,
+        "pending": 3,
+        "poison_events": 0,
+        "state": "pending"
+      },
+      "experiment_id": 1,
+      "ml": {
+        "error": null,
+        "latest_result": null,
+        "model": null,
+        "state": "not_configured"
+      },
+      "plants": [],
+      "recent": [],
+      "recovery": {
+        "indexed": [],
+        "interrupted": [],
+        "journal_remaining": 0,
+        "journal_scan_truncated": false,
+        "needs_review": [],
+        "orphaned_files": [],
+        "scan_truncated": false
+      },
+      "requests": [],
+      "schedule": null,
+      "scheduling": {
+        "clock_fault": false,
+        "error": "host_service_unavailable",
+        "high_water_utc": null,
+        "inhibited": true,
+        "operator_recovery_required": true,
+        "resume_not_before_utc": null,
+        "state": "host_inhibited"
+      },
+      "server_time_utc": "2026-11-15T00:00:02.900000+00:00",
+      "source": "synthetic"
+    },
+    "ml": {
+      "latest_result": null,
+      "model": null,
+      "state": "not_configured"
+    },
+    "operating_state": {
+      "controller_connected": true,
+      "controller_feedback": {
+        "a0": null,
+        "fan": false,
+        "fan_pwm": true,
+        "fan_speed": 0,
+        "id": 1,
+        "lighting_mode": "normal",
+        "protocol": 2,
+        "pump": false,
+        "rgb": [
+          0,
+          0,
+          0
+        ],
+        "white_channel": false
+      },
+      "estop": "clear",
+      "inhibits": [
+        "grow_storage_unavailable",
+        "host_service_unavailable",
+        "restart_required",
+        "startup_incomplete"
+      ],
+      "last_command": {
+        "accepted": true,
+        "accepted_at_utc": "2026-11-15T00:00:02.900000+00:00",
+        "acknowledged_at_utc": "2026-11-15T00:00:02.900000+00:00",
+        "action": "stop",
+        "allowed": true,
+        "error": null,
+        "event_id": "27347b85-da9f-4fb5-a301-8c73a7242007",
+        "firmware_confirmed": true,
+        "http_status": 200,
+        "inhibits": [
+          "grow_storage_unavailable",
+          "host_service_unavailable",
+          "restart_required",
+          "startup_incomplete"
+        ],
+        "logged": false,
+        "logging_status": "buffered_not_durable",
+        "physically_verified": false,
+        "reason_codes": [],
+        "reported_state": {
+          "a0": null,
+          "fan": false,
+          "fan_pwm": true,
+          "fan_speed": 0,
+          "id": 1,
+          "lighting_mode": "normal",
+          "protocol": 2,
+          "pump": false,
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "white_channel": false
+        },
+        "request_id": "a8d041ad-32b4-4cc4-8fbd-c913ce57ea1e",
+        "requested_state": "off",
+        "source": "safety",
+        "state_revision": 45,
+        "status": "confirmed",
+        "target": "all",
+        "verified": false
+      },
+      "logging": {
+        "dropped": 0,
+        "last_durable_at_utc": "2026-11-15T00:00:02.900000+00:00",
+        "last_durable_event_id": "a0e8f652-51eb-430d-9227-3b798d82ac0f",
+        "last_error": null,
+        "pending": 3,
+        "poison_events": 0,
+        "state": "pending"
+      },
+      "maintenance": false,
+      "maintenance_banner": null,
+      "persistence": {
+        "restart_recovery_verified": true,
+        "state": "ready"
+      },
+      "profile": "basil",
+      "requested_states": {
+        "fan": null,
+        "lighting": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "pump": null
+      },
+      "restart_required": true,
+      "sensors": {
+        "air_temperature": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": null,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+          "unit": "degC",
+          "value": 24
+        },
+        "door": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+          "unit": "normalized boolean",
+          "value": true
+        },
+        "estop": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+          "unit": "normalized boolean",
+          "value": false
+        },
+        "humidity": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": null,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+          "unit": "%RH",
+          "value": 55
+        },
+        "leak": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+          "unit": "normalized boolean",
+          "value": false
+        },
+        "water_level": {
+          "age_seconds": 0,
+          "expected_period_s": 2,
+          "fault_reason": null,
+          "location": "SYNTHETIC ONLY",
+          "quality_flag": "good",
+          "safe": true,
+          "source": "SYNTHETIC FIXTURE",
+          "state": "fresh",
+          "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+          "unit": "normalized boolean",
+          "value": true
+        }
+      },
+      "state_revision": 45,
+      "system_state": "STARTUP CHECK"
+    },
+    "sensors": {
+      "air_temperature": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": null,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+        "unit": "degC",
+        "value": 24
+      },
+      "arduino_a0": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Arduino A0",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "raw",
+        "value": null
+      },
+      "door": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+        "unit": "normalized boolean",
+        "value": true
+      },
+      "electronics_temperature": {
+        "age_seconds": null,
+        "fault_reason": "interface_unconfigured",
+        "quality_flag": "missing",
+        "source": "No validated input",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "degC",
+        "value": null
+      },
+      "estop": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+        "unit": "normalized boolean",
+        "value": false
+      },
+      "humidity": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": null,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+        "unit": "%RH",
+        "value": 55
+      },
+      "leak": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+        "unit": "normalized boolean",
+        "value": false
+      },
+      "water_level": {
+        "age_seconds": 0,
+        "expected_period_s": 2,
+        "fault_reason": null,
+        "location": "SYNTHETIC ONLY",
+        "quality_flag": "good",
+        "safe": true,
+        "source": "SYNTHETIC FIXTURE",
+        "state": "fresh",
+        "timestamp_utc": "2026-11-15T00:00:02.900000+00:00",
+        "unit": "normalized boolean",
+        "value": true
+      },
+      "water_temperature": {
+        "fault_reason": "missing",
+        "quality_flag": "missing",
+        "source": "Not installed",
+        "state": "unavailable",
+        "timestamp_utc": null,
+        "unit": "°C",
+        "value": null
+      }
+    },
+    "state_revision": 45,
+    "system_state": "STARTUP CHECK"
+  }
+}

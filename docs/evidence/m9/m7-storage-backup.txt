@@ -1,0 +1,27 @@
+test_host_boundary_inventory_jobs_verify_restore_and_download (test_m7.StorageHttpTests.test_host_boundary_inventory_jobs_verify_restore_and_download) ... ok
+test_archive_traversal_absolute_reserved_case_and_zip_symlinks_denied (test_m7.StorageTests.test_archive_traversal_absolute_reserved_case_and_zip_symlinks_denied) ... ok
+test_complete_backup_manifest_database_and_jpeg_integrity (test_m7.StorageTests.test_complete_backup_manifest_database_and_jpeg_integrity) ... ok
+test_corrupt_image_and_changed_image_cannot_make_usable_backup (test_m7.StorageTests.test_corrupt_image_and_changed_image_cannot_make_usable_backup) ... ok
+test_corrupted_archive_hash_verify_and_restore_refuse (test_m7.StorageTests.test_corrupted_archive_hash_verify_and_restore_refuse) ... ok
+test_disk_full_quota_deadline_and_partial_backup_never_delete (test_m7.StorageTests.test_disk_full_quota_deadline_and_partial_backup_never_delete) ... ok
+test_export_and_backup_are_independent_and_gateway_is_not_locked (test_m7.StorageTests.test_export_and_backup_are_independent_and_gateway_is_not_locked) ... ok
+test_idempotent_concurrent_requests_and_single_owner (test_m7.StorageTests.test_idempotent_concurrent_requests_and_single_owner) ... ok
+test_insufficient_restore_space_fails_before_offline_copy (test_m7.StorageTests.test_insufficient_restore_space_fails_before_offline_copy) ... ok
+test_inventory_reports_failed_database_reads_without_fabricated_estimate (test_m7.StorageTests.test_inventory_reports_failed_database_reads_without_fabricated_estimate) ... ok
+test_isolated_restore_preserves_live_database_images_and_permissions (test_m7.StorageTests.test_isolated_restore_preserves_live_database_images_and_permissions) ... ok
+test_live_writes_after_snapshot_never_enter_backup_or_restore (test_m7.StorageTests.test_live_writes_after_snapshot_never_enter_backup_or_restore) ... ok
+test_missing_image_backup_is_explicitly_incomplete_and_not_downloadable (test_m7.StorageTests.test_missing_image_backup_is_explicitly_incomplete_and_not_downloadable) ... ok
+test_observed_inventory_estimate_capacity_and_no_camera_reads (test_m7.StorageTests.test_observed_inventory_estimate_capacity_and_no_camera_reads) ... ok
+test_partial_archive_write_and_restore_failure_are_retained (test_m7.StorageTests.test_partial_archive_write_and_restore_failure_are_retained) ... ok
+test_power_loss_after_publication_before_receipt_is_interrupted_on_restart (test_m7.StorageTests.test_power_loss_after_publication_before_receipt_is_interrupted_on_restart) ... ok
+test_preexisting_restore_files_never_overwritten (test_m7.StorageTests.test_preexisting_restore_files_never_overwritten) ... ok
+test_restore_power_loss_after_copy_before_receipt_does_not_adopt_files (test_m7.StorageTests.test_restore_power_loss_after_copy_before_receipt_does_not_adopt_files) ... ok
+test_schema_mismatch_schema_drift_fk_corruption_and_missing_db (test_m7.StorageTests.test_schema_mismatch_schema_drift_fk_corruption_and_missing_db) ... ok
+test_symlink_source_and_restore_root_are_rejected (test_m7.StorageTests.test_symlink_source_and_restore_root_are_rejected) ... skipped 'Windows symlink privilege unavailable; POSIX CI must pass'
+test_unexpected_missing_and_inconsistent_members_are_rejected (test_m7.StorageTests.test_unexpected_missing_and_inconsistent_members_are_rejected) ... ok
+test_v7_upgrade_backup_preserves_records_and_validates_current_schema (test_m7.StorageTests.test_v7_upgrade_backup_preserves_records_and_validates_current_schema) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 19.103s
+
+OK (skipped=1)

@@ -1,0 +1,18 @@
+{
+  "scope": "Disposable 100000 equal-timestamp rows; before/after normalization only; unchanged 3-second query budget",
+  "results": [
+    {
+      "cached": false,
+      "elapsed_seconds": 5.154569000005722,
+      "status": "FAIL",
+      "error": "OperationalError: interrupted"
+    },
+    {
+      "cached": true,
+      "elapsed_seconds": 1.3719083000032697,
+      "status": "PASS",
+      "page_rows": 500,
+      "stable_high_water": true
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "commit": "8c45f0d6736a5294067c9441b29c25e9e5a2532d",
+  "viewport": "739x447",
+  "pauseStartIterations": 3,
+  "sevenScreenPasses": 4,
+  "externalRequests": [],
+  "pageErrors": [],
+  "checks": [
+    "older running response cannot overwrite newer paused DOM",
+    "stale preparation revision cannot reject unconfirmed Pause; confirmed Start unchanged",
+    "all seven screens with external requests blocked",
+    "same-origin assets and CSP",
+    "keyboard skip link and visible focus",
+    "current-page navigation",
+    "no horizontal overflow",
+    "touch target size",
+    "Cancel-focused dialog and Escape no dispatch",
+    "lost localhost clears status and disables commands",
+    "reconnect never replays POSTs",
+    "DB/core-worker failure requires explicit recovery",
+    "restart never restores permissions or armed schedules",
+    "stale camera hides image; no placeholder"
+  ]
+}
