@@ -245,7 +245,7 @@ class StorageFixtureTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.path = Path(self.temp.name)/'sample.sqlite3'
         self.db = sqlite3.connect(self.path)
-        self.db.executescript((FIX/'schema_v1.sql').read_text(encoding='utf-8'))
+        self.db.executescript((FIX.parent.parent/'migrations/001_baseline.sql').read_text(encoding='utf-8'))
         self.db.executescript((FIX/'seed.sql').read_text(encoding='utf-8'))
 
     def tearDown(self):

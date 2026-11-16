@@ -38,6 +38,10 @@ class StateManager:
         self.last_command = None
         self.stop_generation = 0
         self._sensor_health = {}
+        self.persistence_enabled = False
+        self.persistence_status = 'not_configured'
+        self.persisted_fields = None
+        self.recovery_verified = False
 
     def emit(self, event_type, payload, source='state'):
         if len(self.events) == self.events.maxlen:
@@ -95,6 +99,11 @@ class StateManager:
         sensors = self.validator.snapshot()
         connected = self.controller_at is not None and self.clock() < self.controller_at + self.controller_deadline_s
         inhibits = []
+        if self.persistence_enabled:
+            fields = dict(profile=self.profile,maintenance=self.maintenance,estop_latched=self.estop_latched)
+            if fields != self.persisted_fields and self.persistence_status == 'ready':
+                self.persistence_status = 'dirty'
+            if self.persistence_status != 'ready':inhibits.append('restart_state_not_durable')
         if not self.validator.policies:
             inhibits.append('sensor_policies_unconfigured')
         for name in REQUIRED_SENSORS:
@@ -167,7 +176,7 @@ class StateManager:
                       ('reset_restart_required' if self.estop_latched else ('clear' if sensors.get('estop', {}).get('safe') is True else 'not_connected')),
                 requested_states=self.requested_states, last_command=self.last_command,
                 logging={'state': 'buffered_not_durable', 'pending': len(self.events), 'dropped': self.dropped_events},
-                persistence={'state': 'not_configured', 'restart_recovery_verified': False}))
+                persistence={'state': self.persistence_status, 'restart_recovery_verified': self.recovery_verified}))
 
     def flush_events(self, sink):
         """Explicit optional drain; slow/failed storage is never called under the control lock."""

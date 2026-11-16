@@ -13,7 +13,7 @@ def build(path):
         pass
     fixtures = Path(__file__).parent / 'fixtures'
     with closing(sqlite3.connect(path)) as db:
-        db.executescript((fixtures/'schema_v1.sql').read_text(encoding='utf-8'))
+        db.executescript((fixtures.parent.parent/'migrations/001_baseline.sql').read_text(encoding='utf-8'))
         db.executescript((fixtures/'seed.sql').read_text(encoding='utf-8'))
         image = json.loads((fixtures/'camera_metadata.json').read_text())
         db.execute('INSERT INTO images VALUES(1,1,1,?,?,?,?,?,?,?)',

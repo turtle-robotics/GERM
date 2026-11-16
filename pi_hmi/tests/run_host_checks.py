@@ -40,6 +40,7 @@ def run(output, include_root=False):
     check('m0-contracts', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m0.py', '-v'], pi)
     check('m1-state-permissions', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m1.py', '-v'], pi)
     check('m1-http-boundary', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m1_http.py', '-v'], pi)
+    check('m2-sqlite-recovery', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m2.py', '-v'], pi)
     if include_root:
         check('preserved-root-app', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-v'], ROOT)
     parsed = sorted(pi.rglob('*.py'))
