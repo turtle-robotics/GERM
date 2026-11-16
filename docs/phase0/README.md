@@ -1,5 +1,7 @@
 # Phase 0 baseline and review package
 
+Current host development: [M1 accepted with restrictions](M1_REVIEW_VERDICT.md); [M2 Task 121](M2_IMPLEMENTATION.md) and [M3 Task 122](M3_IMPLEMENTATION.md) have separate dependent review packages. Earlier proposed/pending statements below are historical. No PR merge or physical/deployment approval is implied.
+
 ## Current M0 review entry point (2026-11-15)
 
 The user approved the M0 contracts with restrictions at `3b1d20b` and M1 contract `m0-review-2`. See [recorded verdict](M0_REVIEW_VERDICT.md). The current [M1 implementation and traceability guide](M1_IMPLEMENTATION.md) supersedes historical descriptions of direct control paths. Earlier pending-review statements below describe the pre-verdict package; physical/deployment and unresolved requirements/electrical gates remain open.
