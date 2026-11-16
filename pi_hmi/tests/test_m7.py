@@ -59,7 +59,11 @@ class StorageTests(unittest.TestCase):
         image=self.frame();reads=self.camera.reads
         (self.root/'exports'/'kept.txt').write_bytes(b'keep')
         observed=self.storage.inventory()
-        self.assertEqual(observed['state'],'observed');self.assertEqual(observed['categories']['images']['logical_bytes'],image['size_bytes'])
+        # Accepted M5 publication retains a staging hard link on POSIX; logical
+        # file sizes count both names rather than inventing physical allocation.
+        expected_files=2 if os.name=='posix' else 1
+        self.assertEqual(observed['state'],'observed');self.assertEqual(observed['categories']['images']['files'],expected_files)
+        self.assertEqual(observed['categories']['images']['logical_bytes'],image['size_bytes']*expected_files)
         self.assertEqual(observed['categories']['exports']['logical_bytes'],4)
         self.assertIn('estimate',observed['backup_estimate']['measurement']);self.assertEqual(observed['backup_estimate']['image_count'],1)
         self.assertIsInstance(observed['volume']['free_bytes'],int);self.assertFalse(observed['retention']['automatic_deletion'])
