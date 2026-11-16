@@ -142,10 +142,19 @@ class LifecycleTests(unittest.TestCase):
         self.host.end_data_request();self.assertTrue(self.host.stop())
 
     def test_restart_recovers_interrupted_artifact_receipts_without_execution(self):
-        self.start();request_id=str(uuid.uuid4())
+        import hashlib
+        from services.model_contract import ModelManifest
+        self.host.camera_factory=SyntheticCamera;self.start();request_id=str(uuid.uuid4())
+        self.host.grow.create_cycle('basil','Synthetic interruption fixture',self.host.gateway.operator_authority)
+        image=self.host.media.captures.capture(str(uuid.uuid4()))['image']
+        manifest=ModelManifest('synthetic-contract','fixture-1',hashlib.sha256(b'SYNTHETIC CONTRACT; NOT MODEL WEIGHTS').hexdigest(),('fixture_normal','fixture_abnormal'),32,24)
+        self.host.repo.register_model(manifest);ml_request=str(uuid.uuid4())
+        self.host.repo.claim_ml_job(ml_request,image['image_id'],manifest.digest,'{}',hashlib.sha256(b'{}').hexdigest(),self.host.gateway.state.utc_now().isoformat())
         self.host.repo._write("INSERT INTO storage_jobs VALUES(?,?,'running',1,?,?,NULL,NULL)",(request_id,'{"kind":"backup"}','2026-11-15T00:00:00Z','2026-11-15T00:00:00Z'))
         self.host.recover();job=self.host.storage.job(request_id)
         self.assertEqual(job['status'],'interrupted');self.assertFalse(self.host.storage.active);self.assertIsNone(job['download_url'])
+        self.assertEqual(self.host.repo._rows('SELECT status FROM ml_jobs WHERE request_id=?',(ml_request,))[0]['status'],'interrupted')
+        self.assertNotIn(self.host.snapshot()['model_state'],('ready','completed'))
 
     def test_required_synthetic_sensor_provider_rejects_untrusted_callback(self):
         with self.assertRaises(ValueError):HostLifecycle(self.root,sensor_provider=lambda gateway:None)

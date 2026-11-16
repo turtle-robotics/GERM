@@ -93,6 +93,8 @@ class HostLifecycle:
                 owner=CameraOwner(adapter,utc_now=self.gateway.state.utc_now)
                 self.media=MediaRuntime(self.gateway,self.repo,owner,self.root/'images',self.ml_factory)
                 if not isinstance(self.media.ml,(MLUnavailable,LocalMLService)) or (isinstance(self.media.ml,LocalMLService) and self.media.ml.captures is not self.media.captures):raise ValueError('Current local synthetic ML ownership required')
+                interrupted=self.repo.recover_ml_jobs()
+                if interrupted:self.media.captures.emit('ml_recovery',{'interrupted_jobs':interrupted,'rerun':False})
                 self._component('camera_ml','synthetic_optional' if adapter else 'unavailable','No physical camera or model is configured')
                 schedule=self.repo.capture_schedule();self.camera_generation=schedule['generation'] if schedule else 0
                 self.media.captures.lifecycle_inhibit=self._camera_inhibit
