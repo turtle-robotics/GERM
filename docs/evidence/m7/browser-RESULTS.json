@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "viewport": "739x447",
+  "pageErrors": [],
+  "checks": [
+    "seven navigation screens preserved",
+    "observed capacity versus estimated backup demand",
+    "consistent verified backup and SHA download",
+    "verify and restore preflight",
+    "explicit isolated restore confirmation",
+    "offline report no activation",
+    "last job after reload",
+    "missing image incomplete no download",
+    "disk-full failure no deletion",
+    "unavailable measurements disable actions"
+  ]
+}

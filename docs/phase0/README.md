@@ -1,6 +1,6 @@
 # Phase 0 baseline and review package
 
-Current gate: [M5 finally accepted with host-only restrictions](M5_FINAL_REVIEW.md). [M6 Task 131 implementation](M6_IMPLEMENTATION.md) follows the authorized [plan](M6_PLAN.md) and awaits its own review. Physical interfaces, production controls, deployment and merging remain restricted.
+Current gate: [M6 accepted with host-only restrictions](M6_REVIEW_VERDICT.md). [M7 Task 124 implementation](M7_IMPLEMENTATION.md) and [retention proposal](RETENTION_POLICY_PROPOSAL.md) await review. Physical interfaces, production controls, deletion, deployment and merging remain restricted; M8 is not authorized.
 
 Current M5 host review: [Task 123 implementation](M5_IMPLEMENTATION.md), [model/camera dependency register](M5_DEPENDENCIES.md), above [M4 accepted with restrictions](M4_REVIEW_VERDICT.md). No physical camera/model validation, merge, deployment or M6 approval is implied.
 

@@ -1,0 +1,30 @@
+test_http_bounds_restricted_exports_verified_download_and_seven_routes (test_m6.HistoryHttpTests.test_http_bounds_restricted_exports_verified_download_and_seven_routes) ... ok
+test_100000_rows_index_plan_bounded_pagination_and_concurrent_writes (test_m6.HistoryTests.test_100000_rows_index_plan_bounded_pagination_and_concurrent_writes) ... ok
+test_all_resources_empty_or_legacy_and_no_adapter_side_effects (test_m6.HistoryTests.test_all_resources_empty_or_legacy_and_no_adapter_side_effects) ... ok
+test_archive_verifier_rejects_extra_members_and_truncated_zip (test_m6.HistoryTests.test_archive_verifier_rejects_extra_members_and_truncated_zip) ... ok
+test_backup_failure_disk_full_partial_stage_and_quotas_preserve_files (test_m6.HistoryTests.test_backup_failure_disk_full_partial_stage_and_quotas_preserve_files) ... ok
+test_changing_image_bytes_are_not_silently_archived (test_m6.HistoryTests.test_changing_image_bytes_are_not_silently_archived) ... ok
+test_csv_utf8_formula_injection_and_raw_provenance (test_m6.HistoryTests.test_csv_utf8_formula_injection_and_raw_provenance) ... ok
+test_db_failure_never_claims_persistence_and_restart_marks_interrupted (test_m6.HistoryTests.test_db_failure_never_claims_persistence_and_restart_marks_interrupted) ... ok
+test_export_deadline_and_total_quota_fail_without_deletion (test_m6.HistoryTests.test_export_deadline_and_total_quota_fail_without_deletion) ... ok
+test_formula_prefix_variants_and_typed_negative (test_m6.HistoryTests.test_formula_prefix_variants_and_typed_negative) ... ok
+test_inference_policy_manifest_and_actuator_ack_provenance (test_m6.HistoryTests.test_inference_policy_manifest_and_actuator_ack_provenance) ... ok
+test_initial_job_write_failure_and_read_failure_propagate (test_m6.HistoryTests.test_initial_job_write_failure_and_read_failure_propagate) ... ok
+test_large_export_streams_100000_rows_and_exact_counts (test_m6.HistoryTests.test_large_export_streams_100000_rows_and_exact_counts) ... ok
+test_literal_search_filters_unknown_experiment_and_validation (test_m6.HistoryTests.test_literal_search_filters_unknown_experiment_and_validation) ... ok
+test_microsecond_order_legacy_invalid_time_and_half_open_utc (test_m6.HistoryTests.test_microsecond_order_legacy_invalid_time_and_half_open_utc) ... ok
+test_missing_corrupt_images_partial_status_and_strict_failure (test_m6.HistoryTests.test_missing_corrupt_images_partial_status_and_strict_failure) ... ok
+test_modified_archive_and_unsafe_path_download_denied (test_m6.HistoryTests.test_modified_archive_and_unsafe_path_download_denied) ... ok
+test_pagination_equal_times_high_water_and_filter_bound_cursors (test_m6.HistoryTests.test_pagination_equal_times_high_water_and_filter_bound_cursors) ... ok
+test_partial_archive_write_disk_full_is_not_downloadable (test_m6.HistoryTests.test_partial_archive_write_disk_full_is_not_downloadable) ... ok
+test_same_request_concurrency_idempotency_and_content_conflict (test_m6.HistoryTests.test_same_request_concurrency_idempotency_and_content_conflict) ... ok
+test_single_owner_and_busy_different_request_do_not_create_claim (test_m6.HistoryTests.test_single_owner_and_busy_different_request_do_not_create_claim) ... ok
+test_snapshot_consistency_with_writer_after_backup_and_ack_update (test_m6.HistoryTests.test_snapshot_consistency_with_writer_after_backup_and_ack_update) ... ok
+test_symlink_image_and_download_are_denied (test_m6.HistoryTests.test_symlink_image_and_download_are_denied) ... skipped 'Host lacks symlink privilege; POSIX CI requires this test'
+test_v6_migration_preserves_history_and_verified_preupgrade_backup (test_m6.HistoryTests.test_v6_migration_preserves_history_and_verified_preupgrade_backup) ... ok
+test_verified_jpeg_manifest_and_legacy_unknown_source (test_m6.HistoryTests.test_verified_jpeg_manifest_and_legacy_unknown_source) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 32.166s
+
+OK (skipped=1)
