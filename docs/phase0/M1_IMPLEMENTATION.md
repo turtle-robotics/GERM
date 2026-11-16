@@ -1,5 +1,7 @@
 # M1 host implementation and review guide
 
+Review outcome: [accepted with restrictions at 99a42a2](M1_REVIEW_VERDICT.md), host-only. PR #5 → #6 remain unmerged; M2/M3 host development is authorized.
+
 Version `m1-review-1`, 2026-11-15. Implements the host portion of approved [M1 contract m0-review-2](M1_CONTRACT.md). M0 was accepted with restrictions at `3b1d20b563af6836d0e3073f7748a5186c6b0af3`; [verdict](M0_REVIEW_VERDICT.md). This branch starts at that baseline plus its review-record commit `d93b7bb`. PR #5 remains unmerged. The separate M1 PR targets `codex/m0-contract-reconciliation` so reviewers see only M1 changes; rebase/retarget onto main follows an authorized M0 merge.
 
 ## Operational boundary
