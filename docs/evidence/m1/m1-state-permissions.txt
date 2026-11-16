@@ -1,0 +1,27 @@
+test_acquisition_fault_requests_safe_state_immediately_without_browser (test_m1.PermissionTests.test_acquisition_fault_requests_safe_state_immediately_without_browser) ... ok
+test_concurrent_confirmation_replay_dispatches_at_most_once (test_m1.PermissionTests.test_concurrent_confirmation_replay_dispatches_at_most_once) ... ok
+test_confirmation_once_bound_to_payload_authority_revision_and_expiry (test_m1.PermissionTests.test_confirmation_once_bound_to_payload_authority_revision_and_expiry) ... ok
+test_contradictory_stop_feedback_never_releases_update_or_renews_status (test_m1.PermissionTests.test_contradictory_stop_feedback_never_releases_update_or_renews_status) ... ok
+test_duplicate_request_does_not_repeat_dispatch (test_m1.PermissionTests.test_duplicate_request_does_not_repeat_dispatch) ... ok
+test_estop_latch_blocks_maintenance_test_after_signal_reset (test_m1.PermissionTests.test_estop_latch_blocks_maintenance_test_after_signal_reset) ... ok
+test_failed_safe_stop_blocks_watchdog_heartbeat (test_m1.PermissionTests.test_failed_safe_stop_blocks_watchdog_heartbeat) ... ok
+test_fault_committed_before_concurrent_requests_has_zero_writes (test_m1.PermissionTests.test_fault_committed_before_concurrent_requests_has_zero_writes) ... ok
+test_firmware_is_review_gated_and_stop_failure_prevents_update (test_m1.PermissionTests.test_firmware_is_review_gated_and_stop_failure_prevents_update) ... ok
+test_maintenance_exit_and_manual_test_never_authorize_automatic_restart (test_m1.PermissionTests.test_maintenance_exit_and_manual_test_never_authorize_automatic_restart) ... ok
+test_missing_physical_and_safe_output_policies_are_denied (test_m1.PermissionTests.test_missing_physical_and_safe_output_policies_are_denied) ... ok
+test_optional_storage_failure_cannot_block_control_or_grant_permission (test_m1.PermissionTests.test_optional_storage_failure_cannot_block_control_or_grant_permission) ... ok
+test_policy_and_intent_validation_cannot_create_nonexpiring_or_forged_grants (test_m1.PermissionTests.test_policy_and_intent_validation_cannot_create_nonexpiring_or_forged_grants) ... ok
+test_requested_ack_and_physical_outcomes_are_separate (test_m1.PermissionTests.test_requested_ack_and_physical_outcomes_are_separate) ... ok
+test_status_heartbeat_preserves_pending_confirmation_and_operator_outcome (test_m1.PermissionTests.test_status_heartbeat_preserves_pending_confirmation_and_operator_outcome) ... ok
+test_unauthorized_source_or_forged_intent_cannot_dispatch (test_m1.PermissionTests.test_unauthorized_source_or_forged_intent_cannot_dispatch) ... ok
+test_each_sensor_failure_detected_by_two_periods (test_m1.StateAndFaultTests.test_each_sensor_failure_detected_by_two_periods) ... ok
+test_each_unsafe_interlock_inhibits_and_reset_never_restarts (test_m1.StateAndFaultTests.test_each_unsafe_interlock_inhibits_and_reset_never_restarts) ... ok
+test_invalid_and_future_samples_need_valid_recovery (test_m1.StateAndFaultTests.test_invalid_and_future_samples_need_valid_recovery) ... ok
+test_rate_replay_adapter_fault_and_intermittency (test_m1.StateAndFaultTests.test_rate_replay_adapter_fault_and_intermittency) ... ok
+test_startup_unknown_interlocks_never_normal (test_m1.StateAndFaultTests.test_startup_unknown_interlocks_never_normal) ... ok
+test_warning_snapshot_isolation_and_conservative_reboot (test_m1.StateAndFaultTests.test_warning_snapshot_isolation_and_conservative_reboot) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.194s
+
+OK

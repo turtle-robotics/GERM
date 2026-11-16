@@ -1,0 +1,186 @@
+{
+  "timestamp_utc": "2026-11-16T05:16:40.233026+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "win32",
+  "commit": "725a060b74b64da2ff5fa4c7e07374003b3f737f",
+  "scope": "Host/synthetic only; no devices, deployment, flash, production restart or physical acceptance",
+  "results": [
+    {
+      "name": "existing-integration",
+      "command": [
+        "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+        "check_integration.py"
+      ],
+      "cwd": "pi_hmi",
+      "exit_code": 0,
+      "log": "existing-integration.txt",
+      "log_sha256": "bc97a7b00c76f18f5c8bfc7206a0bc177ce1b300bc637ca305ecb29057ef5038"
+    },
+    {
+      "name": "phase0-contracts",
+      "command": [
+        "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_phase0.py",
+        "-v"
+      ],
+      "cwd": "pi_hmi",
+      "exit_code": 0,
+      "log": "phase0-contracts.txt",
+      "log_sha256": "24a6a6cb00b7b06b4397f3ee2149dada8b6c615ff23cf700a110517e40df5e90"
+    },
+    {
+      "name": "m0-contracts",
+      "command": [
+        "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_m0.py",
+        "-v"
+      ],
+      "cwd": "pi_hmi",
+      "exit_code": 0,
+      "log": "m0-contracts.txt",
+      "log_sha256": "1326f9e84acd3f8255be357ee3d4f378f3afd33f3e387aedf7275acad51bdb3b"
+    },
+    {
+      "name": "m1-state-permissions",
+      "command": [
+        "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_m1.py",
+        "-v"
+      ],
+      "cwd": "pi_hmi",
+      "exit_code": 0,
+      "log": "m1-state-permissions.txt",
+      "log_sha256": "a2196f46cbe1a9c56e91bbcb74ef0e697202fc4837893d9daaea0f2c95e316b2"
+    },
+    {
+      "name": "m1-http-boundary",
+      "command": [
+        "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_m1_http.py",
+        "-v"
+      ],
+      "cwd": "pi_hmi",
+      "exit_code": 0,
+      "log": "m1-http-boundary.txt",
+      "log_sha256": "0e259d8f4d89926429e9f3c2ed301942fa8d77a8ffb398a7580b92a11a8bdd8b"
+    },
+    {
+      "name": "preserved-root-app",
+      "command": [
+        "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "preserved-root-app.txt",
+      "log_sha256": "b62ca609c69dcb29ab39bcf8559d3387091403f915fa1e6d8206c5860f7f31ec"
+    },
+    {
+      "name": "python-parse",
+      "files": 31,
+      "exit_code": 0
+    },
+    {
+      "name": "javascript-parse",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "--check",
+        "static/hmi.js"
+      ],
+      "cwd": "pi_hmi",
+      "exit_code": 0,
+      "log": "javascript-parse.txt",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "firmware-behavior",
+      "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+    }
+  ],
+  "source_sha256": {
+    "docs/phase0/API_ENDPOINTS.json": "8093c2c200a6905e5a065ccb7e905e306e42dcf6f7a78332b790d22e49ec553f",
+    "docs/phase0/HMI_API_CHECKLIST.json": "d8419b2497e3d7519328c7b6c738f82e9ccb041e214ab545a9374f0b104aff76",
+    "docs/phase0/HOST_TEST_RESULTS.json": "d3ce6ef6bde4f86e39e387408f73e3a596cebf90ee3dfdc83f483757ff5101b3",
+    "docs/phase0/M0_SOURCE_BASELINE.json": "3a73c864576532be212152fdaa78856610f412cd7070df64c17da5464d9dcc75",
+    "docs/phase0/REQUIREMENTS_BASELINE.json": "117e6ece1f830a83ae80e00de64fb5c2be5c46f8176ccb61e0019ed357381911",
+    "docs/phase0/SOURCE_BASELINE.json": "bc5f04c48ce8b0ed1eb5297e0a0b06f5c4535c3671297b106edcfbed97dd8d39",
+    "pi_hmi/app.py": "86375655687f410d9f033ed86d86fcd26ec3a959255c9295eccafeda02b5f5dd",
+    "pi_hmi/arduino_program/arduino_program.ino": "e8402270ca39feb754bd8e7e36ce8bcd3441694b9c60c59f1e93c3953d4ee944",
+    "pi_hmi/arduino_serial.py": "89aac0b6b0a4b984f87ebf550cded1c8091a44af62c733a89bbcba9b392eabde",
+    "pi_hmi/camera.py": "57c427da0141da04ce2f90f37da9e97c7707d48e4de0f3e396404928bbda1d08",
+    "pi_hmi/check_integration.py": "af1b614ef1b1534718b2fe911fdcb237ace9395b25b5db4194749029c7251b08",
+    "pi_hmi/dashboard.py": "63bf0a1e40304c9ec48a0a2dc56283c0fe177cd21bbc6f26a8edce5ec776b800",
+    "pi_hmi/deploy_to_pi.py": "22060b62f1f22ed52e75a60c9cebe3277679d08b6f1302718ffa2a07fa9fe6c7",
+    "pi_hmi/dht11_reader.py": "b9770c3c18dc57ccf98d08785e07b0936491afd155419d7a585bf4c066f84f2d",
+    "pi_hmi/environment/source-sha256.json": "ef5f8d90654af0e93884194e309300b4f48d3535962995cc321a6ec82f52e32a",
+    "pi_hmi/fan_sender.py": "6883873c813ae8c8d8d72e9f829fb4de38fbc99646aee21a9c339846c89582d1",
+    "pi_hmi/firmware_service.py": "e4d20cda14b753fb139dbc96342f6c565348f554cc69dbc7627a38204d7bde0a",
+    "pi_hmi/led_sender.py": "28e0073e288b5a00b7c78686af272bfcb44f5307038d89c1020634b48018dd52",
+    "pi_hmi/sensor_reader.py": "26a9219a60c29bdba2847bda4cfb4bc8449ea9e186faffb37328c933ca0ed3bc",
+    "pi_hmi/services/__init__.py": "789272cbd285116fd2cf23e525a5fa8af36da2b581382be2393013a06a057088",
+    "pi_hmi/services/camera_service.py": "c2adad49834c195de73da4bac6a77930dde0f52a36068071d89ad527a7764ed3",
+    "pi_hmi/services/command_service.py": "bdffdd80c6657bc8b2d898bdc9b5d18ebb563a8990089953a24babc6561cc3ab",
+    "pi_hmi/services/control_runtime.py": "5d815e2112fedbec2e581467cd9ad506c5883809dbddd51f10d94ba2db69301f",
+    "pi_hmi/services/database_service.py": "3fcd6103ca7cb095cbaf054a5c3716484ca93eb58c349c6aec26ffdca098c8c4",
+    "pi_hmi/services/ml_service.py": "6fb07defcdbd3026aaac8e1699b5d6e1ffd7d6c9057080cb8ce12c125426c39d",
+    "pi_hmi/services/sensor_policy.py": "e44007427be7d5f5b256308e7a753bb192505a5a72362b2d865dd630e22adfe0",
+    "pi_hmi/services/sensor_service.py": "5f0cfdd67c21450ea45a67baea235269c2babbf91ca60312a638518fc50ab9f1",
+    "pi_hmi/services/state_service.py": "a9061b3a97edf004ff30ae05546a5a187a52d3f291a43f880b5ad694b34435f7",
+    "pi_hmi/sim/run_sim.py": "a1bef38944f65c04d558960f215c894a50419c5e232d6187ffd79ba8d80c2054",
+    "pi_hmi/static/hmi.css": "581a6bff0bb539cbfe30a8725b92335a8435bf429a5e5b753f46a02fefe74c51",
+    "pi_hmi/static/hmi.js": "396308ac610b3c906bb9c98c35dc219981920676a26987a75d72c10b952e63a2",
+    "pi_hmi/templates/fan.html": "794c626b58f4205cbdc1c24e8444b2816bde2c744656cabc6caae2599ea918b4",
+    "pi_hmi/templates/firmware.html": "32a92ca906b3cd0fd8b458b35921ec12b4a85559f54f01d533a30bacc25c29bc",
+    "pi_hmi/templates/index.html": "a4b8331a9b1b48483d33412e78203977257ff36c48cef34951e2577ef62e93de",
+    "pi_hmi/templates/led.html": "3ffbe6bd48e1db875384d491938eb5e6c16c576bfeefbfbe2630e8b08f31e048",
+    "pi_hmi/templates/pump.html": "8b59e0de57f234c0662df4ccfc17719f8177896176b5c4f966ea4368176896ba",
+    "pi_hmi/tests/browser_checks.cjs": "9f0e80a08b65a42514aa0ac4922127c368d1677ca40bfd0732df55a48ffdc5bb",
+    "pi_hmi/tests/browser_host.py": "a4a2789d95d55e15c289e33792753e5c1e735619c175d5d2a07e3e51271d548c",
+    "pi_hmi/tests/build_sample_db.py": "342bac9c1d52c210072ce98fb711d560642aae1a1cab450721f9f18ea6b53669",
+    "pi_hmi/tests/firmware_behavior.cpp": "e8a6c9a298e193e0b8b7d3e7a091ecdf1ae382e8ee23e3e6b1e9e6255ea7d604",
+    "pi_hmi/tests/fixtures/api_requests.json": "05713a1486f1674b4daa8ccff2a01f5b4f57e0a0e1dc3030783ad47e5f0c6754",
+    "pi_hmi/tests/fixtures/camera_metadata.json": "e69aed477489cea9f75a5344cff0e1294586f782988dfc49f21f8a638b928d64",
+    "pi_hmi/tests/fixtures/scenarios.json": "d103b4ac5abe1c46c5ec733638b2c2279e49c713a49a4e9e5c2a680bfd098172",
+    "pi_hmi/tests/fixtures/schema_v1.sql": "7a770f9abf31dbdccfe320a51ca2513adabd5dc44095e3d48a81def524daa883",
+    "pi_hmi/tests/fixtures/seed.sql": "fd8146d4d165829d6b467763fb3d2b97222a5c3c6dea8164a9fa699358509317",
+    "pi_hmi/tests/fixtures/sensors.json": "061893105d014394d631b848bc6530b5abf9cf4edc6e607e2ff7cee28930242a",
+    "pi_hmi/tests/fixtures/serial.json": "2bd486880268ce5799825a3fa41b1cbcf28f0623cd0f33ca66732ba9b2300451",
+    "pi_hmi/tests/m1_fixtures.py": "315f69e57650c6cdd4c34eb94f1c1e8f6e6fc03b065f3a1e76326f156c87a876",
+    "pi_hmi/tests/m1_http_harness.py": "aae7284632e48554367c655177b64ed5296de3a41cec06216a75ed7b117a3f78",
+    "pi_hmi/tests/run_host_checks.py": "5dfcf2b2a183605546b4b0f7cbc9c9528648eed7ce0e810bda523bb03c443afb",
+    "pi_hmi/tests/test_m0.py": "dda217e1a8e94e86177d0b30288c4dc3dc7187f25e802119292e8d4588bb1f63",
+    "pi_hmi/tests/test_m1.py": "119c20fbf697aae61d24ca48faaed5aeded8a57872827a6ce14c20ba7429c76e",
+    "pi_hmi/tests/test_m1_http.py": "c0652372446de1ee925d72058c56aed7d154dcdc1fc3470124a40b1502f11967",
+    "pi_hmi/tests/test_phase0.py": "a38b40df39cca8ffe8997682dd324eb506c727f540e2e085f96a483b21bb7628",
+    "pi_hmi/verify_live.py": "06e9ee62ae6125d2fc33b14ef91bcd467561e32270c6885a226e10106d22a395"
+  }
+}
