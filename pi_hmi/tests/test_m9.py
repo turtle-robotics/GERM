@@ -15,6 +15,12 @@ from m1_fixtures import feed
 from m4_fixtures import workflow
 
 class AcceptanceTests(unittest.TestCase):
+    def test_timestamp_normalization_preserves_utc_quality_with_bounded_repeated_values(self):
+        from services.history_repository import time_key
+        for raw in ('2026-11-15T00:00:00Z','2026-11-15T00:00:00+00:00','2026-11-15T00:00:00.000000+00:00'):
+            for _ in range(10):self.assertEqual(time_key(raw),'2026-11-15T00:00:00.000000+00:00')
+        for raw in (None,{},[],42,'invalid','2026-11-15T00:00:00+01:00'):self.assertIsNone(time_key(raw))
+
     def test_every_official_objective_and_requirement_retains_wording_status_and_gates(self):
         expected=build();stored=json.loads((ROOT/'docs/phase0/M9_ACCEPTANCE_MATRIX.json').read_text(encoding='utf-8'))
         self.assertEqual(expected,stored);self.assertEqual(len(stored['requirements']),40);self.assertEqual(len(stored['objectives']),6)
