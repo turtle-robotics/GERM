@@ -1,5 +1,7 @@
 # GERM implementation evidence index
 
+Current M4: [HMI/profile/cycle/schedule evidence](m4/README.md), [implementation/traceability/M5 readiness](../phase0/M4_IMPLEMENTATION.md). Host-only; the M0→M4 PR dependency stack remains unmerged and no Gantt status changes are implied.
+
 M2/M3 host review: [Task 121 migration/recovery evidence](m2/README.md), [Task 122 logging evidence](m3/README.md), [implementation plan/dependencies](../phase0/M2_M3_PLAN.md). M1 was accepted with restrictions at `99a42a2`; PRs #5 → #6 → #7 → M3 remain separate and unmerged. No Gantt status changes.
 
 Current M1 host review: [implementation, restrictions and traceability](../phase0/M1_IMPLEMENTATION.md), [test package](m1/README.md). M0 was approved with restrictions at `3b1d20b`; [recorded verdict](../phase0/M0_REVIEW_VERDICT.md). The pending-review statuses below are historical. No Gantt status is changed. Current Task 128 structured checklist has 45 rows after adding the M1 confirmation contract.

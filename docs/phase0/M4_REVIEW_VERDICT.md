@@ -1,0 +1,5 @@
+# M4 review verdict
+
+Recorded 2026-11-16 America/Chicago. User verdict: **ACCEPTED WITH RESTRICTIONS — HOST-ONLY**, PR #9 at `b4ea9398a9c1b57fc1c7a19993ad2d0c24f28b38`. Tasks 129/130 meet the host acceptance scope. M5 Task 123 host development and a separate dependent PR are authorized. PR stack #5 → #6 → #7 → #8 → #9 → M5 remains intact and unmerged.
+
+No production/electrical/physical safety, agronomic, model accuracy, camera calibration, merge or deployment approval. Physical camera activation/interfaces, firmware flashing, live actuators, production POST enablement, automatic historical deletion and Gantt updates remain prohibited. Preserve all original hashes/untracked work. Use injectable synthetic camera/inference fixtures only, reviewed classification policies, honest uncertainty/unavailability and explicit queued/committed distinctions. Record unresolved electrical, sensor, crop timing, requirements-release, retention, model/dataset and authentication/network dependencies. Return for M5 review before M6.

@@ -43,6 +43,8 @@ class StateManager:
         self.persisted_fields = None
         self.recovery_verified = False
         self.logging_status = {'state':'buffered_not_durable','last_durable_event_id':None,'last_error':None}
+        self.service_inhibits = set()
+        self.experiment_id = None
 
     def emit(self, event_type, payload, source='state'):
         with self.lock:
@@ -55,7 +57,7 @@ class StateManager:
             self.dropped_events += 1
         event = dict(schema_version=1, event_id=str(uuid.uuid4()), timestamp_utc=self.utc_now().isoformat(),
                      event_type=event_type, source=source, software_version=self.software_version,
-                     experiment_id=None, payload=copy.deepcopy(payload))
+                     experiment_id=self.experiment_id, payload=copy.deepcopy(payload))
         self.events.append(event)
         return event
 
@@ -105,7 +107,7 @@ class StateManager:
     def _evaluate(self):
         sensors = self.validator.snapshot()
         connected = self.controller_at is not None and self.clock() < self.controller_at + self.controller_deadline_s
-        inhibits = []
+        inhibits = list(self.service_inhibits)
         if self.persistence_enabled:
             fields = dict(profile=self.profile,maintenance=self.maintenance,estop_latched=self.estop_latched)
             if fields != self.persisted_fields and self.persistence_status == 'ready':
