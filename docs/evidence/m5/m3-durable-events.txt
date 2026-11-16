@@ -1,0 +1,22 @@
+test_actuator_accept_ack_failure_and_reject_are_distinct (test_m3.DurableEventTests.test_actuator_accept_ack_failure_and_reject_are_distinct) ... ok
+test_concurrent_same_event_retry_has_one_durable_row (test_m3.DurableEventTests.test_concurrent_same_event_retry_has_one_durable_row) ... ok
+test_concurrent_stop_revokes_start_waiting_for_latch_checkpoint (test_m3.DurableEventTests.test_concurrent_stop_revokes_start_waiting_for_latch_checkpoint) ... ok
+test_event_retry_same_id_is_idempotent_and_reopen_keeps_exact_envelope (test_m3.DurableEventTests.test_event_retry_same_id_is_idempotent_and_reopen_keeps_exact_envelope) ... ok
+test_existing_v2_migrates_with_backup_and_preserves_events (test_m3.DurableEventTests.test_existing_v2_migrates_with_backup_and_preserves_events) ... ok
+test_explicit_sensor_snapshot_and_dictionary_conflict (test_m3.DurableEventTests.test_explicit_sensor_snapshot_and_dictionary_conflict) ... ok
+test_failed_logger_retains_event_ids_then_retries_without_granting_permission (test_m3.DurableEventTests.test_failed_logger_retains_event_ids_then_retries_without_granting_permission) ... ok
+test_http_reports_pending_without_legacy_duplicate_write (test_m3.DurableEventTests.test_http_reports_pending_without_legacy_duplicate_write) ... ok
+test_invalid_envelopes_cannot_be_acknowledged (test_m3.DurableEventTests.test_invalid_envelopes_cannot_be_acknowledged) ... ok
+test_locked_database_has_no_false_receipt_and_preserves_retry (test_m3.DurableEventTests.test_locked_database_has_no_false_receipt_and_preserves_retry) ... ok
+test_maintenance_and_recovery_events_survive_reopen_without_restart (test_m3.DurableEventTests.test_maintenance_and_recovery_events_survive_reopen_without_restart) ... ok
+test_poison_event_is_visible_and_does_not_prevent_valid_commits (test_m3.DurableEventTests.test_poison_event_is_visible_and_does_not_prevent_valid_commits) ... ok
+test_process_loss_before_commit_is_not_claimed_as_durable (test_m3.DurableEventTests.test_process_loss_before_commit_is_not_claimed_as_durable) ... ok
+test_projection_failure_rolls_back_envelope_and_retry_commits_once (test_m3.DurableEventTests.test_projection_failure_rolls_back_envelope_and_retry_commits_once) ... ok
+test_queue_loss_and_unacknowledged_commit_never_show_durable (test_m3.DurableEventTests.test_queue_loss_and_unacknowledged_commit_never_show_durable) ... ok
+test_sensor_fault_records_invalid_null_and_safe_state_outcomes (test_m3.DurableEventTests.test_sensor_fault_records_invalid_null_and_safe_state_outcomes) ... ok
+test_slow_logger_and_concurrent_drains_do_not_block_safe_stop (test_m3.DurableEventTests.test_slow_logger_and_concurrent_drains_do_not_block_safe_stop) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 29.502s
+
+OK
