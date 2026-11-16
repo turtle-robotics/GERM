@@ -102,6 +102,7 @@ class CommandGateway:
         self._stopped_generation = -1
         self.restart_store = None
         self.event_pipeline = None
+        self.grow_service = None
 
     def intent(self, action, payload=None, *, source='touchscreen', request_id=None,
                expected_state_revision=None, confirmation_id=None):
@@ -118,7 +119,7 @@ class CommandGateway:
             target = 'controller'
             if set(payload) != {'mode'} or payload['mode'] not in ('normal', 'rainbow'):
                 raise ValueError('Custom or unknown firmware is denied')
-        elif action in ('start', 'pause', 'enter_maintenance', 'exit_maintenance'):
+        elif action in ('start', 'pause', 'enter_maintenance', 'exit_maintenance', 'complete_cycle'):
             target = 'system'
             if payload:
                 raise ValueError('Workflow does not accept extra payload fields')
@@ -160,7 +161,7 @@ class CommandGateway:
             return ['unauthorized_source'], 403
         if intent.source in ('safety', 'service') and intent.action not in ('stop', 'read_status', 'set_fan', 'set_lighting', 'set_pump', 'set_lighting_mode'):
             return ['unauthorized_action'], 403
-        if intent.action in ('start', 'enter_maintenance', 'exit_maintenance') and intent.source != 'touchscreen':
+        if intent.action in ('start', 'enter_maintenance', 'exit_maintenance', 'complete_cycle') and intent.source != 'touchscreen':
             return ['operator_action_required'], 403
         command = intent.payload.get('command')
         energizing = command_model(command)[3] if command else False
@@ -168,6 +169,8 @@ class CommandGateway:
             return ['unauthorized_energization'], 403
         if intent.action in ('pause', 'enter_maintenance'):
             return [], 200
+        if intent.action == 'complete_cycle':
+            return ([],200) if self.grow_service is not None else (['grow_cycle_unconfigured'],423)
         if not getattr(self.adapter, 'simulated', False):
             return ['hardware_integration_not_authorized'], 423
         if intent.action == 'read_status':
@@ -182,6 +185,9 @@ class CommandGateway:
         if intent.action == 'start':
             if snapshot['maintenance']:
                 return ['maintenance'], 423
+            if self.grow_service is not None:
+                reasons=self.grow_service.start_permission()
+                if reasons:return reasons,423
             return ([], 200) if snapshot['profile'] else (['profile_unconfigured'], 423)
         if intent.action == 'firmware_update':
             if intent.payload['mode'] != 'normal':
@@ -199,12 +205,17 @@ class CommandGateway:
             return [], 200
         if snapshot['system_state'] not in ('NORMAL', 'WARNING') or snapshot['restart_required']:
             return snapshot['inhibits'] or ['state_inhibited'], 423
+        if self.grow_service is not None and self.grow_service.pending_start:
+            return ['grow_start_pending_commit'],423
+        if intent.source == 'automatic' and self.grow_service is not None:
+            reasons = self.grow_service.automatic_permission(intent)
+            if reasons:return reasons, 423
         return [], 200
 
     def _requires_confirmation(self, intent):
         command = intent.payload.get('command')
         return (intent.source != 'automatic' and
-                (intent.action in ('start', 'enter_maintenance', 'exit_maintenance', 'safe_manual_test', 'firmware_update')
+                (intent.action in ('start', 'enter_maintenance', 'exit_maintenance', 'safe_manual_test', 'firmware_update', 'complete_cycle')
                  or bool(command and command_model(command)[3])))
 
     def _result(self, intent, allowed, reasons, http_code, **changes):
@@ -231,7 +242,7 @@ class CommandGateway:
             while len(self.confirmations) > self.limit:
                 self.confirmations.popitem(last=False)
             return self._result(intent, True, [], 200, status='confirmation_required', confirmation_id=nonce,
-                                expires_in_s=self.ttl, description=intent.action + ': ' + intent.payload_json)
+                                expires_in_s=self.ttl, description=self.grow_service.confirmation_description(intent.action) if self.grow_service else intent.action + ': ' + intent.payload_json)
 
     def execute(self, intent, authority=None):
         result = self._execute(intent, authority)
@@ -293,7 +304,7 @@ class CommandGateway:
                 self.state.requested_states[intent.target] = copy.deepcopy(requested)
             result = self._result(intent, True, [], 200, accepted=True, accepted_at_utc=accepted_at,
                                   requested_state=requested, status='accepted')
-            if intent.action in ('pause', 'enter_maintenance', 'exit_maintenance', 'start'):
+            if intent.action in ('pause', 'enter_maintenance', 'exit_maintenance', 'start', 'complete_cycle'):
                 if intent.action == 'enter_maintenance':
                     self.state.maintenance = True
                     self.state.restart_required = True
@@ -306,7 +317,7 @@ class CommandGateway:
                 else:
                     self.state.restart_required = True
                 self.state.snapshot()
-                if intent.action in ('pause', 'enter_maintenance'):
+                if intent.action in ('pause', 'enter_maintenance', 'complete_cycle'):
                     stop = self._safe_stop()
                     result.update(stop)
             elif intent.action == 'firmware_update':

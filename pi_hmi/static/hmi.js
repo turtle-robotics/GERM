@@ -3,6 +3,8 @@ const page = document.body.dataset.page;
 const byId = id => document.getElementById(id);
 const setText = (id, text) => { const node = byId(id); if (node) node.textContent = text; };
 let latestState = null;
+let latestGrow = null;
+let scheduleEditorCycle = null;
 
 function clock() {
   setText('clock', new Intl.DateTimeFormat(undefined, {hour:'numeric', minute:'2-digit'}).format(new Date()));
@@ -12,18 +14,21 @@ clock(); setInterval(clock, 30000);
 const camera = byId('camera-image');
 if (camera) {
   const refresh = () => { camera.src = '/camera.jpg?t=' + Date.now(); };
-  camera.onload = () => { byId('camera-status').hidden = true; setTimeout(refresh, 200); };
-  camera.onerror = () => { byId('camera-status').hidden = false; setTimeout(refresh, 1200); };
+  camera.onload = () => { camera.hidden=false;byId('camera-status').hidden = true; setTimeout(refresh, 200); };
+  camera.onerror = () => { camera.hidden=true;byId('camera-status').hidden = false; setTimeout(refresh, 1200); };
   refresh();
 }
 
 function sensorText(reading) {
-  if (!reading || reading.state === 'unavailable') return ['NO DATA', 'Unavailable'];
+  const detail = reading?.fault_reason?.replaceAll('_',' ') || 'Unavailable';
+  if (!reading || reading.state === 'unavailable' || reading.value === null || reading.value === undefined)
+    return ['NO DATA', (reading?.quality_flag === 'stale' ? 'STALE · value withheld · ' : '') + detail];
+  if (typeof reading.value === 'boolean') return [reading.safe === true ? 'SAFE' : reading.safe === false ? 'UNSAFE' : String(reading.value), 'Normalized input · ' + reading.source];
   const value = Number.isInteger(reading.value) ? reading.value : Number(reading.value).toFixed(1);
   const unit = reading.unit === '%RH' ? '%' : reading.unit;
   if (reading.state === 'stale') return [`${value} ${unit}`, `STALE · ${reading.age_seconds}s old`];
   if (reading.quality_flag === 'suspect') return [`${value} ${unit}`, 'Unvalidated context · not control input'];
-  return [`${value} ${unit}`, `LIVE · ${reading.source}`];
+  return [`${value} ${unit}`, `${latestState?.data_scope === 'simulation' ? 'SIMULATED' : 'LIVE'} · ${reading.source} · ${reading.timestamp_utc || 'sample time unknown'}`];
 }
 
 function renderSensor(id, reading) {
@@ -91,8 +96,14 @@ function renderState(data) {
   state.textContent = data.system_state;
   state.className = 'state-pill ' + data.system_state.toLowerCase();
   setText('arduino-head', 'Arduino: ' + data.arduino.state);
-  for (const name of ['air_temperature','humidity','water_temperature']) renderSensor(name, data.sensors[name]);
+  for (const name of ['air_temperature','humidity','water_temperature','electronics_temperature','water_level','door']) renderSensor(name, data.sensors[name]);
+  setText('home-estop', 'E-stop: ' + data.estop + ' · physical monitoring not commissioned');
+  setText('maintenance-estop', 'E-stop: ' + data.estop + ' · simulation input only');
+  const alarm=data.alerts.highest;
+  setText('highest-alert', data.alerts.active === null ? 'Highest alarm unknown · database unavailable' : alarm ? `Highest alarm: ${alarm.severity} · ${alarm.message}` : 'No active alarms recorded');
+  renderGrow(data.grow,enabled,data.operating_state?.logging);
   renderML(data.ml);
+  document.querySelectorAll('.camera-badge').forEach(badge=>badge.textContent=data.camera.state==='ready' ? (data.data_scope==='simulation' ? 'SYNTHETIC CAMERA' : 'LIVE CAMERA') : 'CAMERA UNAVAILABLE');
   for (const name of ['lighting','fan','pump']) {
     setText(name + '-status', actuatorText(data.actuators[name]));
     setText(name + '-detail', actuatorText(data.actuators[name]));
@@ -130,7 +141,7 @@ async function pollState() {
     const state = byId('system-state');
     state.textContent = 'STATUS UNAVAILABLE'; state.className = 'state-pill critical';
     setText('arduino-head', 'Backend unavailable');
-    for (const name of ['air_temperature','humidity','water_temperature']) {
+    for (const name of ['air_temperature','humidity','water_temperature','electronics_temperature','water_level','door']) {
       setText(name + '-value', 'NO DATA'); setText(name + '-state', 'Backend unavailable');
     }
     setText('alert-count', 'Count unknown');
@@ -140,7 +151,15 @@ async function pollState() {
       setText(name + '-status', 'Backend unavailable');
       setText(name + '-detail', 'Backend unavailable');
     }
-    document.querySelectorAll('[data-command],[data-workflow]').forEach(button => button.disabled = true);
+    document.querySelectorAll('[data-command],[data-workflow],#create-cycle,#save-schedules,#recover-grow').forEach(button => button.disabled = true);
+    setText('grow-summary','Grow cycle unavailable · backend offline');
+    setText('logging-summary','Event persistence unknown · backend offline');
+    setText('home-estop','E-stop input unknown · backend unavailable');
+    setText('highest-alert','Highest alarm unknown · backend unavailable');
+    setText('last-maintenance','Last maintenance unavailable');
+    setText('home-light-schedule','Light schedule unavailable');
+    setText('home-mist-schedule','Mist schedule unavailable');
+    setText('home-grow-day','Grow day unavailable');
     setText('inhibit-status', 'Backend unavailable — last known maintenance indication retained');
   }
 }
@@ -163,7 +182,7 @@ if (page === 'controls') {
     try {
       const response = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json', 'X-GERM-Token':controlToken}, body:JSON.stringify(payload)});
       const result = await response.json();
-      setText('command-feedback', response.ok ? 'Firmware acknowledged output setting · physical state unverified' : (result.error || 'Command failed'));
+      setText('command-feedback', response.ok ? `Accepted · firmware ${result.firmware_confirmed ? 'ACK' : 'not acknowledged'} · event ${result.logging_status || 'queued'} · physical state unverified` : (result.error || 'Command failed'));
       await pollState();
     } catch { setText('command-feedback', 'Command failed · backend unavailable'); }
   };
@@ -367,11 +386,69 @@ document.querySelectorAll('[data-workflow]').forEach(button => button.onclick = 
     const preparedResponse = await fetch('/api/confirmations', {method:'POST', headers, body:JSON.stringify({action, payload})});
     const prepared = await preparedResponse.json();
     if (!preparedResponse.ok) throw Error(prepared.error || 'Workflow inhibited');
-    if (prepared.confirmation_id && !confirm('Confirm ' + action.replaceAll('_',' ') + '? This does not verify physical outputs.')) return;
+    if (prepared.confirmation_id && !confirm(prepared.description + '\nState changes revoke this confirmation. Physical outcomes remain unverified.')) return;
     const response = await fetch('/api/workflow', {method:'POST', headers,
       body:JSON.stringify({action, payload, confirmation_id:prepared.confirmation_id, expected_state_revision:prepared.state_revision})});
     const result = await response.json();
     if (!response.ok) throw Error(result.error || result.reason_codes?.join(', ') || 'Workflow failed');
+    setText('command-feedback', 'Workflow accepted · trace event queued until committed · physical state unverified');
   } catch (error) { setText('command-feedback', error.message); }
   finally { await pollState(); }
 });
+
+function renderGrow(grow,enabled,logging) {
+  latestGrow=grow;
+  const ready=grow?.state === 'ready';
+  const cycle=grow?.cycle;
+  setText('grow-summary',ready ? cycle ? `${cycle.profile_id} · ${cycle.status} · schedules ${grow.schedules_armed ? 'armed for simulation' : 'inhibited'}` : 'Select Basil or Spearmint in Settings' : 'Grow repository ' + (grow?.state || 'unavailable'));
+  setText('logging-summary',`Events: ${logging?.state || 'not configured'} · pending ${logging?.pending ?? 'unknown'} · dropped ${logging?.dropped ?? 'unknown'} · last command ${grow?.last_command_event || 'unknown'}`);
+  setText('home-grow-day',grow?.grow_day ? `Grow day ${grow.grow_day} (24-hour periods since first start)` : 'Grow day unavailable · cycle not started');
+  const definitions=grow?.schedules?.map(s=>s.definition) || [];
+  const light=definitions.find(d=>d.target==='lighting' && d.enabled);
+  const pump=definitions.find(d=>d.target==='pump' && d.enabled);
+  setText('home-light-schedule', light ? `Light: ${light.start_utc}–${light.end_utc} UTC · RGB ${light.rgb.join(',')} · host settings` : 'Light schedule unconfigured or disabled');
+  setText('home-mist-schedule',pump ? `Mist: 5 s pulse every ${pump.interval_s} s · host settings` : 'Mist schedule unconfigured or disabled');
+  setText('last-maintenance',ready ? grow.last_maintenance ? `Last maintenance activity: ${grow.last_maintenance.action} · ${grow.last_maintenance.timestamp_utc}` : 'No maintenance activity recorded' : 'Last maintenance unavailable');
+  document.querySelectorAll('.grow-only').forEach(button=>{button.hidden=!cycle || cycle.status==='complete';});
+  if (page!=='settings')return;
+  setText('settings-experiment',cycle ? `${cycle.profile_id} · ${cycle.status} · ${grow.grow_day ? 'day '+grow.grow_day : 'not started'}` : 'No active grow cycle');
+  setText('profile-notice',grow?.configuration_notice || 'Basil and Spearmint await configured host repository');
+  const select=byId('grow-profile');
+  if (ready && !select.options.length)for (const p of grow.profiles) {const option=document.createElement('option');option.value=p.profile_id;option.textContent=p.name+' · timings unapproved';select.append(option);}
+  select.disabled=!enabled || !ready || (cycle && cycle.status!=='complete');
+  if (cycle && cycle.status!=='complete') select.value=cycle.profile_id;
+  if (cycle && scheduleEditorCycle!==cycle.cycle_id) {
+    scheduleEditorCycle=cycle.cycle_id;
+    byId('light-enabled').checked=!!light;byId('mist-enabled').checked=!!pump;
+    byId('schedule-rgb').value=light ? light.rgb.join(',') : '0,0,0';
+    if (light) {byId('light-start').value=light.start_utc;byId('light-end').value=light.end_utc;}
+    if (pump) byId('mist-interval').value=pump.interval_s;
+  }
+  byId('create-cycle').disabled=select.disabled;
+  byId('save-schedules').disabled=!enabled || !ready || cycle?.status!=='paused';
+  byId('recover-grow').disabled=!enabled;
+}
+
+if (page==='settings') {
+  async function growPost(url,body) {
+    const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},body:JSON.stringify(body)});
+    const data=await response.json();
+    if (!response.ok)throw Error(data.error || 'Grow operation rejected');
+    setText('grow-form-status','Configuration committed · trace events may still be queued · schedules remain inhibited until confirmed Start');
+    await pollState();
+  }
+  byId('profile-form').onsubmit=async event=>{
+    event.preventDefault();byId('create-cycle').disabled=true;
+    try {await growPost('/api/grow/cycles',{profile_id:byId('grow-profile').value,name:byId('grow-name').value});}
+    catch (error) {setText('grow-form-status',error.message);await pollState();}
+  };
+  byId('schedule-form').onsubmit=async event=>{
+    event.preventDefault();byId('save-schedules').disabled=true;
+    const schedules=[];
+    if (byId('light-enabled').checked)schedules.push({target:'lighting',enabled:true,start_utc:byId('light-start').value,end_utc:byId('light-end').value,rgb:byId('schedule-rgb').value.split(',').map(Number)});
+    if (byId('mist-enabled').checked)schedules.push({target:'pump',enabled:true,interval_s:Number(byId('mist-interval').value)});
+    try {await growPost('/api/grow/schedules',{schedules});}
+    catch (error) {setText('grow-form-status',error.message);await pollState();}
+  };
+  byId('recover-grow').onclick=async()=>{try {await growPost('/api/grow/recover',{});}catch(error){setText('grow-form-status',error.message);}};
+}

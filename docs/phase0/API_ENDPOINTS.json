@@ -245,7 +245,7 @@
   {
     "path": "/api/confirmations",
     "method": "POST",
-    "request": "action command|start|pause|enter_maintenance|exit_maintenance|safe_manual_test|firmware_update; object payload; trusted host authorizer and page token",
+    "request": "action command|start|pause|enter_maintenance|exit_maintenance|safe_manual_test|firmware_update; object payload; trusted host authorizer and page token; M4 adds confirmed complete_cycle and binds Start to current profile/schedule revision",
     "success": "200 single-use confirmation_id + state_revision + expiry or confirmation_not_required; no hardware dispatch",
     "errors": "400 invalid; 403 unapproved boundary/source/token; 409 state; 423 inhibits",
     "producer": "app.py:confirmation",
@@ -254,10 +254,46 @@
   {
     "path": "/api/workflow",
     "method": "POST",
-    "request": "action start|pause|enter_maintenance|exit_maintenance|safe_manual_test; payload; confirmation_id and expected_state_revision when required",
+    "request": "action start|pause|enter_maintenance|exit_maintenance|safe_manual_test; payload; confirmation_id and expected_state_revision when required; M4 adds confirmed complete_cycle and binds Start to current profile/schedule revision",
     "success": "200 accepted state transition; safe-stop ACK separate from physical verification",
     "errors": "400 invalid; 403 boundary/source/token; 409 confirmation/state/replay; 423 inhibits; 503 failed safe-stop",
     "producer": "app.py:workflow",
     "consumer": "local HMI; host tests"
+  },
+  {
+    "path": "/api/grow",
+    "method": "GET",
+    "request": "none",
+    "success": "200 profiles/cycle/schedules, grow day, recent occurrence ledger, queued/committed trace; host-only",
+    "errors": "400 invalid/conflicting configuration; 403 boundary/token; 503 unconfigured or storage failure; restart remains inhibited",
+    "producer": "app.py / services.grow_service",
+    "consumer": "local HMI / host tests"
+  },
+  {
+    "path": "/api/grow/cycles",
+    "method": "POST",
+    "request": "profile_id basil|spearmint; name; trusted simulation authorizer + process token",
+    "success": "200 committed paused cycle/profile snapshot; events queued separately",
+    "errors": "400 invalid/conflicting configuration; 403 boundary/token; 503 unconfigured or storage failure; restart remains inhibited",
+    "producer": "app.py / services.grow_service",
+    "consumer": "local HMI / host tests"
+  },
+  {
+    "path": "/api/grow/schedules",
+    "method": "POST",
+    "request": "schedules list, one per target pump|lighting; explicit enabled, interval_s or HH:MM UTC/rgb",
+    "success": "200 committed host schedules; paused cycle only; no automatic start",
+    "errors": "400 invalid/conflicting configuration; 403 boundary/token; 503 unconfigured or storage failure; restart remains inhibited",
+    "producer": "app.py / services.grow_service",
+    "consumer": "local HMI / host tests"
+  },
+  {
+    "path": "/api/grow/recover",
+    "method": "POST",
+    "request": "empty object; trusted simulation authorizer + token",
+    "success": "200 recovered paused state; fresh confirmed start still required",
+    "errors": "400 invalid/conflicting configuration; 403 boundary/token; 503 unconfigured or storage failure; restart remains inhibited",
+    "producer": "app.py / services.grow_service",
+    "consumer": "local HMI / host tests"
   }
 ]
