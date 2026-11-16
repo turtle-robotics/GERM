@@ -53,6 +53,10 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     const fault=(await (await page.request.get(base+'/api/media')).json()).scheduling;
     assert.equal(fault.inhibited,true);assert.equal(fault.operator_recovery_required,true);
     await page.locator('#capture-clock-status').scrollIntoViewIfNeeded();
+    assert.equal(await page.locator('#capture-clock-status').evaluate(n=>{
+      const r=n.getBoundingClientRect(),top=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
+      return top===n || n.contains(top);
+    }),true,'Clock fault text must remain unobscured while scrolling');
     await page.screenshot({path:path.join(output,'clock-fault.png'),fullPage:true});
     // Explicit test-only forward time recovery avoids relying on browser speed
     // or an in-flight preview/scheduled frame's final high-water observation.
