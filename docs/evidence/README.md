@@ -1,6 +1,6 @@
 # GERM implementation evidence index
 
-M7: [storage/backup/offline restore campaign](m7/README.md), under [M6 acceptance and M7 authorization](../phase0/M6_REVIEW_VERDICT.md). Earlier M6/M5 evidence is preserved as historical review evidence. No physical, security or deployment acceptance is implied.
+M8: [offline host/usability campaign](m8/README.md), under [M7 acceptance and M8 authorization](../phase0/M7_REVIEW_VERDICT.md). Earlier M7/M6/M5 evidence is preserved as historical review evidence. No physical, security or deployment acceptance is implied.
 
 Current M5: [capture/local-ML evidence](m5/README.md), [implementation/traceability](../phase0/M5_IMPLEMENTATION.md), [dependency register](../phase0/M5_DEPENDENCIES.md). Synthetic host milestone only; all earlier PRs remain unmerged and M6 is not started.
 

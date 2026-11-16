@@ -1,6 +1,6 @@
 # Task 128 seven-screen HMI/API checklist
 
-Version `m7-host-review-1`; 52 rows. Structured authority: [HMI_API_CHECKLIST.json](HMI_API_CHECKLIST.json); routes/errors: [API_ENDPOINTS.json](API_ENDPOINTS.json). M0 accepted scope remains the [recorded verdict](M0_REVIEW_VERDICT.md). Current host implementation/evidence: [M1 guide](M1_IMPLEMENTATION.md).
+Version `m8-host-review-1`; 53 rows. Structured authority: [HMI_API_CHECKLIST.json](HMI_API_CHECKLIST.json); routes/errors: [API_ENDPOINTS.json](API_ENDPOINTS.json). M0 accepted scope remains the [recorded verdict](M0_REVIEW_VERDICT.md). Current host implementation/evidence: [M1 guide](M1_IMPLEMENTATION.md).
 
 Product and physical acceptance remain partial/missing as recorded below. Synthetic test success does not establish physical behavior or measured two-second UI acceptance. Null backend fields are explicit gaps.
 
@@ -58,5 +58,6 @@ Product and physical acceptance remain partial/missing as recorded below. Synthe
 | P07 | Plant | SR-ML-01/03 | Capture journal and orphan recovery | GET /api/media: camera / ml / recent / requests | Partial: Host camera/ML contract implemented; physical camera and validated plant model remain unapproved | Repeat rollback ticks/restart; journal recovery cannot clear fault; UTC recovery + explicit ack waits for future slot; persisted claims retained |
 | T04 | Trends | SR-DAT-02; SO-5 AC-2 | Interrupted/failed export recovery | GET /api/exports/<request_id>: durable job status and attempt | Partial: Host-only recovery; target power-cut/product acceptance unresolved | Restart marks incomplete receipts interrupted; retry preserves old files; at most three attempts |
 | S06 | Settings | SO-5 AC-2/3/4; SR-DAT-02 | Interrupted storage job recovery | GET /api/storage/jobs/<request_id>: durable receipt and recovery report | Partial: Host implemented; retention/security/physical/off-device/target recovery approval unresolved | Power loss before receipt; restart marks interrupted; retry retains prior paths; max three attempts |
+| U01 | Shared | Tasks 125/132; SR-UI-02; SR-AUT-02 | Offline connection, host service health and explicit recovery | GET /api/services: dependency states/readiness/restart/worker health | Partial: Host-only scripted usability; novice/target/security/physical acceptance unresolved | All seven screens with external requests blocked; keyboard/focus/touch; localhost loss/reconnect; worker/DB crash recovery without permissions |
 
 Confirmation, quality, evidence and review ownership for each row are retained in the structured JSON. Hardware dependencies, durable restart/logging and unresolved requirements remain open in the M1 guide.

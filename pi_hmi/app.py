@@ -13,6 +13,7 @@ from services.sensor_service import current_readings
 from services.database_service import repository
 from services.history_http import history_routes
 from services.storage_http import storage_routes
+from services.lifecycle_http import lifecycle_routes
 
 app = Flask(__name__)
 app.config.update(GERM_CONTROL_AUTHORIZER=None, GERM_SIMULATION=False, MAX_CONTENT_LENGTH=1024 * 1024)
@@ -20,6 +21,7 @@ control_token = secrets.token_urlsafe(32)
 cam = None
 app.register_blueprint(history_routes)
 app.register_blueprint(storage_routes)
+app.register_blueprint(lifecycle_routes)
 
 
 @app.errorhandler(413)
@@ -48,6 +50,25 @@ def restrict_mutations():
     if not secrets.compare_digest(request.headers.get('X-GERM-Token', ''), control_token):
         return jsonify(status='restricted', error='Reload the local HMI before requesting a command'), 403
     g.control_authority = get_gateway().operator_authority
+    runtime=app.config.get('GERM_HOST_LIFECYCLE')
+    data_paths=('/api/camera/','/api/media/','/api/ml/','/api/grow/','/api/exports','/api/storage/')
+    if runtime and request.path.startswith(data_paths):
+        if not runtime.begin_data_request():return jsonify(error='Host services are recovering/stopped; no data mutation started'),503
+        g.host_data_lease=runtime
+
+
+@app.teardown_request
+def release_host_request(error=None):
+    runtime=getattr(g,'host_data_lease',None)
+    if runtime:
+        g.host_data_lease=None;runtime.end_data_request()
+
+
+@app.after_request
+def local_response_policy(response):
+    response.headers['Content-Security-Policy']="default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+    if request.path.startswith('/api/'):response.headers['Cache-Control']='no-store'
+    return response
 
 
 def send_command(command, **context):
@@ -291,14 +312,7 @@ app.register_blueprint(create_firmware_blueprint(control_token))
 
 
 def start_simulation_workers(camera, dht_device):
-    if not app.config['GERM_SIMULATION'] or not get_gateway().adapter.simulated:
-        raise RuntimeError('Explicit simulated runtime required')
-    global cam
-    cam = camera
-    import dht11_reader
-    dht11_reader.dhtDevice = dht_device
-    threading.Thread(target=read_dht, daemon=True).start()
-    threading.Thread(target=read_serial, daemon=True).start()
+    raise RuntimeError('Unmanaged acquisition workers are disabled; use the explicit offline host lifecycle')
 
 
 if __name__ == '__main__':

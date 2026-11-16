@@ -1,0 +1,27 @@
+test_seven_screens_local_assets_headers_status_recovery_and_production_denial (test_m8.LifecycleHttpTests.test_seven_screens_local_assets_headers_status_recovery_and_production_denial) ... ok
+test_blocked_worker_prevents_release_and_duplicate_recovery (test_m8.LifecycleTests.test_blocked_worker_prevents_release_and_duplicate_recovery) ... ok
+test_camera_schedule_restart_hold_preserves_claims_and_generation (test_m8.LifecycleTests.test_camera_schedule_restart_hold_preserves_claims_and_generation) ... ok
+test_corrupt_existing_database_is_not_repaired_or_replaced (test_m8.LifecycleTests.test_corrupt_existing_database_is_not_repaired_or_replaced) ... ok
+test_current_synthetic_samples_expire_instead_of_becoming_real_values (test_m8.LifecycleTests.test_current_synthetic_samples_expire_instead_of_becoming_real_values) ... ok
+test_database_failure_never_auto_heals_or_grants_permission (test_m8.LifecycleTests.test_database_failure_never_auto_heals_or_grants_permission) ... ok
+test_detected_worker_exit_latches_recovery_inhibit (test_m8.LifecycleTests.test_detected_worker_exit_latches_recovery_inhibit) ... ok
+test_duplicate_instance_and_duplicate_start_do_not_duplicate_workers (test_m8.LifecycleTests.test_duplicate_instance_and_duplicate_start_do_not_duplicate_workers) ... ok
+test_gateway_and_model_owners_cannot_be_reused_across_restart (test_m8.LifecycleTests.test_gateway_and_model_owners_cannot_be_reused_across_restart) ... ok
+test_inflight_mutation_lease_blocks_shutdown_until_teardown (test_m8.LifecycleTests.test_inflight_mutation_lease_blocks_shutdown_until_teardown) ... ok
+test_logging_failure_isolated_and_requires_explicit_recovery (test_m8.LifecycleTests.test_logging_failure_isolated_and_requires_explicit_recovery) ... ok
+test_missing_database_is_never_recreated_after_initialized_workspace (test_m8.LifecycleTests.test_missing_database_is_never_recreated_after_initialized_workspace) ... ok
+test_no_outgoing_internet_connections_for_start_tick_or_snapshot (test_m8.LifecycleTests.test_no_outgoing_internet_connections_for_start_tick_or_snapshot) ... ok
+test_non_synthetic_adapter_or_camera_rejected_without_dispatch (test_m8.LifecycleTests.test_non_synthetic_adapter_or_camera_rejected_without_dispatch) ... ok
+test_optional_synthetic_camera_no_model_honestly_degraded (test_m8.LifecycleTests.test_optional_synthetic_camera_no_model_honestly_degraded) ... ok
+test_repeated_restarts_preserve_history_and_never_permissions (test_m8.LifecycleTests.test_repeated_restarts_preserve_history_and_never_permissions) ... ok
+test_required_synthetic_sensor_provider_rejects_untrusted_callback (test_m8.LifecycleTests.test_required_synthetic_sensor_provider_rejects_untrusted_callback) ... ok
+test_restart_recovers_interrupted_artifact_receipts_without_execution (test_m8.LifecycleTests.test_restart_recovers_interrupted_artifact_receipts_without_execution) ... ok
+test_running_export_blocks_shutdown_and_new_workspace_owner (test_m8.LifecycleTests.test_running_export_blocks_shutdown_and_new_workspace_owner) ... ok
+test_stale_worker_heartbeat_fails_closed (test_m8.LifecycleTests.test_stale_worker_heartbeat_fails_closed) ... ok
+test_startup_dependency_order_restricted_defaults_and_shutdown (test_m8.LifecycleTests.test_startup_dependency_order_restricted_defaults_and_shutdown) ... ok
+test_unmarked_existing_database_is_not_adopted_or_overwritten (test_m8.LifecycleTests.test_unmarked_existing_database_is_not_adopted_or_overwritten) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 23.223s
+
+OK

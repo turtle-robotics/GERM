@@ -1,5 +1,5 @@
 {
-  "version": "m7-host-review-1",
+  "version": "m8-host-review-1",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -1036,6 +1036,28 @@
       "gap": "Host implemented; retention/security/physical/off-device/target recovery approval unresolved",
       "owner": "HMI with backend contract review",
       "evidence": "M7 storage host and Chromium evidence: docs/evidence/m7/"
+    },
+    {
+      "id": "U01",
+      "screen": "Shared",
+      "source": "Tasks 125/132; SR-UI-02; SR-AUT-02",
+      "display": "Offline connection, host service health and explicit recovery",
+      "backend": {
+        "path": "/api/services",
+        "method": "GET",
+        "field": "dependency states/readiness/restart/worker health"
+      },
+      "quality": "No cached permissions or offline command replay; unavailable/stale data explicit",
+      "command": {
+        "path": "/api/services/recover",
+        "method": "POST"
+      },
+      "confirmation": "explicit recovery confirmation; schedules remain inhibited",
+      "acceptance_case": "All seven screens with external requests blocked; keyboard/focus/touch; localhost loss/reconnect; worker/DB crash recovery without permissions",
+      "status": "Partial",
+      "gap": "Host-only scripted usability; novice/target/security/physical acceptance unresolved",
+      "owner": "Backend/API + HMI review",
+      "evidence": "M8 lifecycle/offline/Chromium evidence: docs/evidence/m8/"
     }
   ]
 }

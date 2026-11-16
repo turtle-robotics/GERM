@@ -430,5 +430,23 @@
     "errors": "400 incomplete/corrupt/non-backup; 404 unknown; 503 file/storage unavailable",
     "producer": "M7 storage blueprint/shared retained artifact jobs; unchanged POST boundary",
     "consumer": "Settings HMI / host tests"
+  },
+  {
+    "path": "/api/services",
+    "method": "GET",
+    "request": "No mutation; configured synthetic host only",
+    "success": "200 observed dependency/worker/readiness/restart states; no permissions restored",
+    "errors": "503 unconfigured/status unavailable",
+    "producer": "M8 local lifecycle blueprint; existing mutation boundary",
+    "consumer": "Seven-screen local service status / host tests"
+  },
+  {
+    "path": "/api/services/recover",
+    "method": "POST",
+    "request": "{} only; trusted host/token; no paths/configuration/permission flags",
+    "success": "200 recovered core services with restart required and schedules unarmed; optional missing adapters explicit",
+    "errors": "400 invalid body; 403 boundary/token; 503 busy/failed recovery",
+    "producer": "M8 local lifecycle blueprint; existing mutation boundary",
+    "consumer": "Seven-screen local service status / host tests"
   }
 ]

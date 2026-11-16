@@ -1,0 +1,9 @@
+# M7 review — accepted with restrictions
+
+Recorded 2026-11-16 (America/Chicago). User accepted GERM PR #12 at `55d69c558f5c134540299128aa23f4415550f9fa`: **ACCEPTED WITH RESTRICTIONS — HOST-ONLY**. Task 124 observed storage inventory, verified backups, strict preflight, isolated offline restore and interruption/retry satisfy the host scope. [M7 evidence](../evidence/m7/README.md), tested implementation `2a593390b8d746b078ed44a84e9b4e43fb317f53`; final PR CI [43894299238](https://github.com/turtle-robotics/GERM/actions/runs/43894299238) and push [43894285815](https://github.com/turtle-robotics/GERM/actions/runs/43894285815).
+
+Retain the [M7 limits](M7_IMPLEMENTATION.md): current-schema offline copies only, no runtime adoption/permissions, logical versus physical size distinction, resource quotas, same-volume/off-device limitations and simulated versus actual power loss. The [retention proposal](RETENTION_POLICY_PROPOSAL.md) remains unapproved; M7 acceptance does not authorize deletion.
+
+M8 Tasks 125/132 offline operation and usability are authorized on a separate branch directly above this reviewed head, with its own PR targeting `codex/m7-storage-backup`. Host coding and synthetic tests may proceed; return for M8 review before M9. Preserve the unmerged #5–#12 → M8 stack, M1 architecture, M2–M7 contracts, all prior tests, 15 original hashes and untracked work.
+
+No Pi deployment/system service installation, real sensors/camera/actuators/models, firmware, physical safety claims, production POST enablement, new network exposure, historical deletion/retention enforcement, PR merges or Gantt changes. Electrical/sensor/crop approval, authentication/network/security, controlled requirements release, retention, real camera/model and target performance/power-loss/usability gates stay open.

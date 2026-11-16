@@ -1,0 +1,19 @@
+test_advancing_utc_observations_do_not_create_false_rollback (test_m5_clock.CaptureClockTests.test_advancing_utc_observations_do_not_create_false_rollback) ... ok
+test_clock_guard_persistence_failure_fails_closed (test_m5_clock.CaptureClockTests.test_clock_guard_persistence_failure_fails_closed) ... ok
+test_explicit_recovery_requires_high_water_and_waits_for_strict_future_slot (test_m5_clock.CaptureClockTests.test_explicit_recovery_requires_high_water_and_waits_for_strict_future_slot) ... ok
+test_late_recovery_skips_expired_slot_without_catchup_burst (test_m5_clock.CaptureClockTests.test_late_recovery_skips_expired_slot_without_catchup_burst) ... ok
+test_missed_slots_and_interrupted_claims_remain_terminal_after_recovery (test_m5_clock.CaptureClockTests.test_missed_slots_and_interrupted_claims_remain_terminal_after_recovery) ... ok
+test_reconfiguration_and_journal_recovery_cannot_bypass_clock_latch (test_m5_clock.CaptureClockTests.test_reconfiguration_and_journal_recovery_cannot_bypass_clock_latch) ... ok
+test_repeated_ack_and_reconfiguration_cannot_duplicate_recovered_slot (test_m5_clock.CaptureClockTests.test_repeated_ack_and_reconfiguration_cannot_duplicate_recovered_slot) ... ok
+test_repeated_rollback_ticks_never_read_camera_or_create_new_claims (test_m5_clock.CaptureClockTests.test_repeated_rollback_ticks_never_read_camera_or_create_new_claims) ... ok
+test_restart_detects_rollback_against_persisted_tick_without_previous_fault (test_m5_clock.CaptureClockTests.test_restart_detects_rollback_against_persisted_tick_without_previous_fault) ... ok
+test_restart_preserves_latch_and_recovery_boundary_and_claim_identity (test_m5_clock.CaptureClockTests.test_restart_preserves_latch_and_recovery_boundary_and_claim_identity) ... ok
+test_rollback_during_frame_read_cannot_index_a_wrong_slot (test_m5_clock.CaptureClockTests.test_rollback_during_frame_read_cannot_index_a_wrong_slot) ... ok
+test_schema_v5_upgrade_seeds_high_water_from_all_persisted_claims (test_m5_clock.CaptureClockTests.test_schema_v5_upgrade_seeds_high_water_from_all_persisted_claims) ... ok
+test_time_recovery_alone_never_clears_persisted_fault (test_m5_clock.CaptureClockTests.test_time_recovery_alone_never_clears_persisted_fault) ... ok
+test_api_reports_persistent_fault_and_explicit_recovery_without_capture (test_m5_clock.ClockHttpTests.test_api_reports_persistent_fault_and_explicit_recovery_without_capture) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 13.660s
+
+OK

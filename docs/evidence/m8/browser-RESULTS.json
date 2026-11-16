@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "viewport": "739x447",
+  "externalRequests": [],
+  "pageErrors": [],
+  "checks": [
+    "all seven screens with external requests blocked",
+    "same-origin assets and CSP",
+    "keyboard skip link and visible focus",
+    "current-page navigation",
+    "no horizontal overflow",
+    "touch target size",
+    "Cancel-focused dialog and Escape no dispatch",
+    "lost localhost clears status and disables commands",
+    "reconnect never replays POSTs",
+    "DB/core-worker failure requires explicit recovery",
+    "restart never restores permissions or armed schedules",
+    "stale camera hides image; no placeholder"
+  ]
+}
