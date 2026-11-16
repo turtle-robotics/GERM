@@ -30,6 +30,8 @@ jobs:
         working-directory: pi_hmi
       - run: python -m unittest discover -s tests -p 'test_m5.py' -v
         working-directory: pi_hmi
+      - run: python -m unittest discover -s tests -p 'test_m5_clock.py' -v
+        working-directory: pi_hmi
       - run: g++ -std=c++11 tests/firmware_behavior.cpp -o /tmp/germ-firmware-test && /tmp/germ-firmware-test
         working-directory: pi_hmi
       - uses: actions/setup-node@v4

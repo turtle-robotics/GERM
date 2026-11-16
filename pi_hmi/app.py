@@ -241,7 +241,11 @@ def media_operation():
             if set(data)!={'enabled','interval_s','anchor_utc'}:raise ValueError('Expected enabled, interval_s and anchor_utc')
             return jsonify(media.captures.configure_schedule(**data))
         if request.path.endswith('/recover'):
-            if data:raise ValueError('Recovery accepts no overrides')
+            if data:
+                if set(data)!={'recover_clock'} or data['recover_clock'] is not True:raise ValueError('Expected empty object or recover_clock true')
+                try:clock=media.captures.recover_schedule_clock()
+                except ValueError as exc:return jsonify(state='inhibited',error=str(exc)),423
+                return jsonify(clock=clock,captures_started=False)
             return jsonify(media.captures.recover())
         if set(data)-{'image_id','request_id'} or 'image_id' not in data:raise ValueError('Expected image_id and optional request_id')
         result=media.ml.analyze_image(data['image_id'],request_id=data.get('request_id'))

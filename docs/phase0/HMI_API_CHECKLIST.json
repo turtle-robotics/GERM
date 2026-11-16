@@ -1,5 +1,5 @@
 {
-  "version": "m5-review-1",
+  "version": "m5-clock-review-1",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -920,18 +920,18 @@
         "method": "GET",
         "field": "camera / ml / recent / requests"
       },
-      "quality": "Below 0.70 must say Uncertain; two consecutive abnormal results before alert",
+      "quality": "Persistent clock rollback inhibits scheduling across time recovery/restart; explicit acknowledgement then future boundary; no replay or identity reset",
       "command": {
         "path": "/api/camera/schedule",
         "method": "POST",
         "payload": "Explicit trusted host context and validated request"
       },
       "confirmation": "No actuator capability; production POST restriction and token required",
-      "acceptance_case": "Persist hourly config; restart dedup; skip expired slots without burst",
+      "acceptance_case": "Repeat rollback ticks/restart; journal recovery cannot clear fault; UTC recovery + explicit ack waits for future slot; persisted claims retained",
       "status": "Partial",
       "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M5 clock correction: 14 additional host regressions and browser clock acknowledgement; docs/evidence/m5-correction/"
     },
     {
       "id": "P06",
@@ -966,18 +966,18 @@
         "method": "GET",
         "field": "camera / ml / recent / requests"
       },
-      "quality": "Below 0.70 must say Uncertain; two consecutive abnormal results before alert",
+      "quality": "Persistent clock rollback inhibits scheduling across time recovery/restart; explicit acknowledgement then future boundary; no replay or identity reset",
       "command": {
         "path": "/api/media/recover",
         "method": "POST",
         "payload": "Explicit trusted host context and validated request"
       },
       "confirmation": "No actuator capability; production POST restriction and token required",
-      "acceptance_case": "Recover complete files idempotently; partial/unowned files preserved; no fake metadata",
+      "acceptance_case": "Repeat rollback ticks/restart; journal recovery cannot clear fault; UTC recovery + explicit ack waits for future slot; persisted claims retained",
       "status": "Partial",
       "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M5 clock correction: 14 additional host regressions and browser clock acknowledgement; docs/evidence/m5-correction/"
     }
   ]
 }

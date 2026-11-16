@@ -44,6 +44,7 @@ def run(output, include_root=False):
     check('m3-durable-events', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m3.py', '-v'], pi)
     check('m4-grow-hmi', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m4.py', '-v'], pi)
     check('m5-camera-ml', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m5.py', '-v'], pi)
+    check('m5-clock-recovery', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m5_clock.py', '-v'], pi)
     if include_root:
         check('preserved-root-app', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-v'], ROOT)
     parsed = sorted(pi.rglob('*.py'))

@@ -1,6 +1,7 @@
 """M2-owned capture journal, model registry and atomic inference records."""
 import json
 import uuid
+from datetime import datetime,timedelta
 from services.grow_repository import GrowRepository
 from services.sqlite_repository import canonical,utc
 
@@ -10,27 +11,64 @@ def request_uuid(value):
     return value
 
 
+def scheduled_capture_id(generation,experiment_id,scheduled_at):
+    identity='capture:'+str(generation)+':'+str(experiment_id)+':'+utc(scheduled_at)
+    return str(uuid.uuid5(uuid.NAMESPACE_URL,identity))
+
+
+def next_capture_slot(schedule,after):
+    anchor=datetime.fromisoformat(utc(schedule['anchor_utc']))
+    after=datetime.fromisoformat(utc(after))
+    steps=max(0,int((after-anchor).total_seconds()//schedule['interval_s'])+1)
+    return (anchor+timedelta(seconds=steps*schedule['interval_s'])).isoformat()
+
+
+def capture_schedule_state(schedule,now):
+    if not schedule:return 'not_configured'
+    if schedule['clock_fault']:return 'clock_fault'
+    if schedule['last_observed_utc'] and datetime.fromisoformat(utc(now))<datetime.fromisoformat(schedule['last_observed_utc']):return 'clock_behind_high_water'
+    if not schedule['enabled']:return 'disabled'
+    now=datetime.fromisoformat(utc(now))
+    boundaries=[schedule['resume_not_before_utc'],schedule['anchor_utc']]
+    if any(value and now<datetime.fromisoformat(value) for value in boundaries):return 'waiting_for_boundary'
+    return 'ready'
+
+
 class MediaRepository(GrowRepository):
     def plants_for_experiment(self,experiment_id):
         return self._rows('SELECT plant_id,position,species FROM plants WHERE experiment_id=? ORDER BY position',(experiment_id,))
 
-    def claim_capture(self,request_id,experiment_id,plant_id,reason,now,scheduled_at=None):
+    def claim_capture(self,request_id,experiment_id,plant_id,reason,now,scheduled_at=None,schedule_generation=None):
         request_uuid(request_id);now=utc(now)
         if type(experiment_id) is not int or experiment_id<1:raise ValueError('Active experiment required')
         if plant_id is not None and (type(plant_id) is not int or plant_id<1):raise ValueError('Invalid plant ID')
         if reason not in ('manual','scheduled','fault'):raise ValueError('Invalid capture reason')
         if scheduled_at is not None:scheduled_at=utc(scheduled_at)
+        if reason=='scheduled':
+            # Commit a rollback detected at the claim boundary before rejecting;
+            # a rejected claim transaction must not roll the fault latch back.
+            observed=self.observe_capture_clock(now)
+            if not observed or capture_schedule_state(observed,now)!='ready':raise ValueError('Scheduled capture clock is inhibited')
         with self.connection() as db:
             db.execute('BEGIN IMMEDIATE')
             try:
+                if reason=='scheduled':
+                    schedule=db.execute('SELECT * FROM capture_schedule WHERE singleton=1').fetchone()
+                    if not schedule or schedule['generation']!=schedule_generation or capture_schedule_state(schedule,now)!='ready':raise ValueError('Scheduled capture permission changed')
+                    if schedule['last_observed_utc'] and datetime.fromisoformat(now)<datetime.fromisoformat(schedule['last_observed_utc']):raise ValueError('Scheduled claim predates clock high-water')
+                    if not scheduled_at or request_id!=scheduled_capture_id(schedule_generation,experiment_id,scheduled_at):raise ValueError('Scheduled occurrence identity mismatch')
+                    due=datetime.fromisoformat(scheduled_at);anchor=datetime.fromisoformat(schedule['anchor_utc'])
+                    elapsed=(due-anchor).total_seconds()
+                    if elapsed<0 or elapsed%schedule['interval_s']!=0:raise ValueError('Occurrence is not an anchored schedule slot')
+                    if schedule['resume_not_before_utc'] and due<datetime.fromisoformat(schedule['resume_not_before_utc']):raise ValueError('Occurrence precedes recovery boundary')
                 previous=db.execute('SELECT * FROM capture_requests WHERE request_id=?',(request_id,)).fetchone()
                 if previous:
                     if (previous['experiment_id'],previous['plant_id'],previous['capture_reason'],previous['scheduled_at_utc'])!=(experiment_id,plant_id,reason,scheduled_at):raise ValueError('Capture request ID/content conflict')
                     result=dict(previous);created=False
                 else:
                     if plant_id is not None and not db.execute('SELECT plant_id FROM plants WHERE plant_id=? AND experiment_id=?',(plant_id,experiment_id)).fetchone():raise ValueError('Plant does not belong to active experiment')
-                    db.execute("INSERT INTO capture_requests(request_id,experiment_id,plant_id,capture_reason,scheduled_at_utc,created_at_utc,status) VALUES(?,?,?,?,?,?,'claimed')",
-                        (request_id,experiment_id,plant_id,reason,scheduled_at,now))
+                    db.execute("INSERT INTO capture_requests(request_id,experiment_id,plant_id,capture_reason,scheduled_at_utc,created_at_utc,status,schedule_generation) VALUES(?,?,?,?,?,?,'claimed',?)",
+                        (request_id,experiment_id,plant_id,reason,scheduled_at,now,schedule_generation))
                     result=dict(db.execute('SELECT * FROM capture_requests WHERE request_id=?',(request_id,)).fetchone());created=True
                 db.execute('COMMIT')
             except Exception:db.execute('ROLLBACK');raise
@@ -99,9 +137,59 @@ class MediaRepository(GrowRepository):
 
     def set_capture_schedule(self,enabled,interval_s,anchor_utc):
         if type(enabled) is not bool or type(interval_s) is not int or not 60<=interval_s<=86400:raise ValueError('Capture interval must be 60–86400 integer seconds')
-        self._write('INSERT INTO capture_schedule VALUES(1,1,?,?,?) ON CONFLICT(singleton) DO UPDATE SET generation=generation+1,enabled=excluded.enabled,interval_s=excluded.interval_s,anchor_utc=excluded.anchor_utc',
-            (int(enabled),interval_s,utc(anchor_utc)))
+        anchor_utc=utc(anchor_utc)
+        with self.connection() as db:
+            db.execute('BEGIN IMMEDIATE')
+            try:
+                old=db.execute('SELECT * FROM capture_schedule WHERE singleton=1').fetchone()
+                if old and old['clock_fault']:
+                    if enabled or interval_s!=old['interval_s'] or anchor_utc!=old['anchor_utc']:raise ValueError('Acknowledge the clock fault after UTC recovery before reconfiguring')
+                    db.execute('UPDATE capture_schedule SET enabled=0 WHERE singleton=1')
+                elif old:
+                    # A configuration edit cannot manufacture another occurrence in an
+                    # already-observed slot, even though its identity has a new generation.
+                    cutoff=old['last_observed_utc']
+                    not_before=next_capture_slot(dict(anchor_utc=anchor_utc,interval_s=interval_s),cutoff) if cutoff else None
+                    if old['resume_not_before_utc'] and (not not_before or datetime.fromisoformat(old['resume_not_before_utc'])>datetime.fromisoformat(not_before)):
+                        not_before=next_capture_slot(dict(anchor_utc=anchor_utc,interval_s=interval_s),(datetime.fromisoformat(old['resume_not_before_utc'])-timedelta(microseconds=1)).isoformat())
+                    db.execute('UPDATE capture_schedule SET generation=generation+1,enabled=?,interval_s=?,anchor_utc=?,resume_not_before_utc=? WHERE singleton=1',(int(enabled),interval_s,anchor_utc,not_before))
+                else:db.execute('INSERT INTO capture_schedule(singleton,generation,enabled,interval_s,anchor_utc) VALUES(1,1,?,?,?)',(int(enabled),interval_s,anchor_utc))
+                db.execute('COMMIT')
+            except Exception:db.execute('ROLLBACK');raise
         return self.capture_schedule()
+
+    def observe_capture_clock(self,now):
+        now=utc(now)
+        with self.connection() as db:
+            db.execute('BEGIN IMMEDIATE')
+            try:
+                row=db.execute('SELECT * FROM capture_schedule WHERE singleton=1').fetchone()
+                if row:
+                    high=row['last_observed_utc']
+                    rollback=bool(high and datetime.fromisoformat(now)<datetime.fromisoformat(high))
+                    if rollback:db.execute('UPDATE capture_schedule SET clock_fault=1 WHERE singleton=1')
+                    elif high!=now:db.execute('UPDATE capture_schedule SET last_observed_utc=? WHERE singleton=1',(now,))
+                    row=dict(db.execute('SELECT * FROM capture_schedule WHERE singleton=1').fetchone())
+                db.execute('COMMIT')
+            except Exception:db.execute('ROLLBACK');raise
+        return row
+
+    def recover_capture_clock(self,now):
+        now=utc(now)
+        with self.connection() as db:
+            db.execute('BEGIN IMMEDIATE')
+            try:
+                row=db.execute('SELECT * FROM capture_schedule WHERE singleton=1').fetchone()
+                if not row:raise ValueError('Capture schedule is not configured')
+                if row['clock_fault']:
+                    if row['last_observed_utc'] and datetime.fromisoformat(now)<datetime.fromisoformat(row['last_observed_utc']):raise ValueError('UTC has not reached the persisted clock high-water')
+                    boundary=next_capture_slot(row,now)
+                    if row['resume_not_before_utc'] and datetime.fromisoformat(row['resume_not_before_utc'])>datetime.fromisoformat(boundary):boundary=row['resume_not_before_utc']
+                    db.execute('UPDATE capture_schedule SET clock_fault=0,last_observed_utc=?,resume_not_before_utc=? WHERE singleton=1',(now,boundary))
+                row=dict(db.execute('SELECT * FROM capture_schedule WHERE singleton=1').fetchone())
+                db.execute('COMMIT')
+            except Exception:db.execute('ROLLBACK');raise
+        return row
 
     def capture_schedule(self):
         rows=self._rows('SELECT * FROM capture_schedule WHERE singleton=1')

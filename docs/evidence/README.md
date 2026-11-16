@@ -1,5 +1,7 @@
 # GERM implementation evidence index
 
+M5 correction evidence: [persisted clock-guard campaign](m5-correction/README.md), above the preserved original M5 package. [Conditional verdict](../phase0/M5_CONDITIONAL_REVIEW.md); final review remains pending. [M6 plan](../phase0/M6_PLAN.md) does not authorize implementation before that gate.
+
 Current M5: [capture/local-ML evidence](m5/README.md), [implementation/traceability](../phase0/M5_IMPLEMENTATION.md), [dependency register](../phase0/M5_DEPENDENCIES.md). Synthetic host milestone only; all earlier PRs remain unmerged and M6 is not started.
 
 Current M4: [HMI/profile/cycle/schedule evidence](m4/README.md), [implementation/traceability/M5 readiness](../phase0/M4_IMPLEMENTATION.md). Host-only; the M0→M4 PR dependency stack remains unmerged and no Gantt status changes are implied.

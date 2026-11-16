@@ -7,7 +7,7 @@ from pathlib import Path,PurePosixPath
 import threading
 import uuid
 from services.image_validation import inspect_jpeg,MAX_BYTES
-from services.media_repository import request_uuid
+from services.media_repository import request_uuid,scheduled_capture_id,capture_schedule_state
 from services.sqlite_repository import utc
 
 
@@ -16,7 +16,8 @@ class CaptureService:
         self.state,self.repo,self.camera=state,repository,camera
         self.root=repository.scoped(image_root);self.root.mkdir(parents=True,exist_ok=True)
         self.lock=threading.RLock();self.schedule_lock=threading.Lock()
-        self.last_error=None;self.last_tick=None;self.recovery_report=None
+        self.last_error=None;self.recovery_report=None
+        self.scheduling_error=None;self.reported_clock_fault=False
 
     def path(self,relative):
         if not isinstance(relative,str) or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts or '\\' in relative or ':' in relative:raise ValueError('Invalid image path')
@@ -96,12 +97,13 @@ class CaptureService:
         for row in self.repo.pending_media_events():
             if self.repo.event_committed(row['event_id']):self.repo.acknowledge_media_event(row['event_id'])
 
-    def capture(self,request_id,*,plant_id=None,reason='manual',scheduled_at=None,missed=False):
+    def capture(self,request_id,*,plant_id=None,reason='manual',scheduled_at=None,missed=False,schedule_generation=None):
         request_uuid(request_id)
         with self.lock:
             with self.state.lock:experiment_id=self.state.experiment_id
             try:
-                row,created=self.repo.claim_capture(request_id,experiment_id,plant_id,reason,self.state.utc_now().isoformat(),scheduled_at)
+                if reason=='scheduled':self._check_scheduled_acquisition(schedule_generation,scheduled_at,missed=missed)
+                row,created=self.repo.claim_capture(request_id,experiment_id,plant_id,reason,self.state.utc_now().isoformat(),scheduled_at,schedule_generation)
                 if not created:
                     if row['status'] not in ('claimed','prepared','indexed'):return dict(status=row['status'],request_id=request_id,indexed=False,error=row['error'])
                     image=self._recover_request(row)
@@ -110,7 +112,9 @@ class CaptureService:
                     self.repo.capture_failed(request_id,'missed','Capture slot expired; no catch-up acquisition')
                     self.emit('capture_missed',{'request_id':request_id,'scheduled_at_utc':scheduled_at},experiment_id)
                     return dict(status='missed',request_id=request_id,indexed=False)
-                frame=self.camera.read();metadata=inspect_jpeg(frame.jpeg)
+                frame=self.camera.read()
+                if reason=='scheduled':self._check_scheduled_acquisition(schedule_generation,scheduled_at)
+                metadata=inspect_jpeg(frame.jpeg)
                 stage_name,final_name=self.names(request_id,frame.captured_at_utc)
                 metadata.update(timestamp_utc=utc(frame.captured_at_utc),stage_path=stage_name,file_path=final_name,source='synthetic',frame_sequence=frame.sequence)
                 self.repo.prepare_capture(request_id,metadata)
@@ -162,31 +166,68 @@ class CaptureService:
             return report
 
     def configure_schedule(self,enabled,interval_s,anchor_utc):
-        row=self.repo.set_capture_schedule(enabled,interval_s,anchor_utc)
-        self.emit('capture_schedule_configured',dict(row))
+        with self.schedule_lock:
+            self._observe_schedule()
+            row=self.repo.set_capture_schedule(enabled,interval_s,anchor_utc)
+            row=self._observe_schedule()
+            self.emit('capture_schedule_configured',dict(row))
+            return row
+
+    def _observe_schedule(self,now=None):
+        row=self.repo.observe_capture_clock(now if now is not None else self.state.utc_now().isoformat())
+        if row and row['clock_fault']:
+            if not self.reported_clock_fault:
+                self.emit('capture_clock_fault',dict(state='inhibited',high_water_utc=row['last_observed_utc'],operator_recovery_required=True))
+            self.reported_clock_fault=True
         return row
+
+    def _check_scheduled_acquisition(self,generation,scheduled_at,*,missed=False):
+        now=self.state.utc_now()
+        row=self._observe_schedule(now.isoformat())
+        if not row or row['generation']!=generation or capture_schedule_state(row,now.isoformat())!='ready':raise ValueError('Capture scheduling is inhibited or configuration changed')
+        due=datetime.fromisoformat(utc(scheduled_at))
+        if row['resume_not_before_utc'] and due<datetime.fromisoformat(row['resume_not_before_utc']):raise ValueError('Occurrence precedes recovery boundary')
+        anchor=datetime.fromisoformat(row['anchor_utc'])
+        expected=anchor+timedelta(seconds=int((now-anchor).total_seconds()//row['interval_s'])*row['interval_s'])
+        if due!=expected or (not missed and (now-due).total_seconds()>5):raise ValueError('Scheduled capture slot is no longer eligible')
+
+    def recover_schedule_clock(self):
+        with self.schedule_lock:
+            self._observe_schedule()
+            row=self.repo.recover_capture_clock(self.state.utc_now().isoformat())
+            self.scheduling_error=None;self.reported_clock_fault=False
+            self.emit('capture_clock_recovered',dict(generation=row['generation'],resume_not_before_utc=row['resume_not_before_utc'],captures_started=False))
+            return row
 
     def scheduler_tick(self):
         if not self.schedule_lock.acquire(blocking=False):return None
         try:
-            schedule=self.repo.capture_schedule()
+            schedule=self._observe_schedule()
+            self.scheduling_error=None
             if not schedule or not schedule['enabled']:return None
             now=self.state.utc_now()
-            if self.last_tick and now<self.last_tick:
-                self.last_error='clock_rollback';self.emit('capture_clock_fault',{'state':'inhibited'});return None
-            self.last_tick=now
+            if capture_schedule_state(schedule,now.isoformat())!='ready':return None
             anchor=datetime.fromisoformat(utc(schedule['anchor_utc']))
             if now<anchor:return None
             with self.state.lock:experiment=self.state.experiment_id
             if experiment is None:return None
             elapsed=(now-anchor).total_seconds()
             due=anchor+timedelta(seconds=int(elapsed//schedule['interval_s'])*schedule['interval_s'])
-            identity='capture:'+str(schedule['generation'])+':'+str(experiment)+':'+due.isoformat()
-            request_id=str(uuid.uuid5(uuid.NAMESPACE_URL,identity))
-            return self.capture(request_id,reason='scheduled',scheduled_at=due.isoformat(),missed=(now-due).total_seconds()>5)
+            if schedule['resume_not_before_utc'] and due<datetime.fromisoformat(schedule['resume_not_before_utc']):return None
+            request_id=scheduled_capture_id(schedule['generation'],experiment,due.isoformat())
+            return self.capture(request_id,reason='scheduled',scheduled_at=due.isoformat(),missed=(now-due).total_seconds()>5,schedule_generation=schedule['generation'])
         except Exception as exc:
-            self.last_error=type(exc).__name__;self.emit('capture_schedule_failed',{'error':self.last_error});return None
+            self.scheduling_error=type(exc).__name__;self.last_error=self.scheduling_error
+            self.emit('capture_schedule_failed',{'error':self.last_error});return None
         finally:self.schedule_lock.release()
+
+    def scheduling_snapshot(self):
+        schedule=self.repo.capture_schedule()
+        return dict(state=capture_schedule_state(schedule,self.state.utc_now().isoformat()) if schedule and schedule['clock_fault'] else ('unavailable' if self.scheduling_error else capture_schedule_state(schedule,self.state.utc_now().isoformat())),
+                    inhibited=bool(self.scheduling_error) or capture_schedule_state(schedule,self.state.utc_now().isoformat())!='ready',
+                    clock_fault=bool(schedule and schedule['clock_fault']),high_water_utc=schedule['last_observed_utc'] if schedule else None,
+                    resume_not_before_utc=schedule['resume_not_before_utc'] if schedule else None,
+                    operator_recovery_required=bool(schedule and schedule['clock_fault']),error=self.scheduling_error)
 
     def snapshot(self):
         with self.state.lock:experiment=self.state.experiment_id
@@ -199,6 +240,8 @@ class CaptureService:
                 except Exception:image['file_state']='unavailable_or_corrupt'
             receipt=self.repo.media_receipt(image.get('capture_request_id'))
             image['event_status']=receipt['status'] if receipt else 'unknown'
+        schedule=self.repo.capture_schedule()
+        scheduling=self.scheduling_snapshot()
         return dict(camera=self.camera.snapshot(),capture_error=self.last_error,requests=self.repo.recent_capture_requests(),
-                    recent=recent,schedule=self.repo.capture_schedule(),recovery=self.recovery_report,
+                    recent=recent,schedule=schedule,scheduling=scheduling,recovery=self.recovery_report,
                     plants=self.repo.plants_for_experiment(experiment) if experiment is not None else [],experiment_id=experiment,source='synthetic')

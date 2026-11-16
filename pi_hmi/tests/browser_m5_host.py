@@ -36,6 +36,7 @@ if __name__=='__main__':
                     elif command.get('camera')=='stale':camera.timestamp=(clock.utc()-timedelta(seconds=10)).isoformat()
                     elif command.get('camera')=='ready':camera.available=True;camera.timestamp=None
                     if command.get('model')=='unavailable':media.ml=MLUnavailable()
+                    if command.get('clock')=='rollback':clock.advance(-2)
         threading.Thread(target=worker,daemon=True).start()
         threading.Thread(target=faults,daemon=True).start()
         server=make_server('127.0.0.1',0,app.app,threaded=True)

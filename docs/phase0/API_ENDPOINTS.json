@@ -300,7 +300,7 @@
     "path": "/api/media",
     "method": "GET",
     "request": "none",
-    "success": "200 camera age/source, model status, captures, schedule and trace receipts",
+    "success": "200 camera/ML/capture metadata plus scheduling state, persisted clock fault/high-water/resume boundary and inhibition",
     "errors": "400 invalid input; 403 unapproved boundary/token on POST; 503 unavailable/timeout/storage failure",
     "producer": "app.py / M5 media runtime",
     "consumer": "local HMI / host tests"
@@ -326,9 +326,9 @@
   {
     "path": "/api/media/recover",
     "method": "POST",
-    "request": "empty object",
-    "success": "200 indexed/interrupted/needs_review/orphan report; no image deletion",
-    "errors": "400 invalid input; 403 unapproved boundary/token on POST; 503 unavailable/timeout/storage failure",
+    "request": "{} journal recovery only, or {recover_clock:true} explicit clock acknowledgement; trusted host/token required",
+    "success": "200 journal report, or unchanged clock identity + committed future boundary with captures_started=false",
+    "errors": "400 invalid body; 403 boundary/token; 423 UTC below persisted high-water; 503 storage/unavailable",
     "producer": "app.py / M5 media runtime",
     "consumer": "local HMI / host tests"
   }

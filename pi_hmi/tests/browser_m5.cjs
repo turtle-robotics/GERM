@@ -48,6 +48,27 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     await page.locator('#media-schedule-status').filter({hasText:'Schedule committed'}).waitFor();
     const recovered=page.waitForResponse(r=>r.url().endsWith('/api/media/recover') && r.request().method()==='POST');
     await page.locator('#recover-captures').click();assert.equal((await recovered).status(),200);
+    child.stdin.write(JSON.stringify({clock:'rollback'})+'\n');
+    await page.locator('#capture-clock-status').filter({hasText:'clock_fault'}).waitFor();
+    const fault=(await (await page.request.get(base+'/api/media')).json()).scheduling;
+    assert.equal(fault.inhibited,true);assert.equal(fault.operator_recovery_required,true);
+    await page.locator('#capture-clock-status').scrollIntoViewIfNeeded();
+    await page.screenshot({path:path.join(output,'clock-fault.png'),fullPage:true});
+    // UI polling observes the fault while the synthetic UTC source catches up;
+    // mere time recovery must not acknowledge it.
+    await page.waitForFunction(async highWater=>{
+      const data=await (await fetch('/api/media')).json();
+      return Date.parse(data.server_time_utc)>Date.parse(highWater)+250;
+    },fault.high_water_utc);
+    assert.equal((await (await page.request.get(base+'/api/media')).json()).scheduling.clock_fault,true);
+    const recoveryResponse=page.waitForResponse(r=>r.url().endsWith('/api/media/recover') && r.request().method()==='POST');
+    const dialogOpened=page.waitForEvent('dialog');
+    const clicked=page.locator('#recover-camera-clock').click();
+    const dialog=await dialogOpened;await dialog.accept();await clicked;
+    const clockResponse=await recoveryResponse,clockRecovered=await clockResponse.json();
+    assert.equal(clockResponse.status(),200,JSON.stringify({response:clockRecovered,after:await (await page.request.get(base+'/api/media')).json()}));
+    assert.equal(clockRecovered.captures_started,false);
+    await page.locator('#capture-clock-status').filter({hasText:'waiting_for_boundary'}).waitFor();
     child.stdin.write(JSON.stringify({camera:'stale'})+'\n');
     await page.locator('#camera-metadata').filter({hasText:'stale'}).waitFor();
     assert.equal(await page.locator('#camera-image').isHidden(),true);
@@ -61,7 +82,8 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     fs.writeFileSync(path.join(output,'RESULTS.json'),JSON.stringify({status:'PASS',scope:'Synthetic frames/contract model only; no real plant model',viewport:'739x447',pageErrors:errors,
       checks:['synthetic camera label and plant linkage','exact JPEG metadata and indexed file view','low confidence uncertain',
         'two reviewed fixture abnormal classifications only','queued/committed outbox display','hourly schedule configuration and recovery',
-        'stale camera hides preview and denies capture','unavailable model disables analysis','no placeholder/plant diagnosis']},null,2));
+        'stale camera hides preview and denies capture','unavailable model disables analysis','no placeholder/plant diagnosis',
+        'persisted clock fault inhibits scheduling','time recovery does not acknowledge fault','explicit clock acknowledgement waits for future boundary']},null,2));
     console.log('PASS: M5 synthetic capture, inference, recovery and browser fault states');
   } finally {if(browser)await browser.close();child.kill();fs.writeFileSync(path.join(output,'server-output.txt'),logs);}
 })().catch(error=>{console.error(error);process.exitCode=1;});

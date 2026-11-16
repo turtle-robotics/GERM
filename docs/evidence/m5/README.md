@@ -1,5 +1,7 @@
 # M5 host evidence
 
+Historical reviewed package: conditionally accepted at `fb19b5a`, subject to the [clock correction](../../phase0/M5_CLOCK_CORRECTION.md). Updated results live in [m5-correction](../m5-correction/README.md); the original logs/hashes below are preserved. Final M5 acceptance is not recorded.
+
 Review [PR #10](https://github.com/turtle-robotics/GERM/pull/10), stacked on M4 #9 → #8 → #7 → #6 → #5, all unmerged. Tested implementation `5cb4794c360259ddd0abeb5f3fbc0f0da33781dc`, based on reviewed M4 `b4ea939` plus verdict record `1a7090d`.
 
 All **165 tracked Python tests pass**: all 132 prior cases plus 33 M5 tests. Nine preserved untracked root-app tests pass separately (174 total). Exact commands/logs, source hashes and dependency versions are in [HOST_TEST_RESULTS.json](HOST_TEST_RESULTS.json). [PR CI 43827326971](https://github.com/turtle-robotics/GERM/actions/runs/43827326971) passes Python, actual-sketch C++, M1/M4/M5 Chromium flows and artifact upload; [job/step readback](CI_RESULTS.json). Local g++ is unavailable and explicitly skipped; CI supplies that evidence.

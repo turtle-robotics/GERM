@@ -1,5 +1,7 @@
 # M5 / Task 123 — host camera capture and local ML
 
+Review update: [conditionally accepted at fb19b5a](M5_CONDITIONAL_REVIEW.md), with a required [persisted clock guard correction](M5_CLOCK_CORRECTION.md). Final acceptance remains pending. [M6 plan](M6_PLAN.md) is planning only; implementation remains gated.
+
 Version `m5-review-1`, 2026-11-16. Branch `codex/m5-camera-ml` starts at reviewed M4 `b4ea9398a9c1b57fc1c7a19993ad2d0c24f28b38` plus verdict record `1a7090d`. Separate PR targets `codex/m4-grow-hmi`; stack #5 → #6 → #7 → #8 → #9 → M5 remains unmerged. [M4 verdict](M4_REVIEW_VERDICT.md), [dependency register](M5_DEPENDENCIES.md), [provisional requirements](REQUIREMENTS_BASELINE.json). No M6 work, deployment or hardware approval is implied.
 
 ## Ownership and deterministic captures
@@ -18,7 +20,7 @@ Every M5 indexed image read/inference revalidates path, bytes/hash/dimensions. P
 
 ## Capture scheduling
 
-Scheduling is disabled until explicitly configured. Persisted UTC anchor, generation and interval (host range 60–86400 s, hourly fixture = 3600 s) determine deterministic occurrence UUIDs, also bound to experiment. Repeated/concurrent ticks and restart reuse the same claim. Slots more than five seconds late are recorded missed; downtime is not replayed in a burst. Only the current slot can acquire one frame. No active experiment means no capture. Capture is independent of actuator scheduling and may run during a paused/maintenance experiment; it never grants permissions or sends actuator commands. It does not automatically run inference. Clock rollback pauses scheduling until time recovers; target clock/supervision policies remain open.
+Scheduling is disabled until explicitly configured. Persisted UTC anchor, generation and interval (host range 60–86400 s, hourly fixture = 3600 s) determine deterministic occurrence UUIDs, also bound to experiment. Repeated/concurrent ticks and restart reuse the same claim. Slots more than five seconds late are recorded missed; downtime is not replayed in a burst. Only the current slot can acquire one frame. No active experiment means no capture. Capture is independent of actuator scheduling and may run during a paused/maintenance experiment; it never grants permissions or sends actuator commands. It does not automatically run inference. The M5 correction persists a rollback fault and high-water: time recovery alone cannot resume. An explicit acknowledgement after UTC catches up waits for a strictly later slot, preserving anchor/generation/claims; details and pending review are in [clock correction](M5_CLOCK_CORRECTION.md). Target clock/supervision and physical acceptance remain open.
 
 ## Local model contract and rules
 

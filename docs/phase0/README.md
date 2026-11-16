@@ -1,5 +1,7 @@
 # Phase 0 baseline and review package
 
+Current gate: [M5 conditionally accepted](M5_CONDITIONAL_REVIEW.md); [clock correction](M5_CLOCK_CORRECTION.md) awaits final review. [M6 Task 131 plan](M6_PLAN.md) is authorized planning only; M6 implementation has not begun.
+
 Current M5 host review: [Task 123 implementation](M5_IMPLEMENTATION.md), [model/camera dependency register](M5_DEPENDENCIES.md), above [M4 accepted with restrictions](M4_REVIEW_VERDICT.md). No physical camera/model validation, merge, deployment or M6 approval is implied.
 
 Current M4 host review: [Tasks 129/130 implementation and M5 readiness](M4_IMPLEMENTATION.md), above the [restricted M2/M3 acceptance](M2_M3_REVIEW_VERDICT.md). Older readiness statements below are historical. All PRs remain unmerged.

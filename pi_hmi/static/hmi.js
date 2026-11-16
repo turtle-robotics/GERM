@@ -162,7 +162,8 @@ async function pollState() {
       setText(name + '-status', 'Backend unavailable');
       setText(name + '-detail', 'Backend unavailable');
     }
-    document.querySelectorAll('[data-command],[data-workflow],#create-cycle,#save-schedules,#recover-grow,#capture-button,#analyze-button,#save-capture-schedule,#recover-captures').forEach(button => button.disabled = true);
+    document.querySelectorAll('[data-command],[data-workflow],#create-cycle,#save-schedules,#recover-grow,#capture-button,#analyze-button,#save-capture-schedule,#recover-captures,#recover-camera-clock').forEach(button => button.disabled = true);
+    setText('capture-clock-status','Scheduling state unknown · backend unavailable');
     setText('camera-metadata','Camera status unknown · backend unavailable');
     setText('model-status','Model status unknown · backend unavailable');
     setText('grow-summary','Grow cycle unavailable · backend offline');
@@ -290,6 +291,15 @@ if (page === 'plant') {
       await pollState();
     } catch(error) {setText('media-schedule-status',error.message);}
   };
+  byId('recover-camera-clock').onclick=async()=>{
+    if(!confirm('Acknowledge the camera clock fault? UTC must have recovered. Captures stay inhibited until a strictly later slot; existing claims are retained.'))return;
+    try {
+      const response=await fetch('/api/media/recover',{method:'POST',headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},body:JSON.stringify({recover_clock:true})});
+      const result=await response.json();if(!response.ok)throw Error(result.error || 'Clock recovery failed');
+      setText('media-schedule-status','Clock recovery committed · no capture started · resume boundary '+result.clock.resume_not_before_utc);
+    } catch(error) {setText('media-schedule-status',error.message);}
+    finally {await pollState();}
+  };
 }
 
 function renderSavedCapture(image) {
@@ -319,6 +329,9 @@ function renderMedia(media,enabled) {
   byId('analyze-button').disabled=captureBusy || mediaBusy || !enabled || !model || !media?.recent?.length || media.recent[0].file_state!=='available';
   byId('save-capture-schedule').disabled=!enabled || !available;
   byId('recover-captures').disabled=!enabled || !available;
+  const scheduling=media?.scheduling;
+  byId('recover-camera-clock').disabled=!enabled || !available || !scheduling?.operator_recovery_required;
+  setText('capture-clock-status',scheduling ? `Scheduler: ${scheduling.state} · ${scheduling.inhibited ? 'INHIBITED' : 'eligible slots only'} · high-water ${scheduling.high_water_utc || 'not observed'} · resume ${scheduling.resume_not_before_utc || 'not set'}${scheduling.operator_recovery_required ? ' · explicit clock acknowledgement required' : ''}` : 'Scheduling state not configured');
   if(!available)return;
   renderSavedCapture(media.recent?.[0]);
   const latest=media.recent?.[0];
