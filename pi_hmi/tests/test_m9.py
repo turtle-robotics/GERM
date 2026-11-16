@@ -105,6 +105,19 @@ class LifecycleHardeningTests(unittest.TestCase):
                 self.assertTrue(pool.submit(self.host.repo._rows,'SELECT version FROM migration_history').result(timeout=2))
             writer.execute('ROLLBACK')
 
+    def test_same_database_writer_coordination_is_bounded_across_repository_instances(self):
+        from services.media_repository import MediaRepository
+        other=MediaRepository(self.host.repo.path,workspace_root=self.root)
+        with self.host.repo.connection() as writer:
+            writer.execute('BEGIN IMMEDIATE')
+            with ThreadPoolExecutor() as pool:
+                pending=pool.submit(other._write,"UPDATE grow_profiles SET name='must not commit'")
+                with self.assertRaises(sqlite3.OperationalError):pending.result(timeout=2)
+            self.assertEqual(other.status,'error')
+            self.assertEqual({r['name'] for r in self.host.repo.profiles()},{'Basil','Spearmint'})
+            writer.execute('ROLLBACK')
+        self.assertTrue(self.host.gateway.state.restart_required);self.assertFalse(self.host.grow.armed)
+
     def test_killed_process_releases_lease_recovers_receipt_and_preserves_stage(self):
         self.host.stop()
         with tempfile.TemporaryDirectory() as directory:

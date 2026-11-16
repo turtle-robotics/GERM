@@ -4,12 +4,14 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import math
+import os
 from pathlib import Path, PurePosixPath
 import re
 import sqlite3
 import threading
 import time
 import uuid
+import weakref
 
 MIGRATIONS = Path(__file__).resolve().parents[1] / 'migrations'
 VERSION = 8
@@ -49,6 +51,8 @@ def _schema(db):
 
 
 LEDGER = 'CREATE TABLE migration_history (version INTEGER PRIMARY KEY, sha256 TEXT NOT NULL, applied_at_utc TEXT NOT NULL)'
+_writer_locks=weakref.WeakValueDictionary()
+_writer_registry_lock=threading.Lock()
 
 
 class SQLiteRepository:
@@ -57,6 +61,10 @@ class SQLiteRepository:
         self.path = self.scoped(path)
         if type(busy_timeout_ms) is not int or not 0 <= busy_timeout_ms <= 3000: raise ValueError('Invalid busy timeout')
         self.timeout = busy_timeout_ms
+        with _writer_registry_lock:
+            key=os.path.normcase(str(self.path))
+            self._writer_lock=_writer_locks.get(key)
+            if self._writer_lock is None:self._writer_lock=threading.RLock();_writer_locks[key]=self._writer_lock
         self.status, self.last_error = 'not_configured', None
         self.backups = []
         self._migration_lock = threading.Lock()
@@ -78,18 +86,25 @@ class SQLiteRepository:
     def connection(self, *, read_only=False):
         # Resolve again to reject a redirected symlink after construction.
         path = self.scoped(self.path)
-        db = sqlite3.connect(path.as_uri()+'?mode=ro' if read_only else path,uri=read_only,timeout=self.timeout/1000,isolation_level=None)
-        db.row_factory = sqlite3.Row
+        started=time.monotonic();owned=False;db=None
         try:
+            if not read_only:
+                owned=self._writer_lock.acquire(timeout=self.timeout/1000)
+                if not owned:raise sqlite3.OperationalError('Host writer coordination busy; no transaction started')
+            remaining=max(0,int(self.timeout-(time.monotonic()-started)*1000))
+            db = sqlite3.connect(path.as_uri()+'?mode=ro' if read_only else path,uri=read_only,timeout=remaining/1000,isolation_level=None)
+            db.row_factory = sqlite3.Row
             db.execute('PRAGMA foreign_keys=ON')
             if read_only:db.execute('PRAGMA query_only=ON')
             else:db.execute('PRAGMA synchronous=FULL')
-            db.execute(f'PRAGMA busy_timeout={self.timeout}')
+            db.execute(f'PRAGMA busy_timeout={max(0,int(self.timeout-(time.monotonic()-started)*1000))}')
             yield db
         except Exception as exc:
             self.status, self.last_error = 'error', type(exc).__name__
             raise
-        finally: db.close()
+        finally:
+            if db is not None:db.close()
+            if owned:self._writer_lock.release()
 
     @staticmethod
     def _integrity(db):
@@ -165,7 +180,7 @@ class SQLiteRepository:
         deadline = time.monotonic()+5
         def progress(*_):
             if time.monotonic() >= deadline:raise TimeoutError('Backup busy deadline')
-        with self.connection() as source, closing(sqlite3.connect(destination)) as target:
+        with self.connection(read_only=True) as source, closing(sqlite3.connect(destination)) as target:
             source.backup(target,pages=64,progress=progress,sleep=0.01)
             self._integrity(target)
         return destination
