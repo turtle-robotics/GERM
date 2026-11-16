@@ -4,6 +4,7 @@ import hashlib,json,os,threading
 from pathlib import PurePosixPath
 from services.media_repository import request_uuid
 from services.sqlite_repository import canonical
+from services.file_lease import FileLease
 
 def now():return datetime.now(timezone.utc).isoformat()
 class ExportBusy(RuntimeError):pass
@@ -17,17 +18,9 @@ class ArtifactJobs:
         self.retry_states=('failed','interrupted') if table=='export_jobs' else ('failed','interrupted','incomplete')
         self.lock=threading.Lock();self.active=False;self.thread=None
         suffix='export-owner.lock' if table=='export_jobs' else 'storage-owner.lock'
-        self.owner=repository.scoped(repository.path.with_name(repository.path.name+'.'+suffix)).open('a+b')
         try:
-            if self.owner.seek(0,2)==0:self.owner.write(b'0');self.owner.flush()
-            self.owner.seek(0)
-            if os.name=='nt':
-                import msvcrt
-                msvcrt.locking(self.owner.fileno(),msvcrt.LK_NBLCK,1)
-            else:
-                import fcntl
-                fcntl.flock(self.owner.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
-        except Exception:self.owner.close();raise ExportBusy('Another artifact service owns this journal') from None
+            self.owner=FileLease(repository.scoped(repository.path.with_name(repository.path.name+'.'+suffix)))
+        except Exception:raise ExportBusy('Another artifact service owns this journal') from None
         try:self.repo._write(f"UPDATE {self.table} SET status='interrupted',error='Process restart before durable completion',updated_at_utc=? WHERE status IN ('queued','running')",(now(),))
         except Exception:self.close();raise
 

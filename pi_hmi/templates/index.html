@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GERM · {{ page|title }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='hmi.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='offline.css') }}">
   {% if page == 'trends' %}<link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">{% endif %}
   {% if page == 'settings' %}<link rel="stylesheet" href="{{ url_for('static', filename='storage.css') }}">{% endif %}
 </head>
 <body data-page="{{ page }}" data-control-tab="{{ control_tab }}">
+<a class="skip-link" href="#main-content">Skip navigation to page content</a>
 <div class="shell">
   <aside class="sidebar">
     <div class="brand"><span class="brand-mark">✿</span><span>GERM</span></div>
@@ -28,6 +30,9 @@
       <div class="top-meta"><span>LOCAL MODE</span><span id="arduino-head">Arduino: checking</span><time id="clock"></time></div>
     </header>
     <section class="safety-panel" aria-label="Operating permissions">
+      <details class="service-status"><summary id="local-connection" role="status">Local service: checking · internet is not required</summary>
+        <p id="service-health" role="status">Checking host dependencies</p><p id="service-guidance">No commands are queued while disconnected. Reconnect to this local host and recheck current status.</p>
+        <button id="recover-services" {% if not simulation %}disabled{% endif %}>Recover host services · schedules stay inhibited</button></details>
       <strong id="maintenance-banner" role="alert" hidden>MAINTENANCE - OUTPUTS INHIBITED</strong>
       <span id="boundary-status">{{ 'SIMULATION — NO HARDWARE' if simulation else 'Controls restricted — production boundary not approved' }}</span>
       <small id="inhibit-status" role="status">Checking authoritative inhibits</small>
@@ -41,11 +46,11 @@
       <small id="grow-summary">Grow cycle: not configured</small>
       <small id="logging-summary">Events: checking persistence</small>
     </section>
-    <main class="content">
+    <main class="content" id="main-content" tabindex="-1" aria-label="{{ page|title }} content">
       {% if page == 'home' %}
       <div class="home-layout">
         <section class="card home-camera camera-frame" aria-label="Live camera">
-          <img id="camera-image" alt="Live GERM AI Camera image">
+          <img id="camera-image" alt="Camera frame; see source and freshness">
           <div class="camera-badge">● LIVE CAMERA</div>
           <div id="camera-status" class="camera-error" hidden>Camera unavailable</div>
           <a class="camera-link" href="/plant" aria-label="Open plant and camera details">⛶</a>
@@ -73,7 +78,7 @@
       </div>
       {% elif page == 'plant' %}
       <div class="plant-layout">
-        <section class="card camera-frame plant-camera"><img id="camera-image" alt="Live GERM AI Camera image"><div class="camera-badge">● LIVE CAMERA</div><div id="camera-status" class="camera-error" hidden>Camera unavailable</div></section>
+        <section class="card camera-frame plant-camera"><img id="camera-image" alt="Camera frame; see source and freshness"><div class="camera-badge">● LIVE CAMERA</div><div id="camera-status" class="camera-error" hidden>Camera unavailable</div></section>
         <div class="plant-side">
           <section class="card"><h2>Capture</h2><small id="camera-metadata">Camera not configured</small><label>Plant linkage <select id="capture-plant"><option value="">Experiment only / plant unassigned</option></select></label><button id="capture-button" class="primary">Save image now</button><small id="capture-status">No capture acknowledged</small><button id="analyze-button" disabled>Analyze latest indexed image</button><small id="analysis-status" role="status">No model result</small></section>
           <section class="card"><h2>Latest saved image</h2><small id="saved-image-age">No image timestamp</small><div id="latest-capture">No manual capture this session</div></section>
@@ -97,7 +102,7 @@
       {% elif page == 'settings' %}
       <div class="grow-settings"><section class="card"><h2>Profile and grow cycle</h2><p id="settings-experiment">Awaiting grow repository</p><form id="profile-form"><label>Profile <select id="grow-profile" required disabled></select></label><label>Cycle name <input id="grow-name" maxlength="80" value="Host grow cycle" required></label><button id="create-cycle" type="submit" disabled>Select profile / Create paused cycle</button></form><small id="profile-notice">Basil / spearmint timings await review; host simulation only.</small></section>
       <section class="card"><h2>Host schedules · UTC</h2><form id="schedule-form"><label><input type="checkbox" id="light-enabled"> Enable lighting window</label><label>On (UTC) <input type="time" id="light-start" value="06:00" required></label><label>Off (UTC) <input type="time" id="light-end" value="18:00" required></label><label>RGB settings <input id="schedule-rgb" value="0,0,0" pattern="[0-9]+,[0-9]+,[0-9]+" required></label><label><input type="checkbox" id="mist-enabled"> Enable fixed 5 s pump pulse</label><label>Interval (seconds) <input type="number" id="mist-interval" min="10" max="86400" step="1" value="60" required></label><button id="save-schedules" type="submit" disabled>Save host schedules (cycle must be paused)</button></form><small>Displayed form values are editor examples, not approved crop settings. Disabled schedules never run. Saving does not start a cycle.</small><button id="recover-grow" disabled>Check storage / Recover paused</button><small id="grow-form-status" role="status"></small></section>
-      <section class="card"><h2>Software and storage</h2><p id="settings-model">ML model: not configured</p><p>Camera/ML integration awaits M5.</p><p>Firmware, physical interfaces and production controls remain disabled.</p><a href="/firmware">Firmware restriction details</a><p>History retained; automatic deletion disabled.</p></section></div>
+      <section class="card"><h2>Software and storage</h2><p id="settings-model">ML model: not configured</p><p>Physical camera/model validation remains pending.</p><p>Firmware, physical interfaces and production controls remain disabled.</p><a href="/firmware">Firmware restriction details</a><p>History retained; automatic deletion disabled.</p></section></div>
       {% endif %}
       {% if page == 'settings' %}
       <section class="card storage-panel" aria-label="Storage backup and offline restore">
@@ -147,9 +152,10 @@
     </main>
   </div>
 </div>
-<dialog id="confirm-dialog"><h2>Confirm hardware command</h2><p id="confirm-message"></p><div class="dialog-actions"><button id="cancel-command">Cancel</button><button id="accept-command" class="primary">Send command</button></div></dialog>
+<dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message"><h2 id="confirm-title">Confirm host command</h2><p id="confirm-message"></p><div class="dialog-actions"><button id="cancel-command" autofocus>Cancel</button><button id="accept-command" class="primary">Send command</button></div></dialog>
 <script>const firmwareToken = {{ firmware_token | tojson }}; const controlToken = {{ control_token | tojson }};</script>
 <script src="{{ url_for('static', filename='hmi.js') }}"></script>
+<script src="{{ url_for('static', filename='offline.js') }}"></script>
 {% if page == 'trends' %}<script src="{{ url_for('static', filename='history.js') }}"></script>{% endif %}
 {% if page == 'settings' %}<script src="{{ url_for('static', filename='storage.js') }}"></script>{% endif %}
 </body>

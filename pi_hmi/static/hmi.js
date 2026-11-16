@@ -149,6 +149,8 @@ async function pollState() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     renderState(await response.json());
   } catch (error) {
+    latestState=null;
+    if(camera)camera.hidden=true;
     const state = byId('system-state');
     state.textContent = 'STATUS UNAVAILABLE'; state.className = 'state-pill critical';
     setText('arduino-head', 'Backend unavailable');

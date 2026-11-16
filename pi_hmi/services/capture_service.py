@@ -18,6 +18,7 @@ class CaptureService:
         self.lock=threading.RLock();self.schedule_lock=threading.Lock()
         self.last_error=None;self.recovery_report=None
         self.scheduling_error=None;self.reported_clock_fault=False
+        self.lifecycle_inhibit=None  # Optional M8 host gate; default M5 behavior is unchanged.
 
     def path(self,relative):
         if not isinstance(relative,str) or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts or '\\' in relative or ':' in relative:raise ValueError('Invalid image path')
@@ -182,6 +183,7 @@ class CaptureService:
         return row
 
     def _check_scheduled_acquisition(self,generation,scheduled_at,*,missed=False):
+        if self.lifecycle_inhibit and self.lifecycle_inhibit():raise ValueError('Host lifecycle inhibits capture scheduling')
         now=self.state.utc_now()
         row=self._observe_schedule(now.isoformat())
         if not row or row['generation']!=generation or capture_schedule_state(row,now.isoformat())!='ready':raise ValueError('Capture scheduling is inhibited or configuration changed')
@@ -204,6 +206,7 @@ class CaptureService:
         try:
             schedule=self._observe_schedule()
             self.scheduling_error=None
+            if self.lifecycle_inhibit and self.lifecycle_inhibit():return None
             if not schedule or not schedule['enabled']:return None
             now=self.state.utc_now()
             if capture_schedule_state(schedule,now.isoformat())!='ready':return None
@@ -223,6 +226,12 @@ class CaptureService:
 
     def scheduling_snapshot(self):
         schedule=self.repo.capture_schedule()
+        hold=self.lifecycle_inhibit() if self.lifecycle_inhibit else None
+        if hold:
+            return dict(state='clock_fault' if schedule and schedule['clock_fault'] else 'host_inhibited',inhibited=True,
+                        clock_fault=bool(schedule and schedule['clock_fault']),high_water_utc=schedule['last_observed_utc'] if schedule else None,
+                        resume_not_before_utc=schedule['resume_not_before_utc'] if schedule else None,
+                        operator_recovery_required=True,error=hold)
         return dict(state=capture_schedule_state(schedule,self.state.utc_now().isoformat()) if schedule and schedule['clock_fault'] else ('unavailable' if self.scheduling_error else capture_schedule_state(schedule,self.state.utc_now().isoformat())),
                     inhibited=bool(self.scheduling_error) or capture_schedule_state(schedule,self.state.utc_now().isoformat())!='ready',
                     clock_fault=bool(schedule and schedule['clock_fault']),high_water_utc=schedule['last_observed_utc'] if schedule else None,
