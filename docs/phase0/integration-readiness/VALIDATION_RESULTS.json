@@ -1,0 +1,26 @@
+{
+  "checked_at_utc": "2026-11-16T22:34:40.153378+00:00",
+  "scope": "Local documentation/Git/hash validation only; no runtime, CI, target or hardware test started",
+  "accepted_source": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+  "local_branch": "codex/integration-readiness",
+  "checks": {
+    "pr_dependency_and_state_records": 10,
+    "exact_head_successful_ci_records": 20,
+    "requirements_exact_wording_and_status": 40,
+    "proposed_owner_groups": 8,
+    "preserved_raw_file_hashes": 15,
+    "migration_blob_hashes": 8,
+    "original_main_changed_files_audited": 28,
+    "relative_links_checked": 46,
+    "runtime_files_changed": 0,
+    "github_mutations": 0,
+    "gantt_mutations": 0,
+    "target_operations": 0
+  },
+  "result": "PASS",
+  "runtime_tests": "No new runtime tests warranted for this documentation-only package; accepted M9 evidence retained unchanged",
+  "limitations": [
+    "Remote metadata is a non-atomic observation; recheck exact refs and required policies before any future authorization",
+    "Physical/production requirements and REL-01/02 remain open"
+  ]
+}

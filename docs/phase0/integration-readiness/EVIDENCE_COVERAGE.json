@@ -1,0 +1,2786 @@
+{
+  "observed_at_utc": "2026-11-16T22:27:06.803463+00:00",
+  "scope": "Historical immutable evidence and GET-only current-head CI metadata; no new CI run or status change",
+  "coverage": [
+    {
+      "pr": 5,
+      "topic": "Task 119/128 contracts, fixtures and seven-screen checklist",
+      "exact_head": "d93b7bbdff5d5c319d1bd2a8b0f4e1425e22620c",
+      "packages": [
+        {
+          "path": "docs/evidence/task-119",
+          "readme": true,
+          "tested_commit": "ef363dc5bdba9b75f5e41a77f450a34c5a53c5ac",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-15T20:38:34.726122+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "95b3ba6a5e9b0845cecd7a4dafc267d003286718ad8eff2377fcf1570630058a"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "9f1514d2b6c1339215743dc1c640a977112c9614ac8a587060a8c199d2bbc982"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "ec74d57512b10f9f3f578344f4bb27eebff736276feae4b1963d60b57839a3dc"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "218b1d0c0533fa53a520e743afd1a43fc2f96c5f6de22e2fcf6a61aa8145db0d"
+            },
+            {
+              "name": "python-parse",
+              "files": 22,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        },
+        {
+          "path": "docs/evidence/task-128",
+          "readme": true
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43760347378,
+          "event": "pull_request",
+          "head_sha": "d93b7bbdff5d5c319d1bd2a8b0f4e1425e22620c",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43760347378",
+          "created_at": "2026-11-15T20:50:55Z",
+          "updated_at": "2026-11-15T20:51:06Z"
+        },
+        {
+          "id": 43760340486,
+          "event": "push",
+          "head_sha": "d93b7bbdff5d5c319d1bd2a8b0f4e1425e22620c",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43760340486",
+          "created_at": "2026-11-15T20:50:50Z",
+          "updated_at": "2026-11-15T20:51:05Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py"
+      ],
+      "browser_scripts": [],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 6,
+      "topic": "M1 state, permissions, confirmations and all command entry paths",
+      "exact_head": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+      "packages": [
+        {
+          "path": "docs/evidence/m1",
+          "readme": true,
+          "tested_commit": "725a060b74b64da2ff5fa4c7e07374003b3f737f",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T05:16:40.233026+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "bc97a7b00c76f18f5c8bfc7206a0bc177ce1b300bc637ca305ecb29057ef5038"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "24a6a6cb00b7b06b4397f3ee2149dada8b6c615ff23cf700a110517e40df5e90"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "1326f9e84acd3f8255be357ee3d4f378f3afd33f3e387aedf7275acad51bdb3b"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "a2196f46cbe1a9c56e91bbcb74ef0e697202fc4837893d9daaea0f2c95e316b2"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "0e259d8f4d89926429e9f3c2ed301942fa8d77a8ffb398a7580b92a11a8bdd8b"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "b62ca609c69dcb29ab39bcf8559d3387091403f915fa1e6d8206c5860f7f31ec"
+            },
+            {
+              "name": "python-parse",
+              "files": 31,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43810978900,
+          "event": "pull_request",
+          "head_sha": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43810978900",
+          "created_at": "2026-11-16T05:33:09Z",
+          "updated_at": "2026-11-16T05:33:47Z"
+        },
+        {
+          "id": 43810973550,
+          "event": "push",
+          "head_sha": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43810973550",
+          "created_at": "2026-11-16T05:33:06Z",
+          "updated_at": "2026-11-16T05:33:43Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 7,
+      "topic": "M2 schema/repositories/restart recovery",
+      "exact_head": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+      "packages": [
+        {
+          "path": "docs/evidence/m2",
+          "readme": true,
+          "tested_commit": "6287b242b725e27df77eacaf264adcc1c389a577",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T05:40:05.635994+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "2ea2e37123983395546ce934d462bd500828af7bc1cc25fdd41d764c923956b9"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "857a47ac0390a44ca0a97020ddf7be2317823c88592e9cfc43cd4aa9a97d7797"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "f2fc46aa44a1f4747b63224fb76af3138459ca74a74d755899fb8f04b0045c67"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "fefc3d2d9c23f6da40c9f58d3e1aaa182329aef5f17d6a71ab87c5af4eac8d8e"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "a39ebec4810b43220a847ab515cc70151dba671c5a3de2664e39801947bc7a5a"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "765f1a6342b1a36c6b2bd8c9693fd6b1d16e4acf5b4337801daa6ba8b684619c"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "6f5adc3395449fd66040518a547e04e487895d1393f02a7b206e565f4c5254e9"
+            },
+            {
+              "name": "python-parse",
+              "files": 34,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43811819087,
+          "event": "pull_request",
+          "head_sha": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43811819087",
+          "created_at": "2026-11-16T05:40:54Z",
+          "updated_at": "2026-11-16T05:41:37Z"
+        },
+        {
+          "id": 43811810773,
+          "event": "push",
+          "head_sha": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43811810773",
+          "created_at": "2026-11-16T05:40:49Z",
+          "updated_at": "2026-11-16T05:41:29Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 8,
+      "topic": "M3 durable event IDs, receipts/projections and failure isolation",
+      "exact_head": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+      "packages": [
+        {
+          "path": "docs/evidence/m3",
+          "readme": true,
+          "tested_commit": "16cfddf5ce0c10a5eaefcd81c2a00b09716f051b",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T05:50:52.935961+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "9380ea3b46559c408cecb223a16e7d3517b584035671fc0621a51c04acdafeae"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "606889b664499842a626e9c04b1b98a7129aea52e2527afe5a6b6f24ae23d2f6"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "6df45bbe1caf12b46635768101aae26fdb73346478891f3fae23be11038ebba0"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "c0b14f486d54bc7a12b8626ae674a7426d3e2db7b026b741cc82b90957c3e79b"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "057d7859a4c896664deb0564497f28e6874ad65d8c3244115c953be30ca01677"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "2f5ba4d52a8999baa20c36927b9e98a6889bd24b6d8b5ca04920be72c4cdba55"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "d6186ce316b61fa35b233cfaada4a105d4bf7b145383344cb08e2b41e8632dfe"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "c79dca310a1805d40b9b5c87365e656fb8d748980df3841212be80a3f9d26a36"
+            },
+            {
+              "name": "python-parse",
+              "files": 37,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43813773251,
+          "event": "pull_request",
+          "head_sha": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43813773251",
+          "created_at": "2026-11-16T05:59:37Z",
+          "updated_at": "2026-11-16T06:00:20Z"
+        },
+        {
+          "id": 43813768661,
+          "event": "push",
+          "head_sha": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43813768661",
+          "created_at": "2026-11-16T05:59:34Z",
+          "updated_at": "2026-11-16T06:00:18Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 9,
+      "topic": "M4 profile/cycle/schedules/maintenance HMI",
+      "exact_head": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+      "packages": [
+        {
+          "path": "docs/evidence/m4",
+          "readme": true,
+          "tested_commit": "84e15a701b9f0f6ca6bd022ef1c9d81bbc06d17f",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T06:34:01.529992+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "8b9e1cd54383e07662f39bdd55f1969b0db5d6a140d5e1bfa4ac6fd824c140e3"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "ebd8b286d5b86f11a24195ee52e5ab1562716931c36847619d159948b4814bde"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "d49b0c31fd09aa177679eae4fc3e01b3a33e6580da23feb718a5eec19d1fe1cc"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "c6db87dd37975eb7a9bc083daca86342812703ce027a0d55a2f41f659804935e"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "9b589fb2bf309d6427c7ea6158f63a59905d9e4cfae264c797cfe2be0d8e9a11"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "fc49e996f58c355cae2ec240032d5b242448df07763e3d11cff987b1f904c61f"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "51cf9f377274624aa9bda1c44233b8144d14e4458548fed58f803616f63ff25e"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "27b186751ffffc1aa075ae5ae35f726bc1613fecb254d037781fffb6c6d4226a"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "dcd3f9846bf8137e1ab7dd1b7776d6ca20f5a9a0eef03d757ba6c2b280df1665"
+            },
+            {
+              "name": "python-parse",
+              "files": 42,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43821073979,
+          "event": "pull_request",
+          "head_sha": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43821073979",
+          "created_at": "2026-11-16T07:03:24Z",
+          "updated_at": "2026-11-16T07:04:14Z"
+        },
+        {
+          "id": 43821067247,
+          "event": "push",
+          "head_sha": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43821067247",
+          "created_at": "2026-11-16T07:03:21Z",
+          "updated_at": "2026-11-16T07:04:17Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py",
+        "test_m4.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs",
+        "tests/browser_m4.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 10,
+      "topic": "M5 capture/ML and persisted clock-rollback correction",
+      "exact_head": "2d73aebb88378ce46ac67859e91ad90b75593ad2",
+      "packages": [
+        {
+          "path": "docs/evidence/m5",
+          "readme": true,
+          "tested_commit": "5cb4794c360259ddd0abeb5f3fbc0f0da33781dc",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T07:57:01.638206+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "3467ff3728238f81179898e4ab02cac1c8187d2f7e77c075b71aff8ea7cd7176"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "c9407c6490bbe0c0c4b33ec96e925e0bfe0aadb8a1f37af1b8496fb36cba4da1"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "1326f9e84acd3f8255be357ee3d4f378f3afd33f3e387aedf7275acad51bdb3b"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "6bf6595ef6f26c26583984db37799762e220c7c2ce675af1c2a8f9527b5920f8"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "2344d8572395a6eb38dda85ace8a63b653b71c337367e75664f49b8656e2b676"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "dd62605905795183d5402e49f99c8e334d15f44e80fc495b8fd889f1a8c32ffe"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "271efc7bb0d52e6bb70b30ec4f6e08f20be96f1f6becaa2f5e8e9a15d240c232"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "1e98d222e38031644b2dc2ddc9d4a84d483687a6fb1b187267ec2b13cb40d398"
+            },
+            {
+              "name": "m5-camera-ml",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-camera-ml.txt",
+              "log_sha256": "67e86b74a2bb354c17ab1defeb72a373bcc17a05f7d84f3924abbbdbb2d2f51d"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "7beefcfa868e709dc3c06e3dd37fce73a455292118c0eb78140b6c1f733820db"
+            },
+            {
+              "name": "python-parse",
+              "files": 53,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        },
+        {
+          "path": "docs/evidence/m5-correction",
+          "readme": true,
+          "tested_commit": "8f59cc49e7e37696aff7f4d7180816bd67a00c15",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T08:47:37.687246+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "fe46f9c6e6fad0c574e379ad7ef388afa36ae35afa06c4f4fb857da7a0985fb0"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "f06341fd4cf2b7c0ff049c9aea16b27a2fd839c7e9009ed6d77e05732813bb47"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "fa0d568838660b218e209d5b425d92240807baac7542a00d1dc2e155078de0e9"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "c18e9ebf13d25c645a984a11216faf19c93200d8b2a782d131d2408fa8515f7b"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "80b8372b38fa6314a4b9ff46753aa67fd16562d83211190f96696f768e99eadd"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "2c8accf92b5660a1925dfcf4035e079e4297a1a8c513a6d09638f8fbed6eb7ff"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "4c2522cfd6a2abe8b3539db590dd7d881fd3fafc747651d0e9d0372864b9e0cb"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "47f0c98c8d391c6f251313f1deb33943c90865114621e98eb9b327d64133abbc"
+            },
+            {
+              "name": "m5-camera-ml",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-camera-ml.txt",
+              "log_sha256": "2e2c9fd616f599102287ce01f9b71ed03117d3cbf9642cae5b71b8c1f2f8afa8"
+            },
+            {
+              "name": "m5-clock-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5_clock.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-clock-recovery.txt",
+              "log_sha256": "c8235302b88563af8a7171a2245422487a0523631b5f4975c01345927ce82350"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "ef1993aeafd33ccff39741d23b8b787b5c7cf4082f6fca35db417fb3bb20077b"
+            },
+            {
+              "name": "python-parse",
+              "files": 54,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43834281409,
+          "event": "pull_request",
+          "head_sha": "2d73aebb88378ce46ac67859e91ad90b75593ad2",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43834281409",
+          "created_at": "2026-11-16T08:48:45Z",
+          "updated_at": "2026-11-16T08:49:59Z"
+        },
+        {
+          "id": 43834271180,
+          "event": "push",
+          "head_sha": "2d73aebb88378ce46ac67859e91ad90b75593ad2",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43834271180",
+          "created_at": "2026-11-16T08:48:41Z",
+          "updated_at": "2026-11-16T08:49:51Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py",
+        "test_m4.py",
+        "test_m5.py",
+        "test_m5_clock.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs",
+        "tests/browser_m4.cjs",
+        "tests/browser_m5.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 11,
+      "topic": "M6 bounded history/CSV/JPEG archives and recovery",
+      "exact_head": "dc0abc8e2f2eb20029bd3e1f96009fd5902fdf43",
+      "packages": [
+        {
+          "path": "docs/evidence/m6",
+          "readme": true,
+          "tested_commit": "1c6f463f285f12419c86bf820c5afb872ac2ec7f",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T14:39:04.610046+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "0a2467b6becb6f2432d1c3c81f1e1c8ca4c1b5c8f57ae47d41ef58e66e43f04b"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "c4ed34a344c9e05f62207394c7080e87dd0c505c2a64657acf026d4a86755b49"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "1b978425168819b4544c7cda9cca042046ee3c54781e879ac868e538fdce0133"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "6c6173295db032d62017f87372e6b81af84464a2b2fe202d7eb6ac9ad462f2fc"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "131b681cdcdc73aa9a15c1bde23f01591134b23e15d3b373395c3767e55e7936"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "cb6f75d99ce9697392ead26bb04330f53f43c33222ef74a9c78483aa62ecb92f"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "3993a91c27f271f482f8e62ed8230d1efca2d8a059d711fd0e0c10d6a89ef79c"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "f4df5f74ad254b51efe40868d5322c386f7fff4935b2b68a42979caae1fcaa35"
+            },
+            {
+              "name": "m5-camera-ml",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-camera-ml.txt",
+              "log_sha256": "5b7436e0eba12316b4293408e240b9bacded7cc89dbd1db63df2c264f2c459ed"
+            },
+            {
+              "name": "m5-clock-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5_clock.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-clock-recovery.txt",
+              "log_sha256": "e9c571424e9477a06f24f6308682512de90826d274388d11409821b5f737548c"
+            },
+            {
+              "name": "m6-history-export",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m6.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m6-history-export.txt",
+              "log_sha256": "6b9ec54399d678d4e7e1e8ecbaebcdfa8643cdf761db7a5590b81e54939159ac"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "3a128d45cac3be30c6b766745d3c9c89f13d752476a0bb0a14742d50f9996a3f"
+            },
+            {
+              "name": "python-parse",
+              "files": 59,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "history-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/history.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "history-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43888079870,
+          "event": "pull_request",
+          "head_sha": "dc0abc8e2f2eb20029bd3e1f96009fd5902fdf43",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43888079870",
+          "created_at": "2026-11-16T14:39:46Z",
+          "updated_at": "2026-11-16T14:40:52Z"
+        },
+        {
+          "id": 43888063440,
+          "event": "push",
+          "head_sha": "dc0abc8e2f2eb20029bd3e1f96009fd5902fdf43",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43888063440",
+          "created_at": "2026-11-16T14:39:41Z",
+          "updated_at": "2026-11-16T14:41:15Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py",
+        "test_m4.py",
+        "test_m5.py",
+        "test_m5_clock.py",
+        "test_m6.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs",
+        "tests/browser_m4.cjs",
+        "tests/browser_m5.cjs",
+        "tests/browser_m6.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 12,
+      "topic": "M7 inventory/backup/preflight/isolated restore",
+      "exact_head": "55d69c558f5c134540299128aa23f4415550f9fa",
+      "packages": [
+        {
+          "path": "docs/evidence/m7",
+          "readme": true,
+          "tested_commit": "2a593390b8d746b078ed44a84e9b4e43fb317f53",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T15:11:43.088091+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "4e39381b1c3082b0e9d4f2e056c753f6552cf2ca84f72df1a67dca163359bd37"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "d72cbe1e0f54c1de6022210cfed67362327c4d3c39af9c3883149b62867c750d"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "e2aed6b30fb229322f98d09e1d79037081e77113368ab98e1df8d16b8b29556e"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "72809e69eb62bee2801600f84a67afd3339a637d82f3bb6590c747309cdabbba"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "e35767e27d61a21d895dd7d88698424ff679a5c1ec0403b24c1aa0c719c0e3a8"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "89a9c5b2af2c048722be832ec02b3527308275d6f4b80821709b0fe160a249ae"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "c00c57243229f1f24aa5e291a67ec7e23f340799e77f1484c4bf4675a0020811"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "04ab125e2a4b38f682d7e306b26abd6a3c80c31765ee49425fae08e903071aa4"
+            },
+            {
+              "name": "m5-camera-ml",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-camera-ml.txt",
+              "log_sha256": "b2f259ce9ba019605033879f41fffbd9639824f2ccbb3b5c24be2932f0a6455a"
+            },
+            {
+              "name": "m5-clock-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5_clock.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-clock-recovery.txt",
+              "log_sha256": "57c8594cd0ffc1ba94a01c9dfd5ba5c2ef5bffec40c5b5fd097b053a6a12fef6"
+            },
+            {
+              "name": "m6-history-export",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m6.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m6-history-export.txt",
+              "log_sha256": "dfd232d8ab0941c63cd53d1bd3c84990da109dd56426505097fa3a96297efdc2"
+            },
+            {
+              "name": "m7-storage-backup",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m7.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m7-storage-backup.txt",
+              "log_sha256": "3bc5ff0a3e94fe18c5026dbf76561c257731fb6db2924e5ae330057fbc3a3266"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "670f0ac61568ddfb483c52952ecdd36636743268b3639bb8bc6bbbaa9b4b3c6a"
+            },
+            {
+              "name": "python-parse",
+              "files": 64,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "history-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/history.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "history-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "storage-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/storage.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "storage-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43894299238,
+          "event": "pull_request",
+          "head_sha": "55d69c558f5c134540299128aa23f4415550f9fa",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43894299238",
+          "created_at": "2026-11-16T15:15:02Z",
+          "updated_at": "2026-11-16T15:16:16Z"
+        },
+        {
+          "id": 43894285815,
+          "event": "push",
+          "head_sha": "55d69c558f5c134540299128aa23f4415550f9fa",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43894285815",
+          "created_at": "2026-11-16T15:14:57Z",
+          "updated_at": "2026-11-16T15:16:08Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py",
+        "test_m4.py",
+        "test_m5.py",
+        "test_m5_clock.py",
+        "test_m6.py",
+        "test_m7.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs",
+        "tests/browser_m4.cjs",
+        "tests/browser_m5.cjs",
+        "tests/browser_m6.cjs",
+        "tests/browser_m7.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 13,
+      "topic": "M8 offline lifecycle/seven-screen usability",
+      "exact_head": "e1511c1fa39a155801e5c1855872747c9b78c8f8",
+      "packages": [
+        {
+          "path": "docs/evidence/m8",
+          "readme": true,
+          "tested_commit": "1ab1acdd54fe9bb753e0382fce264ff376c98ce2",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T16:16:23.397607+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "0e26429cdb23586093733660d877535a459d38537e507977fd8f6b65b5ec0aa3"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "9b28a2b0a60c132334b854e969e4bd3696ebd4d0902c766a7876d657cd3a5229"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "d182c0d01d4d724a33bb1f75b472717185d892341a57d379ef746d3f52cd3bdc"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "a77cc7dbbb9c146f51f0a3c93ee53e9f2d0106ec84f3fa9fb4181e5d24cdc966"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "a791376d5f9b2d894904620a53b6c5d6fe014b92356b53e114778d40dedb777a"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "1ef7e778d631e092ac27de06383b4f541aeaf9785dac54c7a6e1afc600e0ab6c"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "2931b67642cb88e74f6ffb89da0715e3d65ef035e3898cf5328eee2496fd34b0"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "96e6788fde91768b1cedf6bcbbac70c16ce9298aebd497091503ed243012f030"
+            },
+            {
+              "name": "m5-camera-ml",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-camera-ml.txt",
+              "log_sha256": "c4cca212b47fe042b320ba4a7ec29d8bfbf9884648f79a6cc59c225b7b3bec78"
+            },
+            {
+              "name": "m5-clock-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5_clock.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-clock-recovery.txt",
+              "log_sha256": "84b6d21c2be52a2833c6a3f105d3dab8c215fffc90e7053f00f0cc6d21c6e309"
+            },
+            {
+              "name": "m6-history-export",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m6.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m6-history-export.txt",
+              "log_sha256": "9b71dda2425f7175247c0f6b5dbe86f7ffc20065162db5ded75f265695fe1b16"
+            },
+            {
+              "name": "m7-storage-backup",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m7.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m7-storage-backup.txt",
+              "log_sha256": "cd5888be325575e080ebae53940251761a6d18194d31c0d0178ea7e6430d1da0"
+            },
+            {
+              "name": "m8-offline-usability",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m8.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m8-offline-usability.txt",
+              "log_sha256": "fc618c8fa4c8578993df96993a05e5f3c52f6d0e52fad275b49b4b0f31364707"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "03f60b8b653674197df770b604878abb0dd36b456cfc7a2861548f8729ec54a1"
+            },
+            {
+              "name": "python-parse",
+              "files": 71,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "history-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/history.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "history-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "storage-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/storage.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "storage-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "offline-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/offline.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "offline-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43905744441,
+          "event": "pull_request",
+          "head_sha": "e1511c1fa39a155801e5c1855872747c9b78c8f8",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43905744441",
+          "created_at": "2026-11-16T16:16:54Z",
+          "updated_at": "2026-11-16T16:19:13Z"
+        },
+        {
+          "id": 43905725311,
+          "event": "push",
+          "head_sha": "e1511c1fa39a155801e5c1855872747c9b78c8f8",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43905725311",
+          "created_at": "2026-11-16T16:16:48Z",
+          "updated_at": "2026-11-16T16:19:08Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py",
+        "test_m4.py",
+        "test_m5.py",
+        "test_m5_clock.py",
+        "test_m6.py",
+        "test_m7.py",
+        "test_m8.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs",
+        "tests/browser_m4.cjs",
+        "tests/browser_m5.cjs",
+        "tests/browser_m6.cjs",
+        "tests/browser_m7.cjs",
+        "tests/browser_m8.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    },
+    {
+      "pr": 14,
+      "topic": "M9 complete host acceptance, endurance and hardening",
+      "exact_head": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+      "packages": [
+        {
+          "path": "docs/evidence/m9",
+          "readme": true,
+          "tested_commit": "8c45f0d6736a5294067c9441b29c25e9e5a2532d",
+          "platform": "win32",
+          "timestamp_utc": "2026-11-16T21:47:02.004068+00:00",
+          "checks": [
+            {
+              "name": "existing-integration",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "check_integration.py"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "existing-integration.txt",
+              "log_sha256": "1b0431d955be4a2b404cfec47d03dc236316f25c78013bb24eb8ff928009d000"
+            },
+            {
+              "name": "phase0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_phase0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "phase0-contracts.txt",
+              "log_sha256": "ba8757df0a99c7b6d632003bbfaca31525b4f1ac01f3243ef76b526e70ec4dea"
+            },
+            {
+              "name": "m0-contracts",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m0.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m0-contracts.txt",
+              "log_sha256": "1326f9e84acd3f8255be357ee3d4f378f3afd33f3e387aedf7275acad51bdb3b"
+            },
+            {
+              "name": "m1-state-permissions",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-state-permissions.txt",
+              "log_sha256": "9406182b944526cace0ba54f3748a9896f9b1d50cebdf148224ecac67b5ff77a"
+            },
+            {
+              "name": "m1-http-boundary",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m1_http.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m1-http-boundary.txt",
+              "log_sha256": "4f6eb1dd01c978539bd39b7e553d7ce0f82bac34c98cc6f18358ffe643600aa0"
+            },
+            {
+              "name": "m2-sqlite-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m2.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m2-sqlite-recovery.txt",
+              "log_sha256": "c27eda80df2ed7aa8f7bf14680544f7f294957c21d39b7cb1783ee5fdfbad73d"
+            },
+            {
+              "name": "m3-durable-events",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m3.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m3-durable-events.txt",
+              "log_sha256": "fc3a36ae8d6b1a80ed46deaa5d6d703625db1b2d5081ad426c644b7403c5db14"
+            },
+            {
+              "name": "m4-grow-hmi",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m4.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m4-grow-hmi.txt",
+              "log_sha256": "1f975e9db17aab423949eaeb87793f79cda0069c7dcb29f112217c68c653f862"
+            },
+            {
+              "name": "m5-camera-ml",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-camera-ml.txt",
+              "log_sha256": "57cdee5027401a470d4fa6ab023a77a8591e5f90b3144aa24fa82175f2f86782"
+            },
+            {
+              "name": "m5-clock-recovery",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m5_clock.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m5-clock-recovery.txt",
+              "log_sha256": "4c47d0ead42793e3b37fa100fe2f90580290a9f2e18725be2f6fa9c7816b95ad"
+            },
+            {
+              "name": "m6-history-export",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m6.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m6-history-export.txt",
+              "log_sha256": "1b549b5e5df2dd1dfb819eab9ef1a74f79468058b257170ef84c3f0d3881f5ff"
+            },
+            {
+              "name": "m7-storage-backup",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m7.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m7-storage-backup.txt",
+              "log_sha256": "c0233b6577e376fe83f2a7f159e15e6414bd1f24f0a8004cf8f3b61c82a5135c"
+            },
+            {
+              "name": "m8-offline-usability",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m8.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m8-offline-usability.txt",
+              "log_sha256": "21e2b80b88c61acb61b1d051da2c42eb0c4f5aad0d824125a2737403145f11b7"
+            },
+            {
+              "name": "m9-acceptance-hardening",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_m9.py",
+                "-v"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "m9-acceptance-hardening.txt",
+              "log_sha256": "adbb8fdd2ec4e4b6fc8e54b2b58163d6e6e3050558e09de1109ee2cbf6569a32"
+            },
+            {
+              "name": "preserved-root-app",
+              "command": [
+                "C:\\Users\\jorda\\GERM 2.0\\.venv\\Scripts\\python.exe",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": ".",
+              "exit_code": 0,
+              "log": "preserved-root-app.txt",
+              "log_sha256": "d3a96c43e52b10803b6c14dab5b48dda348b957be58f3a1a8f0ba053f0fcc595"
+            },
+            {
+              "name": "python-parse",
+              "files": 78,
+              "exit_code": 0
+            },
+            {
+              "name": "javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/hmi.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "history-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/history.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "history-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "storage-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/storage.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "storage-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "offline-javascript-parse",
+              "command": [
+                "C:\\Program Files\\nodejs\\node.EXE",
+                "--check",
+                "static/offline.js"
+              ],
+              "cwd": "pi_hmi",
+              "exit_code": 0,
+              "log": "offline-javascript-parse.txt",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "firmware-behavior",
+              "skipped": "g++ unavailable locally; required CI job compiles/runs actual sketch harness"
+            }
+          ]
+        }
+      ],
+      "observed_ci_runs": [
+        {
+          "id": 43964611838,
+          "event": "pull_request",
+          "head_sha": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43964611838",
+          "created_at": "2026-11-16T21:53:29Z",
+          "updated_at": "2026-11-16T21:56:10Z"
+        },
+        {
+          "id": 43964599973,
+          "event": "push",
+          "head_sha": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43964599973",
+          "created_at": "2026-11-16T21:53:24Z",
+          "updated_at": "2026-11-16T21:56:10Z"
+        }
+      ],
+      "python_workflow_patterns": [
+        "test_phase0.py",
+        "test_m0.py",
+        "test_m1.py",
+        "test_m1_http.py",
+        "test_m2.py",
+        "test_m3.py",
+        "test_m4.py",
+        "test_m5.py",
+        "test_m5_clock.py",
+        "test_m6.py",
+        "test_m7.py",
+        "test_m8.py",
+        "test_m9.py"
+      ],
+      "browser_scripts": [
+        "tests/browser_checks.cjs",
+        "tests/browser_m4.cjs",
+        "tests/browser_m5.cjs",
+        "tests/browser_m6.cjs",
+        "tests/browser_m7.cjs",
+        "tests/browser_m8.cjs",
+        "tests/browser_m9.cjs"
+      ],
+      "cpp_harness": true,
+      "physical_evidence_accepted": false
+    }
+  ],
+  "accepted_m9": {
+    "reviewed_commit": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+    "tested_implementation": "8c45f0d6736a5294067c9441b29c25e9e5a2532d",
+    "tracked_checks": 264,
+    "browser_workflows": 7,
+    "cpp_checks": true,
+    "simulated_hours": 72,
+    "local_elapsed_seconds": 240.93237829999998,
+    "local_preserved_root_checks": 9,
+    "local_windows_symlink_skips": 2
+  },
+  "limitations": [
+    "CI observations are non-atomic and must be rechecked before an authorized merge",
+    "Original M4 successful-response timeout and separate schedule-save wait remain open",
+    "Historical evidence pending-review wording is superseded only by recorded host verdicts; SR release/physical approval remains unresolved",
+    "No current target/Pi/physical/security/biological acceptance follows from host results"
+  ]
+}

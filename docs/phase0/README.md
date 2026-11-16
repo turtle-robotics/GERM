@@ -1,5 +1,7 @@
 # Phase 0 baseline and review package
 
+Current review state: **M0–M9 accepted with restrictions for host-only development**. See [M9 final verdict](M9_REVIEW_VERDICT.md) and [integration readiness package](INTEGRATION_READINESS.md): read-only PR stack/evidence audit, proposed merge/rollback, owner-grouped 40-SR checklist, minimum approval gates and unexecuted Pi deployment/commissioning plan. No merges, GitHub/Gantt status changes, deployment, physical activation, production access or historical deletion are authorized. Earlier pending-review paragraphs below are historical.
+
 Current M9 host gate: [M8 accepted with restrictions](M8_REVIEW_VERDICT.md), [M9 implementation/readiness](M9_IMPLEMENTATION.md), [complete provisional acceptance matrix](M9_ACCEPTANCE_MATRIX.md), [reliability findings](M9_RELIABILITY_FINDINGS.md), [security review](M9_SECURITY_REVIEW.md) and [deferred operator checklist](M9_OPERATOR_ACCEPTANCE.md). Earlier readiness paragraphs are historical. No physical/production approval, deployment, deletion or merge is implied.
 
 Current gate: [M7 accepted with host-only restrictions](M7_REVIEW_VERDICT.md). [M8 offline/usability implementation](M8_IMPLEMENTATION.md) and [host operating instructions](M8_HOST_OPERATION.md) await review. Physical interfaces, production controls, deletion, deployment and merging remain restricted; M9 is not authorized. The retention proposal remains unapproved.

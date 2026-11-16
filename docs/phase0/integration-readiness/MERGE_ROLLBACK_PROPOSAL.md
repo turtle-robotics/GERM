@@ -1,0 +1,32 @@
+# Proposed merge train and rollback — NOT EXECUTED
+
+No approval to merge, retarget, publish, close PRs, delete branches or change GitHub/Gantt status exists. This is a procedure for human approval. Start from the exact [read-only stack snapshot](STACK_AUDIT.json), accepted M9 `8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3`, main `8789022415ffb44aca8ff88c4d1ba31f4ef994be`. Re-read all refs/state immediately before any later authorized operation; stop on drift.
+
+## Proposed strategy
+
+Use merge commits preserving reviewed commit ancestry, in order **#5 → #6 → #7 → #8 → #9 → #10 → #11 → #12 → #13 → #14**. Do not squash/rebase/cherry-pick the current stack without a new dependency/review plan. Do not merge a child into its existing feature-branch base: the current #6 base is #5's branch, and so on. Merging each button as currently configured would not integrate the entire stack into main.
+
+After each approved predecessor reaches main, explicitly retarget the next PR to the newly pinned main **only if the human authorization includes that GitHub change**. Preserve its head SHA, re-review the new base/diff, rerun all applicable CI against that candidate and wait for required approvals/checks. Disable automatic branch deletion for the train; retain all original refs for audit/rollback. No retarget or merge is performed by this package.
+
+## Approval/execution checklist
+
+1. Repository owner approves method, exact head SHAs, current versus reviewed documentation deltas (#5/#6/#8/#9), branch protection/required reviews/checks, signing policy, retarget operations and stopping rules. Archive the snapshot and approval separately; observed mergeability is not authorization.
+2. Confirm a clean isolated integration checkout/worktree and immutable source copies/refs under an approved process. Preserve the user's working directory, all untracked files and 15 sentinel hashes. Do not reset/clean the current workspace or stage the root protocol-1 app. No target/database operations occur during a source merge.
+3. Before each stage, record current main, current base/head, merge-base, predecessor merge SHA and expected tree. Main drift, code changes, unexpected diff/deletion, missing evidence, stale review or failed check stops the train for review.
+4. Optionally rehearse the approved merge train in a separate local candidate branch/worktree **only after merge-work authorization**. Since each frozen head contains its predecessor and the snapshot main is an ancestor, candidate trees should match each corresponding frozen head when no other main changes intervene. Verify this with tree IDs/diffs; investigate any mismatch rather than resolving it blindly.
+5. Merge #5 into pinned main only after checks/approval. Record the resulting merge/tree SHA and a rollback checkpoint. For #6–#14 perform the separately approved retarget-to-main, fresh diff/review and CI before each merge. Never force-push or alter reviewed heads to hide conflicts. Required squash-only repository policy would require a revised plan, not an improvised workaround.
+6. At every candidate/main checkpoint run the preserved suites, actual-sketch C++ and all applicable browser flows. At final integration require the full 264 tracked campaign, seven browser workflows and deterministic 72-hour simulation, plus preserved-root checks when that separate untracked app exists. Record exact commands/runner/UTC/source/tree/artifact hashes and any symlink skip with POSIX coverage. No deadline/assertion relaxation to obtain green checks.
+7. Recheck gateway/physical/POST/deployment guards, schema ledger/restore restrictions, all 15 hashes, histories and untracked work. Retain REL-01/02 and obtain explicit disposition; green CI is not closure. Require final reviewer acceptance of the integrated main tree before creating any release/install candidate.
+8. Record the resulting main/tree/merge history and all decisions. Branch cleanup, PR statuses not inherent to an approved merge, release tags, Gantt changes and deployment are separate permissions. Keep hardware/deployment gates closed even after source integration.
+
+## Source rollback proposal
+
+Before each authorized merge retain the preceding approved main/tree SHA, build manifest and immutable artifacts. If validation fails, stop integration and target activity; preserve logs/failed candidate. Do not reset/force-push or rewrite main or feature history. A human may approve a corrective revert commit/PR against main; revert dependency-bearing merge commits in reverse order as necessary, with the correct mainline parent identified and reviewed. Rerun candidate checks and record the new corrective SHA. Restoring a source tree does not unmerge history, restore data, restore actuator authority or certify safety.
+
+## Data/runtime rollback proposal
+
+Source rollback must not downgrade a live v8 database into old code. The migration chain validates known schemas and refuses future/drifted schemas; it has **no supported destructive down-migration**. M7 restore only verifies current-schema packages into a new isolated destination and never activates them. Pre-upgrade backups cover the database; the complete deployment backup must additionally include verified images, relevant manifests/configuration/release identity and recorded artifact exclusions.
+
+For a separately approved deployment rollback, first use independent physical isolation and the approved stop procedure. Quiesce writers and preserve a verified copy of the latest database, images, logs and incomplete receipts before changing any code/configuration selection. Keep every old/new data directory and all post-upgrade records. Select a prior immutable release only after schema/interface/firmware/configuration compatibility review. Restore a verified appropriate checkpoint into a new isolated destination if authorized; never overwrite the running directory, erase a failed migration or point old code at an incompatible new schema.
+
+Any records after the checkpoint must remain retained and explicitly reconciled/exported under a reviewed provenance-preserving procedure. Never silently discard them to make rollback appear successful. Keep the current failed run offline/read-only for investigation. Restart into a fresh inhibited state with paused schedules and discarded confirmations; a code/data selection is not permission to energize. If compatibility or preservation cannot be demonstrated, leave the system safely isolated and request engineering review instead of attempting rollback. No rollback is executed here.
