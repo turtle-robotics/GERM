@@ -69,7 +69,8 @@ class HistoryTests(unittest.TestCase):
         for source in sorted(MIGRATIONS.glob('*.sql'))[:6]:shutil.copyfile(source,folder/source.name)
         path=self.root/'v6.sqlite'
         with patch.object(module,'MIGRATIONS',folder),patch.object(module,'VERSION',6):
-            legacy=module.SQLiteRepository(path,workspace_root=self.root,create=True);legacy.load_seed_fixture()
+            legacy=module.SQLiteRepository(path,workspace_root=self.root,create=True)
+        legacy.load_seed_fixture()  # Reuse the original fixture path after restoring migration discovery.
         upgraded=module.SQLiteRepository(path,workspace_root=self.root)
         self.assertEqual(len(upgraded.backups),1);self.assertTrue(upgraded.integrity_check())
         with closing(sqlite3.connect(upgraded.backups[0])) as backup:
