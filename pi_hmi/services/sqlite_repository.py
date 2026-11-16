@@ -75,14 +75,15 @@ class SQLiteRepository:
         return path
 
     @contextmanager
-    def connection(self):
+    def connection(self, *, read_only=False):
         # Resolve again to reject a redirected symlink after construction.
         path = self.scoped(self.path)
-        db = sqlite3.connect(path,timeout=self.timeout/1000,isolation_level=None)
+        db = sqlite3.connect(path.as_uri()+'?mode=ro' if read_only else path,uri=read_only,timeout=self.timeout/1000,isolation_level=None)
         db.row_factory = sqlite3.Row
         try:
             db.execute('PRAGMA foreign_keys=ON')
-            db.execute('PRAGMA synchronous=FULL')
+            if read_only:db.execute('PRAGMA query_only=ON')
+            else:db.execute('PRAGMA synchronous=FULL')
             db.execute(f'PRAGMA busy_timeout={self.timeout}')
             yield db
         except Exception as exc:
@@ -184,7 +185,7 @@ class SQLiteRepository:
         return cls(destination,workspace_root=root)
 
     def _rows(self, sql, args=()):
-        with self.connection() as db:return [dict(r) for r in db.execute(sql,args)]
+        with self.connection(read_only=True) as db:return [dict(r) for r in db.execute(sql,args)]
 
     def _write(self, sql, args=()):
         with self.connection() as db:

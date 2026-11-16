@@ -22,14 +22,14 @@ def install_trace(host,application):
             sequence+=1;records.append(dict(sequence=sequence,elapsed_s=time.perf_counter()-started,thread=threading.current_thread().name,kind=kind,**values))
     original=SQLiteRepository.connection
     @contextmanager
-    def connection(repo):
+    def connection(repo,**options):
         begin=time.perf_counter()
         try:
-            with original(repo) as db:
+            with original(repo,**options) as db:
                 db.set_trace_callback(lambda sql:record('sqlite',operation=sql.split()[0] if sql.split() else '',repository_state=repo.status))
                 yield db
         except Exception as exc:record('sqlite_error',error=type(exc).__name__,message=str(exc)[:180],sqlite_errorcode=getattr(exc,'sqlite_errorcode',None),repository_state=repo.status);raise
-        finally:record('sqlite_connection',duration_s=time.perf_counter()-begin,repository_state=repo.status)
+        finally:record('sqlite_connection',duration_s=time.perf_counter()-begin,repository_state=repo.status,read_only=options.get('read_only',False))
     SQLiteRepository.connection=connection
     @application.before_request
     def begin():g.m9_started=time.perf_counter()

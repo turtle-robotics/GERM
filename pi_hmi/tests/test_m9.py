@@ -1,5 +1,6 @@
 """Acceptance/hardening on disposable host data, never production or physical I/O."""
 from contextlib import contextmanager
+from concurrent.futures import ThreadPoolExecutor
 import errno,json,os,sqlite3,subprocess,sys,tempfile,threading,time,unittest,uuid
 from pathlib import Path
 from unittest.mock import patch
@@ -78,6 +79,25 @@ class LifecycleHardeningTests(unittest.TestCase):
         self.host.history.max_total_bytes=1
         with self.assertRaises(ExportBusy):self.host.history.start(str(uuid.uuid4()),{})
         self.assertEqual(saved.read_bytes(),b'KEEP');self.assertFalse(self.host.grow.armed)
+
+    def test_status_reads_are_read_only_without_writer_setup_during_wal_write(self):
+        connect=sqlite3.connect
+        class Probe(sqlite3.Connection):
+            def execute(self,sql,*args,**kwargs):
+                if sql=='PRAGMA synchronous=FULL':raise sqlite3.OperationalError('Injected writer-setup lock')
+                return super().execute(sql,*args,**kwargs)
+        # Reproduce a setup-only lock independently of SQL query execution.
+        with patch('services.sqlite_repository.sqlite3.connect',side_effect=lambda *a,**kw:connect(*a,**kw,factory=Probe)):
+            self.assertTrue(self.host.repo._rows('SELECT version FROM migration_history'))
+            self.assertEqual(self.host.repo.status,'ready')
+            with self.host.repo.connection(read_only=True) as reader:
+                with self.assertRaises(sqlite3.OperationalError):reader.execute("UPDATE grow_profiles SET name='denied'")
+        self.host.recover()
+        with self.host.repo.connection() as writer:
+            writer.execute('BEGIN IMMEDIATE')
+            with ThreadPoolExecutor() as pool:
+                self.assertTrue(pool.submit(self.host.repo._rows,'SELECT version FROM migration_history').result(timeout=2))
+            writer.execute('ROLLBACK')
 
     def test_killed_process_releases_lease_recovers_receipt_and_preserves_stage(self):
         self.host.stop()
