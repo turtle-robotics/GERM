@@ -68,7 +68,7 @@ class HistoryService:
     def definition(self,data):
         if not isinstance(data,dict) or set(data)-{'resources','filters','strict_images'}:raise ValueError('Unsupported export definition')
         resources=data.get('resources',list(SOURCES))
-        if not isinstance(resources,list) or not resources or len(resources)>len(SOURCES) or any(r not in SOURCES for r in resources) or len(set(resources))!=len(resources):raise ValueError('Invalid export resources')
+        if not isinstance(resources,list) or not resources or len(resources)>len(SOURCES) or any(not isinstance(r,str) or r not in SOURCES for r in resources) or len(set(resources))!=len(resources):raise ValueError('Invalid export resources')
         query=filters(data.get('filters',{}))
         if query.get('sensor') and resources!=['sensors']:raise ValueError('Sensor export filter requires sensors only')
         if type(data.get('strict_images',False)) is not bool:raise ValueError('strict_images must be boolean')

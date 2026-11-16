@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import sqlite3
+import shutil
 import sys
 import tempfile
 import threading
@@ -59,6 +60,25 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(self.actuator.commands,before);self.assertEqual(self.camera.reads,reads)
         page=self.service.history.page('experiments');self.assertEqual(page['rows'][0]['experiment_id'],self.exp)
         self.assertEqual(self.service.history.page('sensors')['rows'],[])
+        with self.service.history.connection() as db,self.assertRaises(sqlite3.OperationalError):db.execute("UPDATE experiments SET name='denied'")
+        with self.assertRaises(ValueError):self.service.definition({'resources':[{}]})
+
+    def test_v6_migration_preserves_history_and_verified_preupgrade_backup(self):
+        import services.sqlite_repository as module
+        folder=self.root/'v6-migrations';folder.mkdir()
+        for source in sorted(MIGRATIONS.glob('*.sql'))[:6]:shutil.copyfile(source,folder/source.name)
+        path=self.root/'v6.sqlite'
+        with patch.object(module,'MIGRATIONS',folder),patch.object(module,'VERSION',6):
+            legacy=module.SQLiteRepository(path,workspace_root=self.root,create=True);legacy.load_seed_fixture()
+        upgraded=module.SQLiteRepository(path,workspace_root=self.root)
+        self.assertEqual(len(upgraded.backups),1);self.assertTrue(upgraded.integrity_check())
+        with closing(sqlite3.connect(upgraded.backups[0])) as backup:
+            self.assertEqual(backup.execute('PRAGMA user_version').fetchone()[0],6)
+            self.assertEqual(backup.execute('SELECT COUNT(*) FROM sensor_readings').fetchone()[0],4)
+        with upgraded.connection() as db:
+            self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],7)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM sensor_readings').fetchone()[0],4)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM export_jobs').fetchone()[0],0)
 
     def test_pagination_equal_times_high_water_and_filter_bound_cursors(self):
         self.rows(5);first=self.service.history.page('sensors',{'sensor':'history_sensor'},limit=2)
