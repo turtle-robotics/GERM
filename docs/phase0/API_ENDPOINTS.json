@@ -385,5 +385,50 @@
     "errors": "400 unknown/corrupt metadata; 503 missing/unavailable",
     "producer": "M6 scoped image verifier",
     "consumer": "Trends saved image link"
+  },
+  {
+    "path": "/api/storage",
+    "method": "GET",
+    "request": "No mutation; explicit host service only",
+    "success": "200 observed configured-path/volume inventory, labelled estimates and bounded job list; incomplete measurement explicit",
+    "errors": "503 unconfigured/storage unavailable",
+    "producer": "M7 storage blueprint/shared retained artifact jobs; unchanged POST boundary",
+    "consumer": "Settings HMI / host tests"
+  },
+  {
+    "path": "/api/storage/jobs",
+    "method": "POST",
+    "request": "{request_id:UUID,definition:{kind:backup|verify|preflight|restore,backup_id?:UUID}}; trusted host/token; no arbitrary paths",
+    "success": "202 durable job receipt; queued/running != complete; restore is a new offline copy",
+    "errors": "400 definition/identity conflict; 403 boundary; 503 storage/busy/quota",
+    "producer": "M7 storage blueprint/shared retained artifact jobs; unchanged POST boundary",
+    "consumer": "Settings HMI / host tests"
+  },
+  {
+    "path": "/api/storage/jobs/<request_id>",
+    "method": "GET",
+    "request": "canonical UUID",
+    "success": "200 durable queued/running/complete/incomplete/failed/interrupted state and report",
+    "errors": "400 malformed UUID; 404 unknown; 503 DB unavailable",
+    "producer": "M7 storage blueprint/shared retained artifact jobs; unchanged POST boundary",
+    "consumer": "Settings HMI / host tests"
+  },
+  {
+    "path": "/api/storage/jobs/<request_id>/retry",
+    "method": "POST",
+    "request": "{retry:true}; trusted host/token; max three attempts",
+    "success": "202 same definition/ID with a new exclusive attempt; old files retained",
+    "errors": "400 unsupported retry; 403 boundary; 503 storage/busy/quota",
+    "producer": "M7 storage blueprint/shared retained artifact jobs; unchanged POST boundary",
+    "consumer": "Settings HMI / host tests"
+  },
+  {
+    "path": "/api/storage/jobs/<request_id>/download",
+    "method": "GET",
+    "request": "known complete verified backup UUID",
+    "success": "200 bounded verified ZIP with SHA256 header",
+    "errors": "400 incomplete/corrupt/non-backup; 404 unknown; 503 file/storage unavailable",
+    "producer": "M7 storage blueprint/shared retained artifact jobs; unchanged POST boundary",
+    "consumer": "Settings HMI / host tests"
   }
 ]

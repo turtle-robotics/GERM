@@ -77,7 +77,7 @@ class HistoryTests(unittest.TestCase):
             self.assertEqual(backup.execute('PRAGMA user_version').fetchone()[0],6)
             self.assertEqual(backup.execute('SELECT COUNT(*) FROM sensor_readings').fetchone()[0],4)
         with upgraded.connection() as db:
-            self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],7)
+            self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],VERSION)
             self.assertEqual(db.execute('SELECT COUNT(*) FROM sensor_readings').fetchone()[0],4)
             self.assertEqual(db.execute('SELECT COUNT(*) FROM export_jobs').fetchone()[0],0)
 

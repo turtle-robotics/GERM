@@ -12,7 +12,7 @@ import time
 import uuid
 
 MIGRATIONS = Path(__file__).resolve().parents[1] / 'migrations'
-VERSION = 7
+VERSION = 8
 
 
 def utc(value):
@@ -97,6 +97,22 @@ class SQLiteRepository:
 
     def integrity_check(self):
         with self.connection() as db:self._integrity(db)
+        return True
+
+    @classmethod
+    def validate_snapshot(cls,path):
+        """Read-only current-schema verification; never migrates an archive DB."""
+        with closing(sqlite3.connect(Path(path).resolve(strict=True).as_uri()+'?mode=ro&immutable=1',uri=True)) as db:
+            db.execute('PRAGMA query_only=ON');cls._integrity(db)
+            if db.execute('PRAGMA user_version').fetchone()[0]!=VERSION:raise ValueError('Snapshot schema is incompatible; no automatic upgrade/downgrade')
+            scripts=[p.read_text(encoding='utf-8-sig') for p in sorted(MIGRATIONS.glob('*.sql'))]
+            if len(scripts)!=VERSION:raise ValueError('Incomplete migration package')
+            with closing(sqlite3.connect(':memory:')) as expected:
+                for script in scripts:_apply(expected,script)
+                expected.execute(LEDGER)
+                if _schema(db)!=_schema(expected):raise ValueError('Snapshot schema drift')
+            wanted=[(i,hashlib.sha256(s.encode()).hexdigest()) for i,s in enumerate(scripts,1)]
+            if list(db.execute('SELECT version,sha256 FROM migration_history ORDER BY version'))!=wanted:raise ValueError('Snapshot migration provenance mismatch')
         return True
 
     def _migrate(self):

@@ -6,6 +6,7 @@
   <title>GERM · {{ page|title }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='hmi.css') }}">
   {% if page == 'trends' %}<link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">{% endif %}
+  {% if page == 'settings' %}<link rel="stylesheet" href="{{ url_for('static', filename='storage.css') }}">{% endif %}
 </head>
 <body data-page="{{ page }}" data-control-tab="{{ control_tab }}">
 <div class="shell">
@@ -98,6 +99,26 @@
       <section class="card"><h2>Host schedules · UTC</h2><form id="schedule-form"><label><input type="checkbox" id="light-enabled"> Enable lighting window</label><label>On (UTC) <input type="time" id="light-start" value="06:00" required></label><label>Off (UTC) <input type="time" id="light-end" value="18:00" required></label><label>RGB settings <input id="schedule-rgb" value="0,0,0" pattern="[0-9]+,[0-9]+,[0-9]+" required></label><label><input type="checkbox" id="mist-enabled"> Enable fixed 5 s pump pulse</label><label>Interval (seconds) <input type="number" id="mist-interval" min="10" max="86400" step="1" value="60" required></label><button id="save-schedules" type="submit" disabled>Save host schedules (cycle must be paused)</button></form><small>Displayed form values are editor examples, not approved crop settings. Disabled schedules never run. Saving does not start a cycle.</small><button id="recover-grow" disabled>Check storage / Recover paused</button><small id="grow-form-status" role="status"></small></section>
       <section class="card"><h2>Software and storage</h2><p id="settings-model">ML model: not configured</p><p>Camera/ML integration awaits M5.</p><p>Firmware, physical interfaces and production controls remain disabled.</p><a href="/firmware">Firmware restriction details</a><p>History retained; automatic deletion disabled.</p></section></div>
       {% endif %}
+      {% if page == 'settings' %}
+      <section class="card storage-panel" aria-label="Storage backup and offline restore">
+        <h2>Storage and recovery · host only</h2>
+        <p id="storage-capacity" role="status">Storage measurements unavailable</p>
+        <div id="storage-inventory"></div>
+        <p id="storage-estimate">Backup estimate unavailable</p>
+        <p>Automatic deletion is disabled. Full storage refuses new work. Retention policy awaits human approval.</p>
+        <button id="storage-refresh">Refresh inventory</button>
+        <button id="storage-backup" {% if not simulation %}disabled{% endif %}>Create database + image backup</button>
+        <label>Saved backup <select id="storage-source"><option value="">No backup selected</option></select></label>
+        <button id="storage-verify" disabled>Verify saved backup</button>
+        <button id="storage-preflight" disabled>Check offline restore readiness</button>
+        <button id="storage-restore" disabled>Create new isolated offline restore</button>
+        <p>Restore creates a separate host copy. It never replaces or starts the running system.</p>
+        <p id="storage-job-status" role="status" aria-live="polite">No storage job requested</p>
+        <a id="storage-download" hidden>Download verified complete backup</a>
+        <button id="storage-retry" hidden {% if not simulation %}disabled{% endif %}>Retry incomplete operation in a new attempt</button>
+        <details><summary>Recovery and verification report</summary><pre id="storage-report">No report</pre></details>
+      </section>
+      {% endif %}
       {% if page == 'trends' %}
       <section class="card history-panel" aria-label="History and export">
         <h2>Experiment history and export</h2>
@@ -130,5 +151,6 @@
 <script>const firmwareToken = {{ firmware_token | tojson }}; const controlToken = {{ control_token | tojson }};</script>
 <script src="{{ url_for('static', filename='hmi.js') }}"></script>
 {% if page == 'trends' %}<script src="{{ url_for('static', filename='history.js') }}"></script>{% endif %}
+{% if page == 'settings' %}<script src="{{ url_for('static', filename='storage.js') }}"></script>{% endif %}
 </body>
 </html>

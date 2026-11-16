@@ -1,5 +1,5 @@
 {
-  "version": "m6-host-review-1",
+  "version": "m7-host-review-1",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -764,15 +764,22 @@
       "screen": "Settings",
       "source": "SO-5 AC-2/3/4; SR-DAT-02",
       "display": "Capacity, backup/export/restore status",
-      "backend": null,
-      "quality": "80% warn; 90% critical proposal; deletion policy unresolved",
-      "command": null,
-      "confirmation": "Confirm export/restore; no production deletion authorized",
-      "acceptance_case": "Missing backup USB, ENOSPC, failed backup, clean-location restore",
-      "status": "Missing",
-      "gap": "Storage APIs/policy review pending M7",
+      "backend": {
+        "method": "GET",
+        "path": "/api/storage",
+        "field": "observed inventory/free/volume utilization; separate estimates; durable storage jobs"
+      },
+      "quality": "Observed vs estimated data labelled; no deletion; only verified complete backups downloadable; restore offline/non-overwrite",
+      "command": {
+        "method": "POST",
+        "path": "/api/storage/jobs"
+      },
+      "confirmation": "explicit backup/verify/preflight; confirmation before isolated restore",
+      "acceptance_case": "Concurrent writes; missing/corrupt files; disk-full; incomplete receipts; new isolated restore; no gateway mutation",
+      "status": "Partial",
+      "gap": "Host implemented; retention/security/physical/off-device/target recovery approval unresolved",
       "owner": "HMI with backend contract review",
-      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
+      "evidence": "M7 storage host and Chromium evidence: docs/evidence/m7/"
     },
     {
       "id": "S04",
@@ -1007,6 +1014,28 @@
       "gap": "Host-only recovery; target power-cut/product acceptance unresolved",
       "owner": "HMI with backend contract review",
       "evidence": "M6 recovery and browser tests; docs/evidence/m6/"
+    },
+    {
+      "id": "S06",
+      "screen": "Settings",
+      "source": "SO-5 AC-2/3/4; SR-DAT-02",
+      "display": "Interrupted storage job recovery",
+      "backend": {
+        "method": "GET",
+        "path": "/api/storage/jobs/<request_id>",
+        "field": "durable receipt and recovery report"
+      },
+      "quality": "Observed vs estimated data labelled; no deletion; only verified complete backups downloadable; restore offline/non-overwrite",
+      "command": {
+        "method": "POST",
+        "path": "/api/storage/jobs/<request_id>/retry"
+      },
+      "confirmation": "explicit retry into a new attempt; no overwrite",
+      "acceptance_case": "Power loss before receipt; restart marks interrupted; retry retains prior paths; max three attempts",
+      "status": "Partial",
+      "gap": "Host implemented; retention/security/physical/off-device/target recovery approval unresolved",
+      "owner": "HMI with backend contract review",
+      "evidence": "M7 storage host and Chromium evidence: docs/evidence/m7/"
     }
   ]
 }
