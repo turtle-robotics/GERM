@@ -54,11 +54,13 @@ const {chromium}=require(process.env.GERM_PLAYWRIGHT_MODULE || 'playwright');
     assert.equal(fault.inhibited,true);assert.equal(fault.operator_recovery_required,true);
     await page.locator('#capture-clock-status').scrollIntoViewIfNeeded();
     await page.screenshot({path:path.join(output,'clock-fault.png'),fullPage:true});
-    // UI polling observes the fault while the synthetic UTC source catches up;
-    // mere time recovery must not acknowledge it.
+    // Explicit test-only forward time recovery avoids relying on browser speed
+    // or an in-flight preview/scheduled frame's final high-water observation.
+    // Mere time recovery must not acknowledge the persisted fault.
+    child.stdin.write(JSON.stringify({clock:'recover'})+'\n');
     await page.waitForFunction(async highWater=>{
       const data=await (await fetch('/api/media')).json();
-      return Date.parse(data.server_time_utc)>Date.parse(highWater)+250;
+      return Date.parse(data.server_time_utc)>Date.parse(highWater)+30000;
     },fault.high_water_utc);
     assert.equal((await (await page.request.get(base+'/api/media')).json()).scheduling.clock_fault,true);
     const recoveryResponse=page.waitForResponse(r=>r.url().endsWith('/api/media/recover') && r.request().method()==='POST');
