@@ -103,6 +103,7 @@ class CommandGateway:
         self.restart_store = None
         self.event_pipeline = None
         self.grow_service = None
+        self.media_service = None
 
     def intent(self, action, payload=None, *, source='touchscreen', request_id=None,
                expected_state_revision=None, confirmation_id=None):

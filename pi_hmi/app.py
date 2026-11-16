@@ -2,6 +2,7 @@
 import secrets
 import time
 import threading
+import uuid
 from datetime import datetime, timezone
 from flask import Flask, Response, g, jsonify, render_template, request
 from dht11_reader import read_dht, latest_dht
@@ -109,27 +110,34 @@ def legacy_controls():
 
 
 def gen_frames():
-    while cam is not None:
-        frame = cam.get_frame()
+    owner=get_gateway().media_service.captures.camera if get_gateway().media_service else cam
+    while owner is not None:
+        frame = owner.get_frame()
         if frame:
             yield b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + frame + b'\r\n'
+        else:break
         time.sleep(0.03)
 
 
 @app.get('/video_feed')
 def video_feed():
-    if cam is None:
+    owner=get_gateway().media_service.captures.camera if get_gateway().media_service else cam
+    if owner is None or owner.get_frame() is None:
         return Response('Camera unavailable\n', status=503, mimetype='text/plain')
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.get('/camera.jpg')
 def camera_snapshot():
-    frame = cam.get_frame() if cam is not None else None
+    owner=get_gateway().media_service.captures.camera if get_gateway().media_service else cam
+    frame = owner.get_frame() if owner is not None else None
     if frame is None:
         return Response('Camera unavailable\n', status=503, mimetype='text/plain')
     response = Response(frame, mimetype='image/jpeg')
     response.headers['Cache-Control'] = 'no-store'
+    if get_gateway().media_service:
+        response.headers['X-GERM-Source']='synthetic'
+        response.headers['X-GERM-Frame-UTC']=owner.snapshot(refresh=False)['timestamp_utc']
     return response
 
 
@@ -210,6 +218,36 @@ def grow_snapshot():
     if service is None:return jsonify(state='not_configured',error='Grow repository is not configured'),503
     try:return jsonify(service.snapshot())
     except Exception:return jsonify(state='error',error='Grow database unavailable; restart inhibited'),503
+
+
+@app.get('/api/media')
+def media_snapshot():
+    media=get_gateway().media_service
+    if media is None:return jsonify(state='not_configured',camera={'state':'unavailable'},ml={'state':'not_configured'}),503
+    try:return jsonify(media.snapshot())
+    except Exception:return jsonify(state='error',error='Media database unavailable'),503
+
+
+@app.post('/api/camera/schedule')
+@app.post('/api/media/recover')
+@app.post('/api/ml/analyze')
+def media_operation():
+    media=get_gateway().media_service
+    if media is None:return jsonify(state='not_configured',error='Media runtime not configured'),503
+    data=request.get_json(silent=True)
+    if not isinstance(data,dict):return jsonify(error='Expected JSON object'),400
+    try:
+        if request.path.endswith('/schedule'):
+            if set(data)!={'enabled','interval_s','anchor_utc'}:raise ValueError('Expected enabled, interval_s and anchor_utc')
+            return jsonify(media.captures.configure_schedule(**data))
+        if request.path.endswith('/recover'):
+            if data:raise ValueError('Recovery accepts no overrides')
+            return jsonify(media.captures.recover())
+        if set(data)-{'image_id','request_id'} or 'image_id' not in data:raise ValueError('Expected image_id and optional request_id')
+        result=media.ml.analyze_image(data['image_id'],request_id=data.get('request_id'))
+        return jsonify(result),200 if result.get('committed') else 503
+    except (ValueError,TypeError) as exc:return jsonify(error=str(exc)),400
+    except Exception:return jsonify(state='error',error='Media/inference operation unavailable; persistence not acknowledged'),503
 
 
 @app.post('/api/grow/cycles')

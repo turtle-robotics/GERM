@@ -1,5 +1,7 @@
 # Phase 0 baseline and review package
 
+Current M5 host review: [Task 123 implementation](M5_IMPLEMENTATION.md), [model/camera dependency register](M5_DEPENDENCIES.md), above [M4 accepted with restrictions](M4_REVIEW_VERDICT.md). No physical camera/model validation, merge, deployment or M6 approval is implied.
+
 Current M4 host review: [Tasks 129/130 implementation and M5 readiness](M4_IMPLEMENTATION.md), above the [restricted M2/M3 acceptance](M2_M3_REVIEW_VERDICT.md). Older readiness statements below are historical. All PRs remain unmerged.
 
 Current host development: [M1 accepted with restrictions](M1_REVIEW_VERDICT.md); [M2 Task 121](M2_IMPLEMENTATION.md) and [M3 Task 122](M3_IMPLEMENTATION.md) have separate dependent review packages. Earlier proposed/pending statements below are historical. No PR merge or physical/deployment approval is implied.

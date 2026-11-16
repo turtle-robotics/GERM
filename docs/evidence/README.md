@@ -1,5 +1,7 @@
 # GERM implementation evidence index
 
+Current M5: [capture/local-ML evidence](m5/README.md), [implementation/traceability](../phase0/M5_IMPLEMENTATION.md), [dependency register](../phase0/M5_DEPENDENCIES.md). Synthetic host milestone only; all earlier PRs remain unmerged and M6 is not started.
+
 Current M4: [HMI/profile/cycle/schedule evidence](m4/README.md), [implementation/traceability/M5 readiness](../phase0/M4_IMPLEMENTATION.md). Host-only; the M0→M4 PR dependency stack remains unmerged and no Gantt status changes are implied.
 
 M2/M3 host review: [Task 121 migration/recovery evidence](m2/README.md), [Task 122 logging evidence](m3/README.md), [implementation plan/dependencies](../phase0/M2_M3_PLAN.md). M1 was accepted with restrictions at `99a42a2`; PRs #5 → #6 → #7 → M3 remain separate and unmerged. No Gantt status changes.
