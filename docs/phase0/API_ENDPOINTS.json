@@ -378,7 +378,7 @@
     "consumer": "Trends HMI / host tests"
   },
   {
-    "path": "/api/history/images/<image_id>/file",
+    "path": "/api/history/images/<int:image_id>/file",
     "method": "GET",
     "request": "positive saved image ID; no physical acquisition",
     "success": "200 saved JPEG verified against SQLite SHA/bytes/dimensions",
