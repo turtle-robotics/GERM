@@ -1,0 +1,425 @@
+{
+  "authorization": "User explicitly authorized in chat: I authorize those GitHub merge/retarget and documentation-PR operations",
+  "initial_main": "8789022415ffb44aca8ff88c4d1ba31f4ef994be",
+  "stages": [
+    {
+      "pr": 5,
+      "source_head": "d93b7bbdff5d5c319d1bd2a8b0f4e1425e22620c",
+      "rollback_checkpoint": "8789022415ffb44aca8ff88c4d1ba31f4ef994be",
+      "merge_sha": "5ee6228cd6b6c3c28847a9007ff2c27a47bc955e",
+      "merged_at_utc": "2026-11-16T23:40:02.800517+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 132953526011,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43760347378/job/132953526011"
+        },
+        {
+          "id": 132953505192,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43760340486/job/132953505192"
+        }
+      ],
+      "tree": "c49138dea96709779cc063be72759ecff6d868b5",
+      "source_tree": "c49138dea96709779cc063be72759ecff6d868b5",
+      "tree_verified": true,
+      "branch_preserved": true,
+      "fresh_ci_verification": [
+        {
+          "id": 43981249966,
+          "head_sha": "5ee6228cd6b6c3c28847a9007ff2c27a47bc955e",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43981249966"
+        },
+        {
+          "id": 43810973550,
+          "head_sha": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43810973550"
+        }
+      ]
+    },
+    {
+      "pr": 6,
+      "source_head": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+      "rollback_checkpoint": "5ee6228cd6b6c3c28847a9007ff2c27a47bc955e",
+      "merge_sha": "79927b18754c63e0b79d134e00d4fbdfb7d12034",
+      "merged_at_utc": "2026-11-16T23:44:07.131246+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 133699429680,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43810973550/job/133699429680"
+        },
+        {
+          "id": 133112346655,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43810978900/job/133112346655"
+        }
+      ],
+      "tree": "c0f664eb820fe64f6dcb5b07e4d83f6cb0fd3ef3",
+      "source_tree": "c0f664eb820fe64f6dcb5b07e4d83f6cb0fd3ef3",
+      "tree_verified": true,
+      "branch_preserved": true,
+      "fresh_ci_verification": [
+        {
+          "id": 43981819653,
+          "head_sha": "79927b18754c63e0b79d134e00d4fbdfb7d12034",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43981819653"
+        },
+        {
+          "id": 43811810773,
+          "head_sha": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43811810773"
+        }
+      ]
+    },
+    {
+      "pr": 7,
+      "source_head": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+      "rollback_checkpoint": "79927b18754c63e0b79d134e00d4fbdfb7d12034",
+      "merge_sha": "062bf256c6edda1922267643852841b9bb70a85f",
+      "merged_at_utc": "2026-11-16T23:45:56.243996+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 133700357832,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43811810773/job/133700357832"
+        },
+        {
+          "id": 133114934777,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43811819087/job/133114934777"
+        }
+      ],
+      "tree": "03ec114f236450443ffa5d7787c5f4206449918e",
+      "source_tree": "03ec114f236450443ffa5d7787c5f4206449918e",
+      "tree_verified": true,
+      "branch_preserved": true,
+      "fresh_ci_verification": [
+        {
+          "id": 43982078018,
+          "head_sha": "062bf256c6edda1922267643852841b9bb70a85f",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43982078018"
+        },
+        {
+          "id": 43813768661,
+          "head_sha": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43813768661"
+        }
+      ]
+    },
+    {
+      "pr": 8,
+      "source_head": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+      "rollback_checkpoint": "062bf256c6edda1922267643852841b9bb70a85f",
+      "merge_sha": "5de81b195a683dc27e1858d26eb39af47870aa92",
+      "merged_at_utc": "2026-11-16T23:48:28.292409+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 133701238491,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43813768661/job/133701238491"
+        },
+        {
+          "id": 133121057573,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43813773251/job/133121057573"
+        }
+      ],
+      "tree": "089f95054fe3a7a50d090c3a52673a1e42d64f33",
+      "source_tree": "089f95054fe3a7a50d090c3a52673a1e42d64f33",
+      "tree_verified": true,
+      "branch_preserved": true,
+      "fresh_ci_verification": [
+        {
+          "id": 43982432128,
+          "head_sha": "5de81b195a683dc27e1858d26eb39af47870aa92",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43982432128"
+        },
+        {
+          "id": 43821067247,
+          "head_sha": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43821067247"
+        }
+      ]
+    },
+    {
+      "pr": 9,
+      "source_head": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+      "rollback_checkpoint": "5de81b195a683dc27e1858d26eb39af47870aa92",
+      "merge_sha": "91447920fa052928190174307f55b59c6db14e2c",
+      "merged_at_utc": "2026-11-16T23:59:29.038586+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 133702428592,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43821067247/job/133702428592"
+        },
+        {
+          "id": 133144036662,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43821073979/job/133144036662"
+        }
+      ],
+      "tree": "2e4a5feeae8968b392aa0b871dcd11f0f1ac8c5a",
+      "source_tree": "2e4a5feeae8968b392aa0b871dcd11f0f1ac8c5a",
+      "tree_verified": true,
+      "branch_preserved": true,
+      "fresh_ci_verification": [
+        {
+          "id": 43983914596,
+          "head_sha": "91447920fa052928190174307f55b59c6db14e2c",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43983914596"
+        },
+        {
+          "id": 43834271180,
+          "head_sha": "2d73aebb88378ce46ac67859e91ad90b75593ad2",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43834271180"
+        }
+      ]
+    },
+    {
+      "pr": 10,
+      "source_head": "2d73aebb88378ce46ac67859e91ad90b75593ad2",
+      "rollback_checkpoint": "91447920fa052928190174307f55b59c6db14e2c",
+      "merge_sha": "b574f7e9ba0a95a6c3dbf1d55a721a46733edabe",
+      "merged_at_utc": "2026-11-17T00:02:19.466306+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 133707767163,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43834271180/job/133707767163"
+        },
+        {
+          "id": 133186910082,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43834281409/job/133186910082"
+        }
+      ],
+      "tree": "038d9ce75d3b999fe50a842d1f7c05748560fcb2",
+      "source_tree": "038d9ce75d3b999fe50a842d1f7c05748560fcb2",
+      "tree_verified": true,
+      "branch_preserved": true,
+      "fresh_ci_verification": [
+        {
+          "id": 43984318950,
+          "head_sha": "b574f7e9ba0a95a6c3dbf1d55a721a46733edabe",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43984318950"
+        },
+        {
+          "id": 43888063440,
+          "head_sha": "dc0abc8e2f2eb20029bd3e1f96009fd5902fdf43",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "html_url": "https://github.com/turtle-robotics/GERM/actions/runs/43888063440"
+        }
+      ]
+    },
+    {
+      "pr": 11,
+      "source_head": "dc0abc8e2f2eb20029bd3e1f96009fd5902fdf43",
+      "rollback_checkpoint": "b574f7e9ba0a95a6c3dbf1d55a721a46733edabe",
+      "merge_sha": "713800931a5926abd8c9c5d57669c124c54dac42",
+      "merged_at_utc": "2026-11-17T00:06:14.442983+00:00",
+      "method": "merge",
+      "checks": [
+        {
+          "id": 133709420634,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43888063440/job/133709420634"
+        },
+        {
+          "id": 133371525108,
+          "name": "host",
+          "conclusion": "success",
+          "url": "https://github.com/turtle-robotics/GERM/actions/runs/43888079870/job/133371525108"
+        }
+      ],
+      "tree": "e28a65b3c5b9a558246092b3b53d72fed40e4268",
+      "source_tree": "e28a65b3c5b9a558246092b3b53d72fed40e4268",
+      "tree_verified": true,
+      "branch_preserved": true
+    }
+  ],
+  "retargets": [
+    {
+      "pr": 6,
+      "head": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+      "old_base": {
+        "ref": "codex/m0-contract-reconciliation",
+        "sha": "d93b7bbdff5d5c319d1bd2a8b0f4e1425e22620c"
+      },
+      "new_base": {
+        "ref": "main",
+        "sha": "5ee6228cd6b6c3c28847a9007ff2c27a47bc955e"
+      },
+      "base_tree_equivalent": true,
+      "diff_unchanged": true,
+      "fresh_ci_run_id": 43810973550,
+      "prior_attempt": 1,
+      "retargeted_at_utc": "2026-11-16T23:43:03.204910+00:00"
+    },
+    {
+      "pr": 7,
+      "head": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+      "old_base": {
+        "ref": "codex/m1-state-permissions",
+        "sha": "3951173ca087c1ce3bfc18526bbec05f97021a05"
+      },
+      "new_base": {
+        "ref": "main",
+        "sha": "79927b18754c63e0b79d134e00d4fbdfb7d12034"
+      },
+      "base_tree_equivalent": true,
+      "diff_unchanged": true,
+      "fresh_ci_run_id": 43811810773,
+      "prior_attempt": 1,
+      "retargeted_at_utc": "2026-11-16T23:45:02.943717+00:00"
+    },
+    {
+      "pr": 8,
+      "head": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+      "old_base": {
+        "ref": "codex/m2-sqlite-recovery",
+        "sha": "07a367b52c10d940e757bb593ad9f1e6eae52e44"
+      },
+      "new_base": {
+        "ref": "main",
+        "sha": "062bf256c6edda1922267643852841b9bb70a85f"
+      },
+      "base_tree_equivalent": true,
+      "diff_unchanged": true,
+      "fresh_ci_run_id": 43813768661,
+      "prior_attempt": 1,
+      "retargeted_at_utc": "2026-11-16T23:46:51.878921+00:00"
+    },
+    {
+      "pr": 9,
+      "head": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+      "old_base": {
+        "ref": "codex/m3-durable-events",
+        "sha": "cc052957e8761cda3d848eed3cec4e5b0d60f38b"
+      },
+      "new_base": {
+        "ref": "main",
+        "sha": "5de81b195a683dc27e1858d26eb39af47870aa92"
+      },
+      "base_tree_equivalent": true,
+      "diff_unchanged": true,
+      "fresh_ci_run_id": 43821067247,
+      "prior_attempt": 1,
+      "retargeted_at_utc": "2026-11-16T23:49:22.530732+00:00"
+    },
+    {
+      "pr": 10,
+      "head": "2d73aebb88378ce46ac67859e91ad90b75593ad2",
+      "old_base": {
+        "ref": "codex/m4-grow-hmi",
+        "sha": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4"
+      },
+      "new_base": {
+        "ref": "main",
+        "sha": "91447920fa052928190174307f55b59c6db14e2c"
+      },
+      "base_tree_equivalent": true,
+      "diff_unchanged": true,
+      "fresh_ci_run_id": 43834271180,
+      "prior_attempt": 1,
+      "retargeted_at_utc": "2026-11-17T00:00:58.372281+00:00"
+    },
+    {
+      "pr": 11,
+      "head": "dc0abc8e2f2eb20029bd3e1f96009fd5902fdf43",
+      "old_base": {
+        "ref": "codex/m5-camera-ml",
+        "sha": "2d73aebb88378ce46ac67859e91ad90b75593ad2"
+      },
+      "new_base": {
+        "ref": "main",
+        "sha": "b574f7e9ba0a95a6c3dbf1d55a721a46733edabe"
+      },
+      "base_tree_equivalent": true,
+      "diff_unchanged": true,
+      "fresh_ci_run_id": 43888063440,
+      "prior_attempt": 1,
+      "retargeted_at_utc": "2026-11-17T00:04:25.788191+00:00"
+    }
+  ],
+  "status": "blocked",
+  "failure": {
+    "pr": 11,
+    "main": "713800931a5926abd8c9c5d57669c124c54dac42",
+    "run": 43984868691,
+    "job": 133710304106,
+    "workflow": "browser_m4.cjs",
+    "message": "30-second wait for #grow-summary containing paused timed out at browser_m4.cjs:62; root cause unproven",
+    "run_url": "https://github.com/turtle-robotics/GERM/actions/runs/43984868691",
+    "no_rerun": true,
+    "no_later_retarget_or_merge": true,
+    "at_utc": "2026-11-17T00:10:05.424941+00:00"
+  }
+}
