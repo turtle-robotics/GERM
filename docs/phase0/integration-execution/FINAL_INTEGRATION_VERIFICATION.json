@@ -1,0 +1,96 @@
+{
+  "observed_at_utc": "2026-11-17T00:11:24.038025+00:00",
+  "main": "713800931a5926abd8c9c5d57669c124c54dac42",
+  "tree": "e28a65b3c5b9a558246092b3b53d72fed40e4268",
+  "status": "BLOCKED after PR 11 main CI failure",
+  "pending": [
+    {
+      "pr": 12,
+      "head": "55d69c558f5c134540299128aa23f4415550f9fa",
+      "base": "codex/m6-history-export",
+      "open": true,
+      "unmerged": true
+    },
+    {
+      "pr": 13,
+      "head": "e1511c1fa39a155801e5c1855872747c9b78c8f8",
+      "base": "codex/m7-storage-backup",
+      "open": true,
+      "unmerged": true
+    },
+    {
+      "pr": 14,
+      "head": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+      "base": "codex/m8-offline-usability",
+      "open": true,
+      "unmerged": true
+    }
+  ],
+  "source": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+  "prs": [
+    {
+      "pr": 5,
+      "merged": true,
+      "merge": "5ee6228cd6b6c3c28847a9007ff2c27a47bc955e",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    },
+    {
+      "pr": 6,
+      "merged": true,
+      "merge": "79927b18754c63e0b79d134e00d4fbdfb7d12034",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    },
+    {
+      "pr": 7,
+      "merged": true,
+      "merge": "062bf256c6edda1922267643852841b9bb70a85f",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    },
+    {
+      "pr": 8,
+      "merged": true,
+      "merge": "5de81b195a683dc27e1858d26eb39af47870aa92",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    },
+    {
+      "pr": 9,
+      "merged": true,
+      "merge": "91447920fa052928190174307f55b59c6db14e2c",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    },
+    {
+      "pr": 10,
+      "merged": true,
+      "merge": "b574f7e9ba0a95a6c3dbf1d55a721a46733edabe",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    },
+    {
+      "pr": 11,
+      "merged": true,
+      "merge": "713800931a5926abd8c9c5d57669c124c54dac42",
+      "branch_preserved": true,
+      "parents_verified": true,
+      "tree_verified": true
+    }
+  ],
+  "final_main_ci": [
+    {
+      "id": 43984868691,
+      "url": "https://github.com/turtle-robotics/GERM/actions/runs/43984868691",
+      "conclusion": "failure"
+    }
+  ],
+  "all_branches_preserved": true
+}

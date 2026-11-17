@@ -1,0 +1,1371 @@
+{
+  "version": "integration-checklist-2026-11-16-v1",
+  "accepted_host_head": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+  "baseline_version": "M0-provisional-2026-11-15",
+  "baseline_sha256": "117e6ece1f830a83ae80e00de64fb5c2be5c46f8176ccb61e0019ed357381911",
+  "scope": "Planning only; no test or owner assignment has been executed",
+  "owners": {
+    "electrical": "Electrical lead",
+    "mechanical": "Mechanical lead",
+    "sensors": "Sensor/metrology lead",
+    "growing": "Growing/agronomy lead",
+    "camera_ml": "Camera/ML lead",
+    "security": "Security/network lead",
+    "data_retention": "Data/retention owner",
+    "validation": "Validation/test lead"
+  },
+  "requirements": [
+    {
+      "id": "SR-PLT-01",
+      "objectives": [
+        "PO-1"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "GERM shall support six simultaneous plant positions. Each position shall accommodate a target plant canopy up to 300 mm above the plant deck and 150 mm in diameter while maintaining at least 75 mm clearance from the light source, camera window, walls, and door.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve six-position CAD/as-built envelope and measure clearances against the official metric.",
+      "required_evidence": "Dimensioned drawings, six-position measurements, instrument IDs and photographs.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Plant enclosure and lighting concept; performance test pending",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-PLT-02",
+      "objectives": [
+        "PO-1"
+      ],
+      "owner_group": "growing",
+      "proposed_accountable_role": "Growing/agronomy lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "During a 60-day basil or spearmint grow demonstration, at least five of six established seedlings shall remain viable and reach a minimum 150 mm canopy height or eight mature leaves, with no plant loss attributed to missed misting, overheating, or lighting failure.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve basil/spearmint protocol and run the separately authorized 60-day crop demonstration; record each plant and attribute losses from source logs.",
+      "required_evidence": "Six-position dated viability/height/leaf records, interventions, crop settings and fault/actuator history.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Plant enclosure and lighting concept; performance test pending",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Profiles/cycles only; 60-day biological survival/size demonstration absent",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-PLT-03",
+      "objectives": [
+        "PO-1",
+        "PO-5"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "All wetted structural materials, tubing, seals, and adhesives shall remain functional in nutrient solution from pH 5.5 to 7.5. A 30-day soak test shall produce no cracking, swelling greater than 2%, loss of seal, or visible corrosion that exposes the solution to aluminum.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve material/solution compatibility and a controlled 30-day soak procedure; measure dimensional changes and inspect seals/corrosion.",
+      "required_evidence": "Material lot/datasheets, pH log, before/after dimensions and inspection photographs.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Sink trade study",
+        "source_url": "https://docs.google.com/document/d/1KrFSyYj4lRRhA0491Kq96v89u7RZbU_X/edit",
+        "source_claim": "HDPE vacuum-formed sink; water-system verification open",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-PLT-04",
+      "objectives": [
+        "PO-1",
+        "PO-2"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "In a 10-minute water-collection test, each of the six root positions shall receive a collected mist volume within +/-20% of the six-position mean, and no position shall remain visibly dry.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve and execute a controlled six-position mist-collection test under electrical isolation/supervision appropriate to the procedure.",
+      "required_evidence": "Ten-minute collected volumes, calculated mean/deviations, dry-position observations and configuration.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Plant enclosure and lighting concept; performance test pending",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-WAT-01",
+      "objectives": [
+        "PO-2"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The internal water-recycling path shall recover and return at least 90% of the solution discharged during a 60-minute operating test, excluding measured solution retained in tubing and test collectors. No external leak greater than 5 mL shall occur.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve a measured collection/return test, accounting for retained tubing/collector solution separately.",
+      "required_evidence": "Discharge/return volumes, 60-minute duration, external leakage and balance calculation.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Sink trade study",
+        "source_url": "https://docs.google.com/document/d/1KrFSyYj4lRRhA0491Kq96v89u7RZbU_X/edit",
+        "source_claim": "HDPE vacuum-formed sink; water-system verification open",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-WAT-02",
+      "objectives": [
+        "PO-1",
+        "PO-2"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "All solution returning to the pump shall pass through a removable filter rated at 250 micrometers or finer. After 24 hours of representative mist cycling, nozzle flow shall remain within 90% of its initial value and no nozzle shall be blocked.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Verify filter rating/removability, then compare nozzle flow before and after the approved 24-hour cycling test.",
+      "required_evidence": "Filter specification, inspection, baseline/final flow per nozzle and blockage observations.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Sink trade study",
+        "source_url": "https://docs.google.com/document/d/1KrFSyYj4lRRhA0491Kq96v89u7RZbU_X/edit",
+        "source_claim": "HDPE vacuum-formed sink; water-system verification open",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-WAT-03",
+      "objectives": [
+        "PO-2"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Starting from the normal full level, the reservoir shall support at least 72 hours of the selected mist schedule with at least 20% usable volume remaining.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve the selected mist schedule and reservoir measurement method before the real 72-hour reserve demonstration.",
+      "required_evidence": "Initial/remaining usable volume, calibrated level/volume evidence, schedule, refill and fault logs.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/m9_endurance.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Sink trade study",
+        "source_url": "https://docs.google.com/document/d/1KrFSyYj4lRRhA0491Kq96v89u7RZbU_X/edit ",
+        "source_claim": "HDPE vacuum-formed sink; water-system verification open",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic schedules do not measure 72-hour reservoir reserve",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-LGT-01",
+      "objectives": [
+        "PO-1",
+        "PO-2"
+      ],
+      "owner_group": "growing",
+      "proposed_accountable_role": "Growing/agronomy lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "At the nominal canopy plane, the lighting system shall deliver photosynthetic photon flux density (400-700 nm) with a six-position average of 200-300 micromoles/m^2/s, no position below 150 micromoles/m^2/s, and minimum-to-average uniformity of at least 0.70. The default photoperiod shall be 16.0 +/-0.25 hours per day.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve horticultural settings and optical measurement procedure; map canopy PPFD at all six positions and measure actual photoperiod.",
+      "required_evidence": "Calibrated quantum-meter readings, geometry, average/minimum/uniformity and photoperiod logs.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "GERM LED Study",
+        "source_url": "https://docs.google.com/document/d/1uvaPLqgHF0nvT_mVMevF4jg3Uu-gu3bW/edit",
+        "source_claim": "RGBW LED voltage and relative-brightness bench study completed; PPFD performance remains unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic timing only; approved crop settings, PPFD and photoperiod measurement absent",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-ENV-01",
+      "objectives": [
+        "PO-2",
+        "PO-3"
+      ],
+      "owner_group": "sensors",
+      "proposed_accountable_role": "Sensor/metrology lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "A growth-zone temperature sensor shall measure air temperature at canopy level, not nutrient-solution or electronics temperature. It shall cover 10-40 deg C with accuracy of +/-2 deg C, update at least once per 60 seconds, and generate an alert if the measured air temperature remains outside 18-30 deg C for 5 minutes.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Confirm canopy-air sensor ownership/interface/location, calibrate across the range and verify update/fault/band-alarm timing with approved injected inputs.",
+      "required_evidence": "Reference calibration points/error, sample/receive/alert timestamps, location photos and approved policy.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Prototype architecture described; measured control/endurance evidence not linked",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "No approved canopy interface/calibration or five-minute thermal alarm acceptance",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-ENV-02",
+      "objectives": [
+        "PO-2",
+        "PO-3"
+      ],
+      "owner_group": "sensors",
+      "proposed_accountable_role": "Sensor/metrology lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "A growth-zone humidity sensor shall measure relative humidity of the air at canopy level. It shall cover 20-95% RH with accuracy of +/-5% RH, update at least once per 60 seconds, and generate an alert if RH remains outside 40-75% for 10 minutes.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Confirm canopy RH interface/location, calibrate across range and test approved sustained band excursions and update/fault handling.",
+      "required_evidence": "Reference RH/error data, cadence and ten-minute alert timing logs, approved policy and location.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Prototype architecture described; measured control/endurance evidence not linked",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "No approved RH interface/calibration or ten-minute band alarm acceptance",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-ENV-03",
+      "objectives": [
+        "PO-2",
+        "PO-5"
+      ],
+      "owner_group": "sensors",
+      "proposed_accountable_role": "Sensor/metrology lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "During a 4-hour worst-case load test at 25 +/-2 deg C ambient, the Raspberry Pi SoC shall remain below 75 deg C, electronics-bay air below 50 deg C, and every monitored component at least 10 deg C below its manufacturer maximum rating. If a normal limit is exceeded, software shall reduce nonessential high-power loads and issue an alert within 10 seconds.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve distinct Pi/electronics/component channels and supervised worst-case load/ambient procedure; verify warning/load-reduction behavior through M1.",
+      "required_evidence": "Four-hour ambient/component traces, manufacturer limits/margins and source-to-command/physical response timing.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Prototype architecture described; measured control/endurance evidence not linked",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Electronics sensor/thermal loads and independent cutoff unresolved; target load test absent",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-AUT-01",
+      "objectives": [
+        "PO-2"
+      ],
+      "owner_group": "validation",
+      "proposed_accountable_role": "Validation/test lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "GERM shall complete a 72-hour unattended endurance test while maintaining the programmed mist and light schedules, collecting required data, and avoiding manual reset or refill. No more than one noncritical warning and no uncontrolled shutdown shall occur.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve supervision, stop/escalation criteria and resources before a 72-real-hour continuous run; never splice restarts into a continuous pass.",
+      "required_evidence": "Real elapsed/UTC record, all schedule/data/warning/shutdown/refill/reset events and signed disposition.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/m9_endurance.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Prototype architecture described; measured control/endurance evidence not linked",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "72 accelerated synthetic hours are not 72 real elapsed hours or unattended physical endurance",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-AUT-02",
+      "objectives": [
+        "PO-2",
+        "PO-5"
+      ],
+      "owner_group": "validation",
+      "proposed_accountable_role": "Validation/test lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "On loss of input power, all actuators shall de-energize. After power is restored, GERM shall retain the active plant profile and stored data, complete startup checks within 2 minutes, and keep the pump off until door, water-level, leak, and emergency-stop states are safe.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve power-interruption procedure after independent electrical safeguards; measure de-energization, startup and retained intent with fresh interlocks and separate Start.",
+      "required_evidence": "Before/after data/profile hashes, measured startup duration, physical off evidence, fresh inputs and rejected stale confirmations.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m8.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Software inhibition/recovery only; electrical de-energization and target two-minute startup unverified",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-DAT-01",
+      "objectives": [
+        "PO-3"
+      ],
+      "owner_group": "data_retention",
+      "proposed_accountable_role": "Data/retention owner",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The primary database and ML inference pipeline shall operate locally on the Raspberry Pi using SQLite or an equivalently documented local store. Core sensing, control, HMI, and logging shall not require an internet connection.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve isolated Pi installation and local database/model runtime; distinguish internet loss from loss of local HMI service.",
+      "required_evidence": "Pinned release/dependencies, offline traces, local DB/model provenance and camera/ML owner signoff.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m8.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-3 database decision matrix",
+        "source_url": "https://docs.google.com/document/d/1NmsbTrIEN8ABuB3RRhkdGN3bonmMMyR3/edit",
+        "source_claim": "SO-3 selects SQLite in WAL mode on the Pi; local deployment and offline test remain unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Local synthetic contracts only; Pi installation and approved local model remain gated",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-DAT-02",
+      "objectives": [
+        "PO-3"
+      ],
+      "owner_group": "data_retention",
+      "proposed_accountable_role": "Data/retention owner",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "GERM shall retain at least 90 days of 5-minute environmental/operating records and at least one plant image per hour. When storage reaches 80% capacity, the system shall warn the user and automatically delete the oldest images only after preserving at least the most recent 30 days. Data shall be exportable as CSV plus image files.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Resolve 90-day records/hourly images versus image pruning/30-day horizon/active-experiment protections; approve capacity and fail-full policy before long runs. No deletion is authorized by this checklist.",
+      "required_evidence": "Signed precedence/retention decision, capacity forecast, warning/exhaustion tests, protected archive/export/backup inventory and separate authorization for any later deletion.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m7.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-2 database outline; SO-5 storage plan",
+        "source_url": "https://docs.google.com/document/d/1BYqpePrA7GVw6m5lS_Im-uvxjNZ21uw_/edit",
+        "source_claim": "Local SQLite schema and storage plan documented; integration unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Retention conflict unresolved: 90-day records/hourly images versus 80% cleanup preserving 30-day images; automatic deletion prohibited",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-DAT-03",
+      "objectives": [
+        "PO-3"
+      ],
+      "owner_group": "data_retention",
+      "proposed_accountable_role": "Data/retention owner",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Each record shall include timestamp, plant profile, growth-zone temperature, RH, electronics temperature, water-level state, pump state, light state, door state, active alarms, maintenance mode, and ML label/confidence when available. Missing scheduled records shall be below 1% during the 72-hour endurance test.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve acquisition/record cadence, units and provenance joins; audit all required fields and missing-record fraction over the real endurance run.",
+      "required_evidence": "Scheduled-versus-durable counts, UTC/clock provenance, quality flags, image/model joins and request/ACK/physical evidence distinction.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/m9_endurance.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-2 database outline; SO-5 storage plan",
+        "source_url": "https://docs.google.com/document/d/1BYqpePrA7GVw6m5lS_Im-uvxjNZ21uw_/edit",
+        "source_claim": "Local SQLite schema and storage plan documented; integration unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic provenance/records only; physical cadence/missing-record rate and unavailable inputs require target evidence",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-UI-01",
+      "objectives": [
+        "PO-4"
+      ],
+      "owner_group": "validation",
+      "proposed_accountable_role": "Validation/test lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "In a usability test, at least four of five users who have not previously operated GERM shall, after no more than a 5-minute orientation, select a plant profile, start a grow cycle, enter maintenance mode, identify an active alarm, and return to the status screen within 5 minutes with no critical error and no more than one noncritical error.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve novice protocol and privacy/observation consent; test five new users with the specified orientation/tasks/time/error scoring.",
+      "required_evidence": "Per-user timings, orientation duration, critical/noncritical errors and independently scored success counts.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/browser_m9.cjs"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-4 UI architecture",
+        "source_url": "https://docs.google.com/document/d/1PiAVi72BTXKkeYlc8-MMnK3NDEjJBUZF/edit",
+        "source_claim": "Local touchscreen web UI architecture documented; live usability evidence unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Five novice users/orientation/task timing/error acceptance not performed",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-UI-02",
+      "objectives": [
+        "PO-3",
+        "PO-4"
+      ],
+      "owner_group": "validation",
+      "proposed_accountable_role": "Validation/test lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The primary status screen shall display current growth-zone temperature and RH, electronics temperature, reservoir/low-water state, pump and light state, light schedule, selected plant profile, grow-cycle day, live plant image, latest ML result and confidence, active alarms, and date of last maintenance. Values shall refresh within 2 seconds of new data.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Verify all primary-screen fields on the actual 739×447 display; measure source-update-to-DOM latency and stale/unavailable/degraded behavior.",
+      "required_evidence": "Timestamped source/API/DOM traces, screenshots, measured refresh latency, touch/keyboard observations and physical reading references.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/browser_m9.cjs"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-4 UI architecture",
+        "source_url": "https://docs.google.com/document/d/1PiAVi72BTXKkeYlc8-MMnK3NDEjJBUZF/edit",
+        "source_claim": "Local touchscreen web UI architecture documented; live usability evidence unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic UI only; physical readings, target refresh latency and touch usability unverified",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-UI-03",
+      "objectives": [
+        "PO-4"
+      ],
+      "owner_group": "validation",
+      "proposed_accountable_role": "Validation/test lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The local touchscreen shall provide preloaded basil and spearmint profiles and controls for Start, Pause, Maintenance, and Safe Manual Test. Any command that energizes the pump after a stop or maintenance state shall require explicit confirmation.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Review approved crop settings and exercise profile/Start/Pause/Maintenance/Safe Manual Test with confirmation rejection/restart checks.",
+      "required_evidence": "Operator sequence, API/event/ACK traces, separate physical observations and rejected missing/stale confirmation cases.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-4 UI architecture",
+        "source_url": "https://docs.google.com/document/d/1PiAVi72BTXKkeYlc8-MMnK3NDEjJBUZF/edit",
+        "source_claim": "Local touchscreen web UI architecture documented; live usability evidence unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Host confirmations/profiles only; crop timings and physical controls require approval",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-ML-01",
+      "objectives": [
+        "PO-3"
+      ],
+      "owner_group": "camera_ml",
+      "proposed_accountable_role": "Camera/ML lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Plant-health inference shall execute locally using TensorFlow Lite, Edge Impulse, or another documented edge-runtime. Model storage shall not exceed 250 MB, and one image shall be processed and displayed within 10 seconds without internet access.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve local runtime/model artifact and its hash/licensing; measure size and real Pi inference/display latency offline. No model download is authorized now.",
+      "required_evidence": "Approved manifest/artifact hashes, runtime/dependency bill, measured storage and end-to-end latency distribution.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m5.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-6 ML library decision matrix",
+        "source_url": "https://docs.google.com/document/d/11RuGS3S32BPAfT6P_Wbixjz1ddONstpf/edit",
+        "source_claim": "SO-6 selects TensorFlow/Keras training, Edge-MDT conversion and IMX500 local inference; implementation unverified",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic adapter only; approved model/runtime, target size and ten-second performance absent",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-ML-02",
+      "objectives": [
+        "PO-3"
+      ],
+      "owner_group": "camera_ml",
+      "proposed_accountable_role": "Camera/ML lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "On a held-out test set captured under GERM-like lighting and camera geometry for the target plant species, the model shall achieve balanced accuracy of at least 85%, unhealthy-plant recall of at least 90%, and macro F1 score of at least 0.85. The test set shall contain at least 50 unique images per class and no source image may appear in both training and test sets.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve held-out GERM-like dataset and no-leakage split; evaluate every required metric/sample count without training/test overlap.",
+      "required_evidence": "Unique-image/class counts, dataset provenance/split hashes, confusion matrix, balanced accuracy/recall/F1 and reviewer approval.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m5.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-1 ML data plan",
+        "source_url": "https://docs.google.com/document/d/1Jnv2AMoiUI_XdBpeCJv1m9QI9QGz7iWp/edit",
+        "source_claim": "Training and library plans documented; validation not shown",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "No approved model, held-out dataset, measured accuracy/recall/F1 or leakage audit",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-ML-03",
+      "objectives": [
+        "PO-3",
+        "PO-4"
+      ],
+      "owner_group": "camera_ml",
+      "proposed_accountable_role": "Camera/ML lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Predictions below 0.70 confidence shall be displayed as “Uncertain,” not as a diagnosis. An abnormal-health alert shall require two consecutive abnormal results unless a separately documented severe condition is detected. Each result shall store the image, confidence, class, and model version.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve real labels/normal-abnormal policy and any severe-condition exception; test uncertainty threshold and consecutive-result logic with persisted image/model provenance.",
+      "required_evidence": "Boundary-confidence cases, two-result/reset sequences, reviewed policy/version and durable image/inference/event joins.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m5.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "SO-1 ML data plan",
+        "source_url": "https://docs.google.com/document/d/1Jnv2AMoiUI_XdBpeCJv1m9QI9QGz7iWp/edit",
+        "source_claim": "Training and library plans documented; validation not shown",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Rules tested for reviewed synthetic labels only; plant classifications/models remain unapproved",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-NET-01",
+      "objectives": [
+        "PO-2",
+        "PO-3"
+      ],
+      "owner_group": "security",
+      "proposed_accountable_role": "Security/network lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Loss of internet connectivity shall not interrupt local control, HMI, ML, or logging. When a network is available, critical alarms shall be delivered to the configured remote channel within 5 minutes; during an outage, alarms shall be queued locally and marked unsent.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve network/authentication/remote channel and implement/review currently missing remote delivery/unsent behavior before this SR can pass; separately test offline local functions.",
+      "required_evidence": "Outage/delivery timing, durable unsent/retry receipts, destination approval and no unauthorized exposure or command replay.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m8.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline",
+        "source_url": "https://docs.google.com/document/d/1lAPZWoPScAPcV_cnvQ5dfAYOZT2jQjR1/edit",
+        "source_claim": "Prototype architecture described; measured control/endurance evidence not linked",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Offline host only; remote channel delivery/unsent alarm queue not implemented or authorized",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-01",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "electrical",
+      "proposed_accountable_role": "Electrical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "GERM shall include a readily accessible, latching red mushroom emergency-stop device. Actuation shall remove power from the pump, grow lights, Peltier device, and other high-power actuators within 1 second. Resetting the device shall not restart equipment until a separate user start command is given.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve independent E-stop wiring/reset circuit and a qualified measured cutoff test before any hazardous load commissioning.",
+      "required_evidence": "As-built circuit, calibrated physical cutoff timing, latch/reset/no-restart observations and signed electrical review.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Reporting/latching only; physical E-stop removal within one second requires electrical verification",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-02",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "electrical",
+      "proposed_accountable_role": "Electrical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Opening the front access panel shall stop the pump and mist generation within 0.5 seconds. The pump shall remain inhibited until the panel is closed and the user explicitly resumes operation.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Confirm door circuit, polarity and independent/specified cutoff path; measure pump/mist stop and explicit-resume behavior.",
+      "required_evidence": "Continuity/interface record, physical cutoff timing, fresh door-state logs and no automatic restart evidence.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Normalized synthetic door only; wiring/polarity and 0.5-second pump cutoff unverified",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-03",
+      "objectives": [
+        "PO-4",
+        "PO-5"
+      ],
+      "owner_group": "validation",
+      "proposed_accountable_role": "Validation/test lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Maintenance mode shall inhibit all automatic pump starts and other hazardous automatic motion/actuation, display a persistent “MAINTENANCE - OUTPUTS INHIBITED” state, and require user confirmation to exit.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve hazard-specific maintenance inhibition policy with electrical/software owners; verify persistent banner and confirmed exit without load resumption.",
+      "required_evidence": "All automatic entry-path attempts, event/API/ACK records, physical off observations and cancellation/restart cases.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic maintenance boundary only; hazardous physical loads and human confirmation acceptance remain open",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-04",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "electrical",
+      "proposed_accountable_role": "Electrical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "An independent hardware thermal cutoff, not dependent on Raspberry Pi or Arduino software, shall de-energize pump, lighting, and thermoelectric loads if electronics-bay air reaches 60 +/-5 deg C. It shall require manual reset after temperature falls below 50 deg C.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve independent thermal cutoff and controlled calibrated trip/reset test; software cannot substitute for this circuit.",
+      "required_evidence": "Circuit/component evidence, measured trip/reset temperatures, physical de-energization and manual-reset record.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-05",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "electrical",
+      "proposed_accountable_role": "Electrical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Each DC power branch shall be protected by a fuse or resettable breaker rated no higher than 125% of the measured maximum normal branch current and below the current rating of every downstream conductor and connector.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Measure normal branch currents using an approved procedure and verify protection against every downstream conductor/connector rating.",
+      "required_evidence": "Branch schedule, measured maxima, fuse/breaker ratings, wiring/connector datasheets and qualified signoff.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-06",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "electrical",
+      "proposed_accountable_role": "Electrical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "All wiring and exposed electrical devices inside the wet zone shall operate at 24 VDC or less. AC mains and AC/DC power supplies shall remain in the dry electronics zone, and the complete system shall be supplied from a GFCI-protected outlet.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Inspect wet/dry zoning, supply voltages and GFCI protection under the approved electrical inspection procedure.",
+      "required_evidence": "As-built zoning/voltage records, supply/outlet ratings, inspection checklist and signed disposition.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-07",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "A leak sensor or equivalent detection method shall stop the pump within 2 seconds of detecting liquid outside the intended basin. In a 500 mL controlled spill test, no liquid shall contact energized electronics or escape the external containment boundary.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve leak/containment test jointly with electrical and sensor owners; controlled spill work remains separately gated.",
+      "required_evidence": "Containment/spill evidence, measured leak-to-pump-off timing, sensor polarity and dry-electronics observations.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Sink trade study",
+        "source_url": "https://docs.google.com/document/d/1KrFSyYj4lRRhA0491Kq96v89u7RZbU_X/edit",
+        "source_claim": "HDPE vacuum-formed sink; water-system verification open",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Normalized leak inhibition only; two-second cutoff/500mL physical containment test absent",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-08",
+      "objectives": [
+        "PO-5"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Pump tubing, fittings, nozzles, and pressure-bearing seals shall be rated for at least 150 psi. The assembled plumbing shall withstand 125 psi for 10 minutes with no rupture, fitting movement, or leak greater than one drop per minute.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Verify pressure-bearing ratings and approve a guarded pressure-test procedure before testing the assembled plumbing.",
+      "required_evidence": "Manufacturer ratings, calibrated pressure/duration trace, joint movement/leak observations and signed test report.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-09",
+      "objectives": [
+        "PO-1",
+        "PO-5"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Wetted materials and sealants used with edible plants shall have manufacturer documentation supporting potable-water or food-contact use, or shall be isolated from the nutrient solution. Uncoated aluminum shall not be exposed to the recirculating solution.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Review all wetted materials/sealants against food/potable-water documentation and inspect aluminum isolation.",
+      "required_evidence": "Wetted BOM, manufacturer documents, isolation drawings and as-built inspection/photos.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-SAF-10",
+      "objectives": [
+        "PO-3",
+        "PO-5"
+      ],
+      "owner_group": "sensors",
+      "proposed_accountable_role": "Sensor/metrology lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "A failed, disconnected, or implausible temperature, humidity, water-level, leak, or door sensor shall be detected within two expected update periods. The UI shall identify the failed sensor, log the event, and place affected actuators in a documented conservative state.",
+      "official_source_status": "MISSING",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve each input interface/polarity/cadence and affected-actuator fallback; test missing/disconnected/implausible/stale/replayed inputs within the metric.",
+      "required_evidence": "Fault injection/timing matrix, named HMI faults, durable events, gateway rejection and independent physical response evidence.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m1.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Requirements baseline; electrical plan template",
+        "source_url": "https://docs.google.com/document/d/1O-zqvE07mhmx2L_eRHe6YgbJmrf5TX1X/edit",
+        "source_claim": "Safety target specified; completed interlocks and acceptance tests not evidenced",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Synthetic validation only; approved interfaces/policies, actuator fallback and target fault deadlines unresolved",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-MNT-01",
+      "objectives": [
+        "PO-4",
+        "PO-6"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The user maintenance schedule shall require an interior wipe-down and visual leak/film inspection no more frequently than once every 7 days. The task shall be completable by one user in 15 minutes or less.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve wipe-down/leak-film procedure and demonstrate interval/access/time with a representative operator.",
+      "required_evidence": "Maintenance schedule, elapsed task time, access/cleanliness observations and recorded maintenance transition.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Maintenance trace only; seven-day interval and 15-minute human task unverified",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-MNT-02",
+      "objectives": [
+        "PO-4",
+        "PO-6"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The filter, nozzles, reservoir, and drain path shall be inspected and cleaned every 14 days or sooner when flow falls below 90% of baseline. The complete task shall be possible in 30 minutes or less without removing the main frame.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve filter/nozzle/reservoir/drain inspection and flow-trigger procedure; measure service time without frame removal.",
+      "required_evidence": "Flow baseline/trigger, schedule, service timing, required tools/access photos and maintenance logs.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Maintenance trace only; flow baseline, 14-day interval and 30-minute service acceptance unverified",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-MNT-03",
+      "objectives": [
+        "PO-4",
+        "PO-6"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "A deep clean and nutrient-solution replacement shall be performed between crop cycles or every 90 days, whichever occurs first, and shall be completable in 60 minutes or less using the documented maintenance mode and assembly guide.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve between-cycle/deep-clean/solution-replacement process and measure safe completion using reviewed maintenance mode.",
+      "required_evidence": "Cleaning interval/procedure, elapsed time, solution/material handling and maintenance/restore-to-safe-state evidence.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/test_m4.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Maintenance trace only; cleaning procedure/90-day interval/60-minute acceptance unverified",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-MNT-04",
+      "objectives": [
+        "PO-4",
+        "PO-6"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "The pump, filter, fan, temperature/humidity sensor, camera, and any single nozzle shall each be replaceable in 30 minutes or less using common hand tools, without disassembling the primary aluminum frame.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Review replaceability procedure for each listed component and demonstrate timed common-tool access without primary-frame disassembly.",
+      "required_evidence": "Per-component task/tool/time records, drawings and before/after inspection.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-LIF-01",
+      "objectives": [
+        "PO-6"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "Selected components shall have manufacturer ratings or equivalent test evidence of at least: pump 1,000 operating hours; cooling fans 10,000 hours; horticultural LEDs 10,000 hours to 70% light output; door/interlock 1,000 cycles; tubing and seals 12 months in the specified nutrient-solution range.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Obtain component-specific manufacturer ratings or approved equivalent evidence; retain operating-cycle accounting.",
+      "required_evidence": "BOM-linked ratings/test reports for pump/fans/LEDs/interlock/tubing/seals and stated operating conditions.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-LIF-02",
+      "objectives": [
+        "PO-6"
+      ],
+      "owner_group": "growing",
+      "proposed_accountable_role": "Growing/agronomy lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "GERM shall complete one continuous 90-day grow-cycle simulation without replacement of the pump, fans, LEDs, controller, sensors, camera, tubing, basin, frame, or wiring. Filters, nutrient solution, and intentionally replaceable seals are consumables and may be serviced per the maintenance schedule.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Resolve and approve the required 90-day system grow-cycle simulation method, replacements/consumables and real versus accelerated duration interpretation. The 72-hour host run is insufficient.",
+      "required_evidence": "Approved protocol, complete elapsed/simulated-time declaration, replacement/intervention register and continuous system evidence.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [
+        "pi_hmi/tests/m9_endurance.py"
+      ],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "72-hour accelerated software run is not the required 90-day no-replacement system simulation",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    },
+    {
+      "id": "SR-LIF-03",
+      "objectives": [
+        "PO-6"
+      ],
+      "owner_group": "mechanical",
+      "proposed_accountable_role": "Mechanical lead",
+      "named_owner": "UNASSIGNED — human appointment required",
+      "official_wording": "With the specified maintenance and replacement of documented wear items, the GERM chassis, enclosure, basin, electrical architecture, and control platform shall have a design service life of at least 3 years or 12 crop cycles, whichever occurs first, with no structural failure or through-leak.",
+      "official_source_status": "PARTIAL",
+      "source_matrix": "M9_ACCEPTANCE_MATRIX.json",
+      "planned_action": "Approve service-life substantiation method and maintenance/wear-item assumptions rather than extrapolating a host run into years of physical life.",
+      "required_evidence": "Design calculations, material/component evidence, wear/maintenance assumptions and qualified three-year/12-cycle assessment.",
+      "prerequisites": [
+        "Controlled requirements/deviation approval",
+        "Named owner and signed test procedure",
+        "Applicable electrical/security/data/deployment gates in APPROVAL_GATES.md"
+      ],
+      "host_evidence": [],
+      "manual_source_claim": {
+        "source_title": "Mechanical assembly guide outline",
+        "source_url": "https://docs.google.com/document/d/1Hv_X2-kWQ29C977SBawAqrIQBOQlPiAg/edit",
+        "source_claim": "Service architecture and life targets specified; timed or life tests missing",
+        "independently_accepted": false
+      },
+      "remaining_host_gate": "Physical/material/service-life inspection or test required; software simulation does not establish this requirement",
+      "decision": "NOT PERFORMED — physical acceptance open",
+      "stop_condition": "Stop and isolate under the approved procedure on unsafe/unknown input, unexpected output, persistence failure, leakage/overheating, missing evidence or any exceeded limit; retain records and obtain reviewed recovery.",
+      "physical_accepted": false,
+      "requirements_approved": false,
+      "approval_record": null
+    }
+  ]
+}

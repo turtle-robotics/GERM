@@ -1,0 +1,13 @@
+# Integration CI stop: PR #11 main
+
+Observed 2026-11-17 UTC (2026-11-16 America/Chicago). Main `713800931a5926abd8c9c5d57669c124c54dac42` has the exact accepted M6 tree. [Run 43984868691](https://github.com/turtle-robotics/GERM/actions/runs/43984868691), host job 133710304106, failed in `browser_m4.cjs:62`: the unchanged 30000 ms wait for visible `#grow-summary` containing `paused` expired. Python checks through M6, JavaScript syntax, C++ and M1 browser passed; M5/M6 browser steps were skipped after the failure. This is not a passing full main campaign.
+
+Saved server output records Start workflow HTTP 200, then a later workflow POST HTTP 409 at 00:07:31 UTC. The retained start-debug records accepted/running Start, synthetic input, and buffered-not-durable logging. The old M4 fixture does not retain the failed Pause response body, client/DOM failure trace or concurrent SQLite activity. The 409 is consistent with the separately demonstrated stale Pause revision defect documented and corrected later in M9, but these artifacts cannot prove its exact cause. Do not equate it with the causally unresolved historical HTTP-200 timeout. REL-01 and REL-02 remain open.
+
+Artifact `14283749524` SHA-256 `e8b6fb8a98da001452480d720420cc65b36a994342d07642c85e833c01e80879` was independently downloaded and hash-verified; full CI log, artifact ZIP and per-member manifest are retained locally. GitHub artifact expires 2027-02-15. No failure was erased, deadline extended, assertion weakened, or failing workflow rerun.
+
+**Mandatory stop applied:** #5 through #11 are merged and source branches preserved. #12 through #14 remain open on their original feature bases, unretargeted and unmerged. No rollback occurred. The merge worker exited. Current main is an intermediate host-only M6 state, not completed M9 integration or a deployment candidate.
+
+**Required human disposition:** review the failure and decide whether to authorize a scoped repair/review at the intermediate baseline or a revised continuation procedure acknowledging that relevant fixes exist later in the reviewed M9 stack. This report does not authorize continuing through red CI. Do not simply rerun until green or silently skip the failed intermediate gate. A revert, changed source head, revised CI gate or resumption of the train requires explicit review under the user's stop rule.
+
+The separately authorized documentation PR is based on the unchanged accepted M9 feature branch so its diff contains documentation only, including readiness commit `551ff294afff39c2237bb7a2bd9ca4addb5109f8`. It must remain unmerged while the integration sequence is blocked. Pi backup/installation approval is independently pending; inventory only was performed.

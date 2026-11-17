@@ -1,0 +1,42 @@
+{
+  "run": 43984868691,
+  "zip_sha256": "e8b6fb8a98da001452480d720420cc65b36a994342d07642c85e833c01e80879",
+  "log_sha256": "29e84aaddf4c362ba6f832aa7cdb01b775195d27bf56e0100d5807704bf81c75",
+  "files": [
+    {
+      "path": "m1-browser/RESULTS.json",
+      "bytes": 399,
+      "sha256": "6756c87d17f2d56b637164ff176129cc0341fcb50e57641a0666eb349903f16a"
+    },
+    {
+      "path": "m1-browser/maintenance-controls.png",
+      "bytes": 115216,
+      "sha256": "6f984d807d3b3cfa924fbcc80d63b057b1118aace303915a17924bc64c6d568a"
+    },
+    {
+      "path": "m1-browser/server-output.txt",
+      "bytes": 5447,
+      "sha256": "f6f2bde4890fac63390d0c86ddcb73d5eaaf0094daa1c71d40671f977fb1d70d"
+    },
+    {
+      "path": "m4-browser/home-details.png",
+      "bytes": 124615,
+      "sha256": "fc6a97dafe7a6fc49a79ae43ee00bd446745b7e13d754a5533c27074282df759"
+    },
+    {
+      "path": "m4-browser/home-grow.png",
+      "bytes": 89308,
+      "sha256": "2335c2c58914d965fc68fd842e1a1f24a395a26a104eb4e76bf9d0fcec82f27c"
+    },
+    {
+      "path": "m4-browser/server-output.txt",
+      "bytes": 5217,
+      "sha256": "5204671289dd93a29e17ac7a2a7c945229a4bbd3e9fd490983c6d79df82b1382"
+    },
+    {
+      "path": "m4-browser/start-debug.json",
+      "bytes": 12575,
+      "sha256": "fa09a725f2bf11e09aa48d03d9132ebe786239921f103caf099d55aba0a214a3"
+    }
+  ]
+}

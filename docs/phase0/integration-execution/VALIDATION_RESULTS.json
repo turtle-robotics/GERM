@@ -1,0 +1,63 @@
+{
+  "validated_at_utc": "2026-11-16T23:34:04.173574+00:00",
+  "candidate": "415d1010649e8428d24f229bbff14f5d0fd139e4",
+  "candidate_tree": "77a3abdbbcacbdea0d1ab8a892ecb41c332a34d5",
+  "source_sha": "8027b9f5b424aa5fc226ea4c3897ee3e2fbfdab3",
+  "tree_matches_reviewed": true,
+  "host_report": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\integration-host-exact-bytes\\HOST_TEST_RESULTS.json",
+  "tracked_checks": 264,
+  "windows_symlink_skips": 2,
+  "prior_exact_tree_posix_ci_coverage": true,
+  "cpp_result": {
+    "timestamp_utc": "2026-11-16T23:27:01.116713+00:00",
+    "scope": "Host C++ execution of actual Arduino sketch through accepted mock Arduino I/O harness; no device or flashing",
+    "command": [
+      "wsl",
+      "-d",
+      "Ubuntu",
+      "--exec",
+      "python3",
+      "-"
+    ],
+    "exit_code": 0,
+    "head": "415d1010649e8428d24f229bbff14f5d0fd139e4",
+    "tree": "77a3abdbbcacbdea0d1ab8a892ecb41c332a34d5",
+    "log_sha256": "5894bc8797bba0d3d43c88004534483d90a6eb1f27c65677310543c1963c1cd1"
+  },
+  "browsers": {
+    "m1": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m1-browser\\RESULTS.json",
+      "sha256": "6756c87d17f2d56b637164ff176129cc0341fcb50e57641a0666eb349903f16a"
+    },
+    "m4": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m4-browser\\RESULTS.json",
+      "sha256": "71cfb5a72803f98c2b3895a47f72c0bdd998462e06fce04cd9739121e3c97e9b"
+    },
+    "m5": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m5-browser\\RESULTS.json",
+      "sha256": "e81d0cf1f2d54bdabea6ef95ca976554ec84ae1c76ec0ad4194eff29a0ddffa5"
+    },
+    "m6": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m6-browser\\RESULTS.json",
+      "sha256": "12b28781f893942118b12e32f071ba1ae6bef45a450f4a5e008cc0564efa315c"
+    },
+    "m7": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m7-browser\\RESULTS.json",
+      "sha256": "638a2d64ad14398c6dd3f2fff5a81bde7d54f3afbb8f6e979fca3788b9fe6ae0"
+    },
+    "m8": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m8-browser\\RESULTS.json",
+      "sha256": "e5415dba6fd41d1732bbeabbf2ef276681c4373a32b67e050ca0f8f637033bb7"
+    },
+    "m9": {
+      "result": "C:\\Users\\jorda\\.codex\\worktrees\\germ-integration-rehearsal\\GERM 2.0\\build\\m9-browser\\RESULTS.json",
+      "sha256": "59aef7aba9509444daa3e5c9c9b08d26bd0e8dff8e0b2e5ba76d0fb9bff64323"
+    }
+  },
+  "simulated_hours": 72,
+  "real_elapsed_seconds": 116.228921300004,
+  "original_hashes_verified": 15,
+  "original_worktree_untouched": true,
+  "initial_failure": "Raw JSON baseline line-ending conversion; exact accepted Git blob restored, no test/hash or source-tree changes; failure logs retained",
+  "rehearsal_branch_push": "Rejected by auto-review; not retried or published; local WSL compiler supplied actual C++ verification instead"
+}
