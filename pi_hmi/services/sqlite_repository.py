@@ -12,7 +12,7 @@ import time
 import uuid
 
 MIGRATIONS = Path(__file__).resolve().parents[1] / 'migrations'
-VERSION = 6
+VERSION = 7
 
 
 def utc(value):

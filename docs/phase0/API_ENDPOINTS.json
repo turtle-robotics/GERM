@@ -331,5 +331,59 @@
     "errors": "400 invalid body; 403 boundary/token; 423 UTC below persisted high-water; 503 storage/unavailable",
     "producer": "app.py / M5 media runtime",
     "consumer": "local HMI / host tests"
+  },
+  {
+    "path": "/api/history/<resource>",
+    "method": "GET",
+    "request": "experiment/start_utc/end_utc/type/sensor/search; limit 1\u2013500; bound opaque cursor",
+    "success": "200 bounded durable history, stable identity/time order, honest unknowns",
+    "errors": "400 filters/cursor; 503 storage/deadline",
+    "producer": "M6 history/export blueprint; unchanged host POST boundary",
+    "consumer": "Trends HMI / host tests"
+  },
+  {
+    "path": "/api/exports",
+    "method": "POST",
+    "request": "{request_id:UUID,definition:{resources,filters,strict_images}}; trusted host/token",
+    "success": "202 durable idempotent job receipt; queued != completed",
+    "errors": "400 input/conflict; 403 boundary; 503 busy/storage/quota",
+    "producer": "M6 history/export blueprint; unchanged host POST boundary",
+    "consumer": "Trends HMI / host tests"
+  },
+  {
+    "path": "/api/exports/<request_id>",
+    "method": "GET",
+    "request": "canonical UUID",
+    "success": "200 durable job/attempt/status; result only after committed completion",
+    "errors": "400 invalid ID; 404 unknown; 503 storage",
+    "producer": "M6 history/export blueprint; unchanged host POST boundary",
+    "consumer": "Trends HMI / host tests"
+  },
+  {
+    "path": "/api/exports/<request_id>/retry",
+    "method": "POST",
+    "request": "{retry:true}; trusted host/token; failed/interrupted only",
+    "success": "202 same ID, next exclusive attempt, maximum three",
+    "errors": "400 invalid retry; 403 boundary; 503 busy/storage/quota",
+    "producer": "M6 history/export blueprint; unchanged host POST boundary",
+    "consumer": "Trends HMI / host tests"
+  },
+  {
+    "path": "/api/exports/<request_id>/download",
+    "method": "GET",
+    "request": "canonical job UUID; no arbitrary paths",
+    "success": "200 verified ZIP, SHA256/status headers; partial explicitly labelled",
+    "errors": "400 incomplete/corrupt; 404 unknown; 503 missing/storage",
+    "producer": "M6 history/export blueprint; unchanged host POST boundary",
+    "consumer": "Trends HMI / host tests"
+  },
+  {
+    "path": "/api/history/images/<int:image_id>/file",
+    "method": "GET",
+    "request": "positive saved image ID; no physical acquisition",
+    "success": "200 saved JPEG verified against SQLite SHA/bytes/dimensions",
+    "errors": "400 unknown/corrupt metadata; 503 missing/unavailable",
+    "producer": "M6 scoped image verifier",
+    "consumer": "Trends saved image link"
   }
 ]

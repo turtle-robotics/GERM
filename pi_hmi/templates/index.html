@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GERM · {{ page|title }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='hmi.css') }}">
+  {% if page == 'trends' %}<link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">{% endif %}
 </head>
 <body data-page="{{ page }}" data-control-tab="{{ control_tab }}">
 <div class="shell">
@@ -97,11 +98,37 @@
       <section class="card"><h2>Host schedules · UTC</h2><form id="schedule-form"><label><input type="checkbox" id="light-enabled"> Enable lighting window</label><label>On (UTC) <input type="time" id="light-start" value="06:00" required></label><label>Off (UTC) <input type="time" id="light-end" value="18:00" required></label><label>RGB settings <input id="schedule-rgb" value="0,0,0" pattern="[0-9]+,[0-9]+,[0-9]+" required></label><label><input type="checkbox" id="mist-enabled"> Enable fixed 5 s pump pulse</label><label>Interval (seconds) <input type="number" id="mist-interval" min="10" max="86400" step="1" value="60" required></label><button id="save-schedules" type="submit" disabled>Save host schedules (cycle must be paused)</button></form><small>Displayed form values are editor examples, not approved crop settings. Disabled schedules never run. Saving does not start a cycle.</small><button id="recover-grow" disabled>Check storage / Recover paused</button><small id="grow-form-status" role="status"></small></section>
       <section class="card"><h2>Software and storage</h2><p id="settings-model">ML model: not configured</p><p>Camera/ML integration awaits M5.</p><p>Firmware, physical interfaces and production controls remain disabled.</p><a href="/firmware">Firmware restriction details</a><p>History retained; automatic deletion disabled.</p></section></div>
       {% endif %}
+      {% if page == 'trends' %}
+      <section class="card history-panel" aria-label="History and export">
+        <h2>Experiment history and export</h2>
+        <form id="history-form">
+          <label>Records <select id="history-resource">{% for resource in ['experiments','sensors','images','inference','actuators','maintenance','events'] %}<option value="{{ resource }}">{{ resource|capitalize }}</option>{% endfor %}</select></label>
+          <label>Experiment ID <input id="history-experiment" type="number" min="1" step="1"></label>
+          <label>From UTC <input id="history-start" placeholder="2026-11-15T00:00:00Z"></label>
+          <label>Until UTC (exclusive) <input id="history-end" placeholder="2026-11-16T00:00:00Z"></label>
+          <label>Exact type / quality <input id="history-type" maxlength="120"></label>
+          <label>Sensor ID (sensor records) <input id="history-sensor" maxlength="120"></label>
+          <label>Search text <input id="history-search" maxlength="120"></label>
+          <button type="submit">Search history</button>
+        </form>
+        <p id="history-status" role="status" aria-live="polite">History not loaded</p>
+        <div id="history-rows" tabindex="0" aria-label="History results"></div>
+        <button id="history-next" disabled>Next 100 records</button>
+        <p>Search again to include new records. Exports capture one point in time. Missing metadata remains unknown.</p>
+        <label><input id="export-strict" type="checkbox"> Fail archive if any selected image is unavailable</label>
+        <button id="export-history" {% if not simulation %}disabled{% endif %}>Export selected history as CSV + provenance ZIP</button>
+        <button id="export-all" {% if not simulation %}disabled{% endif %}>Export all record types with current common filters</button>
+        <p id="export-status" role="status" aria-live="polite">Exports retain source history and files. No automatic deletion.</p>
+        <button id="export-retry" hidden {% if not simulation %}disabled{% endif %}>Retry interrupted or failed export</button>
+        <a id="export-download" hidden>Download verified archive</a>
+      </section>
+      {% endif %}
     </main>
   </div>
 </div>
 <dialog id="confirm-dialog"><h2>Confirm hardware command</h2><p id="confirm-message"></p><div class="dialog-actions"><button id="cancel-command">Cancel</button><button id="accept-command" class="primary">Send command</button></div></dialog>
 <script>const firmwareToken = {{ firmware_token | tojson }}; const controlToken = {{ control_token | tojson }};</script>
 <script src="{{ url_for('static', filename='hmi.js') }}"></script>
+{% if page == 'trends' %}<script src="{{ url_for('static', filename='history.js') }}"></script>{% endif %}
 </body>
 </html>

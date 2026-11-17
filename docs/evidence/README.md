@@ -1,6 +1,6 @@
 # GERM implementation evidence index
 
-M5 correction evidence: [persisted clock-guard campaign](m5-correction/README.md), above the preserved original M5 package. [Conditional verdict](../phase0/M5_CONDITIONAL_REVIEW.md); final review remains pending. [M6 plan](../phase0/M6_PLAN.md) does not authorize implementation before that gate.
+M6: [history/export campaign](m6/README.md), under the [final M5 host-only acceptance and M6 authorization](../phase0/M5_FINAL_REVIEW.md). Earlier M5 correction/original evidence is preserved as historical review evidence. No physical or deployment acceptance is implied.
 
 Current M5: [capture/local-ML evidence](m5/README.md), [implementation/traceability](../phase0/M5_IMPLEMENTATION.md), [dependency register](../phase0/M5_DEPENDENCIES.md). Synthetic host milestone only; all earlier PRs remain unmerged and M6 is not started.
 
