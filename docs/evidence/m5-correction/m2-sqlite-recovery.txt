@@ -1,0 +1,18 @@
+test_backup_restore_reopen_and_never_overwrite (test_m2.RepositoryTests.test_backup_restore_reopen_and_never_overwrite) ... ok
+test_checkpoint_repeats_when_profile_changes_during_commit (test_m2.RepositoryTests.test_checkpoint_repeats_when_profile_changes_during_commit) ... ok
+test_empty_migration_repeat_pragmas_indexes_and_explicit_seed (test_m2.RepositoryTests.test_empty_migration_repeat_pragmas_indexes_and_explicit_seed) ... ok
+test_failed_restart_store_inhibits_and_safe_stop_ignores_slow_checkpoint (test_m2.RepositoryTests.test_failed_restart_store_inhibits_and_safe_stop_ignores_slow_checkpoint) ... ok
+test_future_checksum_and_corruption_are_rejected (test_m2.RepositoryTests.test_future_checksum_and_corruption_are_rejected) ... ok
+test_interrupted_upgrade_rolls_back_and_unknown_schema_is_not_repaired (test_m2.RepositoryTests.test_interrupted_upgrade_rolls_back_and_unknown_schema_is_not_repaired) ... ok
+test_lock_failure_is_visible_and_cannot_report_success (test_m2.RepositoryTests.test_lock_failure_is_visible_and_cannot_report_success) ... ok
+test_recovery_read_failure_is_visible_and_cannot_enable_start (test_m2.RepositoryTests.test_recovery_read_failure_is_visible_and_cannot_enable_start) ... ok
+test_recovery_restores_intent_but_never_permission_or_old_health (test_m2.RepositoryTests.test_recovery_restores_intent_but_never_permission_or_old_health) ... ok
+test_repository_reads_bounds_ack_and_parameterization (test_m2.RepositoryTests.test_repository_reads_bounds_ack_and_parameterization) ... ok
+test_restart_generation_cas_rejects_stale_writer (test_m2.RepositoryTests.test_restart_generation_cas_rejects_stale_writer) ... ok
+test_v1_upgrade_preserves_rows_and_verified_preupgrade_backup (test_m2.RepositoryTests.test_v1_upgrade_preserves_rows_and_verified_preupgrade_backup) ... ok
+test_validation_foreign_keys_and_image_metadata (test_m2.RepositoryTests.test_validation_foreign_keys_and_image_metadata) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 23.793s
+
+OK

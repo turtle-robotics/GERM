@@ -1,0 +1,55 @@
+# M5 / Task 123 — host camera capture and local ML
+
+Review update: [conditionally accepted at fb19b5a](M5_CONDITIONAL_REVIEW.md), with a required [persisted clock guard correction](M5_CLOCK_CORRECTION.md). Final acceptance remains pending. [M6 plan](M6_PLAN.md) is planning only; implementation remains gated.
+
+Version `m5-review-1`, 2026-11-16. Branch `codex/m5-camera-ml` starts at reviewed M4 `b4ea9398a9c1b57fc1c7a19993ad2d0c24f28b38` plus verdict record `1a7090d`. Separate PR targets `codex/m4-grow-hmi`; stack #5 → #6 → #7 → #8 → #9 → M5 remains unmerged. [M4 verdict](M4_REVIEW_VERDICT.md), [dependency register](M5_DEPENDENCIES.md), [provisional requirements](REQUIREMENTS_BASELINE.json). No M6 work, deployment or hardware approval is implied.
+
+## Ownership and deterministic captures
+
+`CameraOwner` owns one explicitly injected synthetic adapter. A second owner of the same adapter is rejected; reads are serialized. Default owner has no adapter and returns unavailable. Legacy `Camera()` no longer imports/starts Picamera2 and requires an explicit synthetic injection; the existing simulator supplies one. Normal app startup does not install a media runtime or start workers/access a camera. Only an explicitly configured synthetic gateway with M3 event pipeline can install `MediaRuntime`.
+
+A frozen Frame contains exact JPEG bytes, UTC source time, sequence and synthetic provenance. Full bounded JPEG verification/decode supplies dimensions; size and SHA-256 describe the bytes saved unchanged. Future/stale/corrupt/unavailable samples cannot become captured images or a camera placeholder. The default five-second camera age is an injectable **host guard**, not a physical sensor calibration. Frames/images in all tests and screenshots are visibly synthetic.
+
+Capture claims bind canonical UUID request ID to active M4 experiment, optional plant belonging to that experiment, reason and scheduled slot. No active experiment is guessed; a plant can remain explicitly unassigned. Duplicate claims with matching content reuse prior records, never read another frame. A conflicting ID/linkage is rejected. Metadata is committed before file writing, including exact hash/dimensions/size/source time and deterministic owned stage/final paths.
+
+Stage files are exclusively created, written, flushed and fsynced. Windows uses its exclusive rename semantics to finalize; POSIX uses exclusive hard-link publication and retains the stage link. Existing final content is never overwritten. File/SQLite operations cannot form one cross-resource transaction, so the journal closes that recovery gap: complete verified stages/finals can be indexed after restart; absent-frame claims become interrupted; partial/corrupt/path-mismatched artifacts require review. No new frame is silently acquired to replace an interrupted request. Unowned JPEG/part files are reported and preserved without guessed provenance or indexing. Scans are bounded to 1000 journal candidates/files per recovery call; filesystem scan truncation is explicit. This is not a validated power-cut guarantee or full backup/image archive implementation.
+
+Image row, request→image linkage and a stable event envelope in `media_outbox` commit in one M2 transaction. Failed writes roll back the image/link/outbox together. The outbox feeds the existing M3 queue and is marked committed only after the exact event ID is acknowledged in `system_events`. Queue/process loss cannot erase an already committed media outbox record; retry is idempotent. Failure events still use M3's ordinary buffered queue, while request/job failure state is recorded when storage permits. SQL commit, file availability and event commit remain distinct facts.
+
+Every M5 indexed image read/inference revalidates path, bytes/hash/dimensions. Partial/unowned files are not served. Indexed metadata is retained if a file later goes missing/corrupt; HTTP returns unavailable instead of a substitute image. The latest image is checked in status; older records are explicitly not checked until read. Root paths must stay inside an explicit host workspace; no user-supplied model/file path is accepted by HTTP.
+
+## Capture scheduling
+
+Scheduling is disabled until explicitly configured. Persisted UTC anchor, generation and interval (host range 60–86400 s, hourly fixture = 3600 s) determine deterministic occurrence UUIDs, also bound to experiment. Repeated/concurrent ticks and restart reuse the same claim. Slots more than five seconds late are recorded missed; downtime is not replayed in a burst. Only the current slot can acquire one frame. No active experiment means no capture. Capture is independent of actuator scheduling and may run during a paused/maintenance experiment; it never grants permissions or sends actuator commands. It does not automatically run inference. The M5 correction persists a rollback fault and high-water: time recovery alone cannot resume. An explicit acknowledgement after UTC catches up waits for a strictly later slot, preserving anchor/generation/claims; details and pending review are in [clock correction](M5_CLOCK_CORRECTION.md). Target clock/supervision and physical acceptance remain open.
+
+## Local model contract and rules
+
+`ModelManifest` freezes version, artifact SHA-256, labels and explicit RGB/uint8/HWC/stretch input requirements; its canonical hash is stored with every job/result. The local artifact must be within the host workspace, bounded and hash-correct at installation and before inference. Registry content must match its digest. M5 supplies no plant weights or model runtime package: the only executable adapter is an explicit synthetic contract fixture backed by a text artifact saying NOT PLANT MODEL WEIGHTS. No download, accuracy claim or plant diagnosis is made.
+
+Only an injected reviewed classification policy can map labels to normal/abnormal; otherwise even a high score displays uncertain. Supported review references are explicitly synthetic-fixture-only. A complete finite probability vector must match manifest labels, sum to one and agree with the maximum-score label. Confidence **below 0.70** is uncertain. At/above 0.70, a mapped abnormal classification counts only for distinct images with increasing capture times in the same experiment/plant/model/policy group. Normal, uncertain, failed/interrupted/timed-out or non-monotonic input breaks the streak. A second consecutive reviewed synthetic abnormal result sets a stored `alert_eligible` test signal; it does not create a plant-health diagnosis, actuator action or remote notification.
+
+The local service permits one in-flight call per adapter/service and rejects duplicate owners. A daemon worker has a finite host timeout (default 1 s, configurable up to 10 s). After timeout the late worker cannot touch SQLite; further requests remain busy until it exits, so hung adapters do not spawn unbounded workers. Jobs and results are idempotent for image + manifest + policy; a previously failed/interrupted request is not automatically retried. A new capture or reviewed model/policy version is needed for a new analysis identity. New-process recovery marks running jobs interrupted and never reruns them. This tests lifecycle containment, not a hardened sandbox or target model runtime/latency acceptance.
+
+Inference record, streak/signal calculation, job completion and stable M3 outbox event commit atomically. Rollback reports no successful persistence. Model/version/policy changes cannot combine streaks. Old results are timestamped and marked historical/stale after the host display-age limit or when model/policy differs; errors/timeouts never silently present them as a current successful inference.
+
+## HMI and compatibility
+
+Existing seven screens/routes remain; M5 adds GET `/api/media`, POST `/api/camera/schedule`, `/api/ml/analyze` and `/api/media/recover`. Existing capture POST accepts optional UUID request ID and plant ID in M5. Model paths, weights, labels and review overrides are not HTTP inputs. The unchanged production mutation restriction/token applies to every new POST. [Catalog](API_ENDPOINTS.json) and [50-row checklist](HMI_API_CHECKLIST.md) map all actions.
+
+Plant/Home preview displays source/freshness and never substitutes a saved image for a stale/unavailable live source. Capture view shows exact UTC, age, dimensions, byte size, SHA, linkage and separate trace status. Analysis is blocked while a new capture is completing, preventing accidental analysis of the previous image. ML displays uncertain results, explicit synthetic scope, model/hash/review status, historical/error state and confidence labelled as confidence (not accuracy). Saved images remain historical data with their own age; unavailable files hide their preview and retain metadata/error text. Capture scheduling/recovery controls are host-only. Legacy standalone capture helper signatures remain for existing fixtures, with decoded dimensions/size instead of hard-coded metadata; new HMI capture controls require the journaled M5 runtime.
+
+## Evidence / requirement traceability
+
+`test_m5.py` adds capture/model/HTTP fault tests and reuses M1/M4 clocks, services, SQLite fixtures and synthetic adapters. `browser_m5.cjs` drives real Flask/SQLite/camera-owner/capture-journal/local-inference/outbox services with no physical devices. CI runs all prior Python suites, actual-sketch C++ and M1/M4/M5 Chromium flows. Exact logs, source hashes, package versions, screenshots and CI readback are in `docs/evidence/m5/`.
+
+| Requirement / contract | Host evidence | Remaining gate |
+| --- | --- | --- |
+| Task 123 / SO-2/4/5 | Single owner, exact metadata/FKs, stage/index rollback, interruption/duplicate/orphan/reopen tests | Physical camera/calibration, image quality and target filesystem/power-cut campaign |
+| SR-DAT-01 | Local JPEG/SQLite/inference contracts without network dependency | Approved actual model/runtime and target offline endurance |
+| SR-DAT-02/03 | Configurable hourly fixture, occurrence dedup/no burst, active experiment/optional plant linkage | Approved capture/record cadence, 72 h completeness and unresolved retention/archive/export policy |
+| SR-ML-01 | Manifest/hash/input/runtime/timeout contract and explicit unavailable/error states | Real weights/license/runtime, model size and target <=10 s performance |
+| SR-ML-02 | No accuracy claim from synthetic adapters | Reviewed held-out dataset/provenance, class balance/leakage and accuracy/recall/F1 campaign |
+| SR-ML-03 | <0.70 uncertain, reviewed fixture-only two-consecutive rule, model/image/hash linkage | Real classification mapping/calibration and plant-alert review |
+| SR-UI-02 / Tasks 129/130 compatibility | Honest age, source, image/model/error/stale/queue/commit state; prior workflow/browser suites | Target <=2 s/novice and physical acceptance |
+
+All 15 original hashes/untracked work remain preserved. PRs remain unmerged. No physical camera, model download, firmware, live actuator, production-control enablement, deployment, history deletion or Gantt update occurred. **Return for M5 review before M6.**

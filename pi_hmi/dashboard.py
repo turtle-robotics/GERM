@@ -1,6 +1,7 @@
 """HMI screens and read APIs; storage and ML implementations are injected below."""
 
 from flask import Blueprint, Response, current_app, jsonify, render_template, request, send_from_directory
+import uuid
 
 from services.camera_service import IMAGE_ROOT, latest_local_manual_capture, save_manual_capture
 from services.database_service import repository
@@ -14,6 +15,7 @@ def create_dashboard(camera, requested_states):
     latest_manual_capture = {"image": latest_local_manual_capture()}
 
     def storage():
+        if get_gateway().media_service is not None:return get_gateway().media_service.repo
         service=get_gateway().grow_service
         return service.repo if service is not None else repository
 
@@ -41,8 +43,13 @@ def create_dashboard(camera, requested_states):
         operating = get_gateway().state.snapshot()
         arduino = operating['controller_connected']
         packet = operating['controller_feedback']
+        media=get_gateway().media_service
+        media_state=None
+        if media:
+            try:media_state=media.snapshot()
+            except Exception:media_state={'camera':{'state':'error'},'ml':{'state':'error','latest_result':None,'model':None},'error':'Media persistence unavailable'}
         owner = camera_owner()
-        camera_ready = owner is not None and owner.get_frame() is not None
+        camera_ready = media_state['camera']['state']=='ready' if media_state else owner is not None and owner.get_frame() is not None
         database_state = storage().status
         ml_state = ml_service.status
         try:
@@ -51,8 +58,9 @@ def create_dashboard(camera, requested_states):
             current_app.logger.exception("Alert read failed")
             alerts, database_state = [], "error"
         try:
-            latest_ml = ml_service.get_latest_result()
-            model_info = ml_service.get_model_info()
+            latest_ml = media_state['ml']['latest_result'] if media_state else ml_service.get_latest_result()
+            model_info = media_state['ml']['model'] if media_state else ml_service.get_model_info()
+            if media_state:ml_state=media_state['ml']['state']
         except Exception:
             current_app.logger.exception("ML status read failed")
             latest_ml, model_info, ml_state = None, None, "error"
@@ -63,6 +71,7 @@ def create_dashboard(camera, requested_states):
         highest=max(alerts,key=lambda a:({'critical':3,'warning':2,'info':1}.get(a['severity'],0),a['timestamp_utc'])) if alerts and database_state=='ready' else None
         return jsonify({
             "grow": grow,
+            "media":media_state or {'state':'not_configured'},
             "data_scope": "simulation" if current_app.config.get('GERM_SIMULATION') else "restricted",
             "system_state": operating['system_state'],
             "operating_state": operating,
@@ -75,7 +84,7 @@ def create_dashboard(camera, requested_states):
             "arduino": {"state": "connected" if arduino else "unavailable",
                         "packet": readings["arduino_a0"]},
             "sensors": readings,
-            "camera": {"state": "ready" if camera_ready else "unavailable"},
+            "camera": media_state['camera'] if media_state else {"state": "ready" if camera_ready else "unavailable"},
             "database": {"state": database_state},
             "ml": {"state": ml_state,
                    "latest_result": latest_ml,
@@ -122,12 +131,31 @@ def create_dashboard(camera, requested_states):
 
     @ui.get("/api/captures")
     def captures():
+        if get_gateway().media_service:
+            media=get_gateway().media_service
+            try:
+                recent=media.repo.get_recent_images()
+                for image in recent:image.update(indexed=True,url='/captures/'+image['file_path'])
+                return jsonify(state=media.repo.status,recent=recent,latest_manual=next((i for i in recent if i['capture_reason']=='manual'),None))
+            except Exception:return jsonify(state='error',recent=None,latest_manual=None),503
         return jsonify({"state": storage().status,
                         "recent": storage().get_recent_images(),
                         "latest_manual": latest_manual_capture["image"]})
 
     @ui.post("/api/camera/capture")
     def manual_capture():
+        if get_gateway().media_service:
+            media=get_gateway().media_service
+            data=request.get_json(silent=True)
+            if data is None:
+                if request.content_length:return jsonify(error='Expected JSON object'),400
+                data={}
+            if not isinstance(data,dict) or set(data)-{'request_id','plant_id'}:return jsonify(error='Expected optional request_id/plant_id'),400
+            try:
+                result=media.captures.capture(data.get('request_id',str(uuid.uuid4())),plant_id=data.get('plant_id'))
+                return jsonify(ok=result.get('indexed') is True,**result),201 if result.get('indexed') else 503
+            except (ValueError,TypeError) as exc:return jsonify(ok=False,error=str(exc)),400
+            except Exception:return jsonify(ok=False,error='Capture unavailable; indexing not acknowledged; files retained for recovery'),503
         owner = camera_owner()
         frame = owner.get_frame() if owner is not None else None
         if frame is None:
@@ -150,6 +178,12 @@ def create_dashboard(camera, requested_states):
 
     @ui.get("/captures/<path:relative_path>")
     def captured_image(relative_path):
+        if get_gateway().media_service:
+            try:
+                media=get_gateway().media_service
+                image=media.repo.image_by_path(relative_path)
+                return Response(media.captures.verify(image),mimetype='image/jpeg',headers={'Cache-Control':'no-store','X-GERM-Source':'synthetic'})
+            except Exception:return Response('Indexed image unavailable or integrity check failed\n',status=404,mimetype='text/plain')
         return send_from_directory(IMAGE_ROOT, relative_path)
 
     return ui

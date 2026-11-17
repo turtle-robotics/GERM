@@ -1,0 +1,15 @@
+test_all_screen_fields_and_actual_endpoint_references_are_grounded (test_m0.ChecklistContractTests.test_all_screen_fields_and_actual_endpoint_references_are_grounded) ... ok
+test_provisional_requirements_preserve_all_forty_official_rows (test_m0.ChecklistContractTests.test_provisional_requirements_preserve_all_forty_official_rows) ... ok
+test_bundled_showcase_only_changes_startup_default (test_m0.SimulatorContractTests.test_bundled_showcase_only_changes_startup_default) ... ok
+test_invalid_pwm_does_not_change_output_or_extend_watchdog (test_m0.SimulatorContractTests.test_invalid_pwm_does_not_change_output_or_extend_watchdog) ... ok
+test_led_white_rejection_preserves_rgb_and_mode (test_m0.SimulatorContractTests.test_led_white_rejection_preserves_rgb_and_mode) ... ok
+test_pwm_requests_and_reported_state_match_candidate (test_m0.SimulatorContractTests.test_pwm_requests_and_reported_state_match_candidate) ... ok
+test_real_bridge_accepts_simulator_ack_without_opening_serial (test_m0.SimulatorContractTests.test_real_bridge_accepts_simulator_ack_without_opening_serial) ... ok
+test_shorter_pulse_shortens_existing_run (test_m0.SimulatorContractTests.test_shorter_pulse_shortens_existing_run) ... ok
+test_status_does_not_extend_pump_limit_or_on_reset_timer (test_m0.SimulatorContractTests.test_status_does_not_extend_pump_limit_or_on_reset_timer) ... ok
+test_watchdog_and_stop_clear_all_reported_outputs (test_m0.SimulatorContractTests.test_watchdog_and_stop_clear_all_reported_outputs) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.039s
+
+OK

@@ -5,3 +5,4 @@ pyserial==3.5
 Adafruit-Blinka==9.0.4
 adafruit-circuitpython-dht==4.0.11
 opencv-python==4.13.0.92
+Pillow==13.0.0

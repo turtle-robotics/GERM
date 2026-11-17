@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "scope": "Synthetic frames/contract model only; no real plant model",
+  "viewport": "739x447",
+  "pageErrors": [],
+  "checks": [
+    "synthetic camera label and plant linkage",
+    "exact JPEG metadata and indexed file view",
+    "low confidence uncertain",
+    "two reviewed fixture abnormal classifications only",
+    "queued/committed outbox display",
+    "hourly schedule configuration and recovery",
+    "stale camera hides preview and denies capture",
+    "unavailable model disables analysis",
+    "no placeholder/plant diagnosis"
+  ]
+}

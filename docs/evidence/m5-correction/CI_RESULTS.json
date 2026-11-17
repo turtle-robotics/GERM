@@ -1,0 +1,347 @@
+{
+  "head_sha": "8f59cc49e7e37696aff7f4d7180816bd67a00c15",
+  "scope": "Host-only Python / actual sketch C++ / M1, M4 and M5 synthetic Chromium browsers",
+  "runs": [
+    {
+      "id": 43833813391,
+      "url": "https://github.com/turtle-robotics/GERM/actions/runs/43833813391",
+      "head_sha": "8f59cc49e7e37696aff7f4d7180816bd67a00c15",
+      "jobs": [
+        {
+          "id": 133185337494,
+          "name": "host",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r tests/requirements-host.txt",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python check_integration.py",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_phase0.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m0.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m1.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m1_http.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m2.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m3.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m4.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m5.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m5_clock.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run g++ -std=c++11 tests/firmware_behavior.cpp -o /tmp/germ-firmware-test && /tmp/germ-firmware-test",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm install --prefix \"$RUNNER_TEMP/germ-browser\" playwright@1.62.1",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run \"$RUNNER_TEMP/germ-browser/node_modules/.bin/playwright\" install --with-deps chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run node tests/browser_checks.cjs",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run node tests/browser_m4.cjs",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run node tests/browser_m5.cjs",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 43833804255,
+      "url": "https://github.com/turtle-robotics/GERM/actions/runs/43833804255",
+      "head_sha": "8f59cc49e7e37696aff7f4d7180816bd67a00c15",
+      "jobs": [
+        {
+          "id": 133185309386,
+          "name": "host",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r tests/requirements-host.txt",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python check_integration.py",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_phase0.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m0.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m1.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m1_http.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m2.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m3.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m4.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m5.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m unittest discover -s tests -p 'test_m5_clock.py' -v",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run g++ -std=c++11 tests/firmware_behavior.cpp -o /tmp/germ-firmware-test && /tmp/germ-firmware-test",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm install --prefix \"$RUNNER_TEMP/germ-browser\" playwright@1.62.1",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run \"$RUNNER_TEMP/germ-browser/node_modules/.bin/playwright\" install --with-deps chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run node tests/browser_checks.cjs",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run node tests/browser_m4.cjs",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run node tests/browser_m5.cjs",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pr_stack_at_implementation": [
+    {
+      "number": 5,
+      "state": "open",
+      "merged": false,
+      "base": "main",
+      "head": "d93b7bbdff5d5c319d1bd2a8b0f4e1425e22620c",
+      "mergeable": true
+    },
+    {
+      "number": 6,
+      "state": "open",
+      "merged": false,
+      "base": "codex/m0-contract-reconciliation",
+      "head": "3951173ca087c1ce3bfc18526bbec05f97021a05",
+      "mergeable": true
+    },
+    {
+      "number": 7,
+      "state": "open",
+      "merged": false,
+      "base": "codex/m1-state-permissions",
+      "head": "07a367b52c10d940e757bb593ad9f1e6eae52e44",
+      "mergeable": true
+    },
+    {
+      "number": 8,
+      "state": "open",
+      "merged": false,
+      "base": "codex/m2-sqlite-recovery",
+      "head": "cc052957e8761cda3d848eed3cec4e5b0d60f38b",
+      "mergeable": true
+    },
+    {
+      "number": 9,
+      "state": "open",
+      "merged": false,
+      "base": "codex/m3-durable-events",
+      "head": "1a7090d7c3cc5daf0ac002f74250dba5efdb66e4",
+      "mergeable": true
+    },
+    {
+      "number": 10,
+      "state": "open",
+      "merged": false,
+      "base": "codex/m4-grow-hmi",
+      "head": "f2e42e3fd032ee17456639045951307a85fc1e18",
+      "mergeable": true
+    }
+  ],
+  "review_status": "M5 conditional acceptance recorded; correction pending final review; M6 implementation gated"
+}

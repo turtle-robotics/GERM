@@ -249,7 +249,8 @@ if __name__ == "__main__":
     install_simulation_gateway(CommandGateway(StateManager(), SimulatedSerialAdapter()))
     hmi.app.config.update(GERM_SIMULATION=True, GERM_CONTROL_AUTHORIZER=lambda request: True)
     from camera import Camera
-    hmi.start_simulation_workers(Camera(), sys.modules['adafruit_dht'].DHT11('D4'))
+    from sim.media_fakes import SyntheticCamera
+    hmi.start_simulation_workers(Camera(SyntheticCamera()), sys.modules['adafruit_dht'].DHT11('D4'))
     print('SIMULATION ONLY: missing normalized interlocks/policies intentionally inhibit actuation')
     print("Simulated GERM HMI at http://localhost:5000")
     hmi.app.run(host="127.0.0.1", port=5000, debug=False, threaded=True)

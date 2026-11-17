@@ -5,11 +5,13 @@ import os
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+from services.image_validation import inspect_jpeg
 
 IMAGE_ROOT = Path(os.environ.get("GERM_IMAGE_ROOT", "/var/lib/germ/images"))
 
 
 def save_manual_capture(frame):
+    metadata=inspect_jpeg(frame)
     now = datetime.now(timezone.utc)
     relative = Path(now.strftime("%Y/%m/%d")) / f"manual_{now:%Y%m%dT%H%M%SZ}_{uuid.uuid4().hex[:8]}.jpg"
     target = IMAGE_ROOT / relative
@@ -18,7 +20,7 @@ def save_manual_capture(frame):
         output.write(frame)
     return {"file_path": relative.as_posix(), "timestamp_utc": now.isoformat(),
             "sha256": hashlib.sha256(frame).hexdigest(), "capture_reason": "manual",
-            "width_px": 640, "height_px": 480}
+            **metadata, "source":"legacy_injected_frame"}
 
 
 def latest_local_manual_capture():
