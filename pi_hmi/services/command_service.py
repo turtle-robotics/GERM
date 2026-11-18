@@ -100,7 +100,6 @@ class CommandGateway:
         self._authorities = {self.operator_authority: 'touchscreen', self.automatic_authority: 'automatic',
                              self.safety_authority: 'safety', self.service_authority: 'service'}
         self._stopped_generation = -1
-        self.restart_store = None
 
     def intent(self, action, payload=None, *, source='touchscreen', request_id=None,
                expected_state_revision=None, confirmation_id=None):
@@ -233,27 +232,6 @@ class CommandGateway:
                                 expires_in_s=self.ttl, description=intent.action + ': ' + intent.payload_json)
 
     def execute(self, intent, authority=None):
-        result = self._execute(intent, authority)
-        # Maintenance/safe-stop takes effect before optional bounded host I/O.
-        if self.restart_store is not None and intent.action in ('start','pause','enter_maintenance','exit_maintenance'):
-            durable = self.restart_store.checkpoint()
-            with self.state.lock:
-                unchanged = self.state.revision == result['state_revision']
-                current = self.state.snapshot()
-                blocking = [x for x in current['inhibits'] if x != 'restart_required']
-                # This resumes only the already-authorized confirmed start. A checkpoint
-                # alone, a concurrent stop, or recovered sensor can never start control.
-                if intent.action == 'start' and result['accepted'] and durable and unchanged and not blocking:
-                    self.state.restart_required = False
-                    self.state.snapshot()
-                if not durable:
-                    result.update(status='persistence_failed',http_status=503)
-            result['persistence'] = self.state.snapshot()['persistence']
-            result['state_revision'] = self.state.snapshot()['state_revision']
-            result['inhibits'] = self.state.snapshot()['inhibits']
-        return result
-
-    def _execute(self, intent, authority=None):
         self._validate(intent)
         with self.state.lock:
             snapshot = self.state.snapshot()
