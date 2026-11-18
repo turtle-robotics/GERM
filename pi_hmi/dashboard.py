@@ -1,26 +1,17 @@
 """HMI screens and read APIs; storage and ML implementations are injected below."""
 
 from flask import Blueprint, Response, current_app, jsonify, render_template, request, send_from_directory
-import uuid
 
+from arduino_serial import is_connected, reported_state
 from services.camera_service import IMAGE_ROOT, latest_local_manual_capture, save_manual_capture
 from services.database_service import repository
 from services.ml_service import ml_service
 from services.sensor_service import current_readings
-from services.control_runtime import get_gateway
 
 
 def create_dashboard(camera, requested_states):
     ui = Blueprint("dashboard", __name__)
     latest_manual_capture = {"image": latest_local_manual_capture()}
-
-    def storage():
-        if get_gateway().media_service is not None:return get_gateway().media_service.repo
-        service=get_gateway().grow_service
-        return service.repo if service is not None else repository
-
-    def camera_owner():
-        return camera() if callable(camera) else camera
 
     @ui.get("/plant")
     @ui.get("/trends")
@@ -36,68 +27,47 @@ def create_dashboard(camera, requested_states):
     @ui.get("/api/state")
     def state():
         readings = current_readings()
-        grow={'state':'not_configured'}
-        if get_gateway().grow_service is not None:
-            try:grow=get_gateway().grow_service.snapshot()
-            except Exception:grow={'state':'error','error':'Grow persistence unavailable; restart inhibited'}
-        operating = get_gateway().state.snapshot()
-        arduino = operating['controller_connected']
-        packet = operating['controller_feedback']
-        media=get_gateway().media_service
-        media_state=None
-        if media:
-            try:media_state=media.snapshot()
-            except Exception:media_state={'camera':{'state':'error'},'ml':{'state':'error','latest_result':None,'model':None},'error':'Media persistence unavailable'}
-        owner = camera_owner()
-        camera_ready = media_state['camera']['state']=='ready' if media_state else owner is not None and owner.get_frame() is not None
-        database_state = storage().status
+        arduino = is_connected()
+        packet = reported_state()
+        camera_ready = camera is not None and camera.get_frame() is not None
+        database_state = repository.status
         ml_state = ml_service.status
         try:
-            alerts = storage().get_active_alerts()
+            alerts = repository.get_active_alerts()
         except Exception:
             current_app.logger.exception("Alert read failed")
             alerts, database_state = [], "error"
         try:
-            latest_ml = media_state['ml']['latest_result'] if media_state else ml_service.get_latest_result()
-            model_info = media_state['ml']['model'] if media_state else ml_service.get_model_info()
-            if media_state:ml_state=media_state['ml']['state']
+            latest_ml = ml_service.get_latest_result()
+            model_info = ml_service.get_model_info()
         except Exception:
             current_app.logger.exception("ML status read failed")
             latest_ml, model_info, ml_state = None, None, "error"
-        requests = requested_states() if callable(requested_states) else requested_states
-        readings.update(operating['sensors'])
-        for name,unit in [('electronics_temperature','degC'),('water_level','normalized state'),('door','normalized state'),('leak','normalized state'),('estop','normalized state')]:
-            readings.setdefault(name,dict(value=None,unit=unit,timestamp_utc=None,age_seconds=None,state='unavailable',quality_flag='missing',fault_reason='interface_unconfigured',source='No validated input'))
-        highest=max(alerts,key=lambda a:({'critical':3,'warning':2,'info':1}.get(a['severity'],0),a['timestamp_utc'])) if alerts and database_state=='ready' else None
+        if any(alert.get("severity") == "critical" for alert in alerts):
+            system_state = "CRITICAL"
+        elif (not arduino or database_state != "ready" or ml_state == "error" or
+              any(readings[key]["state"] != "fresh" for key in ("air_temperature", "humidity"))):
+            system_state = "WARNING"
+        else:
+            system_state = "NORMAL"
         return jsonify({
-            "grow": grow,
-            "media":media_state or {'state':'not_configured'},
-            "data_scope": "simulation" if current_app.config.get('GERM_SIMULATION') else "restricted",
-            "system_state": operating['system_state'],
-            "operating_state": operating,
-            "state_revision": operating['state_revision'],
-            "inhibits": operating['inhibits'],
-            "maintenance_banner": operating['maintenance_banner'],
-            "control_boundary": {"state": "simulation" if current_app.config.get('GERM_SIMULATION') else "restricted",
-                                 "enabled": bool(current_app.config.get('GERM_SIMULATION') and get_gateway().adapter.simulated and callable(current_app.config.get('GERM_CONTROL_AUTHORIZER')))},
-            "estop": operating['estop'],
+            "system_state": system_state,
+            "estop": "not_connected",
             "arduino": {"state": "connected" if arduino else "unavailable",
                         "packet": readings["arduino_a0"]},
             "sensors": readings,
-            "camera": media_state['camera'] if media_state else {"state": "ready" if camera_ready else "unavailable"},
+            "camera": {"state": "ready" if camera_ready else "unavailable"},
             "database": {"state": database_state},
             "ml": {"state": ml_state,
                    "latest_result": latest_ml,
                    "model": model_info},
             "alerts": {"state": database_state,
-                       "highest":highest,
                        "active": alerts if database_state == "ready" else None},
             "actuators": {name: {"state": "reported" if packet else "unavailable",
-                                 "speed": packet.get('fan_speed') if packet and name == 'fan' else None,
                                  "mode": packet.get('lighting_mode') if packet and name == 'lighting' else None,
                                  "reported_state": packet.get({'lighting': 'rgb', 'fan': 'fan', 'pump': 'pump'}[name]) if packet else None,
-                                 "last_request": requests[name], "physically_verified": False}
-                          for name in requests},
+                                 "last_request": requested_states[name]}
+                          for name in requested_states},
         })
 
     @ui.get("/api/trends")
@@ -105,59 +75,39 @@ def create_dashboard(camera, requested_states):
         sensor = request.args.get("sensor", "air_temperature")
         if sensor not in {"air_temperature", "humidity", "water_temperature"}:
             return jsonify({"error": "Unsupported sensor"}), 400
-        points = storage().get_sensor_history(sensor, request.args.get("start"),
+        points = repository.get_sensor_history(sensor, request.args.get("start"),
                                                request.args.get("end"),
                                                request.args.get("experiment_id"))
-        return jsonify({"state": storage().status, "sensor": sensor, "points": points})
+        return jsonify({"state": repository.status, "sensor": sensor, "points": points})
 
     @ui.get("/api/alerts")
     def alerts():
-        return jsonify({"state": storage().status,
-                        "active": storage().get_active_alerts(),
-                        "history": storage().get_alert_history()})
+        return jsonify({"state": repository.status,
+                        "active": repository.get_active_alerts(),
+                        "history": repository.get_alert_history()})
 
     @ui.post("/api/alerts/<int:alert_id>/ack")
     def acknowledge_alert(alert_id):
-        if storage().status != "ready":
+        if repository.status != "ready":
             return jsonify({"error": "Alert database not configured"}), 503
-        if not storage().acknowledge_alert(alert_id):
+        if not repository.acknowledge_alert(alert_id):
             return jsonify({"error": "Alert could not be acknowledged"}), 503
         # Acknowledgement never clears a still-active critical condition.
         return jsonify({"ok": True, "alert_id": alert_id})
 
     @ui.get("/api/experiments")
     def experiments():
-        return jsonify({"state": storage().status, "items": storage().get_experiments()})
+        return jsonify({"state": repository.status, "items": repository.get_experiments()})
 
     @ui.get("/api/captures")
     def captures():
-        if get_gateway().media_service:
-            media=get_gateway().media_service
-            try:
-                recent=media.repo.get_recent_images()
-                for image in recent:image.update(indexed=True,url='/captures/'+image['file_path'])
-                return jsonify(state=media.repo.status,recent=recent,latest_manual=next((i for i in recent if i['capture_reason']=='manual'),None))
-            except Exception:return jsonify(state='error',recent=None,latest_manual=None),503
-        return jsonify({"state": storage().status,
-                        "recent": storage().get_recent_images(),
+        return jsonify({"state": repository.status,
+                        "recent": repository.get_recent_images(),
                         "latest_manual": latest_manual_capture["image"]})
 
     @ui.post("/api/camera/capture")
     def manual_capture():
-        if get_gateway().media_service:
-            media=get_gateway().media_service
-            data=request.get_json(silent=True)
-            if data is None:
-                if request.content_length:return jsonify(error='Expected JSON object'),400
-                data={}
-            if not isinstance(data,dict) or set(data)-{'request_id','plant_id'}:return jsonify(error='Expected optional request_id/plant_id'),400
-            try:
-                result=media.captures.capture(data.get('request_id',str(uuid.uuid4())),plant_id=data.get('plant_id'))
-                return jsonify(ok=result.get('indexed') is True,**result),201 if result.get('indexed') else 503
-            except (ValueError,TypeError) as exc:return jsonify(ok=False,error=str(exc)),400
-            except Exception:return jsonify(ok=False,error='Capture unavailable; indexing not acknowledged; files retained for recovery'),503
-        owner = camera_owner()
-        frame = owner.get_frame() if owner is not None else None
+        frame = camera.get_frame() if camera is not None else None
         if frame is None:
             return jsonify({"ok": False, "error": "Camera unavailable"}), 503
         try:
@@ -166,7 +116,7 @@ def create_dashboard(camera, requested_states):
             current_app.logger.exception("Manual capture save failed")
             return jsonify({"ok": False, "error": "Could not save camera image"}), 500
         try:
-            image_id = storage().record_image(image)
+            image_id = repository.record_image(image)
         except Exception:
             current_app.logger.exception("Capture saved but SQL indexing failed")
             image_id = None
@@ -178,12 +128,6 @@ def create_dashboard(camera, requested_states):
 
     @ui.get("/captures/<path:relative_path>")
     def captured_image(relative_path):
-        if get_gateway().media_service:
-            try:
-                media=get_gateway().media_service
-                image=media.repo.image_by_path(relative_path)
-                return Response(media.captures.verify(image),mimetype='image/jpeg',headers={'Cache-Control':'no-store','X-GERM-Source':'synthetic'})
-            except Exception:return Response('Indexed image unavailable or integrity check failed\n',status=404,mimetype='text/plain')
         return send_from_directory(IMAGE_ROOT, relative_path)
 
     return ui

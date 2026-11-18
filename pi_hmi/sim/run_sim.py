@@ -9,9 +9,6 @@ installs fake modules into sys.modules:
   * serial               -> an in-process Uno that mirrors arduino_program.ino
                             (same CMD:<id>:<cmd> protocol, JSON acks, 10 s
                             contact timeout, 30 s / 5 s pump limits, errors)
-
-This simulates the PR #3 software candidate, not confirmed electrical wiring.
-It never establishes physical sensor health, interlocks or actuator verification.
 """
 import json
 import os
@@ -26,23 +23,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # -- Fake Arduino Uno + serial port ------------------------------------
 class FakeUno:
-    def __init__(self, clock=time.monotonic):
-        self.clock = clock
+    def __init__(self):
         self.lock = threading.RLock()
         self.fan = self.pump = False
-        self.fan_speed = 0
         self.rgb = [0, 0, 0]
         self.rainbow = False
-        self.last_contact = self.clock()
+        self.last_contact = time.monotonic()
         self.pump_started = 0.0
         self.pump_duration = 30.0
         self.out = bytearray()
 
     def _tick(self):
-        now = self.clock()
+        now = time.monotonic()
         if now - self.last_contact >= 10:  # firmware contact timeout
             self.fan = self.pump = self.rainbow = False
-            self.fan_speed = 0
             self.rgb = [0, 0, 0]
         if self.pump and now - self.pump_started >= self.pump_duration:
             self.pump = False
@@ -56,8 +50,7 @@ class FakeUno:
 
     def _reply(self, cid, error=None):
         pkt = {"protocol": 2, "id": cid, "fan": self.fan, "pump": self.pump,
-               "rgb": list(self.rgb), "a0": None, "fan_pwm": True,
-               "fan_speed": self.fan_speed,
+               "rgb": list(self.rgb), "a0": None, "fan_pwm": False,
                "white_channel": False,
                "lighting_mode": "rainbow" if self.rainbow else "normal"}
         if error:
@@ -66,7 +59,7 @@ class FakeUno:
 
     @staticmethod
     def _num(s, maxv):
-        if not s or len(s) > 5 or any(c not in '0123456789' for c in s) or int(s) > maxv:
+        if not s or len(s) > 5 or not s.isdigit() or int(s) > maxv:
             return None
         return int(s)
 
@@ -84,27 +77,23 @@ class FakeUno:
             pass
         elif cmd == "STOP":
             self.fan = self.pump = self.rainbow = False
-            self.fan_speed = 0
             self.rgb = [0, 0, 0]
         elif cmd == "FAN_ON":
             self.fan = True
-            self.fan_speed = 255
         elif cmd == "FAN_OFF":
             self.fan = False
-            self.fan_speed = 0
         elif cmd.startswith("FAN_SPEED:"):
             s = self._num(cmd[10:], 255)
-            if s is None:
-                err = "Invalid fan speed"
+            if s not in (0, 255):
+                err = "D2 supports fan on/off only"
             else:
-                self.fan_speed = s
-                self.fan = s > 0
+                self.fan = s == 255
         elif cmd == "PUMP_OFF":
             self.pump = False
         elif cmd in ("PUMP_ON", "PUMP_5S"):
             d = 5.0 if cmd == "PUMP_5S" else 30.0
             if not self.pump:
-                self.pump_started, self.pump_duration = self.clock(), d
+                self.pump_started, self.pump_duration = time.monotonic(), d
             elif d < self.pump_duration:
                 self.pump_duration = d
             self.pump = True
@@ -129,7 +118,7 @@ class FakeUno:
         else:
             err = "Unknown command"
         if not err:
-            self.last_contact = self.clock()
+            self.last_contact = time.monotonic()
         self._tick()
         if cmd != "STATUS":  # heartbeats would flood the console
             print("[SIM-UNO] %r -> fan=%s pump=%s rgb=%s%s" % (
@@ -146,7 +135,6 @@ class SerialException(OSError):
 
 
 class FakeSerial:
-    simulated = True
     def __init__(self, port, baud=9600, timeout=None, write_timeout=None):
         self.port, self.is_open = port, True
         self._in = bytearray()
@@ -241,16 +229,5 @@ if __name__ == "__main__":
     sys.path.insert(0, ROOT)
     os.chdir(ROOT)
     import app as hmi
-    import arduino_serial as bridge
-    from services.control_runtime import install_simulation_gateway, SimulatedSerialAdapter
-    from services.command_service import CommandGateway
-    from services.state_service import StateManager
-    bridge._ser = FakeSerial('SIM-UNO')
-    install_simulation_gateway(CommandGateway(StateManager(), SimulatedSerialAdapter()))
-    hmi.app.config.update(GERM_SIMULATION=True, GERM_CONTROL_AUTHORIZER=lambda request: True)
-    from camera import Camera
-    from sim.media_fakes import SyntheticCamera
-    hmi.start_simulation_workers(Camera(SyntheticCamera()), sys.modules['adafruit_dht'].DHT11('D4'))
-    print('SIMULATION ONLY: missing normalized interlocks/policies intentionally inhibit actuation')
     print("Simulated GERM HMI at http://localhost:5000")
     hmi.app.run(host="127.0.0.1", port=5000, debug=False, threaded=True)

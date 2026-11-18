@@ -1,9 +1,0 @@
-# M3 host evidence
-
-Review: [M3 PR #8](https://github.com/turtle-robotics/GERM/pull/8), stacked on [M2 PR #7](https://github.com/turtle-robotics/GERM/pull/7), then #6 → #5. All remain unmerged. M2 implementation `6287b24`, evidence `07a367b`; M3 implementation `16cfddf`.
-
-All **110 tracked Python tests** pass: 12 integration, 24 Phase0, 10 M0, 22 M1, 12 HTTP, 13 M2 and 17 M3. Nine preserved untracked root-app tests pass separately (119 total). All 15 original file hashes are unchanged. [CI step readback](CI_RESULTS.json) records successful Python, actual-sketch C++ and synthetic Chromium/browser-artifact checks for M2 and M3. M3 implementation source secret scan found no leaks; subsequent content-hash heuristics are reviewed separately rather than removing evidence.
-
-Reproduce: `python pi_hmi/tests/run_host_checks.py --root-app --output build/m3-evidence` (omit root-app when the preserved untracked app is absent). [M2 traceability](../../phase0/M2_IMPLEMENTATION.md), [M3 traceability and explicit crash-loss window](../../phase0/M3_IMPLEMENTATION.md), [restricted M1 review verdict](../../phase0/M1_REVIEW_VERDICT.md). Physical policies, requirements release, retention and production authentication/network remain open. No queued event is represented as durable until committed.
-
-Tested implementation: `16cfddf5ce0c10a5eaefcd81c2a00b09716f051b`. Timestamp: 2026-11-16T05:50:52.935961+00:00. All non-skipped results pass; see HOST_TEST_RESULTS.json for exact commands, logs, dependencies and source hashes. Local g++ is unavailable; CI compiles/runs the actual sketch harness and synthetic browser checks. All database files were disposable host fixtures. No production database, hardware, flash, deployment, merge, historical deletion or Gantt update. Requirement traceability and known limits are in docs/phase0/M3_IMPLEMENTATION.md.
