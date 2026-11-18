@@ -1,5 +1,5 @@
 {
-  "version": "m5-clock-review-1",
+  "version": "m4-review-1",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -190,9 +190,9 @@
       "confirmation": "none",
       "acceptance_case": "Inject new Live plant image data and measure backend-to-visible <=2s; missing data remains explicit",
       "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
+      "gap": "503 on Pi; frame age missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H11",
@@ -209,9 +209,9 @@
       "confirmation": "none",
       "acceptance_case": "Inject new Latest ML label/confidence data and measure backend-to-visible <=2s; missing data remains explicit",
       "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
+      "gap": "ML unavailable; exact Uncertain and sequence rule missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H12",
@@ -304,9 +304,9 @@
       "confirmation": "none",
       "acceptance_case": "Camera loss doesn't stop unrelated UI",
       "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
+      "gap": "Production service binding or acceptance evidence pending",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "P02",
@@ -326,9 +326,9 @@
       "confirmation": "button action; capture failure explicit",
       "acceptance_case": "Save then fail indexing/disk; file/hash/path remains traceable",
       "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
+      "gap": "Production service binding or acceptance evidence pending",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "P03",
@@ -345,9 +345,9 @@
       "confirmation": "none",
       "acceptance_case": "Restart recovery and >=hourly capture with no duplicates",
       "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
+      "gap": "Scheduler/index production service missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "P04",
@@ -364,9 +364,9 @@
       "confirmation": "none",
       "acceptance_case": "0.69/0.70, unavailable, error, timeout, abnormal sequence; local <=10s",
       "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
+      "gap": "Actual model and uncertainty/alert rules missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "T01",
@@ -909,75 +909,6 @@
       "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
       "owner": "HMI with backend contract review",
       "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
-    },
-    {
-      "id": "P05",
-      "screen": "Plant",
-      "source": "SR-ML-01/03",
-      "display": "Host capture scheduling",
-      "backend": {
-        "path": "/api/media",
-        "method": "GET",
-        "field": "camera / ml / recent / requests"
-      },
-      "quality": "Persistent clock rollback inhibits scheduling across time recovery/restart; explicit acknowledgement then future boundary; no replay or identity reset",
-      "command": {
-        "path": "/api/camera/schedule",
-        "method": "POST",
-        "payload": "Explicit trusted host context and validated request"
-      },
-      "confirmation": "No actuator capability; production POST restriction and token required",
-      "acceptance_case": "Repeat rollback ticks/restart; journal recovery cannot clear fault; UTC recovery + explicit ack waits for future slot; persisted claims retained",
-      "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
-      "owner": "HMI with backend contract review",
-      "evidence": "M5 clock correction: 14 additional host regressions and browser clock acknowledgement; docs/evidence/m5-correction/"
-    },
-    {
-      "id": "P06",
-      "screen": "Plant",
-      "source": "SR-ML-01/03",
-      "display": "Local inference request and committed result",
-      "backend": {
-        "path": "/api/media",
-        "method": "GET",
-        "field": "camera / ml / recent / requests"
-      },
-      "quality": "Below 0.70 must say Uncertain; two consecutive abnormal results before alert",
-      "command": {
-        "path": "/api/ml/analyze",
-        "method": "POST",
-        "payload": "Explicit trusted host context and validated request"
-      },
-      "confirmation": "No actuator capability; production POST restriction and token required",
-      "acceptance_case": "Validate manifest/hash/input; uncertainty and two reviewed fixture abnormal classifications; unavailable/timeout honest",
-      "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
-      "owner": "HMI with backend contract review",
-      "evidence": "M5 host fault/recovery/concurrency tests, actual synthetic browser flow; docs/evidence/m5/"
-    },
-    {
-      "id": "P07",
-      "screen": "Plant",
-      "source": "SR-ML-01/03",
-      "display": "Capture journal and orphan recovery",
-      "backend": {
-        "path": "/api/media",
-        "method": "GET",
-        "field": "camera / ml / recent / requests"
-      },
-      "quality": "Persistent clock rollback inhibits scheduling across time recovery/restart; explicit acknowledgement then future boundary; no replay or identity reset",
-      "command": {
-        "path": "/api/media/recover",
-        "method": "POST",
-        "payload": "Explicit trusted host context and validated request"
-      },
-      "confirmation": "No actuator capability; production POST restriction and token required",
-      "acceptance_case": "Repeat rollback ticks/restart; journal recovery cannot clear fault; UTC recovery + explicit ack waits for future slot; persisted claims retained",
-      "status": "Partial",
-      "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
-      "owner": "HMI with backend contract review",
-      "evidence": "M5 clock correction: 14 additional host regressions and browser clock acknowledgement; docs/evidence/m5-correction/"
     }
   ]
 }

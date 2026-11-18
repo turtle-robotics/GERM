@@ -5,13 +5,6 @@ const setText = (id, text) => { const node = byId(id); if (node) node.textConten
 let latestState = null;
 let latestGrow = null;
 let scheduleEditorCycle = null;
-let latestMedia = null;
-let displayedImageKey = null;
-let mediaFormInitialized = false;
-let mediaBusy = false;
-let captureBusy = false;
-let lastCaptureFailed = false;
-let analysisRequestId = null;
 
 function clock() {
   setText('clock', new Intl.DateTimeFormat(undefined, {hour:'numeric', minute:'2-digit'}).format(new Date()));
@@ -67,7 +60,6 @@ function renderML(ml) {
       error:['ML unavailable','Inference service error'],
       unavailable:['ML unavailable','Inference service offline'],
       not_configured:['Awaiting ML service','No inference available'],
-      timed_out:['Inference timed out','Late results are discarded; no diagnosis'],
     };
     const [title, detail] = labels[state] || ['No ML result yet','Waiting for first analysis'];
     setText('ml-class', title);
@@ -75,11 +67,10 @@ function renderML(ml) {
     return;
   }
   const low = result.review_required || result.predicted_class === 'uncertain';
-  const historical=result.stale || !['ready','completed'].includes(ml.state);
-  setText('ml-class', (historical ? 'Previous result · ' : '') + (low ? 'Uncertain / review required' : result.predicted_class) + (result.scope==='synthetic-contract-only' ? ' · SYNTHETIC TEST' : ''));
+  setText('ml-class', low ? 'Review Required' : result.predicted_class);
   const confidence = typeof result.confidence === 'number' ?
-    `${(result.confidence * 100).toFixed(1)}% confidence` : 'confidence unavailable';
-  setText('ml-detail', `${confidence} · ${result.model_version || 'model unknown'} · ${result.timestamp_utc || 'time unavailable'} · image age ${result.age_seconds ?? 'unknown'} s · model ${ml.state} · trace ${result.event_status || 'unknown'}${result.scope==='synthetic-contract-only' ? ' · not a plant diagnosis' : ''}`);
+    `${Math.round(result.confidence * 100)}%` : 'confidence unavailable';
+  setText('ml-detail', `${confidence} · ${result.model_version || 'model unknown'} · ${result.timestamp_utc || 'time unavailable'}`);
 }
 
 function statusRows(items) {
@@ -112,9 +103,7 @@ function renderState(data) {
   setText('highest-alert', data.alerts.active === null ? 'Highest alarm unknown · database unavailable' : alarm ? `Highest alarm: ${alarm.severity} · ${alarm.message}` : 'No active alarms recorded');
   renderGrow(data.grow,enabled,data.operating_state?.logging);
   renderML(data.ml);
-  document.querySelectorAll('.camera-badge').forEach(badge=>badge.textContent=data.camera.state==='ready' ? (data.camera.source==='synthetic' || data.data_scope==='simulation' ? 'SYNTHETIC CAMERA' : 'LIVE CAMERA') : 'CAMERA '+data.camera.state.toUpperCase());
-  if(camera && data.camera.state!=='ready') {camera.hidden=true;byId('camera-status').hidden=false;byId('camera-status').textContent='Camera '+data.camera.state;}
-  renderMedia(data.media,enabled);
+  document.querySelectorAll('.camera-badge').forEach(badge=>badge.textContent=data.camera.state==='ready' ? (data.data_scope==='simulation' ? 'SYNTHETIC CAMERA' : 'LIVE CAMERA') : 'CAMERA UNAVAILABLE');
   for (const name of ['lighting','fan','pump']) {
     setText(name + '-status', actuatorText(data.actuators[name]));
     setText(name + '-detail', actuatorText(data.actuators[name]));
@@ -162,10 +151,7 @@ async function pollState() {
       setText(name + '-status', 'Backend unavailable');
       setText(name + '-detail', 'Backend unavailable');
     }
-    document.querySelectorAll('[data-command],[data-workflow],#create-cycle,#save-schedules,#recover-grow,#capture-button,#analyze-button,#save-capture-schedule,#recover-captures,#recover-camera-clock').forEach(button => button.disabled = true);
-    setText('capture-clock-status','Scheduling state unknown · backend unavailable');
-    setText('camera-metadata','Camera status unknown · backend unavailable');
-    setText('model-status','Model status unknown · backend unavailable');
+    document.querySelectorAll('[data-command],[data-workflow],#create-cycle,#save-schedules,#recover-grow').forEach(button => button.disabled = true);
     setText('grow-summary','Grow cycle unavailable · backend offline');
     setText('logging-summary','Event persistence unknown · backend offline');
     setText('home-estop','E-stop input unknown · backend unavailable');
@@ -233,25 +219,29 @@ if (page === 'controls') {
 
 if (page === 'plant') {
   byId('capture-button').onclick = async () => {
-    if(captureBusy)return;captureBusy=true;
-    lastCaptureFailed=false;
-    byId('analyze-button').disabled=true;
     const button = byId('capture-button'); button.disabled = true;
     setText('capture-status', 'Saving camera image…');
     try {
-      const plant=byId('capture-plant').value;
-      const payload={request_id:crypto.randomUUID(),plant_id:plant ? Number(plant) : null};
-      const response = await fetch('/api/camera/capture', {method:'POST', headers:{'X-GERM-Token':controlToken,'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const response = await fetch('/api/camera/capture', {method:'POST', headers:{'X-GERM-Token':controlToken}});
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Capture failed');
-      setText('capture-status', data.image.indexed ? 'JPEG finalized · SQL metadata committed · trace '+(data.event_status || 'unknown') : 'Saved locally · SQL metadata not acknowledged');
-      renderSavedCapture(data.image);
-      await pollState();
-    } catch (error) { lastCaptureFailed=true;setText('capture-status', error.message); }
-    captureBusy=false;await pollState();
+      setText('capture-status', data.image.indexed ? 'Saved and indexed in SQL' : 'Saved locally · awaiting SQL image index');
+      renderCapture(data.image);
+    } catch (error) { setText('capture-status', error.message); }
+    button.disabled = false;
   };
+  function renderCapture(image) {
+    const container = byId('latest-capture'); container.replaceChildren();
+    if (!image) { container.textContent = 'No manual capture this session'; return; }
+    const preview = document.createElement('img');
+    preview.className = 'capture-thumb'; preview.src = image.url;
+    preview.alt = 'Latest saved GERM image';
+    const link = document.createElement('a'); link.href = image.url;
+    link.textContent = 'View saved JPEG · ' + new Date(image.timestamp_utc).toLocaleTimeString();
+    container.append(preview, link);
+  }
   fetch('/api/captures').then(response => response.json()).then(data => {
-    renderSavedCapture(data.latest_manual);
+    renderCapture(data.latest_manual);
     const recent = byId('recent-captures');
     if (data.state !== 'ready') { recent.textContent = 'Awaiting database service'; return; }
     if (!data.recent.length) { recent.textContent = 'No indexed captures'; return; }
@@ -263,93 +253,6 @@ if (page === 'plant') {
       recent.append(link);
     }
   }).catch(() => setText('recent-captures', 'Capture history unavailable'));
-  byId('analyze-button').onclick=async()=>{
-    const image=latestMedia?.recent?.[0];if(!image)return;
-    mediaBusy=true;byId('analyze-button').disabled=true;setText('analysis-status','Inference requested · no result committed yet');
-    try {
-      const response=await fetch('/api/ml/analyze',{method:'POST',headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},body:JSON.stringify({image_id:image.image_id,request_id:crypto.randomUUID()})});
-      const result=await response.json();
-      if(!response.ok)throw Error(result.error || result.state || 'Inference unavailable');
-      analysisRequestId=result.request_id;
-      setText('analysis-status','Inference record committed · trace '+(result.event_status || 'pending')+' · synthetic result is not a plant diagnosis');
-    } catch(error) {setText('analysis-status',error.message+' · no successful inference acknowledged');}
-    finally {mediaBusy=false;await pollState();}
-  };
-  byId('capture-schedule-form').onsubmit=async event=>{
-    event.preventDefault();
-    try {
-      const response=await fetch('/api/camera/schedule',{method:'POST',headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},body:JSON.stringify({enabled:byId('capture-schedule-enabled').checked,interval_s:Number(byId('capture-interval').value),anchor_utc:byId('capture-anchor').value})});
-      const result=await response.json();if(!response.ok)throw Error(result.error || 'Schedule write failed');
-      setText('media-schedule-status','Schedule committed · no catch-up burst · trace queued separately');
-    } catch(error) {setText('media-schedule-status',error.message);}
-  };
-  byId('recover-captures').onclick=async()=>{
-    try {
-      const response=await fetch('/api/media/recover',{method:'POST',headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},body:'{}'});
-      const result=await response.json();if(!response.ok)throw Error(result.error || 'Recovery failed');
-      setText('media-schedule-status',`Recovery: ${result.indexed.length} indexed · ${result.needs_review.length} need review · ${result.orphaned_files.length} unowned files preserved`);
-      await pollState();
-    } catch(error) {setText('media-schedule-status',error.message);}
-  };
-  byId('recover-camera-clock').onclick=async()=>{
-    if(!confirm('Acknowledge the camera clock fault? UTC must have recovered. Captures stay inhibited until a strictly later slot; existing claims are retained.'))return;
-    try {
-      const response=await fetch('/api/media/recover',{method:'POST',headers:{'Content-Type':'application/json','X-GERM-Token':controlToken},body:JSON.stringify({recover_clock:true})});
-      const result=await response.json();if(!response.ok)throw Error(result.error || 'Clock recovery failed');
-      setText('media-schedule-status','Clock recovery committed · no capture started · resume boundary '+result.clock.resume_not_before_utc);
-    } catch(error) {setText('media-schedule-status',error.message);}
-    finally {await pollState();}
-  };
-}
-
-function renderSavedCapture(image) {
-  const container=byId('latest-capture');if(!container)return;
-  const key=image ? `${image.image_id}:${image.file_path}:${image.file_state || 'unknown'}` : 'none';
-  if(displayedImageKey===key)return;displayedImageKey=key;container.replaceChildren();
-  if(!image){container.textContent='No indexed image available';return;}
-  const detail=document.createElement('small');
-  detail.textContent=`${image.source==='synthetic' ? 'SYNTHETIC · ' : ''}${image.timestamp_utc} · ${image.width_px}×${image.height_px} · ${image.size_bytes} bytes · SHA-256 ${image.sha256} · plant ${image.plant_id ?? 'unassigned'}`;
-  const link=document.createElement('a');link.href=image.url || '/captures/'+image.file_path;link.textContent='Open saved JPEG';
-  container.append(detail,link);
-  if(image.file_state==='unavailable_or_corrupt'){container.append('Indexed file unavailable or corrupt');return;}
-  const preview=document.createElement('img');preview.className='capture-thumb';preview.src=link.href;preview.alt=image.source==='synthetic' ? 'Saved synthetic test frame' : 'Saved frame';
-  preview.onerror=()=>{preview.hidden=true;detail.textContent+=' · image file unavailable or corrupt';};
-  container.append(preview);
-}
-
-function renderMedia(media,enabled) {
-  latestMedia=media;
-  if(page!=='plant')return;
-  const available=!!media?.camera;
-  const camera=media?.camera;
-  setText('camera-metadata',available ? `${camera.source} · ${camera.state} · ${camera.timestamp_utc || 'no sample timestamp'} · age ${camera.age_seconds ?? 'unknown'} s` : 'Camera runtime not configured');
-  const model=media?.ml?.model;
-  setText('model-status',model ? `SYNTHETIC CONTRACT ONLY · ${media.ml.state} · ${model.version} · artifact SHA-256 ${model.artifact_sha256} · ${model.classification_review}` : 'No model configured · '+(media?.ml?.state || 'not_configured')+' · '+(media?.ml?.error || 'no validated plant inference available'));
-  byId('capture-button').disabled=captureBusy || !enabled || camera?.state!=='ready' || !media?.experiment_id;
-  byId('analyze-button').disabled=captureBusy || mediaBusy || !enabled || !model || !media?.recent?.length || media.recent[0].file_state!=='available';
-  byId('save-capture-schedule').disabled=!enabled || !available;
-  byId('recover-captures').disabled=!enabled || !available;
-  const scheduling=media?.scheduling;
-  byId('recover-camera-clock').disabled=!enabled || !available || !scheduling?.operator_recovery_required;
-  setText('capture-clock-status',scheduling ? `Scheduler: ${scheduling.state} · ${scheduling.inhibited ? 'INHIBITED' : 'eligible slots only'} · high-water ${scheduling.high_water_utc || 'not observed'} · resume ${scheduling.resume_not_before_utc || 'not set'}${scheduling.operator_recovery_required ? ' · explicit clock acknowledgement required' : ''}` : 'Scheduling state not configured');
-  if(!available)return;
-  renderSavedCapture(media.recent?.[0]);
-  const latest=media.recent?.[0];
-  if(latest && !captureBusy && !lastCaptureFailed) setText('capture-status','Last indexed JPEG · SQL metadata committed · trace '+latest.event_status);
-  const inferred=media.ml?.latest_result;
-  if(inferred && !mediaBusy && inferred.request_id===analysisRequestId) setText('analysis-status','Inference record committed · trace '+inferred.event_status+' · synthetic result is not a plant diagnosis');
-  setText('saved-image-age',latest ? `Saved image age ${latest.age_seconds ?? 'unknown (clock mismatch)'} s · trace ${latest.event_status}` : 'No image timestamp');
-  const select=byId('capture-plant'),selected=select.value;
-  if(select.dataset.experiment!==String(media.experiment_id) || select.options.length!==(media.plants?.length || 0)+1) {
-    select.replaceChildren(new Option('Experiment only / plant unassigned',''));
-    for(const plant of media.plants || [])select.append(new Option(`Position ${plant.position} · ${plant.species}`,plant.plant_id));
-    select.value=selected;select.dataset.experiment=String(media.experiment_id);
-  }
-  if(!mediaFormInitialized) {
-    mediaFormInitialized=true;byId('capture-anchor').value=media.schedule?.anchor_utc || media.server_time_utc;
-    byId('capture-interval').value=media.schedule?.interval_s || 3600;
-    byId('capture-schedule-enabled').checked=!!media.schedule?.enabled;
-  }
 }
 
 if (page === 'trends') {
