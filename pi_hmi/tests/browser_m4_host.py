@@ -16,9 +16,6 @@ if __name__=='__main__':
         repo=GrowRepository(Path(directory)/'browser.sqlite',workspace_root=directory,create=True)
         grow=GrowService(gateway,repo)
         fresh(clock,gateway)
-        # Finish the deterministic fixture's startup event backlog before the UI
-        # positive path races it. Runtime storage refusals/timeouts stay unchanged.
-        assert grow.persistence.tick(), 'Synthetic startup persistence did not become durable'
         stop=threading.Event()
         def worker():
             while not stop.is_set():grow.tick();stop.wait(0.2)

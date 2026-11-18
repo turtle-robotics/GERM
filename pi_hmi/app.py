@@ -11,13 +11,11 @@ from arduino_serial import send
 from services.control_runtime import get_gateway
 from services.sensor_service import current_readings
 from services.database_service import repository
-from services.history_http import history_routes
 
 app = Flask(__name__)
 app.config.update(GERM_CONTROL_AUTHORIZER=None, GERM_SIMULATION=False, MAX_CONTENT_LENGTH=1024 * 1024)
 control_token = secrets.token_urlsafe(32)
 cam = None
-app.register_blueprint(history_routes)
 
 
 @app.errorhandler(413)

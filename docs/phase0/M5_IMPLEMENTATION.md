@@ -1,6 +1,6 @@
 # M5 / Task 123 — host camera capture and local ML
 
-Review update: [finally accepted with host-only restrictions](M5_FINAL_REVIEW.md) at `2d73aebb88378ce46ac67859e91ad90b75593ad2`, including the persisted clock correction. M6 host implementation is authorized under the [controlling plan](M6_PLAN.md). Historical M5 evidence and earlier conditional verdict remain preserved.
+Review update: [conditionally accepted at fb19b5a](M5_CONDITIONAL_REVIEW.md), with a required [persisted clock guard correction](M5_CLOCK_CORRECTION.md). Final acceptance remains pending. [M6 plan](M6_PLAN.md) is planning only; implementation remains gated.
 
 Version `m5-review-1`, 2026-11-16. Branch `codex/m5-camera-ml` starts at reviewed M4 `b4ea9398a9c1b57fc1c7a19993ad2d0c24f28b38` plus verdict record `1a7090d`. Separate PR targets `codex/m4-grow-hmi`; stack #5 → #6 → #7 → #8 → #9 → M5 remains unmerged. [M4 verdict](M4_REVIEW_VERDICT.md), [dependency register](M5_DEPENDENCIES.md), [provisional requirements](REQUIREMENTS_BASELINE.json). No M6 work, deployment or hardware approval is implied.
 

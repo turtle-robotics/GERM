@@ -1,6 +1,6 @@
 # M6 host-only plan — Task 131 history and export
 
-2026-11-16. **HOST-ONLY IMPLEMENTATION AUTHORIZED** by the [final M5 review](M5_FINAL_REVIEW.md) at `2d73aebb88378ce46ac67859e91ad90b75593ad2`. This remains the controlling plan for `codex/m6-history-export`, with a separate PR above `codex/m5-camera-ml`; preserve the complete unmerged dependency stack. Use existing M2 repository, M3 envelopes/outbox and M4/M5 experiment/image/model identities. Requirements remain `M0-provisional-2026-11-15`; controlled release, retention, production authentication, real camera/model and physical acceptance remain unresolved. Implementation and evidence are described in [M6_IMPLEMENTATION.md](M6_IMPLEMENTATION.md).
+2026-11-16. **PLANNING ONLY. IMPLEMENTATION GATED** on final acceptance of the [M5 clock correction](M5_CLOCK_CORRECTION.md). No M6 branch/routes/export code/migrations are added now. After explicit acceptance, create a separate `codex/m6-history-export` branch/PR above the corrected M5 head; preserve the complete unmerged dependency stack. Use existing M2 repository, M3 envelopes/outbox and M4/M5 experiment/image/model identities. Requirements remain `M0-provisional-2026-11-15`; controlled release, retention, production authentication, real camera/model and physical acceptance remain unresolved.
 
 ## Read-only browsing and repository contracts
 

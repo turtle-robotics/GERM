@@ -1,5 +1,5 @@
 {
-  "version": "m6-host-review-1",
+  "version": "m5-clock-review-1",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -374,18 +374,18 @@
       "source": "SO-2 AC-1/2; SO-4",
       "display": "Sensor / experiment / time filters",
       "backend": {
+        "path": "/api/trends",
         "method": "GET",
-        "path": "/api/history/<resource>",
-        "field": "bounded durable records / verified snapshot artifact"
+        "field": "points"
       },
-      "quality": "M6 read-only scoped history; bounded authenticated cursor; snapshot export; unknown/empty/error/partial states explicit",
+      "quality": "Ordered UTC/unit/quality; bounded query; gaps for invalid/missing",
       "command": null,
       "confirmation": "none",
-      "acceptance_case": "Search seven resources; equal timestamp keyset pages; snapshot concurrent writes; safe UTF-8 CSV; hash-verified ZIP; missing image partial; no gateway commands",
+      "acceptance_case": "Mixed-quality seeded history with range limits and unavailable repository",
       "status": "Partial",
-      "gap": "Host implementation tested; physical/product, target performance and retention acceptance remain open",
+      "gap": "Production service binding or acceptance evidence pending",
       "owner": "HMI with backend contract review",
-      "evidence": "M6 host/100000-row/concurrency/fault/browser evidence: docs/evidence/m6/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "T02",
@@ -393,40 +393,33 @@
       "source": "SO-4",
       "display": "Experiment selector",
       "backend": {
+        "path": "/api/experiments",
         "method": "GET",
-        "path": "/api/history/<resource>",
-        "field": "bounded durable records / verified snapshot artifact"
+        "field": "items"
       },
-      "quality": "M6 read-only scoped history; bounded authenticated cursor; snapshot export; unknown/empty/error/partial states explicit",
+      "quality": "No data vs unavailable explicit",
       "command": null,
       "confirmation": "none",
-      "acceptance_case": "Search seven resources; equal timestamp keyset pages; snapshot concurrent writes; safe UTF-8 CSV; hash-verified ZIP; missing image partial; no gateway commands",
+      "acceptance_case": "Select experiment and correlate result IDs",
       "status": "Partial",
-      "gap": "Host implementation tested; physical/product, target performance and retention acceptance remain open",
+      "gap": "Production service binding or acceptance evidence pending",
       "owner": "HMI with backend contract review",
-      "evidence": "M6 host/100000-row/concurrency/fault/browser evidence: docs/evidence/m6/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "T03",
       "screen": "Trends",
       "source": "SR-DAT-02; SO-5 AC-2",
       "display": "CSV plus image export",
-      "backend": {
-        "method": "POST",
-        "path": "/api/exports",
-        "field": "bounded durable records / verified snapshot artifact"
-      },
-      "quality": "M6 read-only scoped history; bounded authenticated cursor; snapshot export; unknown/empty/error/partial states explicit",
-      "command": {
-        "method": "POST",
-        "path": "/api/exports"
-      },
+      "backend": null,
+      "quality": "Progress/failure and provenance; retain source data",
+      "command": null,
       "confirmation": "explicit export action",
-      "acceptance_case": "Search seven resources; equal timestamp keyset pages; snapshot concurrent writes; safe UTF-8 CSV; hash-verified ZIP; missing image partial; no gateway commands",
-      "status": "Partial",
-      "gap": "Host implementation tested; physical/product, target performance and retention acceptance remain open",
+      "acceptance_case": "Offline export compares rows/hashes",
+      "status": "Missing",
+      "gap": "Export API intentionally unspecified until M7",
       "owner": "HMI with backend contract review",
-      "evidence": "M6 host/100000-row/concurrency/fault/browser evidence: docs/evidence/m6/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "C01",
@@ -985,28 +978,6 @@
       "gap": "Host camera/ML contract implemented; physical camera and validated plant model remain unapproved",
       "owner": "HMI with backend contract review",
       "evidence": "M5 clock correction: 14 additional host regressions and browser clock acknowledgement; docs/evidence/m5-correction/"
-    },
-    {
-      "id": "T04",
-      "screen": "Trends",
-      "source": "SR-DAT-02; SO-5 AC-2",
-      "display": "Interrupted/failed export recovery",
-      "backend": {
-        "method": "GET",
-        "path": "/api/exports/<request_id>",
-        "field": "durable job status and attempt"
-      },
-      "quality": "No file-only completion; explicit same-ID retry with a new attempt directory",
-      "command": {
-        "method": "POST",
-        "path": "/api/exports/<request_id>/retry"
-      },
-      "confirmation": "explicit retry action",
-      "acceptance_case": "Restart marks incomplete receipts interrupted; retry preserves old files; at most three attempts",
-      "status": "Partial",
-      "gap": "Host-only recovery; target power-cut/product acceptance unresolved",
-      "owner": "HMI with backend contract review",
-      "evidence": "M6 recovery and browser tests; docs/evidence/m6/"
     }
   ]
 }
