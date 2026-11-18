@@ -188,54 +188,14 @@ def confirmation():
 @app.post('/api/workflow')
 def workflow():
     data = request.get_json(silent=True)
-    if not isinstance(data, dict) or data.get('action') not in ('start', 'pause', 'enter_maintenance', 'exit_maintenance', 'safe_manual_test', 'complete_cycle'):
+    if not isinstance(data, dict) or data.get('action') not in ('start', 'pause', 'enter_maintenance', 'exit_maintenance', 'safe_manual_test'):
         return jsonify(error='Unsupported workflow action'), 400
     try:
         gateway = get_gateway()
-        if gateway.grow_service is not None:
-            return respond(gateway.grow_service.workflow(data['action'],dict(payload=data.get('payload',{}),**command_context(data)),getattr(g,'control_authority',None)))
         intent = gateway.intent(data['action'], data.get('payload', {}), **command_context(data))
         return respond(gateway.execute(intent, getattr(g, 'control_authority', None)))
     except (TypeError, ValueError) as exc:
         return jsonify(error=str(exc)), 400
-    except PermissionError:
-        return jsonify(error='Operator authorization required'),403
-    except Exception:
-        return jsonify(error='Grow workflow persistence failed; restart inhibited'),503
-
-
-@app.get('/api/grow')
-def grow_snapshot():
-    service=get_gateway().grow_service
-    if service is None:return jsonify(state='not_configured',error='Grow repository is not configured'),503
-    try:return jsonify(service.snapshot())
-    except Exception:return jsonify(state='error',error='Grow database unavailable; restart inhibited'),503
-
-
-@app.post('/api/grow/cycles')
-@app.post('/api/grow/schedules')
-@app.post('/api/grow/recover')
-def grow_mutation():
-    service=get_gateway().grow_service
-    if service is None:return jsonify(state='not_configured',error='Grow repository is not configured'),503
-    data=request.get_json(silent=True)
-    if not isinstance(data,dict):return jsonify(error='Expected JSON object'),400
-    try:
-        authority=getattr(g,'control_authority',None)
-        if request.path.endswith('/cycles'):
-            if set(data)!={'profile_id','name'}:raise ValueError('Expected profile_id and name')
-            result=service.create_cycle(data['profile_id'],data['name'],authority)
-        elif request.path.endswith('/schedules'):
-            if set(data)!={'schedules'}:raise ValueError('Expected schedules')
-            result=service.configure(data['schedules'],authority)
-        else:
-            service._authorize(authority)
-            if not service.recover():return jsonify(error='Recovery failed; restart remains inhibited'),503
-            result=service.snapshot()
-        return jsonify(result),200
-    except PermissionError:return jsonify(error='Operator authorization required'),403
-    except (TypeError,ValueError) as exc:return jsonify(error=str(exc)),400
-    except Exception:return jsonify(error='Grow database write failed; restart inhibited'),503
 
 
 from dashboard import create_dashboard

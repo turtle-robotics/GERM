@@ -1,5 +1,5 @@
 {
-  "version": "m4-review-1",
+  "version": "m1-review-1",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -47,38 +47,30 @@
       "screen": "Home",
       "source": "SR-UI-02",
       "display": "Electronics temperature (degC)",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "sensors.electronics_temperature"
-      },
+      "backend": null,
       "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Inject new Electronics temperature data and measure backend-to-visible <=2s; missing data remains explicit",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Sensor/field missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H04",
       "screen": "Home",
       "source": "SR-UI-02",
       "display": "Reservoir / low-water (state)",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "sensors.water_level"
-      },
+      "backend": null,
       "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Inject new Reservoir / low-water data and measure backend-to-visible <=2s; missing data remains explicit",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Sensor/field missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H05",
@@ -122,58 +114,46 @@
       "id": "H07",
       "screen": "Home",
       "source": "SR-UI-02",
-      "display": "Light schedule (explicit UTC, host settings)",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.schedules"
-      },
+      "display": "Light schedule (local times)",
+      "backend": null,
       "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Inject new Light schedule data and measure backend-to-visible <=2s; missing data remains explicit",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Schedule API missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H08",
       "screen": "Home",
       "source": "SR-UI-02",
       "display": "Selected plant profile (name)",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.cycle.profile_id"
-      },
+      "backend": null,
       "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Inject new Selected plant profile data and measure backend-to-visible <=2s; missing data remains explicit",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Profile API missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H09",
       "screen": "Home",
       "source": "SR-UI-02",
       "display": "Grow-cycle day (day)",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.grow_day"
-      },
+      "backend": null,
       "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Inject new Grow-cycle day data and measure backend-to-visible <=2s; missing data remains explicit",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Grow-cycle API missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H10",
@@ -237,19 +217,15 @@
       "screen": "Home",
       "source": "SR-UI-02",
       "display": "Last maintenance (UTC/local date)",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.last_maintenance"
-      },
+      "backend": null,
       "quality": "Show units, sample time and stale/unavailable text; unknown is never healthy",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Inject new Last maintenance data and measure backend-to-visible <=2s; missing data remains explicit",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Maintenance history query/binding missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H14",
@@ -259,16 +235,16 @@
       "backend": {
         "path": "/api/state",
         "method": "GET",
-        "field": "alerts.highest + inhibits"
+        "field": "system_state / alerts"
       },
       "quality": "Persistent maintenance/E-stop state; display cannot authorize",
       "command": null,
       "confirmation": "none",
       "acceptance_case": "Novice identifies state/alarm; backend faults never show NORMAL",
       "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "gap": "Authoritative state/inhibits and highest alarm absent",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "H15",
@@ -537,11 +513,7 @@
       "screen": "Controls",
       "source": "SR-UI-03; SR-AUT-01/02; SR-LGT-01",
       "display": "Mode / schedule / Start / Pause / Safe Manual Test",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.schedules + operating_state"
-      },
+      "backend": null,
       "quality": "Backend owns active profile/schedule and permission state",
       "command": {
         "path": "/api/workflow",
@@ -550,10 +522,10 @@
       },
       "confirmation": "Start/resume after stop or maintenance requires explicit pump confirmation",
       "acceptance_case": "Fake-clock scheduling, pause/restart never bypasses interlocks",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "M1 simulated workflow implemented; durable profiles/schedules and physical integration remain open",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "C07",
@@ -696,19 +668,15 @@
       "screen": "Maintenance",
       "source": "SR-UI-03; SO-4 AC-4",
       "display": "Safe manual test",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "operating_state"
-      },
+      "backend": null,
       "quality": "All requests use same command boundary; unknown interlocks deny",
       "command": null,
       "confirmation": "Explicit scoped test and pump energization confirmation",
       "acceptance_case": "Fault during test cancels permission; no automatic resume",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "status": "Missing",
+      "gap": "Backend workflow pending M1",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "S01",
@@ -716,22 +684,18 @@
       "source": "SR-UI-01/03; SR-AUT-02",
       "display": "Basil/spearmint profile and experiment metadata",
       "backend": {
-        "path": "/api/state",
+        "path": "/api/experiments",
         "method": "GET",
-        "field": "grow.profiles + grow.cycle"
+        "field": "items"
       },
       "quality": "Persisted active selection and status; no fabricated experiment",
-      "command": {
-        "path": "/api/grow/cycles",
-        "method": "POST",
-        "payload": "profile_id + name; creates paused cycle only"
-      },
-      "confirmation": "Profile selection cannot energize outputs; separate backend-confirmed Start required",
+      "command": null,
+      "confirmation": "Advanced edit confirmation",
       "acceptance_case": "Persist/reopen profile; start/pause/maintain lifecycle",
       "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
+      "gap": "Read-only stub; editing/workflow missing",
       "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "S02",
@@ -810,7 +774,7 @@
       "status": "Missing",
       "gap": "Actual user trial not performed",
       "owner": "Backend/API + HMI review",
-      "evidence": "M4 scripted browser profile/start/pause/maintenance flow; novice usability campaign not performed"
+      "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
     {
       "id": "X03",
@@ -863,52 +827,6 @@
       "gap": "Host simulation implemented; production auth/network and electrical boundaries remain restricted",
       "owner": "Backend/API + HMI review",
       "evidence": "M1 permission/HTTP tests; not physical acceptance"
-    },
-    {
-      "id": "S05",
-      "screen": "Settings",
-      "source": "SR-UI-01/03; SR-AUT-02",
-      "display": "Host UTC schedule configuration",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.profiles + grow.cycle"
-      },
-      "quality": "Persisted active selection and status; no fabricated experiment",
-      "command": {
-        "path": "/api/grow/schedules",
-        "method": "POST",
-        "payload": "Host simulation authorizer + token; validated grow configuration"
-      },
-      "confirmation": "Does not start outputs; separate backend-confirmed Start required",
-      "acceptance_case": "Reject conflicts; persist/reopen enabled settings; configuration commit revokes pending Start",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
-      "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
-    },
-    {
-      "id": "M05",
-      "screen": "Maintenance",
-      "source": "SR-UI-01/03; SR-AUT-02",
-      "display": "Grow storage recovery to paused state",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "grow.profiles + grow.cycle"
-      },
-      "quality": "Persisted active selection and status; no fabricated experiment",
-      "command": {
-        "path": "/api/grow/recover",
-        "method": "POST",
-        "payload": "Host simulation authorizer + token; validated grow configuration"
-      },
-      "confirmation": "Does not start outputs; separate backend-confirmed Start required",
-      "acceptance_case": "Storage error/restart remains inhibited; recover pauses and requires a new confirmed Start",
-      "status": "Partial",
-      "gap": "Implemented for host simulation; physical inputs, approved crop timings and acceptance remain open",
-      "owner": "HMI with backend contract review",
-      "evidence": "M4 host lifecycle/fault/HTTP tests and disposable browser; docs/evidence/m4/"
     }
   ]
 }

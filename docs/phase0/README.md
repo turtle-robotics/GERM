@@ -1,7 +1,5 @@
 # Phase 0 baseline and review package
 
-Current M4 host review: [Tasks 129/130 implementation and M5 readiness](M4_IMPLEMENTATION.md), above the [restricted M2/M3 acceptance](M2_M3_REVIEW_VERDICT.md). Older readiness statements below are historical. All PRs remain unmerged.
-
 Current host development: [M1 accepted with restrictions](M1_REVIEW_VERDICT.md); [M2 Task 121](M2_IMPLEMENTATION.md) and [M3 Task 122](M3_IMPLEMENTATION.md) have separate dependent review packages. Earlier proposed/pending statements below are historical. No PR merge or physical/deployment approval is implied.
 
 ## Current M0 review entry point (2026-11-15)

@@ -26,8 +26,6 @@ jobs:
         working-directory: pi_hmi
       - run: python -m unittest discover -s tests -p 'test_m3.py' -v
         working-directory: pi_hmi
-      - run: python -m unittest discover -s tests -p 'test_m4.py' -v
-        working-directory: pi_hmi
       - run: g++ -std=c++11 tests/firmware_behavior.cpp -o /tmp/germ-firmware-test && /tmp/germ-firmware-test
         working-directory: pi_hmi
       - uses: actions/setup-node@v4
@@ -39,14 +37,8 @@ jobs:
         working-directory: pi_hmi
         env:
           GERM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/germ-browser/node_modules/playwright
-      - run: node tests/browser_m4.cjs
-        working-directory: pi_hmi
-        env:
-          GERM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/germ-browser/node_modules/playwright
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: m1-browser-host-evidence
-          path: |
-            build/m1-browser/
-            build/m4-browser/
+          path: build/m1-browser/
