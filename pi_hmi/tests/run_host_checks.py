@@ -1,7 +1,7 @@
 """Reproduce host-only checks and record exact logs without importing devices.
 
 Run from any directory: python pi_hmi/tests/run_host_checks.py
-Outputs go to build/m3-evidence, never to production paths. Optional --root-app
+Outputs go to build/m1-evidence, never to production paths. Optional --root-app
 checks the preserved, untracked protocol-1 app separately when it exists.
 """
 import argparse
@@ -41,7 +41,6 @@ def run(output, include_root=False):
     check('m1-state-permissions', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m1.py', '-v'], pi)
     check('m1-http-boundary', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m1_http.py', '-v'], pi)
     check('m2-sqlite-recovery', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m2.py', '-v'], pi)
-    check('m3-durable-events', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_m3.py', '-v'], pi)
     if include_root:
         check('preserved-root-app', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-v'], ROOT)
     parsed = sorted(pi.rglob('*.py'))
@@ -77,7 +76,7 @@ def run(output, include_root=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT / 'build/m3-evidence')
+    parser.add_argument('--output', type=Path, default=ROOT / 'build/m1-evidence')
     parser.add_argument('--root-app', action='store_true')
     args = parser.parse_args()
     raise SystemExit(run(args.output.resolve(), args.root_app))

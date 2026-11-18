@@ -35,7 +35,7 @@ class RestartCoordinator:
                 state.persisted_fields=durable_fields(state) if row else None
                 state.persistence_status='ready' if row else 'dirty'
                 state.recovery_verified=bool(row)
-                state.emit('restart_recovery',dict(recovered=bool(row),restart_required=True,generation=self.generation,**durable_fields(state)))
+                state.emit('restart_recovery',dict(recovered=bool(row),restart_required=True,generation=self.generation))
         except Exception as exc:
             with state.lock:
                 state.maintenance=True

@@ -8,7 +8,7 @@ import threading
 import unittest
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from services.sqlite_repository import SQLiteRepository, MIGRATIONS, VERSION
+from services.sqlite_repository import SQLiteRepository, MIGRATIONS
 from services.restart_service import attach_restart_store
 from m1_fixtures import fixture,confirmed,feed
 
@@ -23,7 +23,7 @@ class RepositoryTests(unittest.TestCase):
 
     def test_empty_migration_repeat_pragmas_indexes_and_explicit_seed(self):
         with self.repo.connection() as db:
-            self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],VERSION)
+            self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],2)
             self.assertEqual(db.execute('PRAGMA foreign_keys').fetchone()[0],1)
             self.assertEqual(db.execute('PRAGMA synchronous').fetchone()[0],2)
             self.assertEqual(db.execute('PRAGMA journal_mode').fetchone()[0],'wal')

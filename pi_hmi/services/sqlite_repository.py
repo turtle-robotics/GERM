@@ -12,7 +12,7 @@ import time
 import uuid
 
 MIGRATIONS = Path(__file__).resolve().parents[1] / 'migrations'
-VERSION = 3
+VERSION = 2
 
 
 def utc(value):
@@ -101,7 +101,6 @@ class SQLiteRepository:
 
     def _migrate(self):
         scripts = [(p, p.read_text(encoding='utf-8-sig')) for p in sorted(MIGRATIONS.glob('*.sql'))]
-        if len(scripts) != VERSION:raise ValueError('Incomplete migration package')
         with self._migration_lock, self.connection() as db:
             version = db.execute('PRAGMA user_version').fetchone()[0]
             if version > VERSION: raise ValueError('Future schema version; no downgrade')
@@ -267,5 +266,4 @@ class SQLiteRepository:
         return True
 
     def log_event(self,event):
-        from services.event_repository import persist_event
-        return persist_event(self,event)
+        raise NotImplementedError('Structured event commit pipeline belongs to M3')

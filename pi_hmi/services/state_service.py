@@ -42,15 +42,8 @@ class StateManager:
         self.persistence_status = 'not_configured'
         self.persisted_fields = None
         self.recovery_verified = False
-        self.logging_status = {'state':'buffered_not_durable','last_durable_event_id':None,'last_error':None}
 
     def emit(self, event_type, payload, source='state'):
-        with self.lock:
-            return self._emit(event_type,payload,source)
-
-    def _emit(self, event_type, payload, source):
-        if self.logging_status['state'] == 'durable':
-            self.logging_status['state'] = 'pending'
         if len(self.events) == self.events.maxlen:
             self.dropped_events += 1
         event = dict(schema_version=1, event_id=str(uuid.uuid4()), timestamp_utc=self.utc_now().isoformat(),
@@ -182,7 +175,7 @@ class StateManager:
                 estop='asserted' if sensors.get('estop', {}).get('safe') is False else
                       ('reset_restart_required' if self.estop_latched else ('clear' if sensors.get('estop', {}).get('safe') is True else 'not_connected')),
                 requested_states=self.requested_states, last_command=self.last_command,
-                logging={**self.logging_status, 'pending': len(self.events), 'dropped': self.dropped_events},
+                logging={'state': 'buffered_not_durable', 'pending': len(self.events), 'dropped': self.dropped_events},
                 persistence={'state': self.persistence_status, 'restart_recovery_verified': self.recovery_verified}))
 
     def flush_events(self, sink):

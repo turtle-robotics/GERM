@@ -81,10 +81,7 @@ def control_response(command, actuator, requested, data):
         result = gateway.execute(intent, getattr(g, 'control_authority', None))
     except (TypeError, ValueError) as exc:
         return jsonify(error=str(exc)), 400
-    if gateway.event_pipeline is not None:
-        result['logged'] = False  # queued != durable; use event ID and logging status
-        result['logging_status'] = gateway.state.snapshot()['logging']['state']
-    elif result['firmware_confirmed']:
+    if result['firmware_confirmed']:
         result['logged'] = record_control_request(actuator, requested, result['reported_state'])
     return respond(result)
 

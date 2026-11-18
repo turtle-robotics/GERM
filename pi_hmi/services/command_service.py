@@ -101,7 +101,6 @@ class CommandGateway:
                              self.safety_authority: 'safety', self.service_authority: 'service'}
         self._stopped_generation = -1
         self.restart_store = None
-        self.event_pipeline = None
 
     def intent(self, action, payload=None, *, source='touchscreen', request_id=None,
                expected_state_revision=None, confirmation_id=None):
@@ -208,7 +207,7 @@ class CommandGateway:
                  or bool(command and command_model(command)[3])))
 
     def _result(self, intent, allowed, reasons, http_code, **changes):
-        result = dict(request_id=intent.request_id, action=intent.action, target=intent.target, source=intent.source, allowed=allowed, reason_codes=list(reasons),
+        result = dict(request_id=intent.request_id, allowed=allowed, reason_codes=list(reasons),
                       state_revision=self.state.revision, inhibits=self.state.snapshot()['inhibits'],
                       requested_state=None, accepted=False, accepted_at_utc=None, acknowledged_at_utc=None,
                       reported_state=None, firmware_confirmed=False, physically_verified=False, verified=False,
@@ -236,7 +235,7 @@ class CommandGateway:
     def execute(self, intent, authority=None):
         result = self._execute(intent, authority)
         # Maintenance/safe-stop takes effect before optional bounded host I/O.
-        if self.restart_store is not None and result['accepted'] and intent.action in ('start','pause','enter_maintenance','exit_maintenance'):
+        if self.restart_store is not None and intent.action in ('start','pause','enter_maintenance','exit_maintenance'):
             durable = self.restart_store.checkpoint()
             with self.state.lock:
                 unchanged = self.state.revision == result['state_revision']
@@ -252,12 +251,6 @@ class CommandGateway:
             result['persistence'] = self.state.snapshot()['persistence']
             result['state_revision'] = self.state.snapshot()['state_revision']
             result['inhibits'] = self.state.snapshot()['inhibits']
-        if result['accepted'] and intent.action != 'read_status':
-            with self.state.lock:
-                event = self.state.emit('command_outcome', result, intent.source)
-                result['event_id'] = event['event_id']
-                if self.state.last_command and self.state.last_command['request_id'] == result['request_id']:
-                    self.state.last_command = copy.deepcopy(result)
         return result
 
     def _execute(self, intent, authority=None):
@@ -328,6 +321,7 @@ class CommandGateway:
             result['inhibits'] = self.state.snapshot()['inhibits']
             if not diagnostic:
                 self.state.last_command = copy.deepcopy(result)
+                self.state.emit('command_outcome', result, intent.source)
             return copy.deepcopy(result)
 
     def _send(self, command):
