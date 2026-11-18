@@ -31,7 +31,7 @@
     "method": "POST",
     "request": "integer alert_id path",
     "success": "200 ok=true, alert_id; does not clear condition",
-    "errors": "503 unavailable/failed ack; exception currently 500; M1: 403 unapproved boundary/token, 409 confirmation/state/replay, 423 inhibits",
+    "errors": "503 unavailable/failed ack; exception currently 500",
     "producer": "dashboard.py:acknowledge_alert",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
@@ -40,7 +40,7 @@
     "method": "POST",
     "request": "none",
     "success": "201 ok=true, image {file_path,timestamp_utc,sha256,capture_reason,width_px,height_px,image_id,indexed,url}; SQL failure keeps file and indexed=false",
-    "errors": "503 camera unavailable; 500 disk write error; M1: 403 unapproved boundary/token, 409 confirmation/state/replay, 423 inhibits",
+    "errors": "503 camera unavailable; 500 disk write error",
     "producer": "dashboard.py:manual_capture",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
@@ -67,7 +67,7 @@
     "method": "POST",
     "request": "JSON state on|off",
     "success": "200 confirmed, state, firmware_confirmed, verified=false, reported_state, logged",
-    "errors": "400 invalid; 503 no ack; M1: 403 unapproved boundary/token, 409 confirmation/state/replay, 423 inhibits",
+    "errors": "400 invalid; 503 no ack",
     "producer": "app.py:fan_control",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
@@ -76,16 +76,16 @@
     "method": "POST",
     "request": "JSON speed integer 0..255; PR #3 software candidate, electrical mapping unconfirmed",
     "success": "200 confirmed, speed, firmware_confirmed, verified=false, reported_state, logged",
-    "errors": "400 invalid speed; 503 no ack; M1: 403 unapproved boundary/token, 409 confirmation/state/replay, 423 inhibits",
+    "errors": "400 invalid speed; 503 no ack",
     "producer": "app.py:fan_speed",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
   {
     "path": "/api/firmware",
     "method": "POST",
-    "request": "page token + form mode normal|rainbow + confirmation context; custom uploads always denied",
-    "success": "200 only for explicitly injected reviewed simulated updater; real flashing disabled",
-    "errors": "400 invalid mode; 403 boundary/token/custom upload; 409 stale/replay; 423 firmware review/boot energization denied; 503 failed STOP",
+    "request": "X-GERM-Token; multipart firmware .ino OR form mode normal|rainbow; <=1 MiB",
+    "success": "200 uploaded=true, compatible bool, warning|null, log",
+    "errors": "400 invalid sketch/mode; 403 token; 409 lock busy; 413 size; 503 compile/upload fault",
     "producer": "firmware_service.py:upload",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
@@ -94,7 +94,7 @@
     "method": "POST",
     "request": "JSON r/g/b/w integers 0..255; default 0; w=0",
     "success": "200 status=confirmed, firmware_confirmed=true, verified=false, reported_state, logged",
-    "errors": "400 invalid; 503 no ack; M1: 403 unapproved boundary/token, 409 confirmation/state/replay, 423 inhibits",
+    "errors": "400 invalid; 503 no ack",
     "producer": "app.py:led_control",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
@@ -103,7 +103,7 @@
     "method": "POST",
     "request": "JSON state on|off|5s",
     "success": "200 confirmed, state, firmware_confirmed, verified=false, reported_state, logged",
-    "errors": "400 invalid; 503 no ack; M1: 403 unapproved boundary/token, 409 confirmation/state/replay, 423 inhibits",
+    "errors": "400 invalid; 503 no ack",
     "producer": "app.py:pump_control",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
   },
@@ -241,23 +241,5 @@
     "errors": "503 camera unavailable",
     "producer": "app.py:video_feed",
     "consumer": "local browser; verify_live.py for safe-off and selected pages"
-  },
-  {
-    "path": "/api/confirmations",
-    "method": "POST",
-    "request": "action command|start|pause|enter_maintenance|exit_maintenance|safe_manual_test|firmware_update; object payload; trusted host authorizer and page token",
-    "success": "200 single-use confirmation_id + state_revision + expiry or confirmation_not_required; no hardware dispatch",
-    "errors": "400 invalid; 403 unapproved boundary/source/token; 409 state; 423 inhibits",
-    "producer": "app.py:confirmation",
-    "consumer": "local HMI; host tests"
-  },
-  {
-    "path": "/api/workflow",
-    "method": "POST",
-    "request": "action start|pause|enter_maintenance|exit_maintenance|safe_manual_test; payload; confirmation_id and expected_state_revision when required",
-    "success": "200 accepted state transition; safe-stop ACK separate from physical verification",
-    "errors": "400 invalid; 403 boundary/source/token; 409 confirmation/state/replay; 423 inhibits; 503 failed safe-stop",
-    "producer": "app.py:workflow",
-    "consumer": "local HMI; host tests"
   }
 ]

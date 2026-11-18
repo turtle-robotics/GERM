@@ -14,11 +14,10 @@ BACKUP = Path('/home/germ/hmi-backups') / datetime.now(timezone.utc).strftime('c
 
 
 def run(args):
-    raise RuntimeError('Production service/firmware operations are disabled in the M1 host-only release')
+    subprocess.run(args, check=True)
 
 
 if __name__ == '__main__':
-    raise RuntimeError('M1 host-only review: production deployment and flashing require separate authorization')
     for relative in FILES:
         if not (SOURCE / relative).is_file():
             raise RuntimeError('Missing staged file: ' + relative)

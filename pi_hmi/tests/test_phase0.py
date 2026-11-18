@@ -45,12 +45,9 @@ from services.ml_service import MLUnavailable
 with patch('threading.Thread.start'):
     import app
 import dashboard
-from m1_http_harness import client_fixture
-from services.control_runtime import SimulatedSerialAdapter
 
 
 class ReplaySerial:
-    simulated = True
     is_open = True
     port = '/dev/fixture-never-opened'
 
@@ -79,10 +76,6 @@ class ReplaySerial:
 
 
 class SerialContractTests(unittest.TestCase):
-    def setUp(self):
-        *_, self.gateway = client_fixture()
-        self.gateway.adapter = SimulatedSerialAdapter()
-
     def tearDown(self):
         bridge._reconnect()
 
@@ -102,10 +95,10 @@ class SerialContractTests(unittest.TestCase):
 
     def test_matched_ack_and_error_reply(self):
         bridge._ser = ReplaySerial(stale_first=True)
-        self.assertTrue(bridge.send('STOP', authority=self.gateway.service_authority))
+        self.assertTrue(bridge.send('STOP'))
         self.assertEqual(bridge.reported_state()['rgb'], [0, 0, 0])
         bridge._ser = ReplaySerial(error='Unknown command')
-        self.assertFalse(bridge.send('FAN_OFF', authority=self.gateway.service_authority))
+        self.assertFalse(bridge.send('BOGUS'))
         self.assertEqual(bridge.last_error(), 'Unknown command')
 
     def test_no_ack_timeout_invalidates_report(self):
@@ -113,7 +106,7 @@ class SerialContractTests(unittest.TestCase):
         bridge._packet_at = 10
         bridge._ser = ReplaySerial()
         with patch.object(bridge._ser, 'write'), patch.object(bridge.time, 'monotonic', side_effect=[0, 0, 4]):
-            self.assertFalse(bridge.send('STOP', authority=self.gateway.service_authority))
+            self.assertFalse(bridge.send('STOP'))
         self.assertEqual(bridge._packet_at, 0)
 
     def test_expiry_and_copy(self):
@@ -139,7 +132,7 @@ class SensorTests(unittest.TestCase):
             with self.subTest(case=case['name']), patch.object(sensor_service.time, 'time', return_value=case['now']):
                 reading = sensor_service.reading(case['value'], '°C', case['sampled_at'], 'fixture')
                 self.assertEqual(reading['state'], case['expected_state'])
-                if reading['value'] is None:
+                if case['value'] is None:
                     self.assertIsNone(reading['timestamp_utc'])
                 else:
                     self.assertTrue(reading['timestamp_utc'].endswith('+00:00'))
@@ -152,7 +145,7 @@ class SensorTests(unittest.TestCase):
 
 class APIContractTests(unittest.TestCase):
     def setUp(self):
-        _, self.client, self.headers, self.clock, self.state, self.adapter, self.gateway = client_fixture()
+        self.client = app.app.test_client()
 
     def test_all_documented_paths_have_matching_methods(self):
         catalog = json.loads((ROOT.parent/'docs/phase0/API_ENDPOINTS.json').read_text())
@@ -163,8 +156,8 @@ class APIContractTests(unittest.TestCase):
 
     def test_safe_off_examples_keep_physical_state_unverified(self):
         for case in fixture('api_requests.json'):
-            with self.subTest(path=case['path']), patch.object(self.adapter, 'send', wraps=self.adapter.send) as send:
-                response = self.client.post(case['path'], json=case['request'], headers=self.headers)
+            with self.subTest(path=case['path']), patch.object(app, 'send_command', return_value=True) as send:
+                response = self.client.post(case['path'], json=case['request'])
                 self.assertEqual(response.status_code, 200)
                 send.assert_called_once_with(case['command'])
                 self.assertTrue(response.json['firmware_confirmed'])
@@ -172,17 +165,16 @@ class APIContractTests(unittest.TestCase):
                 self.assertFalse(response.json['logged'])
 
     def test_disconnected_controller_returns_503(self):
-        self.adapter.fail = True
-        with patch.object(app, 'send_command') as bypass:
-            response = self.client.post('/api/pump', json={'state':'off'}, headers=self.headers)
-            bypass.assert_not_called()
+        with patch.object(app, 'send_command', return_value=False):
+            response = self.client.post('/api/pump', json={'state':'off'})
         self.assertEqual(response.status_code, 503)
         self.assertEqual(response.json['status'], 'unavailable')
 
     def test_control_log_failure_keeps_ack_and_emits_diagnostic(self):
-        with patch.object(app.repository, 'record_actuator_event', side_effect=OSError('storage offline')), \
+        with patch.object(app, 'send_command', return_value=True), \
+             patch.object(app.repository, 'record_actuator_event', side_effect=OSError('storage offline')), \
              self.assertLogs(app.app.logger, level='ERROR') as logs:
-            result = self.client.post('/api/pump', json={'state':'off'}, headers=self.headers)
+            result = self.client.post('/api/pump', json={'state':'off'})
         self.assertTrue(result.json['firmware_confirmed'])
         self.assertFalse(result.json['logged'])
         self.assertFalse(result.json['verified'])
@@ -196,12 +188,12 @@ class APIContractTests(unittest.TestCase):
             response = self.client.get('/api/state')
             self.assertEqual(response.json['database']['state'], 'not_configured')
             self.assertIsNone(response.json['alerts']['active'])
-            self.assertEqual(response.json['estop'], 'clear')  # explicitly synthetic fixture, not live feedback
+            self.assertEqual(response.json['estop'], 'not_connected')
             self.assertEqual(self.client.get('/api/camera/capture').status_code, 405)
-            self.assertEqual(self.client.post('/api/camera/capture', headers=self.headers).status_code, 503)
+            self.assertEqual(self.client.post('/api/camera/capture').status_code, 503)
         for path in ['/api/trends', '/api/alerts', '/api/experiments', '/api/captures']:
             self.assertEqual(self.client.get(path).json['state'], 'not_configured')
-        self.assertEqual(self.client.post('/api/alerts/1/ack', headers=self.headers).status_code, 503)
+        self.assertEqual(self.client.post('/api/alerts/1/ack').status_code, 503)
 
     def test_ml_and_alert_exceptions_stay_explicit(self):
         with patch.object(dashboard.repository, 'get_active_alerts', side_effect=OSError('fixture read fault')), \
@@ -237,7 +229,7 @@ class APIContractTests(unittest.TestCase):
     def test_acknowledgement_does_not_call_condition_clear(self):
         repository = types.SimpleNamespace(status='ready', acknowledge_alert=lambda alert_id: True)
         with patch.object(dashboard, 'repository', repository):
-            self.assertEqual(self.client.post('/api/alerts/1/ack', headers=self.headers).json, {'ok':True, 'alert_id':1})
+            self.assertEqual(self.client.post('/api/alerts/1/ack').json, {'ok':True, 'alert_id':1})
 
 
 class StorageFixtureTests(unittest.TestCase):

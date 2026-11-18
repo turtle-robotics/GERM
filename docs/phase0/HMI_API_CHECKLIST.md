@@ -1,8 +1,8 @@
 # Task 128 seven-screen HMI/API checklist
 
-Version `m1-review-1`; 45 rows. Structured authority: [HMI_API_CHECKLIST.json](HMI_API_CHECKLIST.json); routes/errors: [API_ENDPOINTS.json](API_ENDPOINTS.json). M0 accepted scope remains the [recorded verdict](M0_REVIEW_VERDICT.md). Current host implementation/evidence: [M1 guide](M1_IMPLEMENTATION.md).
+Authoritative structured rows: [HMI_API_CHECKLIST.json](HMI_API_CHECKLIST.json). Current route/method/request/response/error authority: [API_ENDPOINTS.json](API_ENDPOINTS.json). Each row records source, units/display, backend field, quality/inhibit behavior, confirmation, acceptance case, evidence/status and review boundary. Missing backend fields are explicitly null, not implemented API promises. M1 proposed additive models are in [M1_CONTRACT.md](M1_CONTRACT.md).
 
-Product and physical acceptance remain partial/missing as recorded below. Synthetic test success does not establish physical behavior or measured two-second UI acceptance. Null backend fields are explicit gaps.
+This checklist is complete for contract review; screen implementation and actual SO-4/SR acceptance remain partial/missing. No hardware behavior is asserted. Every confirmation is a backend obligation, including firmware upload/mode and legacy paths.
 
 | ID | Screen | Source | Display/workflow | Current backend | Status / gap | Acceptance case |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -33,12 +33,12 @@ Product and physical acceptance remain partial/missing as recorded below. Synthe
 | C03 | Controls | SR-UI-03; SO-4 AC-4 | Fan on/off | GET /api/state: actuators | Partial: Current endpoint bypasses authoritative safety boundary | Fan on/off: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged |
 | C04 | Controls | SR-UI-03; SO-4 AC-4 | Fan speed | GET /api/state: actuators | Partial: Current endpoint bypasses authoritative safety boundary | Fan speed: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged |
 | C05 | Controls | SR-UI-03; SO-4 AC-4 | Pump on/off/pulse | GET /api/state: actuators | Partial: Current endpoint bypasses authoritative safety boundary | Pump on/off/pulse: cancel, malformed, rejected, disconnected, stale confirmation, acknowledged |
-| C06 | Controls | SR-UI-03; SR-AUT-01/02; SR-LGT-01 | Mode / schedule / Start / Pause / Safe Manual Test | Missing contract | Missing: M1 simulated workflow implemented; durable profiles/schedules and physical integration remain open | Fake-clock scheduling, pause/restart never bypasses interlocks |
+| C06 | Controls | SR-UI-03; SR-AUT-01/02; SR-LGT-01 | Mode / schedule / Start / Pause / Safe Manual Test | Missing contract | Missing: Workflow APIs pending M1/M4 | Fake-clock scheduling, pause/restart never bypasses interlocks |
 | C07 | Controls | SO-4 AC-4; SR-AUT-02 | Firmware upload / lighting mode selection | GET /firmware: page | Partial: Token isn't authorization; custom firmware cannot be certified by protocol ACK | Mock compile failure, failed STOP, USB lock, incompatible firmware, mode path rejection |
 | A01 | Alerts | SO-4; SO-2 AC-4 | Active severity/source/message/action/times | GET /api/alerts: active | Partial: Production service binding or acceptance evidence pending | Critical source error and recommended action remain visible |
 | A02 | Alerts | SO-4; SO-2 AC-4 | Acknowledge separately from clear | GET /api/alerts: active.*.ack_time_utc / clear_time_utc | Partial: Production service binding or acceptance evidence pending | Ack then refresh; underlying critical condition persists |
 | A03 | Alerts | SO-2 AC-4; SR-NET-01 | Historical/unsent alarms | GET /api/alerts: history | Partial: Durable history/outbox/recommended action binding missing | Offline queue persists; configured delivery <=5min when available |
-| M01 | Maintenance | SR-SAF-03 | MAINTENANCE - OUTPUTS INHIBITED banner | GET /api/state: maintenance_banner / operating_state | Partial: M1 host workflow; durable restart verification pending M2/M3 | Navigate all pages; reset/ack never exits or resumes |
+| M01 | Maintenance | SR-SAF-03 | MAINTENANCE - OUTPUTS INHIBITED banner | Missing contract | Missing: No actual maintenance state/action contract yet | Navigate all pages; reset/ack never exits or resumes |
 | M02 | Maintenance | SR-SAF-10; SO-4 | Sensor and service health | GET /api/state: sensors / camera / database / ml / arduino | Partial: Production service binding or acceptance evidence pending | Missing/stale/NaN/implausible/intermittent/adapter fault scenarios |
 | M03 | Maintenance | SO-2/4; SR-UI-02 | Calibration/service dates and diagnostics | Missing contract | Missing: Production maintenance repository/API missing | Record/retrieve service with UTC/version and show Home |
 | M04 | Maintenance | SR-UI-03; SO-4 AC-4 | Safe manual test | Missing contract | Missing: Backend workflow pending M1 | Fault during test cancels permission; no automatic resume |
@@ -50,6 +50,3 @@ Product and physical acceptance remain partial/missing as recorded below. Synthe
 | X02 | Shared | SR-UI-01 | Novice task flow | Missing contract | Missing: Actual user trial not performed | 5 users, <=5min orientation, >=4 complete all tasks <=5min, zero critical/<=1 noncritical error |
 | X03 | Shared | SR-UI-02 | Refresh deadline | GET /api/state: new backend values | Partial: Timing measurement pending HMI gate | Instrument injected update and browser DOM paint; retain trace |
 | X04 | Shared | SO-4 AC-5 | Editable architecture diagram | Missing contract | Missing: Import not exercised | Import into Lucidchart and check editable shapes |
-| X05 | Shared | SR-UI-03; M1_CONTRACT | Backend single-use command confirmation | Missing contract | Partial: Host simulation implemented; production auth/network and electrical boundaries remain restricted | Missing/expired/replayed/wrong-source/wrong-payload confirmation produces zero adapter writes |
-
-Confirmation, quality, evidence and review ownership for each row are retained in the structured JSON. Hardware dependencies, durable restart/logging and unresolved requirements remain open in the M1 guide.

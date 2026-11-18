@@ -88,17 +88,12 @@ class SimulatorContractTests(unittest.TestCase):
         self.assertFalse(packet['white_channel'])
 
     def test_real_bridge_accepts_simulator_ack_without_opening_serial(self):
-        from m1_fixtures import fixture, confirmed
-        from services.control_runtime import install_simulation_gateway, SimulatedSerialAdapter
-        *_, gateway = fixture()
-        gateway.adapter = SimulatedSerialAdapter()
-        install_simulation_gateway(gateway)
         try:
             with patch.object(simulator, 'UNO', self.uno), patch.object(bridge, 'get_serial') as opened:
                 bridge._ser = simulator.FakeSerial('/dev/synthetic-only')
                 opened.return_value = bridge._ser
                 with contextlib.redirect_stdout(io.StringIO()):
-                    self.assertTrue(confirmed(gateway, 'command', {'command': 'FAN_SPEED:128'})['firmware_confirmed'])
+                    self.assertTrue(bridge.send('FAN_SPEED:128'))
                 packet = bridge.reported_state()
                 self.assertEqual(packet['fan_speed'], 128)
                 self.assertTrue(packet['fan'])

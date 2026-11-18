@@ -1,5 +1,5 @@
 {
-  "version": "m1-review-1",
+  "version": "m0-review-2",
   "requirements_baseline": "REQUIREMENTS_BASELINE.json",
   "endpoint_catalog": "API_ENDPOINTS.json",
   "note": "Current fields/routes are observed; null backend/command is an explicit missing contract, not an invented endpoint. Acceptance cases are planned unless evidence explicitly records execution. Hardware confirmation pending.",
@@ -515,15 +515,11 @@
       "display": "Mode / schedule / Start / Pause / Safe Manual Test",
       "backend": null,
       "quality": "Backend owns active profile/schedule and permission state",
-      "command": {
-        "path": "/api/workflow",
-        "method": "POST",
-        "payload": "action + scoped confirmation context"
-      },
+      "command": null,
       "confirmation": "Start/resume after stop or maintenance requires explicit pump confirmation",
       "acceptance_case": "Fake-clock scheduling, pause/restart never bypasses interlocks",
       "status": "Missing",
-      "gap": "M1 simulated workflow implemented; durable profiles/schedules and physical integration remain open",
+      "gap": "Workflow APIs pending M1/M4",
       "owner": "HMI with backend contract review",
       "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
@@ -615,17 +611,13 @@
       "screen": "Maintenance",
       "source": "SR-SAF-03",
       "display": "MAINTENANCE - OUTPUTS INHIBITED banner",
-      "backend": {
-        "path": "/api/state",
-        "method": "GET",
-        "field": "maintenance_banner / operating_state"
-      },
+      "backend": null,
       "quality": "Persists across every screen and service recovery",
       "command": null,
       "confirmation": "Confirm exit; automatic starts stay inhibited",
       "acceptance_case": "Navigate all pages; reset/ack never exits or resumes",
-      "status": "Partial",
-      "gap": "M1 host workflow; durable restart verification pending M2/M3",
+      "status": "Missing",
+      "gap": "No actual maintenance state/action contract yet",
       "owner": "HMI with backend contract review",
       "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
     },
@@ -809,24 +801,6 @@
       "gap": "Import not exercised",
       "owner": "Backend/API + HMI review",
       "evidence": "M0 checklist coverage; behavior acceptance not yet demonstrated"
-    },
-    {
-      "id": "X05",
-      "screen": "Shared",
-      "source": "SR-UI-03; M1_CONTRACT",
-      "display": "Backend single-use command confirmation",
-      "backend": null,
-      "quality": "Expiry, normalized payload and state revision; any changed safety context invalidates",
-      "command": {
-        "path": "/api/confirmations",
-        "method": "POST"
-      },
-      "confirmation": "Explicit operator accept/cancel; nonce is not authentication",
-      "acceptance_case": "Missing/expired/replayed/wrong-source/wrong-payload confirmation produces zero adapter writes",
-      "status": "Partial",
-      "gap": "Host simulation implemented; production auth/network and electrical boundaries remain restricted",
-      "owner": "Backend/API + HMI review",
-      "evidence": "M1 permission/HTTP tests; not physical acceptance"
     }
   ]
 }
